@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 import type { Loaded } from '../data';
-import { short, txLink } from '../data';
-import { verifyFile, type VerifyResult } from '../verify';
+import { asset, short, txLink } from '../data';
+import { KIND_TEXT, verifyFile, type VerifyResult } from '../verify';
 import { Badge, Card, Hash, StepHead, TxRef } from '../ui';
 
 type Run = { name: string; busy: boolean; result?: VerifyResult; error?: string };
@@ -60,7 +60,13 @@ export default function Exhibit({ l }: { l: Loaded }) {
               </div>
             </>
           ) : <p>No exhibit published yet.</p>}
-          {l.data.exhibit?.sha256 && <p className="small">Expected SHA-256: <Hash value={l.data.exhibit.sha256} /></p>}
+          {l.data.exhibit?.sha256 && (
+            <p className="small">Anchored SHA-256: <Hash value={l.data.exhibit.sha256} />{l.data.exhibit.txHash && <> · registry slot {l.data.exhibit.registrySlot} · <TxRef hash={l.data.exhibit.txHash} href={txLink(l, l.data.exhibit.txHash, l.data.exhibit.explorerUrl)} n={4} /></>}</p>
+          )}
+          <p className="small muted">Other files you can drop into the verifier:{' '}
+            {l.data.documents.files.filter((f) => f.path).map((f) => <a key={f.name} href={asset(f.path!)} download>{f.name}</a>)}
+            {l.data.affidavit.file && <>{' · '}<a href={asset(`${l.dir}/${l.data.affidavit.file}`)} download>{l.data.affidavit.file}</a></>}
+          </p>
         </Card>
         <Card title="Browser verifier">
           <div
@@ -88,16 +94,17 @@ export default function Exhibit({ l }: { l: Loaded }) {
               {r && (
                 <>
                   <p className="verdict">{ok ? 'MATCH' : 'MISMATCH'}</p>
+                  {ok && r.kind && <p className="verdict-kind">MATCH — {KIND_TEXT[r.kind]}</p>}
                   <p className="small">File: {run.name}</p>
                   <p className="small">SHA-256: <code className="break">{r.fileHash}</code></p>
                   <p className="small">
                     Path: <Badge tone={r.path === 'live' ? 'ok' : 'neutral'}>{r.path === 'live' ? 'Live' : 'Offline'}</Badge> {r.pathDetail} · {r.eventCount} events read
                   </p>
-                  {r.fallbackReason && <p className="small muted">Live lookup skipped: {r.fallbackReason}</p>}
+                  {r.fallbackReason && <p className="small muted">Live lookup unavailable: {r.fallbackReason}</p>}
                   {ok ? (
                     <ul className="small matches">
                       {r.matches.map((m) => (
-                        <li key={`${m.txHash}-${m.field}`}>{m.event}.{m.field} · block {m.block} · <TxRef hash={m.txHash} href={txLink(l, m.txHash)} n={4} /></li>
+                        <li key={`${m.txHash}-${m.field}`}>{m.event}.{m.field}{m.conditionId !== undefined ? ` (conditionId ${m.conditionId})` : ''} · block {m.block} · <TxRef hash={m.txHash} href={txLink(l, m.txHash)} n={4} /></li>
                       ))}
                     </ul>
                   ) : (

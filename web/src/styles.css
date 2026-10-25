@@ -202,3 +202,4 @@ table.dense td, table.dense th { padding: 5px 6px; }
 .pdf-fallback { padding: 16px; margin: 0; }
 .open-points { margin: 8px 0 0; padding-left: 18px; }
 td a code, td > code { white-space: nowrap; }
+.verdict-kind { font-weight: 600; color: var(--ok); margin-top: 0 !important; }

@@ -6,10 +6,11 @@ export const asset = (p: string) => `${BASE}${p}`;
 export type Loaded = {
   data: CaseFile;
   events: ChainEvent[];
-  caseSource: 'case.json' | 'sample-case.json';
+  caseSource: string;
   eventsSource: string;
   exhibitUrl: string | null;
   isSample: boolean;
+  dir: string;
 };
 
 // Fetches JSON and returns null for missing files or SPA fallbacks.
@@ -35,31 +36,21 @@ async function tryPdf(path: string): Promise<string | null> {
   }
 }
 
-// Prefers the script-built case files and falls back to the bundled sample.
+// Loads case.json, events.json and exhibit.pdf from public/case (or ?case=<dir>).
 export async function loadCase(): Promise<Loaded> {
   const param = new URLSearchParams(location.search).get('case');
   const dir = param && /^[a-z0-9-]+$/.test(param) ? param : 'case';
-  const real = await tryJson<CaseFile>(`${dir}/case.json`);
-  if (real && real.caseId) {
-    const ev = await tryJson<ChainEvent[]>(`${dir}/events.json`);
-    return {
-      data: real,
-      events: ev ?? [],
-      caseSource: 'case.json',
-      eventsSource: ev ? 'events.json' : 'none',
-      exhibitUrl: await tryPdf(`${dir}/exhibit.pdf`),
-      isSample: !!real.sample,
-    };
-  }
-  const sample = await tryJson<CaseFile>('case/sample-case.json');
-  if (!sample) throw new Error('No case data found in case/.');
+  const data = await tryJson<CaseFile>(`${dir}/case.json`);
+  if (!data || !data.caseId) throw new Error(`No case data found at ${dir}/case.json.`);
+  const ev = await tryJson<ChainEvent[]>(`${dir}/events.json`);
   return {
-    data: sample,
-    events: (await tryJson<ChainEvent[]>('case/sample-events.json')) ?? [],
-    caseSource: 'sample-case.json',
-    eventsSource: 'sample-events.json',
-    exhibitUrl: await tryPdf('case/sample-exhibit.pdf'),
-    isSample: true,
+    data,
+    events: ev ?? [],
+    caseSource: `${dir}/case.json`,
+    eventsSource: ev ? `${dir}/events.json` : 'none',
+    exhibitUrl: await tryPdf(`${dir}/exhibit.pdf`),
+    isSample: !!data.sample,
+    dir,
   };
 }
 

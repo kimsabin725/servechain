@@ -19,7 +19,8 @@ const ABI = parseAbi([
 const HASH_FIELDS = ['evidenceHash', 'documentsHash', 'affidavitHash', 'activityRootHash', 'orderHash', 'conditionsHash'];
 const PLACEHOLDER = /^0x0{30}/i;
 
-export type Match = { event: string; field: string; txHash: string; block: number; contract: string };
+export type Match = { event: string; field: string; txHash: string; block: number; contract: string; conditionId?: number };
+export type Kind = 'exhibit' | 'bundle' | 'affidavit' | 'order' | 'snapshot' | 'evidence';
 export type VerifyResult = {
   fileHash: string;
   path: 'live' | 'offline';
@@ -27,6 +28,16 @@ export type VerifyResult = {
   fallbackReason?: string;
   eventCount: number;
   matches: Match[];
+  kind: Kind | null;
+};
+
+export const KIND_TEXT: Record<Kind, string> = {
+  exhibit: 'this is the anchored exhibit',
+  bundle: 'this is the served document bundle',
+  affidavit: 'this is the declared affidavit of service',
+  order: 'this is the court order PDF registered with the case',
+  snapshot: 'this is the anchored wallet activity root',
+  evidence: 'this file is recorded as condition evidence',
 };
 
 export async function sha256Hex(buf: ArrayBuffer): Promise<string> {
@@ -68,10 +79,27 @@ export function findMatches(hash: string, events: ChainEvent[], caseId: string):
     if (typeof ec === 'string' && ec.toLowerCase() !== cid) continue;
     for (const f of HASH_FIELDS) {
       const v = e.args[f];
-      if (typeof v === 'string' && v.toLowerCase() === h) out.push({ event: e.event, field: f, txHash: e.txHash, block: e.block, contract: e.contract });
+      if (typeof v === 'string' && v.toLowerCase() === h) {
+        const cid2 = e.args.conditionId;
+        out.push({ event: e.event, field: f, txHash: e.txHash, block: e.block, contract: e.contract, conditionId: cid2 === undefined ? undefined : Number(cid2) });
+      }
     }
   }
   return out;
+}
+
+// Picks what the file is from the slot or field it matched, most specific first.
+export function classify(matches: Match[], c: CaseFile): Kind | null {
+  if (!matches.length) return null;
+  const slot = c.exhibit?.registrySlot ?? c.registrySlots?.find((s) => s.kind === 'exhibit-anchor')?.id;
+  const affId = c.conditions.find((k) => k.kind === 'affidavit')?.id;
+  const has = (p: (m: Match) => boolean) => matches.some(p);
+  if (slot !== undefined && has((m) => m.event === 'ConditionFulfilled' && m.conditionId === slot)) return 'exhibit';
+  if (has((m) => m.field === 'documentsHash')) return 'bundle';
+  if (has((m) => m.field === 'affidavitHash' || (m.event === 'ConditionFulfilled' && m.conditionId === affId))) return 'affidavit';
+  if (has((m) => m.field === 'orderHash')) return 'order';
+  if (has((m) => m.field === 'activityRootHash')) return 'snapshot';
+  return 'evidence';
 }
 
 // Hashes a file, tries the live chain, and falls back to the bundled event log.
@@ -86,11 +114,13 @@ export async function verifyFile(buf: ArrayBuffer, c: CaseFile, offline: ChainEv
     for (const rpc of RPCS) {
       try {
         const events = await withTimeout(liveEvents(c, rpc), 15000, new URL(rpc).host);
-        return { fileHash, path: 'live', pathDetail: `Sepolia public RPC (${new URL(rpc).host})`, eventCount: events.length, matches: findMatches(fileHash, events, c.caseId) };
+        const matches = findMatches(fileHash, events, c.caseId);
+        return { fileHash, path: 'live', pathDetail: `Sepolia public RPC (${new URL(rpc).host})`, eventCount: events.length, matches, kind: classify(matches, c) };
       } catch (e) {
         reason = `${new URL(rpc).host}: ${(e as Error).message.split('\n')[0].slice(0, 120)}`;
       }
     }
   }
-  return { fileHash, path: 'offline', pathDetail: `bundled ${offlineName}`, fallbackReason: reason, eventCount: offline.length, matches: findMatches(fileHash, offline, c.caseId) };
+  const matches = findMatches(fileHash, offline, c.caseId);
+  return { fileHash, path: 'offline', pathDetail: `bundled ${offlineName}`, fallbackReason: reason, eventCount: offline.length, matches, kind: classify(matches, c) };
 }

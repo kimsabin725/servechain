@@ -69,7 +69,7 @@ export default function App() {
           </div>
         </div>
         <div className="top-right">
-          {l && (l.isSample ? <Badge tone="warn" title={`Loaded ${l.caseSource}`}>Sample data</Badge> : <Badge tone="info" title={`Loaded ${l.caseSource}`}>case.json</Badge>)}
+          {l && <Badge tone={l.isSample ? 'warn' : 'info'} title={`Loaded ${l.caseSource}`}>{l.isSample ? 'Sample data' : l.data.chain.name}</Badge>}
           <button type="button" className="ghost" onClick={() => setTheme(dark ? 'light' : 'dark')} aria-label="Toggle color theme">{dark ? 'Light' : 'Dark'}</button>
         </div>
       </header>

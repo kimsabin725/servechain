@@ -49,19 +49,28 @@ export default function Deadline({ l }: { l: Loaded }) {
         </ul>
         <p className="small muted">Statute excerpts were retrieved from nysenate.gov on 2026-10-25 as short quotes, not full section text.</p>
       </Card>
-      {c.snapshot && (
-        <Card title="Post-deadline activity snapshot" aside={c.snapshot.timeTravel ? <Badge tone="warn">local time-travel demo</Badge> : <Badge tone="info">{c.chain.name}</Badge>}>
-          <dl className="kv wide">
-            <dt>Anchored at</dt><dd>{fmtDate(c.snapshot.at, true)}</dd>
-            <dt>Activity root</dt><dd><Hash value={c.snapshot.activityRootHash} /></dd>
-            <dt>Tx</dt><dd>{c.snapshot.timeTravel ? <code className="placeholder">{c.snapshot.txHash.slice(0, 10)}… (local chain)</code> : <TxRef hash={c.snapshot.txHash} href={txLink(l, c.snapshot.txHash)} />}</dd>
-          </dl>
-          <p className="small muted">
-            {c.snapshot.timeTravel ? 'The response period cannot elapse during a 3-minute demo, so this anchor was recorded on a local chain with the clock advanced. ' : ''}
-            Wallet activity after service is circumstantial. It does not show that a defendant saw the notice.
-          </p>
-        </Card>
-      )}
+      {c.snapshot && <Snapshot l={l} />}
     </div>
+  );
+}
+
+function Snapshot({ l }: { l: Loaded }) {
+  const c = l.data;
+  const s = c.snapshot!;
+  const pending = s.status === 'pending' || !s.txHash;
+  const shown = pending && s.localReplay ? s.localReplay : s;
+  const local = pending ? !!s.localReplay : s.timeTravel;
+  return (
+    <Card title="Post-deadline activity snapshot" aside={<>{pending && <Badge tone="warn">pending on {c.chain.name}</Badge>} {local && <Badge tone="warn">local time-travel demo</Badge>}</>}>
+      {pending && (
+        <p className="caveat">Pending on {c.chain.name} until {fmtDate(s.pendingUntil ?? c.deadlines.responseDeadline, true)}; local time-travel replay shown. The registry refuses a snapshot before the response deadline, and testnet time cannot be advanced.</p>
+      )}
+      <dl className="kv wide">
+        <dt>Activity root</dt><dd><Hash value={shown.activityRootHash} /></dd>
+        {shown.at && <><dt>Anchored at</dt><dd>{fmtDate(shown.at, true)}{local ? ' (local chain, clock advanced)' : ''}</dd></>}
+        {shown.txHash && <><dt>Tx</dt><dd>{local ? <code className="placeholder">{shown.txHash.slice(0, 10)}… (local chain)</code> : <TxRef hash={shown.txHash} href={txLink(l, shown.txHash, s.explorerUrl)} />}</dd></>}
+      </dl>
+      <p className="small muted">Wallet activity after service is circumstantial. It does not show that a defendant saw the notice.</p>
+    </Card>
   );
 }
