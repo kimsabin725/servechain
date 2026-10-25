@@ -64,6 +64,15 @@ export function fmtDate(iso?: string | null, withTime = false): string {
   return withTime ? `${s.slice(0, 10)} ${s.slice(11, 16)} UTC` : s.slice(0, 10);
 }
 
+// Formats an ISO time as its New York calendar date, hiding the time of day.
+export function nyDate(iso?: string | null): string {
+  if (!iso) return '—';
+  if (/^\d{4}-\d{2}-\d{2}$/.test(iso)) return iso;
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return iso;
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
+}
+
 export function short(h?: string | null, n = 6): string {
   if (!h) return '—';
   return h.length <= n * 2 + 3 ? h : `${h.slice(0, n + 2)}…${h.slice(-n)}`;

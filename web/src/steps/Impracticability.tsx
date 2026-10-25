@@ -121,17 +121,17 @@ export default function Impracticability({ l }: { l: Loaded }) {
           <summary>Contact attempt log and the court's findings</summary>
           {rows?.length ? (
             <>
-              <p className="muted small"><Badge tone="warn">Synthetic contact details</Badge> Counts and dates are from the decision (p. 4). Numbers, addresses and the per-row results are invented placeholders, the same values as in the exhibit PDF; the real ones are not public.</p>
+              <p className="muted small"><Badge tone="warn">Synthetic contact details</Badge> Counts and dates are from the decision (p. 4). Numbers, addresses and the per-row results are invented placeholders, the same values as in the compliance summary PDF; the real ones are not public.</p>
               <div className="table-scroll">
                 <table className="dense">
                   <thead><tr><th>Channel</th><th>Contact (synthetic)</th><th>Date</th><th>Result</th></tr></thead>
                   <tbody>{rows.map((r, i) => (
-                    <tr key={`${r.to}-${i}`}><td>{isEmail(r) ? 'Email' : 'Call + text'}</td><td><code>{r.to.replace(/\s*\(synthetic\)/i, '')}</code></td><td>{r.date ?? (isEmail(r) ? 'not stated' : '—')}</td><td>{r.result}</td></tr>
+                    <tr key={`${r.to}-${i}`}><td>{isEmail(r) ? 'Email' : 'Call + text'}</td><td><code>{r.to.replace(/\s*\(synthetic\)/i, '')}</code> <Badge tone="warn">synthetic</Badge></td><td>{r.date ?? (isEmail(r) ? 'not stated' : '—')}</td><td>{r.result}</td></tr>
                   ))}</tbody>
                 </table>
               </div>
             </>
-          ) : <p className="muted small">The per-contact log (synthetic placeholders) is in Exhibit A of the exhibit PDF, Step 5.</p>}
+          ) : <p className="muted small">The per-contact log (synthetic placeholders) is in section A of the compliance summary PDF, Step 5.</p>}
           {IMPRACT_QUOTES.map((q) => <Quote key={q.slice(0, 20)} cite="Decision and Order, p. 4">{q}</Quote>)}
         </details>
       </Card>

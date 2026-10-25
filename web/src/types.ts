@@ -63,7 +63,7 @@ export type Wallet = {
 
 export type Contact = { channel: string; to: string; date?: string | null; result: string; responded?: boolean; delivered?: boolean };
 
-export type Precedent = string | { citation?: string; cite?: string; name?: string; title?: string; court?: string; year?: number | string; url?: string; thisCase?: boolean; self?: boolean; role?: string; status?: string; note?: string | null };
+export type Precedent = string | { citation?: string; cite?: string; name?: string; title?: string; court?: string; year?: number | string; url?: string; thisCase?: boolean; self?: boolean; role?: string; status?: string; note?: string | null; method?: string };
 
 export type Rule = { section: string; status?: string; rule?: string; url?: string; quote?: string[]; note?: string | null };
 

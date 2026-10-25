@@ -4,7 +4,8 @@ import { daysBetween, fmtDate, orderDeadline, orderEntered, short, txLink } from
 import type { Service } from '../types';
 import type { Condition } from '../types';
 import { plain } from '../content';
-import { Badge, Card, Hash, Status, StepHead, Term, TxRef } from '../ui';
+import { STATUS_NONE, TRON_NOTE } from '../legal';
+import { Badge, Card, Hash, Replay, Status, StepHead, Term, TxRef } from '../ui';
 
 function useNow(ms = 60_000) {
   const [now, setNow] = useState(Date.now());
@@ -40,28 +41,24 @@ function ImportedTable({ rows }: { rows: Service[] }) {
   );
 }
 
-// Badges that say what each piece of evidence rests on: stand-in testnet tx or imported mainnet record.
+// Evidence the handler linked; mainnet NFTs seen on the real wallets are context only, never evidence.
+export const linked = (k: Condition) => k.evidence.filter((e) => e.type !== 'imported' && e.type !== 'context');
+
+// Badges that say what each piece of evidence rests on in this replay.
 function Basis({ k, c }: { k: Condition; c: Loaded['data'] }) {
-  const stand = k.evidence.filter((e) => e.type !== 'imported').length;
-  const imp = k.evidence.filter((e) => e.type === 'imported').length;
+  if (k.kind === 'targets') return <span className="basis"><Replay>stand-in wallets on {c.chain.name}, not the named wallets</Replay></span>;
   if (k.kind === 'deadline') {
     const basis = k.deadlineBasis ?? (c.mode === 'replay' ? 'replay' : 'original order');
     const orig = k.originalServiceDeadline ?? k.derived?.dueDate ?? orderDeadline(c);
     return (
       <span className="basis">
-        <Badge tone={basis === 'replay' ? 'warn' : 'info'} title={k.deadlineBasisNote ?? 'Which deadline the check mark is measured against'}>{basis === 'replay' ? 'replay deadline' : 'original order deadline'}</Badge>
+        {basis === 'replay' ? <Replay>measured against the replay deadline</Replay> : <Badge tone="info" title={k.deadlineBasisNote ?? 'Which deadline the evidence is measured against'}>original order deadline</Badge>}
         {basis === 'replay' && k.replayServiceDeadline && <span className="small">replay deadline <strong>{fmtDate(k.replayServiceDeadline)}</strong></span>}
         {basis === 'replay' && orig && <span className="small">original order deadline <strong>{fmtDate(orig)}</strong></span>}
       </span>
     );
   }
-  if (!imp) return null;
-  return (
-    <span className="basis">
-      {stand > 0 && <Badge tone="info">stand-in tx on {c.chain.name}</Badge>}
-      <Badge>imported ×{imp}, real service (read-only)</Badge>
-    </span>
-  );
+  return null;
 }
 
 export default function Serve({ l }: { l: Loaded }) {
@@ -83,7 +80,7 @@ export default function Serve({ l }: { l: Loaded }) {
     <div>
       <StepHead n={3} title="Serve" lead={<>Hash the papers, fix that hash in each notice, mint one <Term k="soulbound" /> notice per target, and link every transaction to the condition it satisfies.</>} />
       <div className="notice notice-safe">
-        <strong>Writes go to {c.chain.chainId === 11155111 ? 'Sepolia testnet' : c.chain.name} <Term k="stand-in wallet">stand-in wallets</Term> only.</strong> The real defendant wallets are read-only in this demo.
+        <strong>{TRON_NOTE}</strong> Writes go to {c.chain.chainId === 11155111 ? 'Sepolia testnet' : c.chain.name} <Term k="stand-in wallet">stand-in wallets</Term> only; the real defendant wallets are read-only in this demo.
         {l.isSample && <> <Badge tone="warn">Sample data: transaction hashes are placeholders, links disabled</Badge></>}
       </div>
       <div className="grid-2 top">
@@ -106,7 +103,7 @@ export default function Serve({ l }: { l: Loaded }) {
           {odl && (
             <p className="small muted">
               The replay deadline is case opening on {c.chain.name} + 120 days, because the registry only accepts a future deadline. Original order: entered {fmtDate(entered)} + 120 days = <strong>{fmtDate(odl)}</strong>.
-              {lastImported && <> The imported July 30, 2025 service was {daysBetween(lastImported, odl + 'T23:59:59Z')} days before that date.</>}
+              {lastImported && <> Unattributed NFTs seen on the real wallets on July 30, 2025 were {daysBetween(lastImported, odl + 'T23:59:59Z')} days before that date (context only).</>}
             </p>
           )}
         </Card>
@@ -132,21 +129,21 @@ export default function Serve({ l }: { l: Loaded }) {
       <Card title="3 · Conditions after service" aside={<span className="small muted">state before the affidavit is declared (Step 4)</span>}>
         <ul className="checklist">
           {c.conditions.map((k) => {
-            const ok = k.kind === 'affidavit' ? false : k.status === 'fulfilled';
-            const ev = k.evidence[0];
+            const ev = linked(k)[0];
+            const ok = k.kind === 'affidavit' ? false : k.status === 'fulfilled' && !!ev;
             return (
               <li key={k.id} className={ok ? 'ok' : 'bad'}>
-                <Status ok={ok} badText={k.kind === 'affidavit' ? 'Missing: affidavit not yet filed' : 'Missing'} />
+                <Status ok={ok} badText={k.kind === 'affidavit' ? `${STATUS_NONE}: affidavit not yet declared` : STATUS_NONE} />
                 <span className="check-title">{k.id + 1}. {k.title} {ok && <Basis k={k} c={c} />}</span>
-                {ok && ev && <span className="check-ev small muted">{plain(ev.label)} · <TxRef hash={ev.txHash} href={txLink(l, ev.txHash, ev.explorerUrl)} n={4} />{k.evidence.length > 1 ? ` +${k.evidence.length - 1} more` : ''}</span>}
+                {ok && ev && <span className="check-ev small muted">{plain(ev.label)} · <TxRef hash={ev.txHash} href={txLink(l, ev.txHash, ev.explorerUrl)} n={4} />{linked(k).length > 1 ? ` +${linked(k).length - 1} more` : ''}</span>}
               </li>
             );
           })}
         </ul>
       </Card>
       {underOrder.length > 0 && (
-        <Card title="Imported: NY OAG service, Jul 30 2025 (read-only)" aside={<Badge tone="info">Imported, not sent by ServeChain</Badge>}>
-          <p className="small muted">NFTs titled "Service of NY OAG Summons and Complaint No 700647-2025" received by the three real wallets on mainnet. Imported as read-only evidence that can be attached to conditions. Token names are on-chain text, not verified against court records.</p>
+        <Card title="Context only: unattributed NFTs on the real wallets, Jul 30 2025" aside={<Badge>Read-only, not sent by ServeChain</Badge>}>
+          <p className="small muted">Unattributed NFTs titled "Service of NY OAG Summons and Complaint…" (sender not matched to court records; contract name on-chain: SoulBoundTest). They are shown as context only and are not linked to any condition. ServeChain can attach another party's service by transaction hash once its sender is matched to the court record.</p>
           <ImportedTable rows={underOrder} />
         </Card>
       )}

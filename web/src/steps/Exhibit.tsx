@@ -1,12 +1,16 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Loaded } from '../data';
 import { asset, short, txLink } from '../data';
-import { KIND_TEXT, describeMatch, verifyFile, type VerifyResult } from '../verify';
+import { KIND_TEXT, describeMatch, verifyFile, type Kind, type VerifyResult } from '../verify';
 import { Badge, Card, Hash, StepHead, Term, TxRef } from '../ui';
 
 type Run = { name: string; busy: boolean; result?: VerifyResult; error?: string };
 
-export default function Exhibit({ l }: { l: Loaded }) {
+// Reader-facing wording for what a matched file is.
+const kindText = (k: Kind) => (k === 'exhibit' ? 'this is the anchored compliance summary' : KIND_TEXT[k]);
+const matchText = (s: string) => s.replace(/^Exhibit anchor/, 'Compliance summary anchor');
+
+export default function Exhibit({ l, auto = false, onAuto }: { l: Loaded; auto?: boolean; onAuto?: () => void }) {
   const [run, setRun] = useState<Run | null>(null);
   const [drag, setDrag] = useState(false);
   const input = useRef<HTMLInputElement>(null);
@@ -22,12 +26,17 @@ export default function Exhibit({ l }: { l: Loaded }) {
   }, [l]);
 
   const fetchExhibit = async () => {
-    if (!l.exhibitUrl) throw new Error('No exhibit PDF is published yet.');
+    if (!l.exhibitUrl) throw new Error('No compliance summary PDF is published yet.');
     return (await fetch(l.exhibitUrl, { cache: 'no-cache' })).arrayBuffer();
   };
   const verifyPublished = async () => {
-    try { await check('published exhibit', await fetchExhibit()); } catch (e) { setRun({ name: 'published exhibit', busy: false, error: (e as Error).message }); }
+    try { await check('published compliance summary', await fetchExhibit()); } catch (e) { setRun({ name: 'published compliance summary', busy: false, error: (e as Error).message }); }
   };
+  useEffect(() => {
+    if (!auto) return;
+    onAuto?.();
+    verifyPublished();
+  }, [auto]); // eslint-disable-line react-hooks/exhaustive-deps
   const verifyTampered = async () => {
     try {
       const b = new Uint8Array((await fetchExhibit()).slice(0));
@@ -45,23 +54,23 @@ export default function Exhibit({ l }: { l: Loaded }) {
   const ok = !!r && r.matches.length > 0;
   return (
     <div>
-      <StepHead n={5} title="Exhibit & verify" lead={<>One <Term k="exhibit" /> PDF for the affidavit of service or a default motion. Anyone can check it against the chain from this page, with no server of ours involved.</>} />
+      <StepHead n={5} title="Compliance summary & verify" lead={<>One <Term k="compliance summary">compliance summary (attachment for counsel)</Term> PDF, for counsel preparing an affidavit of service or a default motion. It is not a court-filed exhibit. Anyone can check it against the chain from this page, with no server of ours involved.</>} />
       <div className="grid-2 top">
-        <Card title="Exhibit A–C" aside={l.isSample ? <Badge tone="warn">Sample placeholder</Badge> : <Badge tone="info">exhibit.pdf</Badge>}>
-          <p className="small muted">A: impracticability table · B: condition-by-condition record · C: deadlines and post-service activity.</p>
+        <Card title="Compliance summary (attachment for counsel)" aside={l.isSample ? <Badge tone="warn">Sample placeholder</Badge> : <Badge tone="info">exhibit.pdf</Badge>}>
+          <p className="small muted">A: impracticability table · B: condition-by-condition record · C: deadlines and post-service activity (context only, not evidence of notice). For counsel's review; does not determine compliance.</p>
           {l.exhibitUrl ? (
             <>
-              <object className="pdf" data={l.exhibitUrl} type="application/pdf" aria-label="Exhibit PDF preview">
+              <object className="pdf" data={l.exhibitUrl} type="application/pdf" aria-label="Compliance summary PDF preview">
                 <p className="small muted pdf-fallback">Inline preview is not available in this browser. Use Open or Download.</p>
               </object>
               <div className="row">
                 <a className="button" href={l.exhibitUrl} target="_blank" rel="noreferrer noopener">Open</a>
-                <a className="button" href={l.exhibitUrl} download="servechain-exhibit.pdf">Download</a>
+                <a className="button" href={l.exhibitUrl} download="servechain-compliance-summary.pdf">Download</a>
               </div>
             </>
-          ) : <p>No exhibit published yet.</p>}
+          ) : <p>No compliance summary published yet.</p>}
           {l.data.exhibit?.sha256 && (
-            <p className="small">Anchored SHA-256: <Hash value={l.data.exhibit.sha256} />{l.data.exhibit.txHash && <> · recorded as the exhibit anchor · <TxRef hash={l.data.exhibit.txHash} href={txLink(l, l.data.exhibit.txHash, l.data.exhibit.explorerUrl)} n={4} /></>}</p>
+            <p className="small">Anchored SHA-256: <Hash value={l.data.exhibit.sha256} />{l.data.exhibit.txHash && <> · recorded as the summary anchor · <TxRef hash={l.data.exhibit.txHash} href={txLink(l, l.data.exhibit.txHash, l.data.exhibit.explorerUrl)} n={4} /></>}</p>
           )}
           <p className="small muted">Other files you can drop into the verifier:{' '}
             {l.data.documents.files.filter((f) => f.path).map((f) => <a key={f.name} href={asset(f.path!)} download>{f.name}</a>)}
@@ -84,7 +93,7 @@ export default function Exhibit({ l }: { l: Loaded }) {
             <input ref={input} type="file" hidden onChange={(e) => onFiles(e.target.files)} />
           </div>
           <div className="row">
-            <button type="button" onClick={verifyPublished} disabled={!l.exhibitUrl || run?.busy}>Verify the published exhibit</button>
+            <button type="button" onClick={verifyPublished} disabled={!l.exhibitUrl || run?.busy}>Verify the published summary</button>
             <button type="button" onClick={verifyTampered} disabled={!l.exhibitUrl || run?.busy}>Try a tampered copy</button>
           </div>
           {run && (
@@ -95,22 +104,20 @@ export default function Exhibit({ l }: { l: Loaded }) {
                 <>
                   <p className="verdict">{ok ? (r.path === 'offline' ? 'MATCH (offline)' : 'MATCH') : 'MISMATCH'}</p>
                   {ok && r.path === 'offline' && <p className="small verdict-sub">Compared with the bundled event log, not an independent chain read.</p>}
-                  {ok && r.kind && <p className="verdict-kind">{KIND_TEXT[r.kind][0].toUpperCase() + KIND_TEXT[r.kind].slice(1)}.</p>}
+                  {ok && r.kind && <p className="verdict-kind">{kindText(r.kind)[0].toUpperCase() + kindText(r.kind).slice(1)}.</p>}
                   <p className="small">File: {run.name}</p>
                   <p className="small">SHA-256: <code className="break">{r.fileHash}</code></p>
                   <p className="small">
                     Path: <Badge tone={r.path === 'live' ? 'ok' : 'neutral'}>{r.path === 'live' ? 'Live' : 'Offline'}</Badge> {r.pathDetail} · {r.eventCount} ServeChain events read (case registry and notice contract)
                   </p>
-                  <p className="small binding">
-                    {r.binding.ok
-                      ? <>Case id derived from handler + caseRef: <span className="text-ok">✓</span> keccak256({short(r.binding.handler, 4)}, {short(r.binding.caseRef, 4)}) = {short(l.data.caseId, 4)}</>
-                      : <>Case id derived from handler + caseRef: <span className="text-bad">not confirmed</span> ({r.binding.reason})</>}
-                  </p>
+                  {r.binding.ok
+                    ? <details className="small binding formula"><summary>Case id derived from handler + case reference: <span className="text-ok">✓</span></summary>keccak256({short(r.binding.handler, 4)}, {short(r.binding.caseRef, 4)}) = {short(l.data.caseId, 4)}</details>
+                    : <p className="small binding">Case id derived from handler + case reference: <span className="text-bad">not confirmed</span> ({r.binding.reason})</p>}
                   {r.fallbackReason && <p className="small muted">Live lookup unavailable: {r.fallbackReason}</p>}
                   {ok ? (
                     <ul className="small matches">
                       {r.matches.map((m) => (
-                        <li key={`${m.txHash}-${m.field}`}>{describeMatch(m, l.data)} · block {m.block} · <TxRef hash={m.txHash} href={txLink(l, m.txHash)} n={4} /></li>
+                        <li key={`${m.txHash}-${m.field}`}>{matchText(describeMatch(m, l.data))} · block {m.block} · <TxRef hash={m.txHash} href={txLink(l, m.txHash)} n={4} /></li>
                       ))}
                     </ul>
                   ) : (

@@ -1,5 +1,25 @@
 export const TAGLINE =
-  'Blockchain service of process is already court-approved. Proving you complied with the order is still manual. ServeChain does both: serve, then build a verifiable case file.';
+  'Some courts have ordered service by NFT. Proving you complied with the order is still manual. ServeChain does both: serve, then build a verifiable case file.';
+
+export const REVIEW_BADGE = "For counsel's review. Does not determine compliance. Not legal advice.";
+
+export const PARTY_NOTE = 'Replay of a public New York Attorney General case; the author is not a party to it.';
+
+export const TRON_NOTE =
+  'The order names two TRON wallets; this tool writes only to EVM chains, so in this replay they are served on Sepolia stand-ins.';
+
+export const TERMS_LINE = 'CPLR = NY civil procedure rules · soulbound = non-transferable · hash = fingerprint of the file';
+
+export const WHY_CHAIN_LINE =
+  'Why blockchain: the defendant exists only as a wallet, so service happens on-chain; anchoring the compliance record on-chain is extra, so the filer cannot quietly rewrite it.';
+
+export const DEADLINE_ESTIMATE =
+  'Estimate. Counting rules (GCL §20, §25-a weekends/holidays) not applied — counsel must confirm the last day.';
+
+export const DEADLINE_VALIDITY = 'Meaningful only if service was valid under the order.';
+
+export const STATUS_OK = 'Evidence linked (not a compliance determination)';
+export const STATUS_NONE = 'No evidence linked';
 
 export const FOOTER =
   'Replay of public court records for demonstration. No transaction was ever sent to a real defendant wallet. Not legal advice.';

@@ -11,12 +11,14 @@ export const CONFIRMED_SENTENCE =
 export const DECISION_COUNTS = { phones: 14, replied: 2, emails: 4, delivered: 1 };
 
 const FALLBACK_PRECEDENTS: Precedent[] = [
-  { citation: 'LCX AG v 1.274M U.S. Dollar Coin, 2022 NY Slip Op 32834[U]', court: 'Sup Ct, NY County', year: 2022 },
-  { citation: 'Meghji v Wallet Owner (In re Celsius Network LLC), 666 BR 28 [Bankr SD NY 2024]', court: 'Bankr. S.D.N.Y.', year: 2024 },
-  { citation: 'People v Unknown Parties in Ownership and/or Control of Digital Wallet Addresses, Sup Ct, Queens County, Index No. 700647/2025', court: 'Sup Ct, Queens County', year: 2025, thisCase: true },
+  { citation: 'LCX AG v 1.274M U.S. Dollar Coin, 2022 NY Slip Op 32834[U]', court: 'Sup Ct, NY County', year: 2022, method: 'token airdrop' },
+  { citation: 'Meghji v Wallet Owner (In re Celsius Network LLC), 666 BR 28 [Bankr SD NY 2024]', court: 'Bankr. S.D.N.Y.', year: 2024, method: 'NFT' },
+  { citation: 'People v Unknown Parties in Ownership and/or Control of Digital Wallet Addresses, Sup Ct, Queens County, Index No. 700647/2025, reported as 2025 NY Slip Op 25143 (official text not retrieved)', court: 'Sup Ct, Queens County', year: 2025, thisCase: true, method: 'NFT' },
 ];
 
-export type PrecedentRow = { text: string; url?: string; note?: string; thisCase: boolean; asCited?: boolean };
+const KNOWN_METHOD: [RegExp, string][] = [[/LCX/, 'token airdrop'], [/Celsius|Meghji/, 'NFT'], [/700647|Unknown Parties/, 'NFT']];
+
+export type PrecedentRow = { text: string; url?: string; note?: string; thisCase: boolean; asCited?: boolean; method?: string };
 
 // Normalizes precedent entries from case.json, data/precedents.json or the fallback list.
 export function precedents(c: CaseFile): PrecedentRow[] {
@@ -24,11 +26,11 @@ export function precedents(c: CaseFile): PrecedentRow[] {
   const src = (c.precedents ?? (Array.isArray(raw) ? raw : (raw as { precedents?: Precedent[] })?.precedents) ?? FALLBACK_PRECEDENTS) as Precedent[];
   return src.map((p) => {
     if (typeof p === 'string') return { text: p, thisCase: /700647|Unknown Parties/i.test(p) } as PrecedentRow;
-    const base = p.citation ?? p.cite ?? p.name ?? p.title ?? '';
+    const base = (p.citation ?? p.cite ?? p.name ?? p.title ?? '').replace(/(Index No\. 700647\/2025)$/, '$1, reported as 2025 NY Slip Op 25143 (official text not retrieved)');
     const yr = p.year ? String(p.year) : '';
     const text = !yr || base.includes(yr) ? base : p.court && !base.includes(p.court) ? `${base} (${p.court} ${yr})` : `${base} (${yr})`;
     const thisCase = !!(p.thisCase || p.self || /this (case|replay)/i.test(p.role ?? '') || /700647|Unknown Parties/i.test(base));
-    return { text, url: p.url, note: p.note ?? undefined, thisCase, asCited: p.status === 'as-cited' };
+    return { text, url: p.url, note: p.note ?? undefined, thisCase, asCited: p.status === 'as-cited', method: p.method ?? KNOWN_METHOD.find(([re]) => re.test(base))?.[1] };
   }).filter((p) => p.text);
 }
 
@@ -96,9 +98,11 @@ export function completeFrom(w: Wallet, c: CaseFile): string | null {
 export const GLOSSARY: Record<string, string> = {
   replay: 'Re-running a real, public court case on a testnet with today\'s dates, so every step can be shown without touching the real parties.',
   impracticability: 'The showing that ordinary service (hand delivery, mail) cannot be done, which lets a New York court direct another method under CPLR 308(5).',
-  soulbound: 'A token that cannot be transferred out of the wallet it was sent to. Each service notice stays with its recipient.',
+  soulbound: 'Non-transferable: a token that cannot be moved out of the wallet it was sent to. Each service notice stays with its recipient.',
   'stand-in wallet': 'A Sepolia testnet wallet controlled by this demo that takes the place of a real defendant wallet. Nothing is sent to the real wallets.',
-  exhibit: 'A document attached to an affidavit or motion as supporting material. Here: one PDF with the impracticability table, the condition record and the deadlines.',
-  CPLR: 'New York Civil Practice Law and Rules, the statute that governs civil procedure in New York state courts.',
+  'compliance summary': 'Compliance summary (attachment for counsel): one PDF with the impracticability table, the condition record and the deadlines, for counsel preparing an affidavit of service or a default motion. Not a court-filed exhibit.',
+  'evidence linked': 'The handler linked an on-chain record to this condition. It is not a determination that the condition is met.',
+  CPLR: 'New York Civil Practice Law and Rules: the NY civil procedure rules for state courts.',
+  hash: 'A fingerprint of a file (here SHA-256). Change one byte and the fingerprint changes.',
   tokenURI: 'The metadata field of an NFT. Each notice\'s tokenURI carries the link to the posted papers and the SHA-256 of the document bundle.',
 };

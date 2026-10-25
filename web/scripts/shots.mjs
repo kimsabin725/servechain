@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const url = process.env.URL || 'http://localhost:4173/';
-const out = path.resolve(process.env.OUT || '../private/shots/v3');
+const out = path.resolve(process.env.OUT || '../private/shots/v4');
 fs.mkdirSync(out, { recursive: true });
 const browser = await chromium.launch();
 const errors = [];
@@ -16,12 +16,17 @@ async function pass(tag, viewport, scheme) {
   const page = await browser.newPage({ viewport, colorScheme: scheme });
   page.on('pageerror', (e) => errors.push(`${tag}: ${e.message}`));
   page.on('console', (m) => { if (m.type() !== 'error') return; if (blocking && /Failed to load resource|ERR_FAILED/.test(m.text())) blockedNoise.push(m.text()); else errors.push(`${tag}: ${m.text()}`); });
+  await page.goto(`${url}#step-0`);
+  await page.reload();
+  await page.getByRole('button', { name: 'Verify now' }).click();
+  await page.waitForSelector('.verdict', { timeout: 60000 });
+  log.push(`${tag} verify-now auto run: ${await page.locator('.verdict').innerText()}`);
   for (let s = 0; s <= 5; s++) {
     await page.goto(`${url}#step-${s}`);
     await page.reload();
     await page.waitForSelector('.pager');
     if (s === 5) {
-      await page.getByRole('button', { name: 'Verify the published exhibit' }).click();
+      await page.getByRole('button', { name: 'Verify the published summary' }).click();
       await page.waitForSelector('.verdict', { timeout: 60000 });
       log.push(`${tag} published: ${await page.locator('.result').innerText()}`);
       await page.screenshot({ path: `${out}/${tag}-step5-match.png`, fullPage: true });
@@ -38,7 +43,7 @@ async function pass(tag, viewport, scheme) {
       if (await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)) errors.push(`${tag} step5: horizontal overflow`);
       blocking = true;
       await page.route(/publicnode\.com|drpc\.org|rpc\.sepolia\.org/, (r) => r.abort());
-      await page.getByRole('button', { name: 'Verify the published exhibit' }).click();
+      await page.getByRole('button', { name: 'Verify the published summary' }).click();
       await page.waitForFunction(() => document.querySelector('.verdict')?.textContent?.includes('offline'), null, { timeout: 90000 });
       log.push(`${tag} rpc blocked: ${await page.locator('.result').innerText()}`);
       await page.screenshot({ path: `${out}/${tag}-step5-offline.png`, fullPage: true });

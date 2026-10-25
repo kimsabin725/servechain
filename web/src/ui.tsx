@@ -1,6 +1,7 @@
 import { useId, useState, type ReactNode } from 'react';
 import { short } from './data';
 import { GLOSSARY } from './content';
+import { STATUS_NONE, STATUS_OK } from './legal';
 
 export function Badge({ tone = 'neutral', children, title }: { tone?: 'neutral' | 'ok' | 'bad' | 'warn' | 'info'; children: ReactNode; title?: string }) {
   return <span className={`badge badge-${tone}`} title={title}>{children}</span>;
@@ -59,8 +60,13 @@ export function StepHead({ n, title, lead }: { n: number; title: string; lead: R
   );
 }
 
-export function Status({ ok, okText = 'Fulfilled', badText = 'Missing' }: { ok: boolean; okText?: string; badText?: string }) {
+export function Status({ ok, okText = STATUS_OK, badText = STATUS_NONE }: { ok: boolean; okText?: string; badText?: string }) {
   return <span className={`status ${ok ? 'status-ok' : 'status-bad'}`}><span aria-hidden>{ok ? '✓' : '✕'}</span> {ok ? okText : badText}</span>;
+}
+
+// Prominent badge for evidence that exists only in this replay.
+export function Replay({ children }: { children: ReactNode }) {
+  return <span className="replay-badge"><strong>replay</strong> {children}</span>;
 }
 
 // Dotted-underline term whose definition opens on hover or keyboard focus.

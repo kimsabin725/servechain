@@ -9,7 +9,7 @@ import Serve from './steps/Serve';
 import Deadline from './steps/Deadline';
 import Exhibit from './steps/Exhibit';
 
-const STEPS = ['Overview', 'Impracticability', 'Conditions', 'Serve', 'Deadline', 'Exhibit & verify'];
+const STEPS = ['Overview', 'Impracticability', 'Conditions', 'Serve', 'Deadline', 'Summary & verify'];
 type Theme = 'light' | 'dark' | null;
 
 function readStep(): number {
@@ -27,6 +27,7 @@ export default function App() {
   const [err, setErr] = useState<string | null>(null);
   const [step, setStep] = useState(readStep);
   const [theme, setTheme] = useState<Theme>(storedTheme);
+  const [autoVerify, setAutoVerify] = useState(false);
 
   useEffect(() => { loadCase().then(setL, (e) => setErr(String(e?.message ?? e))); }, []);
   useEffect(() => {
@@ -90,12 +91,12 @@ export default function App() {
         {!l && !err && <p className="muted">Loading case file…</p>}
         {l && (
           <>
-            {step === 0 && <Landing l={l} go={go} />}
+            {step === 0 && <Landing l={l} go={go} verifyNow={() => { setAutoVerify(true); go(5); }} />}
             {step === 1 && <Impracticability l={l} />}
             {step === 2 && <Conditions l={l} />}
             {step === 3 && <Serve l={l} />}
             {step === 4 && <Deadline l={l} />}
-            {step === 5 && <Exhibit l={l} />}
+            {step === 5 && <Exhibit l={l} auto={autoVerify} onAuto={() => setAutoVerify(false)} />}
             <div className="pager">
               <button type="button" onClick={() => go(step - 1)} disabled={step === 0}>← {step > 0 ? STEPS[step - 1] : 'Back'}</button>
               <span className="muted small">{step} / {STEPS.length - 1}</span>

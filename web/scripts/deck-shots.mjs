@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const url = process.env.URL || 'http://localhost:4173/';
-const out = path.resolve(process.env.OUT || '../private/shots/v3/deck');
+const out = path.resolve(process.env.OUT || '../private/shots/v4/deck');
 fs.mkdirSync(out, { recursive: true });
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1100, height: 900 }, deviceScaleFactor: 2, colorScheme: 'light' });
@@ -25,7 +25,7 @@ await open(4);
 await card('Affidavit of service').screenshot({ path: `${out}/affidavit.png` });
 await card('Response deadline').screenshot({ path: `${out}/deadline.png` });
 await open(5);
-await page.getByRole('button', { name: 'Verify the published exhibit' }).click();
+await page.getByRole('button', { name: 'Verify the published summary' }).click();
 await page.waitForSelector('.verdict', { timeout: 60000 });
 await page.locator('.result').screenshot({ path: `${out}/verify-match.png` });
 await page.getByRole('button', { name: 'Try a tampered copy' }).click();
