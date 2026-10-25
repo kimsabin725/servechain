@@ -163,7 +163,7 @@ export function buildBundlePdf(conditionsFile, facts) {
         caption,
         `Index No. ${facts?.case?.indexNo || '700647/2025'} - ${facts?.case?.court || 'Supreme Court of the State of New York, Queens County'}`,
         '',
-        'This bundle is a synthetic stand-in made for a software demonstration. It is not the real service papers.',
+        'This bundle is a synthetic stand-in made for a software demonstration. It is not the actual papers served in the case.',
         'The real filings are public court records published at:',
         src || '',
         '',
