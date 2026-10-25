@@ -10,3 +10,5 @@ private/
 .DS_Store
 broadcast/
 deployments/31337.json
+data/court/*.pdf
+data/court/*.txt
