@@ -5,7 +5,7 @@
 **What it shows.** Replaying a real 2025 New York order on Sepolia, all five order conditions link to on-chain evidence, and anyone can re-check the exhibit against the chain from a browser or CLI, with no server of ours involved.
 
 - **Live demo:** https://kimsabin725.github.io/servechain/
-- **Demo video (3 min):** YOUTUBE_LINK_TBD
+- **Demo video (3 min):** https://youtu.be/58pzpLuhmQc
 
 > Not legal advice. A replay of public court records for demonstration. Nothing was ever sent to the real defendant wallets; they are read only.
 
