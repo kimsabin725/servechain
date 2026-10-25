@@ -44,6 +44,8 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; line-height: 1.25;
 .muted { color: var(--muted); }
 .small { font-size: 0.85rem; }
 .text-bad { color: var(--bad); }
+.text-ok { color: var(--ok); }
+.binding code, .binding { overflow-wrap: anywhere; }
 .break { word-break: break-all; }
 
 .app { max-width: 1080px; margin: 0 auto; padding: 0 16px; min-height: 100vh; display: flex; flex-direction: column; }
@@ -105,6 +107,7 @@ button.ghost { background: transparent; }
 .kv dt { color: var(--muted); font-size: 0.85rem; }
 .kv dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
 .kv.wide dt { min-width: 120px; }
+@media (max-width: 520px) { .kv.wide { grid-template-columns: 1fr; gap: 2px; } .kv.wide dd { margin-bottom: 6px; } .hash code { white-space: nowrap; } }
 
 table { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
 th { text-align: left; font-weight: 600; color: var(--muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; }
@@ -119,6 +122,11 @@ table.dense td, table.dense th { padding: 5px 6px; }
 .small-head { font-size: 1rem; margin: 16px 0 6px; }
 .plain-list { margin: 0; padding-left: 18px; }
 .plain-list li { margin: 4px 0; }
+.slots { list-style: none; margin: 0; padding: 0; }
+.slots li { margin: 3px 0; }
+.rule-defs { margin: 8px 0 0; }
+.rule-defs dt { font-weight: 600; }
+.rule-defs dd { margin: 0 0 6px; }
 .flow { list-style: none; padding: 0; margin: 22px 0; border-top: 1px solid var(--rule); }
 .flow li { border-bottom: 1px solid var(--rule); }
 .flow li { display: flex; gap: 12px; align-items: flex-start; padding: 12px 4px; }

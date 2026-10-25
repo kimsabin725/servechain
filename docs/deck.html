@@ -75,22 +75,22 @@ code { font-family: var(--mono); font-size: .85em; }
     <cite>Sup. Ct. N.Y., Queens County, Index No. 700647/2025 (Lin, J.), order signed June 9, 2025, p. 6 · public record at ag.ny.gov</cite>
   </blockquote>
   <div style="height: 22px"></div>
-  <p style="font-size: 24px"><span class="brand">ServeChain</span> serves the papers as a hash-locked NFT, then builds the case file that proves each condition was met, and anyone can verify it without our server.</p>
+  <p style="font-size: 24px"><span class="brand">ServeChain</span> serves the papers as a hash-locked NFT, then builds the case file that shows how each condition was met, and anyone can verify it without our server.</p>
   <div class="foot"><span>Sabin Kim</span><span>Not legal advice · replay of public court records · 1 / 8</span></div>
 </section>
 
 <!-- 2 -->
 <section class="slide">
   <div class="kicker">How it is done today</div>
-  <h2>Service by NFT is allowed. The proof is screenshots.</h2>
+  <h2>Service by NFT is allowed. The proof is saved webpages.</h2>
   <div class="cols">
     <div>
       <div class="card" style="margin-bottom: 18px">
         <h3>Courts already allow it</h3>
         <ul>
-          <li><em>LCX AG v. John Does 1-25</em> (N.Y. County, 2022)</li>
-          <li><em>In re Celsius</em>, 666 B.R. 28 (Bankr. S.D.N.Y. 2024)</li>
-          <li><em>People v Unknown Parties</em> (Queens County, 2025)</li>
+          <li><em>LCX AG v 1.274M U.S. Dollar Coin</em>, 2022 NY Slip Op 32834[U] (Sup Ct, NY County)</li>
+          <li><em>Meghji v Wallet Owner (In re Celsius Network LLC)</em>, 666 BR 28 [Bankr SD NY 2024]</li>
+          <li><em>People v Unknown Parties</em>, Sup Ct, Queens County, Index No. 700647/2025</li>
         </ul>
       </div>
       <div class="card">
@@ -103,8 +103,8 @@ code { font-family: var(--mono); font-size: .85em; }
         <h3>In this case, at the motion stage (January 2025)</h3>
         <ul>
           <li>A law-student intern minted the Ethereum notice through an NFT platform's shared contract, and the TRON notices through separate contracts.</li>
-          <li>Delivery was shown with <strong>Etherscan, Tronscan and NFT-platform screenshots</strong> attached to an affirmation.</li>
-          <li>Nothing ties each screenshot to the order condition it satisfies, flags what is still missing, or fixes which papers were actually served.</li>
+          <li>Delivery was shown with <strong>explorer and NFT-platform webpages</strong> (Etherscan, Tronscan) attached to an affirmation.</li>
+          <li>Nothing ties each page to the order condition it satisfies, flags what is still missing, or fixes which papers were actually served.</li>
         </ul>
         <p class="small muted" style="margin-top: 14px">Source: decision p. 5; intern affirmation, pp. 69-72 of the public PDF.</p>
       </div>
@@ -165,7 +165,7 @@ code { font-family: var(--mono); font-size: .85em; }
     <div class="num">2</div>
     <div>
       <h3 style="font: 600 28px/1.2 var(--serif); margin: 0 0 8px">Anchoring the compliance record is added value, not a legal requirement.</h3>
-      <p>Screenshots and spreadsheets can be edited later. Evidence hashes, the declared filing time and the exhibit hash on-chain mean the filer cannot quietly change their own record, and the other side can check that without trusting us or our server.</p>
+      <p>Saved webpages and spreadsheets can be edited later. Evidence hashes, the declared filing time and the exhibit hash on-chain mean the filer cannot quietly change their own record, and the other side can check that without trusting us or our server.</p>
     </div>
   </div>
   <p class="muted small">Courts still read explorers and affidavits. ServeChain organizes that proof; it does not replace it.</p>
@@ -194,6 +194,7 @@ code { font-family: var(--mono); font-size: .85em; }
         <li>Sepolia snapshot is pending until 2026-11-24; the step is shown from a local replay.</li>
         <li>Writes are EVM only. TRON wallets are read, not served.</li>
         <li>Activity table is a one-time cached fetch; older months may be undercounted.</li>
+        <li>One notice per recipient; registry and notice contract are linked by the scripts, not on-chain.</li>
       </ul>
     </div>
   </div>
@@ -206,7 +207,7 @@ code { font-family: var(--mono); font-size: .85em; }
   <h2>From one replayed order to everyday use.</h2>
   <div class="road">
     <div class="card"><h3>TRON writes</h3><p>Two of the three wallets in this case are on TRON. Mint the same hash-locked notice there.</p></div>
-    <div class="card"><h3>Other jurisdictions</h3><p>Rule sets beyond New York CPLR, including federal Rule 4(f)(3) orders, kept in one rules file with sources.</p></div>
+    <div class="card"><h3>Other jurisdictions</h3><p>Rule sets beyond New York CPLR, such as service abroad by other means ordered by the court (FRCP 4(f)(3)), kept in one rules file with sources.</p></div>
     <div class="card"><h3>Weekend and holiday rules</h3><p>Apply day-counting and roll-forward rules once read from the source, with the rule shown next to every date.</p></div>
     <div class="card"><h3>Court e-filing link</h3><p>Attach the e-filing confirmation to the affidavit record so the filing time no longer rests on the filer's word alone.</p></div>
   </div>
@@ -230,9 +231,9 @@ code { font-family: var(--mono); font-size: .85em; }
       <table>
         <tr><td>Live demo</td><td>kimsabin725.github.io/servechain</td></tr>
         <tr><td>Video</td><td>YOUTUBE_LINK_TBD</td></tr>
-        <tr><td>Code</td><td>GITHUB_REPO_TBD</td></tr>
-        <tr><td>Registry</td><td><code>0x5D39…8D69</code> (Sepolia)</td></tr>
-        <tr><td>Notice NFT</td><td><code>0xD712…208a</code> (Sepolia)</td></tr>
+        <tr><td>Code</td><td>github.com/kimsabin725/servechain</td></tr>
+        <tr><td>Registry</td><td><code>0x7878…2664</code> (Sepolia)</td></tr>
+        <tr><td>Notice NFT</td><td><code>0xB7a0…De75</code> (Sepolia)</td></tr>
       </table>
     </div>
   </div>

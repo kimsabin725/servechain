@@ -23,6 +23,8 @@ export type Condition = {
   ref?: string;
   deadlineBasis?: 'replay' | 'original order' | string;
   originalServiceDeadline?: string;
+  replayServiceDeadline?: string;
+  deadlineBasisNote?: string;
   derived?: { dueDate?: string; from?: string } | null;
 };
 
@@ -63,18 +65,25 @@ export type Contact = { channel: string; to: string; date?: string | null; resul
 
 export type Precedent = string | { citation?: string; cite?: string; name?: string; title?: string; court?: string; year?: number | string; url?: string; thisCase?: boolean; self?: boolean; role?: string; status?: string; note?: string | null };
 
+export type Rule = { section: string; status?: string; rule?: string; url?: string; quote?: string[]; note?: string | null };
+
+export type RegistrySlot = { id: number; kind: string; ref?: string | null; description?: string };
+
 export type CaseFile = {
   caseId: string;
+  caseRef?: string;
+  caseLabel?: string;
+  caseIdDerivation?: string;
   title: string;
   court: { name: string; index: string; judge: string; decisionDate: string; orderSigned?: string; entered?: string; source: string; sourceUrl?: string };
   mode: string;
-  chain: { chainId: number; name: string; registry: string; notice721: string; fromBlock: number; explorer: string | null };
+  chain: { chainId: number; name: string; registry: string; notice721: string; fromBlock: number; explorer: string | null; issuer?: string };
   order: { hash: string; conditionsHash: string; pdf: string; entered?: string; serviceDeadline?: string };
   conditions: Condition[];
   documents: { bundleHash: string; url?: string | null; files: { name: string; sha256: string; path?: string }[]; note?: string };
   service: Service[];
   affidavit: { hash: string; declaredFiledAt: string; note: string; file?: string; txHash?: string; explorerUrl?: string };
-  deadlines: { originalServiceDeadline?: string; openPoints?: string[]; serviceDeadline: string; responseDeadline: string; rule: string; status: 'read' | 'summary' | string; caveat: string };
+  deadlines: { originalServiceDeadline?: string; serviceDeadlineNote?: string; formula?: string; openPoints?: string[]; serviceDeadline: string; responseDeadline: string; rule: string; status: 'read' | 'summary' | string; caveat: string };
   snapshot?: {
     status?: string;
     activityRootHash: string;
@@ -86,10 +95,12 @@ export type CaseFile = {
     explorerUrl?: string | null;
     localReplay?: { txHash: string; at: string; activityRootHash: string; timeTravel: boolean };
   } | null;
-  activity: { fetchedAt: string; wallets: Wallet[]; completeFrom?: string | Record<string, string> };
+  activity: { fetchedAt: string; wallets: Wallet[]; completeFrom?: string | Record<string, string>; completeFromNote?: string };
   contacts?: Contact[] | { rows?: Contact[]; contacts?: Contact[] };
   precedents?: Precedent[];
-  rules?: { section: string; status?: string; rule?: string; url?: string }[];
+  rules?: Rule[];
+  ruleStatusDefinitions?: Record<string, string>;
+  registryLayout?: { slotCount: number; slots: RegistrySlot[] };
   existingService?: Service[];
   exhibit?: { sha256?: string; registrySlot?: number; txHash?: string; block?: number; explorerUrl?: string };
   registrySlots?: { id: number; kind: string; title: string; description?: string; label?: string }[];

@@ -75,7 +75,7 @@ export function confirmedBy(v?: string): string {
 
 // Maps a rule status to the label shown to readers.
 export function ruleStatus(s?: string): { text: string; ok: boolean } {
-  return !s || /read|verified/i.test(s) ? { text: 'excerpt verified', ok: true } : { text: 'summary', ok: false };
+  return !s || /^(read|excerpt-verified|verified)$/i.test(s) ? { text: 'excerpt verified', ok: true } : { text: 'summary', ok: false };
 }
 
 const nextMonth = (k: string) => {

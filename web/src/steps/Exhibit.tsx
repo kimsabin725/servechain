@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 import type { Loaded } from '../data';
-import { asset, txLink } from '../data';
+import { asset, short, txLink } from '../data';
 import { KIND_TEXT, describeMatch, verifyFile, type VerifyResult } from '../verify';
 import { Badge, Card, Hash, StepHead, Term, TxRef } from '../ui';
 
@@ -100,6 +100,11 @@ export default function Exhibit({ l }: { l: Loaded }) {
                   <p className="small">SHA-256: <code className="break">{r.fileHash}</code></p>
                   <p className="small">
                     Path: <Badge tone={r.path === 'live' ? 'ok' : 'neutral'}>{r.path === 'live' ? 'Live' : 'Offline'}</Badge> {r.pathDetail} · {r.eventCount} ServeChain events read (case registry and notice contract)
+                  </p>
+                  <p className="small binding">
+                    {r.binding.ok
+                      ? <>Case id derived from handler + caseRef: <span className="text-ok">✓</span> keccak256({short(r.binding.handler, 4)}, {short(r.binding.caseRef, 4)}) = {short(l.data.caseId, 4)}</>
+                      : <>Case id derived from handler + caseRef: <span className="text-bad">not confirmed</span> ({r.binding.reason})</>}
                   </p>
                   {r.fallbackReason && <p className="small muted">Live lookup unavailable: {r.fallbackReason}</p>}
                   {ok ? (

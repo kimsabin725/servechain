@@ -34,7 +34,17 @@ export default function Conditions({ l }: { l: Loaded }) {
           <dd><Hash value={c.order.hash} /> <a className="small" href={c.court.sourceUrl ?? DECISION_URL} target="_blank" rel="noreferrer noopener">public source ↗</a></dd>
           <dt>Conditions hash</dt>
           <dd><Hash value={c.order.conditionsHash} /> <span className="muted small">registered when the case is opened on-chain</span></dd>
-          {anchor && <><dt>Exhibit anchor</dt><dd className="small">{plain(anchor.description ?? 'One extra record entry holds the SHA-256 of the exhibit PDF (Step 5). It is not a court condition.')}</dd></>}
+          {c.caseRef && <><dt>Case reference</dt><dd><Hash value={c.caseRef} /> {c.caseLabel && <span className="muted small">keccak256 of "{c.caseLabel}"</span>}</dd></>}
+          <dt>Case id</dt>
+          <dd><Hash value={c.caseId} /> <span className="muted small">{c.caseIdDerivation ? 'derived on-chain from the handler address and the case reference' : 'registry case id'}</span></dd>
+          {c.registryLayout && <><dt>Registry slots</dt><dd>
+            <ul className="slots small">
+              {c.registryLayout.slots.map((s) => (
+                <li key={s.id}><code>{s.id}</code> {s.kind === 'exhibit-anchor' ? <Badge>exhibit anchor</Badge> : <span>condition {s.ref ? Number(s.ref.replace(/\D/g, '')) : s.id + 1}</span>} <span className="muted">{plain(s.description ?? '')}</span></li>
+              ))}
+            </ul>
+          </dd></>}
+          {anchor && !c.registryLayout && <><dt>Exhibit anchor</dt><dd className="small">{plain(anchor.description ?? 'One extra record entry holds the SHA-256 of the exhibit PDF (Step 5). It is not a court condition.')}</dd></>}
         </dl>
       </Card>
     </div>

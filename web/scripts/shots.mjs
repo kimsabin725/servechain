@@ -3,17 +3,19 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const url = process.env.URL || 'http://localhost:4173/';
-const out = path.resolve(process.env.OUT || '../private/shots/v2');
+const out = path.resolve(process.env.OUT || '../private/shots/v3');
 fs.mkdirSync(out, { recursive: true });
 const browser = await chromium.launch();
 const errors = [];
 const log = [];
+let blocking = false;
+const blockedNoise = [];
 
 // Captures every step at one viewport and theme.
 async function pass(tag, viewport, scheme) {
   const page = await browser.newPage({ viewport, colorScheme: scheme });
   page.on('pageerror', (e) => errors.push(`${tag}: ${e.message}`));
-  page.on('console', (m) => { if (m.type() === 'error') errors.push(`${tag}: ${m.text()}`); });
+  page.on('console', (m) => { if (m.type() !== 'error') return; if (blocking && /Failed to load resource|ERR_FAILED/.test(m.text())) blockedNoise.push(m.text()); else errors.push(`${tag}: ${m.text()}`); });
   for (let s = 0; s <= 5; s++) {
     await page.goto(`${url}#step-${s}`);
     await page.reload();
@@ -34,6 +36,14 @@ async function pass(tag, viewport, scheme) {
         await page.screenshot({ path: `${out}/${tag}-step5-${name}.png`, fullPage: true });
       }
       if (await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)) errors.push(`${tag} step5: horizontal overflow`);
+      blocking = true;
+      await page.route(/publicnode\.com|drpc\.org|rpc\.sepolia\.org/, (r) => r.abort());
+      await page.getByRole('button', { name: 'Verify the published exhibit' }).click();
+      await page.waitForFunction(() => document.querySelector('.verdict')?.textContent?.includes('offline'), null, { timeout: 90000 });
+      log.push(`${tag} rpc blocked: ${await page.locator('.result').innerText()}`);
+      await page.screenshot({ path: `${out}/${tag}-step5-offline.png`, fullPage: true });
+      await page.unroute(/publicnode\.com|drpc\.org|rpc\.sepolia\.org/);
+      blocking = false;
       continue;
     }
     await page.screenshot({ path: `${out}/${tag}-step${s}.png`, fullPage: true });
@@ -55,4 +65,5 @@ await pass('mobile', { width: 390, height: 844 }, 'light');
 await pass('mobile-dark', { width: 390, height: 844 }, 'dark');
 await browser.close();
 console.log(log.join('\n---\n'));
+console.log(`blocked RPC requests logged by the browser during the offline pass: ${blockedNoise.length}`);
 console.log(errors.length ? errors.join('\n') : 'no errors');

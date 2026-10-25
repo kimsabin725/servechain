@@ -20,7 +20,7 @@ Before recording: open the order PDF (ag.ny.gov link from Step 0) at page 6 in a
 
 [Screen: live demo, Step 0 "Overview". Then click "3 Serve" in the step bar and scroll to "3 · Conditions after service".]
 
-> Serving by NFT is already allowed. Proving you followed the order is still screenshots. ServeChain does both. It mints the notice with a hash of the papers locked inside, then links every transaction to the condition it satisfies. Four conditions are green. The affidavit is still red.
+> Serving by NFT is already allowed. Proving you followed the order is still saved webpages. ServeChain does both. It mints the notice with a hash of the papers locked inside, then links every transaction to the condition it satisfies. Four conditions are green. The affidavit is still red.
 
 (47 words, about 19 s)
 
@@ -95,6 +95,6 @@ Total spoken: 383 words, about 2:33 at 150 wpm. The remaining time covers clicks
 ## Recording notes
 
 - Say "testnet stand-ins" on screen 6 every take. It is the one sentence a reviewer must not miss.
-- If the live RPC is slow in Step 5, the verifier falls back to the bundled events file and shows "Offline". That is still a valid take; do not cut it.
+- If the live RPC is slow in Step 5, the verifier falls back to the bundled events file and shows "MATCH (offline)". That is still a valid take; do not cut it. The result also shows that the case id is derived from the handler address and the case reference.
 - Do not show the Sepolia snapshot as done. It is pending until 2026-11-24; the screen shows the local replay with the clock moved forward.
 - Upload as an unlisted YouTube video and paste the link into README.md, docs/dorahacks-submission.md and the deck (slide 8). Check playback in a logged-out browser before submitting.

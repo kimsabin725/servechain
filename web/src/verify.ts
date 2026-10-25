@@ -1,4 +1,4 @@
-import { createPublicClient, http, parseAbi, type Log } from 'viem';
+import { createPublicClient, encodeAbiParameters, http, keccak256, parseAbi, toBytes, type Log } from 'viem';
 import { sepolia } from 'viem/chains';
 import type { CaseFile, ChainEvent } from './types';
 
@@ -10,21 +10,24 @@ export const RPCS = [
 
 const ABI = parseAbi([
   'event CaseOpened(bytes32 indexed caseId, address indexed handler, bytes32 orderHash, bytes32 conditionsHash, uint8 conditionCount, uint64 serviceDeadline)',
+  'event CaseRefBound(bytes32 indexed caseId, address indexed handler, bytes32 indexed caseRef)',
   'event ConditionFulfilled(bytes32 indexed caseId, uint8 indexed conditionId, bytes32 evidenceHash, bytes32 txRef, uint64 fulfilledAt)',
   'event ServiceCompleted(bytes32 indexed caseId, bytes32 affidavitHash, uint64 filedAt, uint64 responseDeadline)',
   'event ActivitySnapshot(bytes32 indexed caseId, bytes32 activityRootHash, uint64 snapshotAt)',
   'event NoticeServed(uint256 indexed tokenId, bytes32 indexed caseId, uint8 indexed conditionId, address recipient, bytes32 documentsHash, string documentsUrl)',
 ]);
 
-export const DECODED = new Set(['CaseOpened', 'ConditionFulfilled', 'ServiceCompleted', 'ActivitySnapshot', 'NoticeServed']);
+export const DECODED = new Set(['CaseOpened', 'CaseRefBound', 'ConditionFulfilled', 'ServiceCompleted', 'ActivitySnapshot', 'NoticeServed']);
 
 const HASH_FIELDS = ['evidenceHash', 'documentsHash', 'affidavitHash', 'activityRootHash', 'orderHash', 'conditionsHash'];
 const PLACEHOLDER = /^0x0{30}/i;
 
 export type Match = { event: string; field: string; txHash: string; block: number; contract: string; conditionId?: number };
 export type Kind = 'exhibit' | 'bundle' | 'affidavit' | 'order' | 'snapshot' | 'evidence';
+export type Binding = { ok: boolean; handler?: string; caseRef?: string; reason?: string };
 export type VerifyResult = {
   fileHash: string;
+  binding: Binding;
   path: 'live' | 'offline';
   pathDetail: string;
   fallbackReason?: string;
@@ -119,6 +122,20 @@ export function classify(matches: Match[], c: CaseFile): Kind | null {
   return 'evidence';
 }
 
+// Checks that the case id equals keccak256(abi.encode(handler, caseRef)) from the CaseRefBound event.
+export function caseBinding(c: CaseFile, events: ChainEvent[]): Binding {
+  const cid = c.caseId.toLowerCase();
+  const ev = events.find((e) => e.event === 'CaseRefBound' && String(e.args.caseId).toLowerCase() === cid);
+  if (!ev) return { ok: false, reason: 'no CaseRefBound event for this case id was found' };
+  const handler = String(ev.args.handler);
+  const caseRef = String(ev.args.caseRef);
+  const derived = keccak256(encodeAbiParameters([{ type: 'address' }, { type: 'bytes32' }], [handler as `0x${string}`, caseRef as `0x${string}`]));
+  if (derived.toLowerCase() !== cid) return { ok: false, handler, caseRef, reason: 'keccak256(handler, caseRef) does not equal the case id' };
+  if (c.caseRef && c.caseRef.toLowerCase() !== caseRef.toLowerCase()) return { ok: false, handler, caseRef, reason: 'caseRef on chain differs from case.json' };
+  if (c.caseLabel && keccak256(toBytes(c.caseLabel)).toLowerCase() !== caseRef.toLowerCase()) return { ok: false, handler, caseRef, reason: 'caseRef is not keccak256 of the case label' };
+  return { ok: true, handler, caseRef };
+}
+
 // Hashes a file, tries the live chain, and falls back to the bundled event log.
 export async function verifyFile(buf: ArrayBuffer, c: CaseFile, offline: ChainEvent[], offlineName: string, isSample: boolean): Promise<VerifyResult> {
   const fileHash = await sha256Hex(buf);
@@ -132,12 +149,12 @@ export async function verifyFile(buf: ArrayBuffer, c: CaseFile, offline: ChainEv
       try {
         const events = await withTimeout(liveEvents(c, rpc), 15000, new URL(rpc).host);
         const matches = findMatches(fileHash, events, c.caseId);
-        return { fileHash, path: 'live', pathDetail: `Sepolia public RPC (${new URL(rpc).host})`, eventCount: events.length, matches, kind: classify(matches, c) };
+        return { fileHash, binding: caseBinding(c, events), path: 'live', pathDetail: `Sepolia public RPC (${new URL(rpc).host})`, eventCount: events.length, matches, kind: classify(matches, c) };
       } catch (e) {
         reason = `${new URL(rpc).host}: ${(e as Error).message.split('\n')[0].slice(0, 120)}`;
       }
     }
   }
   const matches = findMatches(fileHash, offline, c.caseId);
-  return { fileHash, path: 'offline', pathDetail: `bundled ${offlineName}`, fallbackReason: reason, eventCount: offline.filter((e) => DECODED.has(e.event)).length, matches, kind: classify(matches, c) };
+  return { fileHash, binding: caseBinding(c, offline), path: 'offline', pathDetail: `bundled ${offlineName}`, fallbackReason: reason, eventCount: offline.filter((e) => DECODED.has(e.event)).length, matches, kind: classify(matches, c) };
 }

@@ -49,7 +49,8 @@ function Basis({ k, c }: { k: Condition; c: Loaded['data'] }) {
     const orig = k.originalServiceDeadline ?? k.derived?.dueDate ?? orderDeadline(c);
     return (
       <span className="basis">
-        <Badge tone={basis === 'replay' ? 'warn' : 'info'} title="Which deadline the check mark is measured against">{basis === 'replay' ? 'replay deadline' : 'original order deadline'}</Badge>
+        <Badge tone={basis === 'replay' ? 'warn' : 'info'} title={k.deadlineBasisNote ?? 'Which deadline the check mark is measured against'}>{basis === 'replay' ? 'replay deadline' : 'original order deadline'}</Badge>
+        {basis === 'replay' && k.replayServiceDeadline && <span className="small">replay deadline <strong>{fmtDate(k.replayServiceDeadline)}</strong></span>}
         {basis === 'replay' && orig && <span className="small">original order deadline <strong>{fmtDate(orig)}</strong></span>}
       </span>
     );

@@ -1,4 +1,5 @@
 import type { Loaded } from '../data';
+import type { Rule } from '../types';
 import { addDays, daysBetween, fmtDate, txLink } from '../data';
 import { COMPLETE_QUOTE, RULES } from '../legal';
 import { plain, ruleStatus } from '../content';
@@ -13,7 +14,8 @@ export default function Deadline({ l }: { l: Loaded }) {
   const aff = c.conditions.find((k) => k.kind === 'affidavit');
   const st = ruleStatus(c.deadlines.status);
   const statusRead = st.ok;
-  const ruleSt = (sec: string, fallback: string) => ruleStatus(c.rules?.find((r) => r.section === sec)?.status ?? fallback);
+  const rules: Rule[] = c.rules?.length ? c.rules : RULES;
+  const defs = c.ruleStatusDefinitions;
   return (
     <div>
       <StepHead n={4} title="Deadline" lead="The order says service is complete when the affidavit is filed. The response clock starts there." />
@@ -34,7 +36,7 @@ export default function Deadline({ l }: { l: Loaded }) {
           </div>
           <p className="small">{consistent ? 'Matches the deadline recorded by the registry.' : <span className="text-bad">Registry deadline differs from filing date + 30 days ({fmtDate(expected)}). Check the data.</span>}</p>
           <p className="small muted">The response deadline is computed on-chain as filing date + 30 days; the filing date itself is declared by the filer.</p>
-          <p className="small muted">Rule: <Term k="CPLR">{c.deadlines.rule}</Term>{statusRead ? ' (statute excerpt checked)' : ' (source: summary, lawyer review required)'}</p>
+          <p className="small muted">Rule: <Term k="CPLR">{c.deadlines.rule}</Term>{rules.some((r) => r.section === 'CPLR 3012(c)') && c.deadlines.rule !== 'CPLR 3012(c)' ? '; answer: CPLR 3012(c)' : ''}{statusRead ? ' (statute excerpt checked)' : ' (source: summary, lawyer review required)'}</p>
           <p className="caveat">{c.deadlines.caveat}</p>
           {c.deadlines.openPoints && c.deadlines.openPoints.length > 0 && (
             <ul className="small muted open-points">{c.deadlines.openPoints.map((o) => <li key={o}>{plain(o)}</li>)}</ul>
@@ -44,13 +46,22 @@ export default function Deadline({ l }: { l: Loaded }) {
       <Card title="Where the 30 days come from">
         <Quote cite="Decision and Order, p. 6">{COMPLETE_QUOTE}</Quote>
         <ul className="rules">
-          {RULES.map((r) => (
-            <li key={r.section}>
-              <div><strong>{r.section}</strong> {(() => { const rs = ruleSt(r.section, r.status); return <Badge tone={rs.ok ? 'ok' : 'warn'}>{rs.text}</Badge>; })()} <a className="small" href={r.url} target="_blank" rel="noreferrer noopener">nysenate.gov ↗</a></div>
-              <div className="small muted">{r.quote.map((q) => `"${q}"`).join(' … ')}</div>
-            </li>
-          ))}
+          {rules.map((r) => {
+            const rs = ruleStatus(r.status);
+            return (
+              <li key={r.section}>
+                <div><strong>{r.section}</strong> <Badge tone={rs.ok ? 'ok' : 'warn'}>{rs.text}</Badge> {r.url && <a className="small" href={r.url} target="_blank" rel="noreferrer noopener">nysenate.gov ↗</a>}</div>
+                {r.rule && <div className="small">{r.rule}</div>}
+                {r.quote && r.quote.length > 0 && <div className="small muted">{r.quote.map((q) => `"${q}"`).join(' … ')}</div>}
+              </li>
+            );
+          })}
         </ul>
+        {defs && (
+          <dl className="small muted rule-defs">
+            {Object.entries(defs).map(([k, v]) => <div key={k}><dt>{ruleStatus(k).text}</dt><dd>{v}</dd></div>)}
+          </dl>
+        )}
         <p className="small muted">Statute excerpts were retrieved from nysenate.gov on 2026-10-25 as short quotes, not full section text.</p>
       </Card>
       {c.snapshot && <Snapshot l={l} />}

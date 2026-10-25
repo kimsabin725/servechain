@@ -6,13 +6,11 @@ ServeChain
 
 ## Track
 
-- Primary: LegalTech & RegTech
-
-TRACK_LIST_TBD: confirm the exact track names on the hackathon page before submitting.
+- Primary: LegalTech & RegTech (to confirm on the DoraHacks page)
 
 ## One-line intro
 
-ServeChain serves court papers to wallet-only defendants as a hash-locked NFT, then builds a case file that proves each condition of the court's order was met and that anyone can verify against the chain.
+ServeChain serves court papers to wallet-only defendants as a hash-locked NFT, then builds a case file that links each condition of the court's order to on-chain evidence, which anyone can verify against the chain.
 
 ## Short description (for the card)
 
@@ -22,9 +20,9 @@ Blockchain service of process is already court-approved. Proving you complied wi
 
 ### The problem
 
-When a defendant is known only by a crypto wallet address, courts have allowed service of process by NFT airdrop. In a 2025 New York case (Sup. Ct. Queens County, Index No. 700647/2025), the court ordered the plaintiff to serve the full set of papers within 120 days, by NFTs hyperlinked to a website with the papers, to three named wallets, and then to file an affidavit of service, with service complete on filing.
+When a defendant is known only by a crypto wallet address, courts have allowed service of process by NFT airdrop (for example LCX AG v 1.274M U.S. Dollar Coin, 2022 NY Slip Op 32834[U]). In a 2025 New York case (Sup. Ct. Queens County, Index No. 700647/2025), the court ordered the plaintiff to serve the full set of papers within 120 days, by NFTs hyperlinked to a website with the papers, to three named wallets, and then to file an affidavit of service, with service complete on filing.
 
-The service method is new. The proof around it is not. At the motion stage of that case, delivery was shown with Etherscan, Tronscan and NFT-platform screenshots attached to an affirmation. Nothing ties each screenshot to the order condition it satisfies, flags what is still missing, records which exact papers were served, or computes the response deadline.
+The service method is new. The proof around it is not. At the motion stage of that case, delivery was shown with explorer and NFT-platform webpages (Etherscan, Tronscan) attached to an affirmation. Nothing ties each page to the order condition it satisfies, flags what is still missing, records which exact papers were served, or computes the response deadline.
 
 ### What ServeChain does
 
@@ -33,12 +31,12 @@ A five-step walkthrough that replays the real order on Sepolia:
 1. **Impracticability**: real defendant wallet activity (read only) beside the contact attempts the court relied on.
 2. **Conditions**: the order becomes a checklist with exact quotes and page numbers; its hash is fixed on-chain when the case is opened.
 3. **Serve**: the papers are hashed; one soulbound notice NFT per wallet is minted with that hash and the papers' URL fixed in `tokenURI`; each transaction is linked to the condition it satisfies. Service someone else already made (the real July 2025 notices) can be imported read only.
-4. **Deadline**: the filer declares the affidavit filing time; the registry derives the response deadline (+30 days, CPLR 320(a)) on-chain.
+4. **Deadline**: the filer declares the affidavit filing time; the registry derives the response deadline (+30 days, CPLR 320(a); CPLR 3012(c) for the answer) on-chain.
 5. **Exhibit & verify**: one PDF exhibit (impracticability, condition-by-condition record, deadlines and activity), its SHA-256 anchored on-chain, checked by a browser or CLI verifier with no server of ours involved.
 
-### What it proves
+### What it shows
 
-On Sepolia, all five conditions of the order link to on-chain evidence, and the published exhibit verifies as MATCH while a copy with one byte changed returns MISMATCH.
+On Sepolia, all five conditions of the order link to on-chain evidence, and the published exhibit verifies as MATCH while a copy with one byte changed returns MISMATCH. The served bundle and the affidavit also return MATCH, and with the RPC blocked the verifier returns MATCH (offline) from the bundled event log. The case id is `keccak256(abi.encode(handler, caseRef))`, and the verifier re-derives it from the `CaseRefBound` event.
 
 ### Why blockchain
 
@@ -51,7 +49,7 @@ It does not prove that a defendant received or read the papers. Wallet activity 
 
 ### Limitations
 
-The affidavit filing time is declared by the filer and cannot be proven by the chain. Weekend and holiday roll-forward is not applied. The Sepolia activity snapshot is pending until the response deadline passes (2026-11-24); the snapshot step is shown from a local anvil replay. Writes are EVM only; TRON wallets are read, not served.
+The affidavit filing time is declared by the filer and cannot be proven by the chain. Weekend and holiday roll-forward is not applied. The Sepolia activity snapshot is pending until the response deadline passes (2026-11-24); the snapshot step is shown from a local anvil replay. Writes are EVM only; TRON wallets are read, not served. Duplicate service per recipient is rejected; registry and notice contract are linked by the scripts, not on-chain.
 
 ### Built with
 
@@ -67,11 +65,11 @@ Case documents are public records published by the New York Attorney General; co
 |---|---|
 | Live demo | https://kimsabin725.github.io/servechain/ |
 | Demo video | YOUTUBE_LINK_TBD |
-| GitHub repository | GITHUB_REPO_TBD |
+| GitHub repository | https://github.com/kimsabin725/servechain |
 | Pitch deck (PDF) | DECK_PDF_LINK_TBD (docs/deck.pdf in the repository) |
-| ServiceNotice721 (Sepolia) | https://sepolia.etherscan.io/address/0xD712AC5797e64B8481B630Cfdc6c3c1C0d2B208a |
-| CaseFileRegistry (Sepolia) | https://sepolia.etherscan.io/address/0x5D390d9864CCEc1533437bdf23593CFb1bd58D69 |
-| Exhibit anchor tx | https://sepolia.etherscan.io/tx/0xf6f32de8fa7dd83975a173803ad3878d6fea0ea57330207b2a857551da3f176f |
+| ServiceNotice721 (Sepolia) | https://sepolia.etherscan.io/address/0xB7a040C0D6860aABc93E20bc911270622D33De75 |
+| CaseFileRegistry (Sepolia) | https://sepolia.etherscan.io/address/0x787867F00a45962666b39cD3523954aE62DE2664 |
+| Exhibit anchor tx | https://sepolia.etherscan.io/tx/0xbb030a7a67d5ad6d13e5cf3f479b4af10c64ab042922ecbf319b7cf27721cef3 |
 | Source court order (public) | https://ag.ny.gov/sites/default/files/court-filings/people-v-digital-wallet-0xd7648fffa48e06b0107435a966f3f1e9dbe10b7d-decision-and-pleadings-2025.pdf |
 
 ## Team

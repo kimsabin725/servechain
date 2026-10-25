@@ -99,7 +99,7 @@ export default function Impracticability({ l }: { l: Loaded }) {
         </div>
         <p className="band-key">
           <span><i className="key-band" aria-hidden /> Apr–Dec 2024: period the decision cites (p. 5)</span>
-          {partial.length > 0 && <span><i className="key-partial" aria-hidden /> partial: older history not fully fetched ({partial.map(({ w, f }) => `${walletName(w)} before ${f}`).join('; ')})</span>}
+          {partial.length > 0 && <span title={c.activity.completeFromNote}><i className="key-partial" aria-hidden /> partial: older history not fully fetched ({partial.map(({ w, f }) => `${walletName(w)} before ${f}`).join('; ')})</span>}
         </p>
         <p className="contact-line">
           <strong>Contact attempts</strong> (decision p. 4): {n.phones} calls/texts, {n.emails} emails, {n.delivered} delivered. No verifiable mailing address.
