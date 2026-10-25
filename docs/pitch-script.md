@@ -40,7 +40,7 @@ Before recording: open the order PDF (ag.ny.gov link from Step 0) at page 6 in a
 
 [Screen: click "1 Impracticability". Point at the three wallet cards, then the shaded April to December 2024 band, then "Contact attempts".]
 
-> Step one is the impracticability showing: the three real defendant wallets, read only. Balances still match the 2024 freeze; recent entries include transfers from others. The shaded band is the period the court relied on. Next to it, the contact attempts: fourteen phone numbers and four emails; one email was delivered, none gave a mailing address.
+> Step one is the impracticability showing: the three real defendant wallets, read only. Balances still match the 2024 freeze; two still signed transactions this year, beside transfers from others. The shaded band is the period the court relied on. Next to it, the contact attempts: fourteen phone numbers and four emails; one email was delivered, none gave a mailing address.
 
 (56 words, about 22 s)
 
