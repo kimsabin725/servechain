@@ -2,9 +2,29 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
+import { fixPdfFile } from './pdfmeta.mjs';
 
+export const SUMMARY_TITLE = 'Compliance summary (attachment for counsel)';
 export const EXHIBIT_HEADER =
-  'Exhibit material for an affidavit of service / default motion. Not legal advice. Not a legal determination.';
+  'Compliance summary (attachment for counsel), for counsel preparing an affidavit of service or a default motion. Not a court-filed exhibit. For counsel\'s review. Does not determine compliance. Not legal advice.';
+export const STATUS_LABEL = { fulfilled: 'Evidence linked (not a compliance determination)', missing: 'No evidence linked' };
+export const DEADLINE_ESTIMATE =
+  'Estimate. Counting rules (GCL §20, §25-a weekends/holidays) not applied — counsel must confirm the last day.';
+export const DEADLINE_VALIDITY = 'Meaningful only if service was valid under the order.';
+export const REPLAY_NOTE = {
+  0: 'replay: measured against the replay deadline, not the original order deadline',
+  3: 'replay: served on Sepolia stand-in wallets, not the named wallets',
+  4: 'replay: recorded on-chain, not filed with a court',
+};
+
+// Formats an ISO time as a New York calendar date (YYYY-MM-DD), hiding the time of day.
+export function nyDate(isoStr) {
+  if (!isoStr) return '—';
+  if (/^\d{4}-\d{2}-\d{2}$/.test(isoStr)) return isoStr;
+  const d = new Date(isoStr);
+  if (isNaN(d.getTime())) return String(isoStr);
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
+}
 
 const esc = (s) =>
   String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
@@ -17,7 +37,7 @@ export function contactRows(contacts) {
   if (!contacts) throw new Error('case.contacts missing: data/synthetic-contacts.json is required');
   return [...contacts.phone, ...contacts.email].map((r) => ({
     channel: r.channel,
-    to: `${r.to} (synthetic)`,
+    to: `${String(r.to).replace(/\s*\(synthetic\)/i, '')} (synthetic)`,
     date: r.date ?? 'not stated in decision',
     result: r.result,
   }));
@@ -57,7 +77,7 @@ function monthRange(from, to) {
   return out;
 }
 
-// Renders the full exhibit HTML (sections A-C) from a case object.
+// Renders the full compliance summary HTML (sections A-C) from a case object.
 export function renderExhibitHtml(c) {
   const defendants = c.activity.wallets.filter((w) => w.role === 'defendant');
   const contacts = contactRows(c.contacts);
@@ -65,7 +85,7 @@ export function renderExhibitHtml(c) {
   const evRows = c.conditions
     .map((k) => {
       const own = k.evidence.filter((e) => e.type !== 'imported');
-      const imp = k.evidence.filter((e) => e.type === 'imported');
+      const imp = [...(k.context ?? []), ...k.evidence.filter((e) => e.type === 'imported')];
       const cell = own.length
         ? own
             .map(
@@ -73,11 +93,11 @@ export function renderExhibitHtml(c) {
                 `${esc(e.label)}<br>tx ${link(e.explorerUrl, short(e.txHash))} · block ${e.block} · ${esc(e.timestamp)}<br><span class="mono small">evidence ${esc(short(e.evidenceHash))}</span>`,
             )
             .join('<hr>')
-        : '<span class="missing">No evidence recorded</span>';
+        : '<span class="missing">No evidence linked</span>';
       const impCell = imp.length
-        ? `<div class="imported">Imported (read-only): ${imp.map((e) => link(e.explorerUrl, e.label.replace(/^Real case: real /, '').replace(/ \(read-only\)/, ''))).join('; ')}</div>`
+        ? `<div class="imported">Context only, not evidence: unattributed mainnet NFTs, ${imp.map((e) => link(e.explorerUrl, e.label.replace(/^(Real case|Context only): (real )?/, '').replace(/ \(read-only\)/, ''))).join('; ')}</div>`
         : '';
-      return `<tr class="${k.status}"><td>${k.id}<br><span class="small">${esc(k.ref)}</span></td><td><b>${esc(k.title)}</b><br><q>${esc(k.quote)}</q> <span class="small">(order p.${k.page})</span></td><td class="status-${k.status}">${k.status}</td><td>${cell}${impCell}</td></tr>`;
+      return `<tr class="${k.status}"><td>${k.id}<br><span class="small">${esc(k.ref)}</span></td><td><b>${esc(k.title)}</b><br><q>${esc(k.quote)}</q> <span class="small">(order p.${k.page})</span></td><td class="status-${k.status}">${esc(STATUS_LABEL[k.status] ?? k.status)}${k.status === 'fulfilled' && REPLAY_NOTE[k.id] ? `<br><span class="replay">${esc(REPLAY_NOTE[k.id])}</span>` : ''}</td><td>${cell}${impCell}</td></tr>`;
     })
     .join('');
   const svcRows = c.service
@@ -89,16 +109,16 @@ export function renderExhibitHtml(c) {
   const existRows = c.existingService
     .map(
       (s) =>
-        `<tr><td>${esc(s.phase === 'june-2025-order' ? 'June 2025 order' : 'Jan 2025 order to show cause (pre-order)')}</td><td>${esc(s.recipientLabel)}</td><td>${esc(s.chain)}</td><td>${link(s.explorerUrl, short(s.txHash))}</td><td>${esc(day(s.timestamp))}</td><td class="small">${esc(s.name)}</td></tr>`,
+        `<tr><td>${esc(s.phase === 'june-2025-order' ? 'Jul 30, 2025 (unattributed)' : 'Jan 2025 order to show cause (pre-order)')}</td><td>${esc(s.recipientLabel)}</td><td>${esc(s.chain)}</td><td>${link(s.explorerUrl, short(s.txHash))}</td><td>${esc(day(s.timestamp))}</td><td class="small">${esc(s.name)}</td></tr>`,
     )
     .join('');
   const d = c.deadlines;
   const snap = c.snapshot;
   const snapLine = snap.txHash
     ? `Anchored root <span class="mono">${esc(short(snap.activityRootHash))}</span> in tx ${link(snap.explorerUrl, short(snap.txHash))} at ${esc(snap.at)}${snap.timeTravel ? ' <b>(local chain clock advanced 31 days with evm_increaseTime; demo only)</b>' : ''}.`
-    : `<span class="missing">Pending until ${esc(d.responseDeadline)}</span> — the registry rejects a snapshot before the response deadline. Computed root (not yet anchored): <span class="mono">${esc(short(snap.activityRootHash))}</span>. ${esc(snap.note || '')}`;
+    : `Shown via local replay; pending on ${esc(c.chain.name)} until ${esc(nyDate(d.responseDeadline))} (New York date) — the registry rejects a snapshot before the response deadline. Computed root (not yet anchored): <span class="mono">${esc(short(snap.activityRootHash))}</span>. ${esc(snap.note || '')}`;
   const after = monthRange('2025-06', (c.activity.fetchedAt || '2026-10').slice(0, 7));
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Exhibit — ${esc(c.court.index)}</title>
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${esc(SUMMARY_TITLE)} — ${esc(c.court.index)}</title>
 <style>
 @page{size:Letter;margin:16mm 14mm}
 body{font:10.5px/1.45 Georgia,'Times New Roman',serif;color:#111;margin:0}
@@ -109,13 +129,14 @@ th,td{border:1px solid #888;padding:3px 5px;vertical-align:top;text-align:left}t
 caption{text-align:left;font-style:italic;padding:2px 0}
 .small{font-size:9px}.mono{font-family:Menlo,monospace;font-size:9px}.num{text-align:right}
 .missing,.status-missing{color:#b00020;font-weight:bold}.status-fulfilled{color:#0a6b2f;font-weight:bold}
-.imported{margin-top:4px;color:#444;font-size:9px}.note{background:#f6f6f6;border-left:3px solid #999;padding:4px 8px}
+.imported{margin-top:4px;color:#444;font-size:9px}.replay{display:inline-block;margin-top:2px;padding:1px 4px;border:1px solid #7a5a12;color:#7a5a12;font:bold 9px Helvetica,Arial,sans-serif}.note{background:#f6f6f6;border-left:3px solid #999;padding:4px 8px}
 a{color:#0645ad;text-decoration:none}q{font-style:italic}hr{border:0;border-top:1px dashed #bbb}
 </style></head><body>
 <header class="fixed">${esc(EXHIBIT_HEADER)}</header>
-<h1>${esc(c.title)}</h1>
+<h1>${esc(SUMMARY_TITLE)}</h1>
+<p><b>${esc(c.title)}</b></p>
 <p>${esc(c.court.name)} · Index No. ${esc(c.court.index)} · ${esc(c.court.judge)} · order entered ${esc(c.court.decisionDate)} (source: ${esc(c.court.source)})</p>
-<p class="note">Replay of a public court record for demonstration. Service in this exhibit was made on ${esc(c.chain.name)} (chainId ${c.chain.chainId}) to <b>stand-in wallets</b>; nothing was sent to the defendants' real wallets, which are only read. This is proof-of-service material for a lawyer to review; the chain records what was sent and when, not that anyone read it, and not when a paper was filed with the court.</p>
+<p class="note">Replay of a public New York Attorney General case; the author is not a party to it. The order names two TRON wallets; this tool writes only to EVM chains, so in this replay they are served on Sepolia stand-ins. Service in this summary was made on ${esc(c.chain.name)} (chainId ${c.chain.chainId}) to <b>stand-in wallets</b>; nothing was sent to the defendants' real wallets, which are only read. This is a summary for counsel to review, not a court-filed exhibit and not a compliance determination; the chain records what was sent and when, not that anyone read it, and not when a paper was filed with the court.</p>
 <p class="small">Case ID <span class="mono">${esc(c.caseId)}</span> · registry ${link(ex && `${ex}/address/${c.chain.registry}`, c.chain.registry)} · notice NFT ${link(ex && `${ex}/address/${c.chain.notice721}`, c.chain.notice721)} · order PDF SHA-256 <span class="mono">${esc(c.order.hash)}</span> · generated ${esc(c.generatedAt)}</p>
 
 <h2>A. Impracticability of ordinary service and continued wallet use</h2>
@@ -127,21 +148,21 @@ a{color:#0645ad;text-decoration:none}q{font-style:italic}hr{border:0;border-top:
 ${activityTable(defendants, monthRange('2024-04', '2024-12'), `Defendant wallet transactions per month, Apr–Dec 2024 (read from chain; fetched ${day(c.activity.fetchedAt)}; counts include incoming transfers)`)}
 
 <h2>B. Order conditions and performance record</h2>
-<p>Conditions were pre-extracted from the order (p.${esc(c.order.page)}) and confirmed by the author (demo). Status comes from <code>ConditionFulfilled</code> events in the registry. Missing items are marked in red.</p>
+<p>Conditions were pre-extracted from the order (p.${esc(c.order.page)}) and confirmed by the author (demo). Status comes from <code>ConditionFulfilled</code> events in the registry: "Evidence linked" means the handler linked a record to the condition, not that the condition is met. Conditions with no evidence linked are marked in red.</p>
 <table><tr><th>#</th><th>Condition</th><th>Status</th><th>Evidence (tx · block · time)</th></tr>${evRows}</table>
 <table class="small"><caption>Service notices minted (soulbound ERC-721; tokenURI fixes the documents URL and bundle SHA-256 ${esc(short(c.documents.bundleHash))})</caption><tr><th>Recipient</th><th>Token</th><th>Tx</th><th>Block</th><th>Time</th></tr>${svcRows}</table>
-<p class="small">Affidavit (synthetic sample) SHA-256 <span class="mono">${esc(c.affidavit.hash)}</span>, declaredFiledAt ${esc(c.affidavit.declaredFiledAt)} — ${esc(c.affidavit.note)}.</p>
-${existRows ? `<table class="small"><caption>Service already made in the real case, imported read-only from public chains (not re-sent)</caption><tr><th>Order served</th><th>Recipient</th><th>Chain</th><th>Tx</th><th>Date</th><th>On-chain name</th></tr>${existRows}</table><p class="small">The January 2025 notices served the order to show cause (motion papers) before the June 2025 order. The July 30, 2025 notices fall inside the June order's window; their sender is not verified against court records.</p>` : ''}
+<p class="small">Sample affidavit data (to be sworn by the person who served; CPLR 306(d)) SHA-256 <span class="mono">${esc(c.affidavit.hash)}</span>, declared filing date ${esc(nyDate(c.affidavit.declaredFiledAt))} (New York date) — ${esc(c.affidavit.note)}.</p>
+${existRows ? `<table class="small"><caption>Context only, not evidence: NFTs seen on the real wallets, read from public chains (not re-sent)</caption><tr><th>Date / stage</th><th>Recipient</th><th>Chain</th><th>Tx</th><th>Date</th><th>On-chain name</th></tr>${existRows}</table><p class="small">The January 2025 notices served the order to show cause (motion papers) before the June 2025 order. The July 30, 2025 items are unattributed NFTs titled "Service of NY OAG Summons and Complaint…" (sender not matched to court records; contract name on-chain: SoulBoundTest). They are not linked to any condition.</p>` : ''}
 
 <h2>C. Deadlines and activity after service</h2>
 <table><tr><th>Item</th><th>Value</th><th>Basis</th></tr>
-<tr><td>Service deadline (original case)</td><td>${esc(d.originalServiceDeadline)}</td><td>entry 2025-06-11 + 120 days (CPLR 306-b extension in the order)</td></tr>
-<tr><td>Service deadline (this replay, on-chain)</td><td>${esc(d.serviceDeadline)}</td><td>case opened + 120 days; the registry requires a future deadline</td></tr>
-<tr><td>declaredFiledAt (affidavit)</td><td>${esc(c.affidavit.declaredFiledAt)}</td><td>entered by the filer; the chain cannot prove the court filing date</td></tr>
-<tr><td>Response deadline</td><td><b>${esc(d.responseDeadline)}</b></td><td>${esc(d.rule)} — declaredFiledAt + 30 days (status: ${esc(d.status)})</td></tr>
+<tr><td>Service deadline (original case)</td><td>${esc(nyDate(d.originalServiceDeadline))}</td><td>entry 2025-06-11 + 120 days (CPLR 306-b extension in the order)</td></tr>
+<tr><td>Service deadline (this replay, on-chain)</td><td>${esc(nyDate(d.serviceDeadline))}</td><td>case opened + 120 days; the registry requires a future deadline</td></tr>
+<tr><td>Declared affidavit filing date</td><td>${esc(nyDate(c.affidavit.declaredFiledAt))}</td><td>entered by the filer; the chain cannot prove the court filing date</td></tr>
+<tr><td>Response deadline (estimate)</td><td><b>${esc(nyDate(d.responseDeadline))}</b> (New York date)</td><td>${esc(d.rule)} — declared filing date + 30 days (status: ${esc(d.status)}). ${esc(DEADLINE_ESTIMATE)} ${esc(DEADLINE_VALIDITY)}</td></tr>
 <tr><td>Caveat</td><td colspan="2" class="missing">${esc(d.caveat)}</td></tr>
 <tr><td>Activity snapshot</td><td colspan="2">${snapLine}</td></tr></table>
-${activityTable(c.activity.wallets, after, `Wallet transactions per month after the original order (Jun 2025 – fetch date). Includes incoming airdrops such as later court notices. Activity is circumstantial; it does not show that anyone saw the notice.`)}
+${activityTable(c.activity.wallets, after, `Context only, not evidence of notice. Wallet transactions per month after the original order (Jun 2025 – fetch date), including incoming airdrops. Activity does not show that anyone saw the notice.`)}
 <p class="small">* month before the wallet's completeFrom month; older items were not fetched, so the count may be low.</p>
 <p class="small">Wallet sources: ${c.activity.wallets.map((w) => `${esc(w.label)} — ${esc(w.source)}`).join('; ')}. Rules: ${(c.rules || []).map((r) => link(r.url, `${r.section} [${r.status}]`)).join(', ')}.</p>
 </body></html>`;
@@ -182,4 +203,5 @@ export function htmlToPdf(htmlPath, pdfPath) {
     fs.rmSync(profile, { recursive: true, force: true });
   }
   if (!fs.existsSync(pdfPath) || fs.statSync(pdfPath).size < 1000) throw new Error('PDF was not produced');
+  fixPdfFile(pdfPath);
 }

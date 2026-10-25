@@ -1,11 +1,12 @@
 import { EXHIBIT_SLOT, iso } from './casedata.mjs';
+import { DEADLINE_ESTIMATE, DEADLINE_VALIDITY, REPLAY_NOTE, STATUS_LABEL, nyDate } from './exhibit.mjs';
 
 const LABELS = {
   0: 'All notices minted before the service deadline',
   1: 'Document bundle SHA-256 fixed in every notice tokenURI',
   2: 'Hyperlinked notice NFTs (tokenURI external_url → posted papers)',
-  3: 'One notice per target (stand-in wallets)',
-  4: 'Affidavit hash and declaredFiledAt recorded',
+  3: 'One notice per target (Sepolia stand-in wallets, not the named wallets)',
+  4: 'Affidavit hash and declared filing time recorded on-chain (not filed with a court)',
 };
 
 const SLOT_DESCRIPTIONS = {
@@ -16,7 +17,7 @@ const SLOT_DESCRIPTIONS = {
   4: 'Court condition C5 (affidavit). Evidence: affidavit SHA-256 and declaredFiledAt.',
 };
 
-const CAVEAT = 'weekend/holiday roll-forward (GCL §25-a) not applied — lawyer review required';
+const CAVEAT = `${DEADLINE_ESTIMATE} ${DEADLINE_VALIDITY}`;
 
 // Assembles case.json from run context and decoded chain events.
 export function buildCase(ctx, events) {
@@ -43,18 +44,17 @@ export function buildCase(ctx, events) {
         explorerUrl: txUrl(f.txHash), evidenceHash: f.args.evidenceHash, txRef: f.args.txRef, preimage: ctx.preimages[c.id] ?? null,
       });
     }
-    if (['method', 'targets'].includes(c.kind)) {
-      for (const s of imported) {
-        evidence.push({
-          type: 'imported', label: `Real case: ${s.recipientLabel}, ${s.timestamp.slice(0, 10)}`, txHash: s.txHash, block: s.block,
-          timestamp: s.timestamp, explorerUrl: s.explorerUrl, evidenceHash: null, readOnly: true, note: s.note,
-        });
-      }
-    }
+    const context = ['method', 'targets'].includes(c.kind)
+      ? imported.map((s) => ({
+          type: 'context', label: `Context only: ${s.recipientLabel}, ${s.timestamp.slice(0, 10)}`, txHash: s.txHash, block: s.block,
+          timestamp: s.timestamp, explorerUrl: s.explorerUrl, readOnly: true, note: s.note,
+        }))
+      : [];
     return {
       id: c.id, ref: c.ref, kind: c.kind, title: c.title, quote: c.quote, page: c.page,
       draftedBy: inputs.conditions.draftedBy || 'pre-extracted', confirmedBy: 'author (demo)',
-      status: f ? 'fulfilled' : 'missing', derived: src.derived ?? null,
+      status: f ? 'fulfilled' : 'missing', statusLabel: STATUS_LABEL[f ? 'fulfilled' : 'missing'],
+      replayNote: f ? REPLAY_NOTE[c.id] ?? null : null, derived: src.derived ?? null,
       deadlineBasis: 'replay',
       replayServiceDeadline,
       originalServiceDeadline,
@@ -63,6 +63,7 @@ export function buildCase(ctx, events) {
           ? 'Fulfilled against the replay deadline (case opening + 120 days), not the original order deadline. The real case deadline was 2025-06-11 + 120 days.'
           : 'Evidence was recorded in this replay; dates are replay dates, not dates in the real case.',
       evidence,
+      context,
     };
   });
 
@@ -136,13 +137,16 @@ export function buildCase(ctx, events) {
       txHash: completed?.txHash ?? null,
       explorerUrl: txUrl(completed?.txHash),
       file: 'affidavit.pdf',
-      note: 'declared by filer; chain cannot prove court filing date',
+      note: 'sample affidavit data (to be sworn by the person who served); filing time declared by the filer; the chain cannot prove the court filing date',
     },
     deadlines: {
       originalServiceDeadline,
       serviceDeadline: replayServiceDeadline,
       serviceDeadlineNote: 'Replay deadline = case opening + 120 days, because the registry only accepts a future deadline. The original case deadline was entry 2025-06-11 + 120 days.',
       responseDeadline,
+      responseDeadlineNY: nyDate(responseDeadline),
+      estimateNote: DEADLINE_ESTIMATE,
+      validityNote: DEADLINE_VALIDITY,
       rule: 'CPLR 320(a)',
       formula: inputs.rules?.answerDeadline?.rule?.replace('affidavitOfServiceFiledAt', 'declaredFiledAt') || 'declaredFiledAt + 30 days',
       status: rule320?.status || 'summary',
@@ -171,7 +175,7 @@ export function buildCase(ctx, events) {
         }
       : null,
     disclaimer:
-      'Replay of a public court record for demonstration. Nothing was sent to the real defendant wallets; they are read only. Proof-of-service material, not legal advice and not a legal determination.',
+      'Replay of a public New York Attorney General case; the author is not a party to it. Nothing was sent to the real defendant wallets; they are read only. For counsel\'s review. Does not determine compliance. Not legal advice.',
     generatedAt: new Date().toISOString(),
   };
 }

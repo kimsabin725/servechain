@@ -65,7 +65,7 @@ export function buildPdf(pages, meta = {}) {
   }
   objs[catalog - 1] = `<< /Type /Catalog /Pages ${pagesObj} 0 R >>`;
   objs[pagesObj - 1] = `<< /Type /Pages /Kids [${kids.map((k) => k + ' 0 R').join(' ')}] /Count ${kids.length} >>`;
-  const info = add(`<< /Title (${pdfText(meta.title || 'Sample')}) /Producer (servechain) >>`);
+  const info = add(`<< /Title (${pdfText(meta.title || 'Sample')}) /Creator (ServeChain) /Producer (ServeChain) >>`);
   let out = '%PDF-1.4\n';
   const offsets = [];
   objs.forEach((body, i) => {

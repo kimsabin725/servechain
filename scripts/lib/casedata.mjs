@@ -113,7 +113,7 @@ export function buildExistingService(serviceTxs) {
     if (!/^Service of NY OAG Summons/i.test(e.name || '')) continue;
     out.push({
       source: 'imported', phase: 'june-2025-order', chain: 'ethereum', recipient: '0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d',
-      recipientLabel: 'real Wallet 1 (read-only)', txHash: e.txHash, block: e.block, timestamp: e.time, tokenId: e.tokenId,
+      recipientLabel: 'real Wallet 1 (read-only)', txHash: e.txHash, block: e.block, timestamp: e.time, tokenId: e.tokenId, attribution: 'unattributed',
       contract: e.contract, name: e.name, explorerUrl: ethUrl(e.txHash),
     });
   }
@@ -144,7 +144,7 @@ export function buildExistingService(serviceTxs) {
   }
   const notes = {
     'june-2025-order':
-      'Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records.',
+      'Unattributed NFTs titled "Service of NY OAG Summons and Complaint…" seen on 2025-07-30 (sender not matched to court records; contract name on-chain: SoulBoundTest). Context only, not linked to any condition.',
     'pre-order-osc':
       'Delivered 2025-01-21/22 under the January 10, 2025 order to show cause (motion papers), before the June 2025 order. Cited in the Sang affirmation (pp.70-72); not performance of the June order.',
   };
@@ -188,11 +188,11 @@ export function buildAffidavitPdf({ facts, service, bundleHash, declaredFiledAt,
   return buildPdf(
     [
       {
-        title: 'Affidavit of service (synthetic sample)',
+        title: 'Sample affidavit data (to be sworn by the person who served)',
         lines: [
           `${facts?.case?.court || 'Supreme Court of the State of New York, Queens County'} - Index No. ${facts?.case?.indexNo || '700647/2025'}`,
           '',
-          'This is a synthetic affidavit produced by a software demonstration. Nobody swore to it and it was not filed.',
+          'Sample affidavit data (to be sworn by the person who served, CPLR 306(d)). Produced by a software demonstration; nobody swore to it and it was not filed.',
           `Declared filing time (entered by the filer, not proven by the chain): ${declaredFiledAt}`,
           `Network: ${networkName}. Recipients are stand-in wallets, not the defendants' wallets.`,
           `SHA-256 of the served document bundle: ${bundleHash}`,
