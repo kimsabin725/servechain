@@ -44,7 +44,7 @@ export default function Landing({ l, go, verifyNow }: { l: Loaded; go: (n: numbe
           <dt>Case registry</dt><dd>{addrLink(l, c.chain.registry)} <span className="muted small">{c.chain.name}</span></dd>
           <dt>Notice NFT</dt><dd>{addrLink(l, c.chain.notice721)} <span className="muted small">{c.chain.name}, soulbound</span></dd>
           <dt>Source code</dt><dd><a href={REPO_URL} target="_blank" rel="noreferrer noopener">github.com/kimsabin725/servechain ↗</a></dd>
-          <dt>Demo video</dt><dd><a href="https://youtu.be/58pzpLuhmQc" target="_blank" rel="noreferrer noopener">Walkthrough (under 3 minutes) on YouTube ↗</a></dd>
+          <dt>Demo video</dt><dd><a href="https://youtu.be/wJTnQijZ2Lc" target="_blank" rel="noreferrer noopener">Walkthrough (under 3 minutes) on YouTube ↗</a></dd>
         </dl>
         <p className="small muted">This page is static. It reads the contracts above through a public RPC, with a bundled event log as fallback. Your browser never signs or sends a transaction.</p>
         <div className="row">

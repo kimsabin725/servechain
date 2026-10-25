@@ -8,7 +8,7 @@
 **Why blockchain, in one line.** The defendant exists only as a wallet, so service happens on-chain; anchoring the compliance record on-chain is extra, so the filer cannot quietly rewrite it (details below).
 
 - **Live demo:** https://kimsabin725.github.io/servechain/
-- **Demo video (under 3 min):** https://youtu.be/58pzpLuhmQc
+- **Demo video (under 3 min):** https://youtu.be/wJTnQijZ2Lc
 
 > For counsel's review. Does not determine compliance. Not legal advice. Replay of a public New York Attorney General case; the author is not a party to it. Nothing was ever sent to the real defendant wallets; they are read only. The order names two TRON wallets; this tool writes only to EVM chains, so in this replay they are served on Sepolia stand-ins.
 

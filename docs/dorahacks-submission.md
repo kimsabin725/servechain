@@ -68,7 +68,7 @@ Case documents are public records published by the New York Attorney General; co
 | Item | Link |
 |---|---|
 | Live demo | https://kimsabin725.github.io/servechain/ |
-| Demo video | https://youtu.be/58pzpLuhmQc |
+| Demo video | https://youtu.be/wJTnQijZ2Lc |
 | GitHub repository | https://github.com/kimsabin725/servechain |
 | Pitch deck (PDF) | https://github.com/kimsabin725/servechain/blob/main/docs/deck.pdf |
 | ServiceNotice721 (Sepolia) | https://sepolia.etherscan.io/address/0xA7bA126d3cE7E90155CB11b3EF20d426B8a84001 |
