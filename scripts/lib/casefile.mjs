@@ -1,4 +1,4 @@
-import { CASE_ID, EXHIBIT_SLOT, iso } from './casedata.mjs';
+import { EXHIBIT_SLOT, iso } from './casedata.mjs';
 
 const LABELS = {
   0: 'All notices minted before the service deadline',
@@ -8,6 +8,14 @@ const LABELS = {
   4: 'Affidavit hash and declaredFiledAt recorded',
 };
 
+const SLOT_DESCRIPTIONS = {
+  0: 'Court condition C1 (deadline). Evidence: notice timestamps vs the replay service deadline.',
+  1: 'Court condition C2 (documents). Evidence: SHA-256 of the served bundle, fixed in each notice.',
+  2: 'Court condition C3 (method). Evidence: notice NFTs whose tokenURI links to the posted papers.',
+  3: 'Court condition C4 (targets). Evidence: one notice per stand-in recipient.',
+  4: 'Court condition C5 (affidavit). Evidence: affidavit SHA-256 and declaredFiledAt.',
+};
+
 const CAVEAT = 'weekend/holiday roll-forward (GCL §25-a) not applied — lawyer review required';
 
 // Assembles case.json from run context and decoded chain events.
@@ -15,7 +23,10 @@ export function buildCase(ctx, events) {
   const { net, deployment, inputs, facts = inputs.facts } = ctx;
   const ex = net.explorer;
   const txUrl = (h) => (ex && h ? `${ex}/tx/${h}` : null);
-  const reg = events.filter((e) => e.contract === 'CaseFileRegistry' && e.args.caseId === CASE_ID);
+  const reg = events.filter((e) => e.contract === 'CaseFileRegistry' && e.args.caseId === ctx.caseId);
+  const originalServiceDeadline =
+    facts?.L2_derived?.serviceDeadline || inputs.conditions.conditions.find((k) => k.kind === 'deadline')?.derived?.dueDate;
+  const replayServiceDeadline = iso(ctx.serviceDeadline);
   const fulfilled = new Map(reg.filter((e) => e.event === 'ConditionFulfilled').map((e) => [Number(e.args.conditionId), e]));
   const completed = reg.find((e) => e.event === 'ServiceCompleted');
   const snapEv = reg.find((e) => e.event === 'ActivitySnapshot');
@@ -42,8 +53,16 @@ export function buildCase(ctx, events) {
     }
     return {
       id: c.id, ref: c.ref, kind: c.kind, title: c.title, quote: c.quote, page: c.page,
-      draftedBy: inputs.conditions.draftedBy || 'pre-extracted', confirmedBy: 'demo reviewer',
-      status: f ? 'fulfilled' : 'missing', derived: src.derived ?? null, evidence,
+      draftedBy: inputs.conditions.draftedBy || 'pre-extracted', confirmedBy: 'author (demo)',
+      status: f ? 'fulfilled' : 'missing', derived: src.derived ?? null,
+      deadlineBasis: 'replay',
+      replayServiceDeadline,
+      originalServiceDeadline,
+      deadlineBasisNote:
+        c.kind === 'deadline'
+          ? 'Fulfilled against the replay deadline (case opening + 120 days), not the original order deadline. The real case deadline was 2025-06-11 + 120 days.'
+          : 'Evidence was recorded in this replay; dates are replay dates, not dates in the real case.',
+      evidence,
     };
   });
 
@@ -68,8 +87,10 @@ export function buildCase(ctx, events) {
       };
 
   return {
-    caseId: CASE_ID,
+    caseId: ctx.caseId,
+    caseRef: ctx.caseRef,
     caseLabel: ctx.caseLabel,
+    caseIdDerivation: 'caseId = keccak256(abi.encode(handler, caseRef)), caseRef = keccak256(caseLabel); see CaseFileRegistry.caseIdOf',
     title: 'People v Unknown Parties in Ownership and/or Control of Digital Wallet Addresses (demo replay)',
     court: {
       name: facts?.case?.court || 'Supreme Court of the State of New York, Queens County',
@@ -94,6 +115,13 @@ export function buildCase(ctx, events) {
       note: 'Court PDF is not redistributed; fetch it from the public source URL and compare the SHA-256.',
     },
     registrySlots: ctx.slots,
+    registryLayout: {
+      slotCount: ctx.conditions.length + ctx.slots.length,
+      slots: [
+        ...ctx.conditions.map((c) => ({ id: c.id, kind: 'court-condition', ref: c.ref, description: SLOT_DESCRIPTIONS[c.id] ?? c.title })),
+        ...ctx.slots.map((s) => ({ id: s.id, kind: s.kind, ref: null, description: s.description })),
+      ],
+    },
     conditions,
     documents: {
       bundleHash: ctx.bundleHash,
@@ -111,8 +139,8 @@ export function buildCase(ctx, events) {
       note: 'declared by filer; chain cannot prove court filing date',
     },
     deadlines: {
-      originalServiceDeadline: facts?.L2_derived?.serviceDeadline || inputs.conditions.conditions.find((c) => c.kind === 'deadline')?.derived?.dueDate,
-      serviceDeadline: iso(ctx.serviceDeadline),
+      originalServiceDeadline,
+      serviceDeadline: replayServiceDeadline,
       serviceDeadlineNote: 'Replay deadline = case opening + 120 days, because the registry only accepts a future deadline. The original case deadline was entry 2025-06-11 + 120 days.',
       responseDeadline,
       rule: 'CPLR 320(a)',
@@ -121,9 +149,19 @@ export function buildCase(ctx, events) {
       caveat: CAVEAT,
       openPoints: inputs.rules?.answerDeadline?.openPoints ?? [],
     },
-    rules: (inputs.rules?.rules || []).map((r) => ({ section: r.section, rule: r.rule, days: r.days, url: r.url, status: r.status })),
+    rules: (inputs.rules?.rules || []).map((r) => ({
+      section: r.section, rule: r.rule, days: r.days, url: r.url, status: r.status, quote: r.quote ?? [], note: r.note ?? null,
+      amendmentReviewed: r.amendmentReviewed ?? null,
+    })),
+    ruleStatusDefinitions: inputs.rules?.statusDefinitions ?? null,
+    precedents: inputs.precedents?.precedents ?? [],
+    contacts: inputs.contacts ?? null,
     snapshot,
-    activity: { fetchedAt: ctx.activity.fetchedAt, wallets: ctx.activity.wallets, merkle: 'sha256 leaves of canonical wallet rows, pairwise sha256, odd node duplicated' },
+    activity: {
+      fetchedAt: ctx.activity.fetchedAt, wallets: ctx.activity.wallets,
+      completeFromNote: 'Per wallet, monthly counts from completeFrom onward are complete; earlier months may be undercounted because older items were not fetched.',
+      merkle: 'sha256 leaves of canonical wallet rows, pairwise sha256, odd node duplicated',
+    },
     existingService: ctx.existingService,
     exhibit: exhibitEv
       ? {

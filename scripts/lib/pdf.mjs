@@ -1,4 +1,5 @@
 export const WATERMARK = 'SAMPLE — not a real court filing';
+export const DISCLAIMER = 'Not legal advice. Not a legal determination.';
 
 // Escapes text for a PDF literal string in WinAnsi encoding.
 function pdfText(s) {
@@ -26,10 +27,11 @@ function wrap(line, width) {
   return out;
 }
 
-// Builds the content stream for one page with a diagonal watermark.
+// Builds the content stream for one page with a diagonal watermark and the fixed disclaimer at top and bottom.
 function pageStream(page) {
   const ops = ['q 0.85 g BT /F2 44 Tf 0.7071 0.7071 -0.7071 0.7071 110 220 Tm (' + pdfText(WATERMARK) + ') Tj ET Q'];
-  ops.push('BT /F2 9 Tf 50 810 Td (' + pdfText(WATERMARK) + ') Tj ET');
+  ops.push('BT /F2 9 Tf 50 810 Td (' + pdfText(`${WATERMARK}. ${DISCLAIMER}`) + ') Tj ET');
+  ops.push('BT /F2 9 Tf 50 30 Td (' + pdfText(DISCLAIMER) + ') Tj ET');
   let y = 770;
   ops.push('BT /F2 15 Tf 50 ' + y + ' Td (' + pdfText(page.title) + ') Tj ET');
   y -= 28;

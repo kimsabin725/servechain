@@ -7,7 +7,7 @@ import { privateKeyToAccount, generatePrivateKey } from 'viem/accounts';
 import { ROOT, NETWORKS, ANVIL_DEPLOYER_KEY, ANVIL_STAND_INS, artifact, readEnv, startAnvil, createWriter, collectEvents } from './lib/chain.mjs';
 import { sha256Hex, sha256File, hashJson } from './lib/hash.mjs';
 import {
-  CASE_ID, CASE_LABEL, EXHIBIT_SLOT, DAY, loadInputs, orderHash, orderConditions, buildActivity, buildExistingService,
+  CASE_REF, caseIdOf, CASE_LABEL, EXHIBIT_SLOT, DAY, loadInputs, orderHash, orderConditions, buildActivity, buildExistingService,
   buildBundlePdf, buildAffidavitPdf, iso,
 } from './lib/casedata.mjs';
 import { buildCase } from './lib/casefile.mjs';
@@ -38,17 +38,16 @@ async function main() {
 
   const inputs = loadInputs();
   const conditions = orderConditions(inputs.conditions);
-  const slots = [{ id: EXHIBIT_SLOT, kind: 'exhibit-anchor', title: 'Exhibit material SHA-256 (record slot, not a court condition)' }];
+  const slots = [{
+    id: EXHIBIT_SLOT, kind: 'exhibit-anchor', title: 'Exhibit material SHA-256 (record slot, not a court condition)',
+    description: 'Registry slot 5 holds the SHA-256 of exhibit.pdf so the verifier can detect a changed byte. It is not an order condition.',
+  }];
   const conditionsHash = hashJson({ conditions, slots });
   const oHash = orderHash(inputs.facts);
   const activity = buildActivity(inputs.summary);
 
   const bundle = buildBundlePdf(inputs.conditions, inputs.facts);
   const bundleHash = sha256Hex(bundle);
-  for (const p of ['docs/service-bundle.pdf', 'web/public/docs/service-bundle.pdf']) {
-    fs.mkdirSync(path.dirname(path.join(ROOT, p)), { recursive: true });
-    fs.writeFileSync(path.join(ROOT, p), bundle);
-  }
   const documentsUrl = `${DOCS_BASE_URL}/docs/service-bundle.pdf`;
 
   let anvil, account, standIns, rpcUrl;
@@ -67,6 +66,11 @@ async function main() {
 
   try {
     const w = await createWriter({ chain: net.chain, rpcUrl, account });
+    for (const p of ['docs/service-bundle.pdf', 'web/public/docs/service-bundle.pdf']) {
+      fs.mkdirSync(path.dirname(path.join(ROOT, p)), { recursive: true });
+      fs.writeFileSync(path.join(ROOT, p), bundle);
+    }
+    const CASE_ID = caseIdOf(account.address);
     const balanceBefore = await w.pub.getBalance({ address: account.address });
     log('issuer', account.address, 'balance', formatEther(balanceBefore));
 
@@ -85,12 +89,14 @@ async function main() {
     const nftAbi = artifact('ServiceNotice721').abi;
     const now = Number((await w.pub.getBlock()).timestamp);
     const serviceDeadline = now + 120 * DAY;
-    const opened = await w.write(reg.address, regAbi, 'openCase', [CASE_ID, oHash, conditionsHash, conditions.length + slots.length, BigInt(serviceDeadline)]);
+    const onChainId = await w.pub.readContract({ address: reg.address, abi: regAbi, functionName: 'caseIdOf', args: [account.address, CASE_REF] });
+    if (onChainId !== CASE_ID) throw new Error(`caseId derivation differs: ${onChainId} != ${CASE_ID}`);
+    const opened = await w.write(reg.address, regAbi, 'openCase', [CASE_REF, oHash, conditionsHash, conditions.length + slots.length, BigInt(serviceDeadline)]);
     log('openCase', opened.hash);
 
     const service = [];
     for (const [i, to] of standIns.entries()) {
-      const r = await w.write(nft.address, nftAbi, 'mint', [to, CASE_ID, 2, documentsUrl, bundleHash], { recipients: [to] });
+      const r = await w.write(nft.address, nftAbi, 'mint', [to, CASE_ID, 2, documentsUrl, bundleHash]);
       const ev = r.receipt.logs
         .filter((l) => l.address.toLowerCase() === nft.address.toLowerCase())
         .map((l) => { try { return decodeEventLog({ abi: nftAbi, data: l.data, topics: l.topics }); } catch { return null; } })
@@ -150,7 +156,7 @@ async function main() {
       { name: 'ServiceNotice721', address: nft.address, abi: nftAbi },
     ];
     const ctx = {
-      network, net, deployment, inputs, conditions, slots, conditionsHash, orderHash: oHash, activity, bundleHash, documentsUrl,
+      network, net, deployment, inputs, caseId: CASE_ID, caseRef: CASE_REF, conditions, slots, conditionsHash, orderHash: oHash, activity, bundleHash, documentsUrl,
       service, preimages, serviceDeadline, declaredFiledAt, affidavitHash, snapshotRun, localCase,
       existingService: buildExistingService(inputs.serviceTxs), caseLabel: CASE_LABEL,
     };

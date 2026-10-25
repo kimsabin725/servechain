@@ -4,7 +4,7 @@ import net from 'node:net';
 import { spawn } from 'node:child_process';
 import { createPublicClient, createWalletClient, http, decodeEventLog, getAddress } from 'viem';
 import { foundry, sepolia } from 'viem/chains';
-import { assertWritableChain, assertNotRealWallet } from './guard.mjs';
+import { assertWritableChain, assertArgsSafe } from './guard.mjs';
 
 export const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..', '..');
 
@@ -64,7 +64,7 @@ export async function startAnvil(port = 8546, chainId = 31337) {
   throw new Error('anvil did not start');
 }
 
-// Creates a write-guarded client: every send re-checks the RPC chain id against the allowlist.
+// Creates a write-guarded client: every send re-checks the RPC chain id and the address deny list.
 export async function createWriter({ chain, rpcUrl, account }) {
   assertWritableChain(chain.id);
   const transport = http(rpcUrl, { retryCount: 3, retryDelay: 1500 });
@@ -87,16 +87,17 @@ export async function createWriter({ chain, rpcUrl, account }) {
     account,
     // Deploys a forge artifact and returns address plus receipt block.
     async deploy(name, args = []) {
+      assertArgsSafe(args);
       await check();
       const { abi, bytecode } = artifact(name);
       const hash = await wallet.deployContract({ abi, bytecode, args });
       const r = await receiptOf(hash);
       return { ...r, address: getAddress(r.receipt.contractAddress) };
     },
-    // Sends a contract write after the chain check and waits for success.
-    async write(address, abi, functionName, args, { recipients = [] } = {}) {
+    // Sends a contract write after the chain check and the address deny-list check on every argument.
+    async write(address, abi, functionName, args) {
+      assertArgsSafe([address, ...args]);
       await check();
-      recipients.forEach((a) => assertNotRealWallet(a));
       const { request } = await pub.simulateContract({ address, abi, functionName, args, account });
       const hash = await wallet.writeContract(request);
       return receiptOf(hash);

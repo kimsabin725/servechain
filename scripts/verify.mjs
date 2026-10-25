@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import path from 'node:path';
-import { createPublicClient, http } from 'viem';
+import { createPublicClient, http, keccak256, encodeAbiParameters } from 'viem';
 import { foundry, sepolia } from 'viem/chains';
 import { ROOT, artifact, collectEvents, readEnv } from './lib/chain.mjs';
 import { sha256File, merkleRoot } from './lib/hash.mjs';
@@ -26,13 +26,13 @@ async function loadEvents(c, casePath, { offline, rpcUrl }) {
         ],
         c.chain.fromBlock,
       );
-      return { events, source: `live RPC (chainId ${c.chain.chainId})` };
+      return { events, source: `live RPC (chainId ${c.chain.chainId})`, offline: false };
     } catch (e) {
       if (!fs.existsSync(file)) throw new Error(`RPC failed (${e.shortMessage || e.message}) and no events.json`);
-      return { events: JSON.parse(fs.readFileSync(file, 'utf8')), source: `events.json (offline fallback: ${e.shortMessage || e.message})` };
+      return { events: JSON.parse(fs.readFileSync(file, 'utf8')), source: `events.json (offline fallback: ${e.shortMessage || e.message})`, offline: true };
     }
   }
-  return { events: JSON.parse(fs.readFileSync(file, 'utf8')), source: 'events.json (offline; trusts the cached log file)' };
+  return { events: JSON.parse(fs.readFileSync(file, 'utf8')), source: 'events.json (offline; trusts the cached log file)', offline: true };
 }
 
 // Returns a contract ABI from forge-out, or a minimal event ABI if forge-out is absent.
@@ -51,13 +51,14 @@ const toUnix = (s) => Math.floor(new Date(s).getTime() / 1000);
 export async function verifyExhibit({ pdfPath, casePath, offline = false, rpcUrl = null }) {
   const c = JSON.parse(fs.readFileSync(casePath, 'utf8'));
   const pdfSha = sha256File(pdfPath);
-  const { events, source } = await loadEvents(c, casePath, { offline, rpcUrl });
+  const { events, source, offline: usedOffline } = await loadEvents(c, casePath, { offline, rpcUrl });
   const mine = (e) => eq(e.address, e.contract === 'CaseFileRegistry' ? c.chain.registry : c.chain.notice721);
   const reg = events.filter((e) => e.contract === 'CaseFileRegistry' && mine(e) && eq(e.args.caseId, c.caseId));
   const nft = events.filter((e) => e.contract === 'ServiceNotice721' && mine(e) && e.event === 'NoticeServed' && eq(e.args.caseId, c.caseId));
   const slot = c.exhibit?.registrySlot ?? 5;
   const fulfilled = reg.filter((e) => e.event === 'ConditionFulfilled');
   const opened = reg.find((e) => e.event === 'CaseOpened');
+  const bound = reg.find((e) => e.event === 'CaseRefBound');
   const done = reg.find((e) => e.event === 'ServiceCompleted');
   const snap = reg.find((e) => e.event === 'ActivitySnapshot');
   const anchor = fulfilled.find((e) => Number(e.args.conditionId) === slot);
@@ -66,6 +67,12 @@ export async function verifyExhibit({ pdfPath, casePath, offline = false, rpcUrl
 
   check('exhibit PDF SHA-256 anchored in registry', anchor && eq(anchor.args.evidenceHash, pdfSha), `pdf ${pdfSha} vs chain ${anchor?.args.evidenceHash ?? 'none'}`);
   check('case opened with the order hash', opened && eq(opened.args.orderHash, c.order.hash), opened?.txHash);
+  const derived = bound && keccak256(encodeAbiParameters([{ type: 'address' }, { type: 'bytes32' }], [bound.args.handler, bound.args.caseRef]));
+  check(
+    'case id derived from handler and caseRef',
+    bound && eq(derived, c.caseId) && eq(bound.args.caseRef, c.caseRef) && eq(bound.args.handler, opened?.args.handler),
+    bound ? `handler ${bound.args.handler}` : 'no CaseRefBound event',
+  );
   check('conditions hash', opened && eq(opened.args.conditionsHash, c.order.conditionsHash));
   check(
     'service notices carry the bundle hash',
@@ -83,7 +90,9 @@ export async function verifyExhibit({ pdfPath, casePath, offline = false, rpcUrl
   if (snap) check('activity snapshot root recomputes from leaves', eq(snap.args.activityRootHash, merkleRoot(c.snapshot.leaves)) && eq(snap.args.activityRootHash, c.snapshot.activityRootHash));
   else check('activity snapshot pending (not anchored)', c.snapshot?.status === 'pending', `pending until ${c.snapshot?.pendingUntil}`);
   const ok = checks.every((x) => x.ok);
-  return { verdict: ok ? 'MATCH' : 'MISMATCH', pdfSha, source, checks };
+  const verdict = ok ? 'MATCH' : 'MISMATCH';
+  const label = ok && usedOffline ? 'MATCH (offline: against bundled events.json, not independent)' : verdict;
+  return { verdict, label, offline: usedOffline, pdfSha, source, checks };
 }
 
 // CLI entry: prints each check and exits 0 on MATCH, 1 on MISMATCH.
@@ -99,7 +108,7 @@ async function cli() {
   const r = await verifyExhibit({ pdfPath, casePath, offline: args.includes('--offline'), rpcUrl: opt('--rpc') });
   console.log(`events: ${r.source}`);
   for (const x of r.checks) console.log(`${x.ok ? 'ok  ' : 'FAIL'} ${x.name}${x.detail ? ` — ${x.detail}` : ''}`);
-  console.log(r.verdict);
+  console.log(r.label);
   process.exit(r.verdict === 'MATCH' ? 0 : 1);
 }
 

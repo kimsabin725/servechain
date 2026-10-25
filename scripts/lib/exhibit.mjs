@@ -12,27 +12,15 @@ const short = (h) => (h && h.length > 20 ? `${h.slice(0, 10)}…${h.slice(-8)}` 
 const link = (url, text) => (url ? `<a href="${esc(url)}">${esc(text)}</a>` : esc(text));
 const day = (s) => (s ? String(s).slice(0, 10) : '—');
 
-// Synthetic contact-attempt rows that reproduce the counts stated in the decision.
-export function contactRows() {
-  const dates = ['2024-12-06', '2024-12-09', '2024-12-10', '2024-12-11'];
-  const rows = [];
-  for (let i = 0; i < 14; i++) {
-    rows.push({
-      channel: 'phone call + text',
-      to: `+1-555-01${String(10 + i)} (synthetic)`,
-      date: dates[i % 4],
-      result: i < 2 ? 'responded; no verifiable mailing address' : 'no response',
-    });
-  }
-  for (let i = 0; i < 4; i++) {
-    rows.push({
-      channel: 'email (read + delivery receipt requested)',
-      to: `contact${i + 1}@example.invalid (synthetic)`,
-      date: 'not stated in decision',
-      result: i === 0 ? '"delivered" notice; no mailing address' : 'no receipt',
-    });
-  }
-  return rows;
+// Contact-attempt rows from data/synthetic-contacts.json (carried in case.contacts).
+export function contactRows(contacts) {
+  if (!contacts) throw new Error('case.contacts missing: data/synthetic-contacts.json is required');
+  return [...contacts.phone, ...contacts.email].map((r) => ({
+    channel: r.channel,
+    to: `${r.to} (synthetic)`,
+    date: r.date ?? 'not stated in decision',
+    result: r.result,
+  }));
 }
 
 // Monthly activity tables, split into chunks so they fit the page width.
@@ -49,7 +37,7 @@ function activityChunk(wallets, months, caption) {
     .map(
       (w) =>
         `<tr><td>${esc(w.label)}<br><span class="mono small">${esc(short(w.address))}</span></td>${months
-          .map((m) => `<td class="num">${w.monthly?.[m] ?? 0}</td>`)
+          .map((m) => `<td class="num">${w.monthly?.[m] ?? 0}${w.completeFrom && m < w.completeFrom ? '*' : ''}</td>`)
           .join('')}</tr>`,
     )
     .join('');
@@ -72,7 +60,7 @@ function monthRange(from, to) {
 // Renders the full exhibit HTML (sections A-C) from a case object.
 export function renderExhibitHtml(c) {
   const defendants = c.activity.wallets.filter((w) => w.role === 'defendant');
-  const contacts = contactRows();
+  const contacts = contactRows(c.contacts);
   const ex = c.chain.explorer;
   const evRows = c.conditions
     .map((k) => {
@@ -139,7 +127,7 @@ a{color:#0645ad;text-decoration:none}q{font-style:italic}hr{border:0;border-top:
 ${activityTable(defendants, monthRange('2024-04', '2024-12'), `Defendant wallet transactions per month, Apr–Dec 2024 (read from chain; fetched ${day(c.activity.fetchedAt)}; counts include incoming transfers)`)}
 
 <h2>B. Order conditions and performance record</h2>
-<p>Conditions were pre-extracted from the order (p.${esc(c.order.page)}) and confirmed by a demo reviewer. Status comes from <code>ConditionFulfilled</code> events in the registry. Missing items are marked in red.</p>
+<p>Conditions were pre-extracted from the order (p.${esc(c.order.page)}) and confirmed by the author (demo). Status comes from <code>ConditionFulfilled</code> events in the registry. Missing items are marked in red.</p>
 <table><tr><th>#</th><th>Condition</th><th>Status</th><th>Evidence (tx · block · time)</th></tr>${evRows}</table>
 <table class="small"><caption>Service notices minted (soulbound ERC-721; tokenURI fixes the documents URL and bundle SHA-256 ${esc(short(c.documents.bundleHash))})</caption><tr><th>Recipient</th><th>Token</th><th>Tx</th><th>Block</th><th>Time</th></tr>${svcRows}</table>
 <p class="small">Affidavit (synthetic sample) SHA-256 <span class="mono">${esc(c.affidavit.hash)}</span>, declaredFiledAt ${esc(c.affidavit.declaredFiledAt)} — ${esc(c.affidavit.note)}.</p>
@@ -154,6 +142,7 @@ ${existRows ? `<table class="small"><caption>Service already made in the real ca
 <tr><td>Caveat</td><td colspan="2" class="missing">${esc(d.caveat)}</td></tr>
 <tr><td>Activity snapshot</td><td colspan="2">${snapLine}</td></tr></table>
 ${activityTable(c.activity.wallets, after, `Wallet transactions per month after the original order (Jun 2025 – fetch date). Includes incoming airdrops such as later court notices. Activity is circumstantial; it does not show that anyone saw the notice.`)}
+<p class="small">* month before the wallet's completeFrom month; older items were not fetched, so the count may be low.</p>
 <p class="small">Wallet sources: ${c.activity.wallets.map((w) => `${esc(w.label)} — ${esc(w.source)}`).join('; ')}. Rules: ${(c.rules || []).map((r) => link(r.url, `${r.section} [${r.status}]`)).join(', ')}.</p>
 </body></html>`;
 }

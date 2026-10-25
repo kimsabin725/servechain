@@ -1,12 +1,17 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { keccak256, toHex } from 'viem';
+import { keccak256, toHex, encodeAbiParameters } from 'viem';
 import { ROOT } from './chain.mjs';
 import { hashJson, merkleRoot, sha256Hex } from './hash.mjs';
 import { buildPdf } from './pdf.mjs';
 
 export const CASE_LABEL = 'NY-SUP-QUEENS-700647-2025-demo';
-export const CASE_ID = keccak256(toHex(CASE_LABEL));
+export const CASE_REF = keccak256(toHex(CASE_LABEL));
+
+// Same derivation as CaseFileRegistry.caseIdOf: keccak256(abi.encode(handler, caseRef)).
+export function caseIdOf(handler, caseRef = CASE_REF) {
+  return keccak256(encodeAbiParameters([{ type: 'address' }, { type: 'bytes32' }], [handler, caseRef]));
+}
 export const EXHIBIT_SLOT = 5;
 export const DAY = 86400;
 
@@ -26,6 +31,8 @@ export function loadInputs() {
     rules: readData('rules.json'),
     summary: readData('activity/summary.json'),
     serviceTxs: readData('activity/service-txs.json'),
+    contacts: readData('synthetic-contacts.json'),
+    precedents: readData('precedents.json'),
   };
 }
 
@@ -61,6 +68,16 @@ function balanceText(w) {
   return parts.join(', ');
 }
 
+// First month whose count is complete: the month after the partial cut-off, or the earliest month when nothing was cut.
+export function completeFrom(w) {
+  if (!w.truncated) return Object.keys(w.monthlyUniqueTx || {}).sort()[0] ?? null;
+  if (!w.monthlyPartialBefore) return null;
+  let [y, m] = w.monthlyPartialBefore.slice(0, 7).split('-').map(Number);
+  m += 1;
+  if (m > 12) (m = 1), (y += 1);
+  return `${y}-${String(m).padStart(2, '0')}`;
+}
+
 // Wallet activity rows plus the Merkle leaves and root anchored by snapshot().
 export function buildActivity(summary) {
   if (!summary) return { fetchedAt: null, wallets: [], leaves: [], root: null };
@@ -76,6 +93,7 @@ export function buildActivity(summary) {
     source: w.source,
     sourceUrl: (w.sourceUrls || [])[0] || null,
     status: w.status,
+    completeFrom: completeFrom(w),
     note: w.truncated ? w.monthlyNote : null,
   }));
   const leaves = wallets.map((w) =>
