@@ -1,0 +1,512 @@
+[
+ {
+  "type": "function",
+  "name": "RESPONSE_PERIOD",
+  "inputs": [],
+  "outputs": [
+   {
+    "name": "",
+    "type": "uint64",
+    "internalType": "uint64"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "allFulfilled",
+  "inputs": [
+   {
+    "name": "caseId",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "",
+    "type": "bool",
+    "internalType": "bool"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "fulfill",
+  "inputs": [
+   {
+    "name": "caseId",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   },
+   {
+    "name": "conditionId",
+    "type": "uint8",
+    "internalType": "uint8"
+   },
+   {
+    "name": "evidenceHash",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   },
+   {
+    "name": "txRef",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "getCase",
+  "inputs": [
+   {
+    "name": "caseId",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "",
+    "type": "tuple",
+    "internalType": "struct CaseFileRegistry.CaseFile",
+    "components": [
+     {
+      "name": "handler",
+      "type": "address",
+      "internalType": "address"
+     },
+     {
+      "name": "conditionCount",
+      "type": "uint8",
+      "internalType": "uint8"
+     },
+     {
+      "name": "fulfilledCount",
+      "type": "uint8",
+      "internalType": "uint8"
+     },
+     {
+      "name": "openedAt",
+      "type": "uint64",
+      "internalType": "uint64"
+     },
+     {
+      "name": "serviceDeadline",
+      "type": "uint64",
+      "internalType": "uint64"
+     },
+     {
+      "name": "filedAt",
+      "type": "uint64",
+      "internalType": "uint64"
+     },
+     {
+      "name": "responseDeadline",
+      "type": "uint64",
+      "internalType": "uint64"
+     },
+     {
+      "name": "snapshotAt",
+      "type": "uint64",
+      "internalType": "uint64"
+     },
+     {
+      "name": "orderHash",
+      "type": "bytes32",
+      "internalType": "bytes32"
+     },
+     {
+      "name": "conditionsHash",
+      "type": "bytes32",
+      "internalType": "bytes32"
+     },
+     {
+      "name": "affidavitHash",
+      "type": "bytes32",
+      "internalType": "bytes32"
+     },
+     {
+      "name": "activityRootHash",
+      "type": "bytes32",
+      "internalType": "bytes32"
+     },
+     {
+      "name": "fulfilledMask",
+      "type": "uint256",
+      "internalType": "uint256"
+     }
+    ]
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "getFulfillment",
+  "inputs": [
+   {
+    "name": "caseId",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   },
+   {
+    "name": "conditionId",
+    "type": "uint8",
+    "internalType": "uint8"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "",
+    "type": "tuple",
+    "internalType": "struct CaseFileRegistry.Fulfillment",
+    "components": [
+     {
+      "name": "evidenceHash",
+      "type": "bytes32",
+      "internalType": "bytes32"
+     },
+     {
+      "name": "txRef",
+      "type": "bytes32",
+      "internalType": "bytes32"
+     },
+     {
+      "name": "fulfilledAt",
+      "type": "uint64",
+      "internalType": "uint64"
+     }
+    ]
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "isFulfilled",
+  "inputs": [
+   {
+    "name": "caseId",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   },
+   {
+    "name": "conditionId",
+    "type": "uint8",
+    "internalType": "uint8"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "",
+    "type": "bool",
+    "internalType": "bool"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "openCase",
+  "inputs": [
+   {
+    "name": "caseId",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   },
+   {
+    "name": "orderHash",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   },
+   {
+    "name": "conditionsHash",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   },
+   {
+    "name": "conditionCount",
+    "type": "uint8",
+    "internalType": "uint8"
+   },
+   {
+    "name": "serviceDeadline",
+    "type": "uint64",
+    "internalType": "uint64"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "recordServiceComplete",
+  "inputs": [
+   {
+    "name": "caseId",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   },
+   {
+    "name": "affidavitHash",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   },
+   {
+    "name": "filedAt",
+    "type": "uint64",
+    "internalType": "uint64"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "responsePeriodExpired",
+  "inputs": [
+   {
+    "name": "caseId",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "",
+    "type": "bool",
+    "internalType": "bool"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "snapshot",
+  "inputs": [
+   {
+    "name": "caseId",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   },
+   {
+    "name": "activityRootHash",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "event",
+  "name": "ActivitySnapshot",
+  "inputs": [
+   {
+    "name": "caseId",
+    "type": "bytes32",
+    "indexed": true,
+    "internalType": "bytes32"
+   },
+   {
+    "name": "activityRootHash",
+    "type": "bytes32",
+    "indexed": false,
+    "internalType": "bytes32"
+   },
+   {
+    "name": "snapshotAt",
+    "type": "uint64",
+    "indexed": false,
+    "internalType": "uint64"
+   }
+  ],
+  "anonymous": false
+ },
+ {
+  "type": "event",
+  "name": "CaseOpened",
+  "inputs": [
+   {
+    "name": "caseId",
+    "type": "bytes32",
+    "indexed": true,
+    "internalType": "bytes32"
+   },
+   {
+    "name": "handler",
+    "type": "address",
+    "indexed": true,
+    "internalType": "address"
+   },
+   {
+    "name": "orderHash",
+    "type": "bytes32",
+    "indexed": false,
+    "internalType": "bytes32"
+   },
+   {
+    "name": "conditionsHash",
+    "type": "bytes32",
+    "indexed": false,
+    "internalType": "bytes32"
+   },
+   {
+    "name": "conditionCount",
+    "type": "uint8",
+    "indexed": false,
+    "internalType": "uint8"
+   },
+   {
+    "name": "serviceDeadline",
+    "type": "uint64",
+    "indexed": false,
+    "internalType": "uint64"
+   }
+  ],
+  "anonymous": false
+ },
+ {
+  "type": "event",
+  "name": "ConditionFulfilled",
+  "inputs": [
+   {
+    "name": "caseId",
+    "type": "bytes32",
+    "indexed": true,
+    "internalType": "bytes32"
+   },
+   {
+    "name": "conditionId",
+    "type": "uint8",
+    "indexed": true,
+    "internalType": "uint8"
+   },
+   {
+    "name": "evidenceHash",
+    "type": "bytes32",
+    "indexed": false,
+    "internalType": "bytes32"
+   },
+   {
+    "name": "txRef",
+    "type": "bytes32",
+    "indexed": false,
+    "internalType": "bytes32"
+   },
+   {
+    "name": "fulfilledAt",
+    "type": "uint64",
+    "indexed": false,
+    "internalType": "uint64"
+   }
+  ],
+  "anonymous": false
+ },
+ {
+  "type": "event",
+  "name": "ServiceCompleted",
+  "inputs": [
+   {
+    "name": "caseId",
+    "type": "bytes32",
+    "indexed": true,
+    "internalType": "bytes32"
+   },
+   {
+    "name": "affidavitHash",
+    "type": "bytes32",
+    "indexed": false,
+    "internalType": "bytes32"
+   },
+   {
+    "name": "filedAt",
+    "type": "uint64",
+    "indexed": false,
+    "internalType": "uint64"
+   },
+   {
+    "name": "responseDeadline",
+    "type": "uint64",
+    "indexed": false,
+    "internalType": "uint64"
+   }
+  ],
+  "anonymous": false
+ },
+ {
+  "type": "error",
+  "name": "AlreadyFulfilled",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "CaseExists",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "CaseNotFound",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "DeadlineInPast",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "FiledAtBeforeOpen",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "FiledAtInFuture",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "NoConditions",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "NotHandler",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "ResponsePeriodOpen",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "ServiceAlreadyRecorded",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "ServiceNotRecorded",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "SnapshotExists",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "UnknownCondition",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "ZeroHash",
+  "inputs": []
+ }
+]

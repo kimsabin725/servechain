@@ -1,0 +1,754 @@
+{
+  "caseId": "0x20cc19c5cb265b6d546783343d18d068c81e6edd8af1a119e515d411ed59525c",
+  "caseLabel": "NY-SUP-QUEENS-700647-2025-demo",
+  "title": "People v Unknown Parties in Ownership and/or Control of Digital Wallet Addresses (demo replay)",
+  "court": {
+    "name": "Supreme Court of the State of New York, Queens County, IAS Part 24",
+    "index": "700647/2025",
+    "judge": "Hon. Karen Lin",
+    "decisionDate": "2025-06-11",
+    "orderSigned": "2025-06-09",
+    "source": "decision-and-pleadings-2025.pdf page 6"
+  },
+  "mode": "replay",
+  "chain": {
+    "chainId": 31337,
+    "name": "anvil (local)",
+    "registry": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    "notice721": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "fromBlock": 1,
+    "explorer": null,
+    "issuer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "deployTxs": {
+      "ServiceNotice721": "0xeec4c003ed70e21ec8ef8b638559c6a909302a3e0cecf20140f324b6f4f9729e",
+      "CaseFileRegistry": "0x01cd0ea81f4e95aa5f468e6d1ee621d006d6b6f824adf4b55665815006c7e150"
+    }
+  },
+  "order": {
+    "hash": "0xc75a4443ca79356650c69eb345c6962cbce2055517026697beefaa7169db393b",
+    "hashAlgo": "sha256",
+    "conditionsHash": "0x3d9008cbd91fd28b214cfbdfc9c451f0e36e0ac409c50706dd99ea124ec454b7",
+    "conditionsHashMethod": "sha256 of canonical JSON {conditions, slots} with sorted keys (scripts/lib/hash.mjs canonicalJson)",
+    "pdf": "https://ag.ny.gov/sites/default/files/court-filings/people-v-digital-wallet-0xd7648fffa48e06b0107435a966f3f1e9dbe10b7d-decision-and-pleadings-2025.pdf",
+    "page": 6,
+    "note": "Court PDF is not redistributed; fetch it from the public source URL and compare the SHA-256."
+  },
+  "registrySlots": [
+    {
+      "id": 5,
+      "kind": "exhibit-anchor",
+      "title": "Exhibit material SHA-256 (record slot, not a court condition)"
+    }
+  ],
+  "conditions": [
+    {
+      "id": 0,
+      "ref": "C1",
+      "kind": "deadline",
+      "title": "Serve within 120 days of entry (CPLR 306-b extension)",
+      "quote": "ORDERED that the time for service of the summons and complaint upon defendants pursuant to CPLR 306-b shall be extended for 120 days from the date of entry",
+      "page": 6,
+      "draftedBy": "pre-extracted",
+      "confirmedBy": "demo reviewer",
+      "status": "fulfilled",
+      "derived": {
+        "dueDate": "2025-10-09",
+        "from": "2025-06-11 + 120 days"
+      },
+      "evidence": [
+        {
+          "type": "tx",
+          "label": "All notices minted before the service deadline",
+          "txHash": "0x9d2112c039cb51df1e1e1211851a4b732b952018a2d84756bc0f351e737b3a11",
+          "block": 10,
+          "timestamp": "2026-10-25T07:11:17.000Z",
+          "explorerUrl": null,
+          "evidenceHash": "0xb20615e63d4988e1c7e447abc1fb2542213e694a29ec83addd48080c75bc9a6f",
+          "txRef": "0xdb4ad13530054aa410adbbbea6b87d8e47513dd004ae673452a4ef2337524f8f",
+          "preimage": {
+            "servedAt": [
+              "2026-10-25T07:10:53.000Z",
+              "2026-10-25T07:10:57.000Z",
+              "2026-10-25T07:11:01.000Z"
+            ],
+            "serviceDeadline": "2027-02-22T07:10:45.000Z"
+          }
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "ref": "C2",
+      "kind": "documents",
+      "title": "Serve the full document set with the decision and notice of entry",
+      "quote": "plaintiff shall serve the summons, complaint, order to show cause, attorney affirmation and memorandum of law in support thereof and all documents submitted contemporaneously therewith, together with a copy of this Decision and Order with Notice of Entry upon defendants",
+      "page": 6,
+      "draftedBy": "pre-extracted",
+      "confirmedBy": "demo reviewer",
+      "status": "fulfilled",
+      "derived": null,
+      "evidence": [
+        {
+          "type": "tx",
+          "label": "Document bundle SHA-256 fixed in every notice tokenURI",
+          "txHash": "0x7a8b4761259a5f0be495dbb1efe59c0706952dbf5c66e1876d4af7c786e994ab",
+          "block": 7,
+          "timestamp": "2026-10-25T07:11:05.000Z",
+          "explorerUrl": null,
+          "evidenceHash": "0x79f11484b2835efcb1a3c41db93bb7c09f99518679ef3a65cfbb1238a42dcb17",
+          "txRef": "0xafba24ba386c2ebf8e90c905e4eec277d5942093cd5225284edfa72977b59fea",
+          "preimage": {
+            "bundleSha256": "0x79f11484b2835efcb1a3c41db93bb7c09f99518679ef3a65cfbb1238a42dcb17",
+            "documentsUrl": "https://kimsabin725.github.io/servechain/docs/service-bundle.pdf"
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "ref": "C3",
+      "kind": "method",
+      "title": "Method: airdrop NFTs hyperlinked to a website with the papers",
+      "quote": "by airdropping NFTs hyperlinked to a website containing copies of said pleadings",
+      "page": 6,
+      "draftedBy": "pre-extracted",
+      "confirmedBy": "demo reviewer",
+      "status": "fulfilled",
+      "derived": null,
+      "evidence": [
+        {
+          "type": "tx",
+          "label": "Hyperlinked notice NFTs (tokenURI external_url → posted papers)",
+          "txHash": "0xb0f6b99134f5994e79e46aea7c5baa0c88986406d26e7001da4914ae7adca9f5",
+          "block": 8,
+          "timestamp": "2026-10-25T07:11:09.000Z",
+          "explorerUrl": null,
+          "evidenceHash": "0x8706a69969bdb4d6ba926bbdf7f8b4f3013f9843472ed831e01b037745f7c279",
+          "txRef": "0xafba24ba386c2ebf8e90c905e4eec277d5942093cd5225284edfa72977b59fea",
+          "preimage": {
+            "notice721": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+            "tokenIds": [
+              1,
+              2,
+              3
+            ],
+            "documentsUrl": "https://kimsabin725.github.io/servechain/docs/service-bundle.pdf",
+            "conditionId": 2
+          }
+        },
+        {
+          "type": "imported",
+          "label": "Real case: real Wallet 1 (read-only), 2025-07-30",
+          "txHash": "0xc1663d2f20123334529ae08babaf9c64b08b5c003e07f2437891a4f90b15aba2",
+          "block": 23034673,
+          "timestamp": "2025-07-30T21:39:11.000000Z",
+          "explorerUrl": "https://etherscan.io/tx/0xc1663d2f20123334529ae08babaf9c64b08b5c003e07f2437891a4f90b15aba2",
+          "evidenceHash": null,
+          "readOnly": true,
+          "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records."
+        },
+        {
+          "type": "imported",
+          "label": "Real case: real Wallet 2 (read-only), 2025-07-30",
+          "txHash": "fc60e664cacf5d6e621426b1a4432b50b9a55a655db0877620f386836c93ef8c",
+          "block": null,
+          "timestamp": "2025-07-30T17:46:48.000Z",
+          "explorerUrl": "https://tronscan.org/#/transaction/fc60e664cacf5d6e621426b1a4432b50b9a55a655db0877620f386836c93ef8c",
+          "evidenceHash": null,
+          "readOnly": true,
+          "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records."
+        },
+        {
+          "type": "imported",
+          "label": "Real case: real Wallet 2 (read-only), 2025-07-30",
+          "txHash": "54d889e3eae9ca97e35e73ad35e8e3eafeaf50db996f5db60853b5e1f65b7492",
+          "block": null,
+          "timestamp": "2025-07-30T16:43:12.000Z",
+          "explorerUrl": "https://tronscan.org/#/transaction/54d889e3eae9ca97e35e73ad35e8e3eafeaf50db996f5db60853b5e1f65b7492",
+          "evidenceHash": null,
+          "readOnly": true,
+          "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records."
+        },
+        {
+          "type": "imported",
+          "label": "Real case: real Wallet 3 (read-only), 2025-07-30",
+          "txHash": "65fd0328eb59da32ca1fc4fa0303fe7c15725945aaea3e5039afdc8ba2a97ce5",
+          "block": null,
+          "timestamp": "2025-07-30T17:27:27.000Z",
+          "explorerUrl": "https://tronscan.org/#/transaction/65fd0328eb59da32ca1fc4fa0303fe7c15725945aaea3e5039afdc8ba2a97ce5",
+          "evidenceHash": null,
+          "readOnly": true,
+          "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "ref": "C4",
+      "kind": "targets",
+      "title": "Targets: Wallet 1, Wallet 2, Wallet 3",
+      "quote": "to digital wallet addresses 0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d (Wallet 1) TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8 (Wallet 2), and TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu (Wallet 3)",
+      "page": 6,
+      "draftedBy": "pre-extracted",
+      "confirmedBy": "demo reviewer",
+      "status": "fulfilled",
+      "derived": null,
+      "evidence": [
+        {
+          "type": "tx",
+          "label": "One notice per target (stand-in wallets)",
+          "txHash": "0xbedd27573d3ee62c0c9fff7ed6af7c42cc0181c8dc5ee5a70eaf60572a9d9911",
+          "block": 9,
+          "timestamp": "2026-10-25T07:11:13.000Z",
+          "explorerUrl": null,
+          "evidenceHash": "0x467b230c0cb06904c4be97e0d4828c96891c2c2001714d7a44c7109c7b7d837e",
+          "txRef": "0xdb4ad13530054aa410adbbbea6b87d8e47513dd004ae673452a4ef2337524f8f",
+          "preimage": {
+            "recipients": [
+              "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "0x90F79bf6EB2c4f870365E785982E1f101E93b906"
+            ],
+            "mintTxs": [
+              "0xafba24ba386c2ebf8e90c905e4eec277d5942093cd5225284edfa72977b59fea",
+              "0x11c22db10ff079761bc95613e81802c9e50f08917cbcf4dd5174b225ac882b5e",
+              "0xdb4ad13530054aa410adbbbea6b87d8e47513dd004ae673452a4ef2337524f8f"
+            ]
+          }
+        },
+        {
+          "type": "imported",
+          "label": "Real case: real Wallet 1 (read-only), 2025-07-30",
+          "txHash": "0xc1663d2f20123334529ae08babaf9c64b08b5c003e07f2437891a4f90b15aba2",
+          "block": 23034673,
+          "timestamp": "2025-07-30T21:39:11.000000Z",
+          "explorerUrl": "https://etherscan.io/tx/0xc1663d2f20123334529ae08babaf9c64b08b5c003e07f2437891a4f90b15aba2",
+          "evidenceHash": null,
+          "readOnly": true,
+          "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records."
+        },
+        {
+          "type": "imported",
+          "label": "Real case: real Wallet 2 (read-only), 2025-07-30",
+          "txHash": "fc60e664cacf5d6e621426b1a4432b50b9a55a655db0877620f386836c93ef8c",
+          "block": null,
+          "timestamp": "2025-07-30T17:46:48.000Z",
+          "explorerUrl": "https://tronscan.org/#/transaction/fc60e664cacf5d6e621426b1a4432b50b9a55a655db0877620f386836c93ef8c",
+          "evidenceHash": null,
+          "readOnly": true,
+          "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records."
+        },
+        {
+          "type": "imported",
+          "label": "Real case: real Wallet 2 (read-only), 2025-07-30",
+          "txHash": "54d889e3eae9ca97e35e73ad35e8e3eafeaf50db996f5db60853b5e1f65b7492",
+          "block": null,
+          "timestamp": "2025-07-30T16:43:12.000Z",
+          "explorerUrl": "https://tronscan.org/#/transaction/54d889e3eae9ca97e35e73ad35e8e3eafeaf50db996f5db60853b5e1f65b7492",
+          "evidenceHash": null,
+          "readOnly": true,
+          "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records."
+        },
+        {
+          "type": "imported",
+          "label": "Real case: real Wallet 3 (read-only), 2025-07-30",
+          "txHash": "65fd0328eb59da32ca1fc4fa0303fe7c15725945aaea3e5039afdc8ba2a97ce5",
+          "block": null,
+          "timestamp": "2025-07-30T17:27:27.000Z",
+          "explorerUrl": "https://tronscan.org/#/transaction/65fd0328eb59da32ca1fc4fa0303fe7c15725945aaea3e5039afdc8ba2a97ce5",
+          "evidenceHash": null,
+          "readOnly": true,
+          "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "ref": "C5",
+      "kind": "affidavit",
+      "title": "File affidavit of service (CPLR 306(a)); service complete on filing",
+      "quote": "ORDERED, that plaintiff shall file an affidavit of service in accordance with CPLR 306 (a) and service shall be deemed complete upon such filing.",
+      "page": 6,
+      "draftedBy": "pre-extracted",
+      "confirmedBy": "demo reviewer",
+      "status": "fulfilled",
+      "derived": {
+        "answerDue": "affidavit filing date + 30 days (CPLR 320(a), see data/rules.json)"
+      },
+      "evidence": [
+        {
+          "type": "tx",
+          "label": "Affidavit hash and declaredFiledAt recorded",
+          "txHash": "0x562f5db32adcae1e1ed694a8b712470001a176ffc5f64bdfc433db78c09b4f42",
+          "block": 12,
+          "timestamp": "2026-10-25T07:11:21.000Z",
+          "explorerUrl": null,
+          "evidenceHash": "0x365d1b380c754f2257bc138d6336402bb0f3dc58c4682f7cd8289630e9b8ca4c",
+          "txRef": "0xa58b85541081a813a94226c0c978c69dcf6cff88c7e4d7b7332e263919486bcb",
+          "preimage": {
+            "affidavitSha256": "0x365d1b380c754f2257bc138d6336402bb0f3dc58c4682f7cd8289630e9b8ca4c",
+            "declaredFiledAt": "2026-10-25T07:11:17.000Z"
+          }
+        }
+      ]
+    }
+  ],
+  "documents": {
+    "bundleHash": "0x79f11484b2835efcb1a3c41db93bb7c09f99518679ef3a65cfbb1238a42dcb17",
+    "url": "https://kimsabin725.github.io/servechain/docs/service-bundle.pdf",
+    "files": [
+      {
+        "name": "service-bundle.pdf",
+        "sha256": "0x79f11484b2835efcb1a3c41db93bb7c09f99518679ef3a65cfbb1238a42dcb17",
+        "path": "docs/service-bundle.pdf"
+      }
+    ],
+    "note": "Synthetic placeholder bundle watermarked \"SAMPLE — not a real court filing\"."
+  },
+  "service": [
+    {
+      "source": "servechain",
+      "chain": "anvil",
+      "recipient": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "recipientLabel": "stand-in for Wallet 1",
+      "txHash": "0xafba24ba386c2ebf8e90c905e4eec277d5942093cd5225284edfa72977b59fea",
+      "block": 4,
+      "timestamp": "2026-10-25T07:10:53.000Z",
+      "tokenId": 1,
+      "tokenURI": "data:application/json;base64,eyJuYW1lIjoiTm90aWNlIG9mIExhd3N1aXQgIzEiLCJkZXNjcmlwdGlvbiI6IlNlcnZpY2UgZG9jdW1lbnRzIGFyZSBwb3N0ZWQgYXQgZXh0ZXJuYWxfdXJsLiBTSEEtMjU2IG9mIHRoZSBkb2N1bWVudCBidW5kbGU6IDB4NzlmMTE0ODRiMjgzNWVmY2IxYTNjNDFkYjkzYmI3YzA5Zjk5NTE4Njc5ZWYzYTY1Y2ZiYjEyMzhhNDJkY2IxNyIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8va2ltc2FiaW43MjUuZ2l0aHViLmlvL3NlcnZlY2hhaW4vZG9jcy9zZXJ2aWNlLWJ1bmRsZS5wZGYiLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiY2FzZUlkIiwidmFsdWUiOiIweDIwY2MxOWM1Y2IyNjViNmQ1NDY3ODMzNDNkMThkMDY4YzgxZTZlZGQ4YWYxYTExOWU1MTVkNDExZWQ1OTUyNWMifSx7InRyYWl0X3R5cGUiOiJjb25kaXRpb25JZCIsInZhbHVlIjoyfSx7InRyYWl0X3R5cGUiOiJkb2N1bWVudHNTaGEyNTYiLCJ2YWx1ZSI6IjB4NzlmMTE0ODRiMjgzNWVmY2IxYTNjNDFkYjkzYmI3YzA5Zjk5NTE4Njc5ZWYzYTY1Y2ZiYjEyMzhhNDJkY2IxNyJ9XX0=",
+      "explorerUrl": null
+    },
+    {
+      "source": "servechain",
+      "chain": "anvil",
+      "recipient": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "recipientLabel": "stand-in for Wallet 2",
+      "txHash": "0x11c22db10ff079761bc95613e81802c9e50f08917cbcf4dd5174b225ac882b5e",
+      "block": 5,
+      "timestamp": "2026-10-25T07:10:57.000Z",
+      "tokenId": 2,
+      "tokenURI": "data:application/json;base64,eyJuYW1lIjoiTm90aWNlIG9mIExhd3N1aXQgIzIiLCJkZXNjcmlwdGlvbiI6IlNlcnZpY2UgZG9jdW1lbnRzIGFyZSBwb3N0ZWQgYXQgZXh0ZXJuYWxfdXJsLiBTSEEtMjU2IG9mIHRoZSBkb2N1bWVudCBidW5kbGU6IDB4NzlmMTE0ODRiMjgzNWVmY2IxYTNjNDFkYjkzYmI3YzA5Zjk5NTE4Njc5ZWYzYTY1Y2ZiYjEyMzhhNDJkY2IxNyIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8va2ltc2FiaW43MjUuZ2l0aHViLmlvL3NlcnZlY2hhaW4vZG9jcy9zZXJ2aWNlLWJ1bmRsZS5wZGYiLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiY2FzZUlkIiwidmFsdWUiOiIweDIwY2MxOWM1Y2IyNjViNmQ1NDY3ODMzNDNkMThkMDY4YzgxZTZlZGQ4YWYxYTExOWU1MTVkNDExZWQ1OTUyNWMifSx7InRyYWl0X3R5cGUiOiJjb25kaXRpb25JZCIsInZhbHVlIjoyfSx7InRyYWl0X3R5cGUiOiJkb2N1bWVudHNTaGEyNTYiLCJ2YWx1ZSI6IjB4NzlmMTE0ODRiMjgzNWVmY2IxYTNjNDFkYjkzYmI3YzA5Zjk5NTE4Njc5ZWYzYTY1Y2ZiYjEyMzhhNDJkY2IxNyJ9XX0=",
+      "explorerUrl": null
+    },
+    {
+      "source": "servechain",
+      "chain": "anvil",
+      "recipient": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "recipientLabel": "stand-in for Wallet 3",
+      "txHash": "0xdb4ad13530054aa410adbbbea6b87d8e47513dd004ae673452a4ef2337524f8f",
+      "block": 6,
+      "timestamp": "2026-10-25T07:11:01.000Z",
+      "tokenId": 3,
+      "tokenURI": "data:application/json;base64,eyJuYW1lIjoiTm90aWNlIG9mIExhd3N1aXQgIzMiLCJkZXNjcmlwdGlvbiI6IlNlcnZpY2UgZG9jdW1lbnRzIGFyZSBwb3N0ZWQgYXQgZXh0ZXJuYWxfdXJsLiBTSEEtMjU2IG9mIHRoZSBkb2N1bWVudCBidW5kbGU6IDB4NzlmMTE0ODRiMjgzNWVmY2IxYTNjNDFkYjkzYmI3YzA5Zjk5NTE4Njc5ZWYzYTY1Y2ZiYjEyMzhhNDJkY2IxNyIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8va2ltc2FiaW43MjUuZ2l0aHViLmlvL3NlcnZlY2hhaW4vZG9jcy9zZXJ2aWNlLWJ1bmRsZS5wZGYiLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiY2FzZUlkIiwidmFsdWUiOiIweDIwY2MxOWM1Y2IyNjViNmQ1NDY3ODMzNDNkMThkMDY4YzgxZTZlZGQ4YWYxYTExOWU1MTVkNDExZWQ1OTUyNWMifSx7InRyYWl0X3R5cGUiOiJjb25kaXRpb25JZCIsInZhbHVlIjoyfSx7InRyYWl0X3R5cGUiOiJkb2N1bWVudHNTaGEyNTYiLCJ2YWx1ZSI6IjB4NzlmMTE0ODRiMjgzNWVmY2IxYTNjNDFkYjkzYmI3YzA5Zjk5NTE4Njc5ZWYzYTY1Y2ZiYjEyMzhhNDJkY2IxNyJ9XX0=",
+      "explorerUrl": null
+    }
+  ],
+  "affidavit": {
+    "hash": "0x365d1b380c754f2257bc138d6336402bb0f3dc58c4682f7cd8289630e9b8ca4c",
+    "declaredFiledAt": "2026-10-25T07:11:17.000Z",
+    "txHash": "0xa58b85541081a813a94226c0c978c69dcf6cff88c7e4d7b7332e263919486bcb",
+    "explorerUrl": null,
+    "file": "affidavit.pdf",
+    "note": "declared by filer; chain cannot prove court filing date"
+  },
+  "deadlines": {
+    "originalServiceDeadline": "2025-10-09",
+    "serviceDeadline": "2027-02-22T07:10:45.000Z",
+    "serviceDeadlineNote": "Replay deadline = case opening + 120 days, because the registry only accepts a future deadline. The original case deadline was entry 2025-06-11 + 120 days.",
+    "responseDeadline": "2026-11-24T07:11:17.000Z",
+    "rule": "CPLR 320(a)",
+    "formula": "answerDue = declaredFiledAt + 30 days",
+    "status": "read",
+    "caveat": "weekend/holiday roll-forward (GCL §25-a) not applied — lawyer review required",
+    "openPoints": [
+      "Day counting and weekend/holiday rollover (General Construction Law §25-a) not read [unverified].",
+      "Whether filing means NYSCEF acceptance time or submission time is not addressed [unverified].",
+      "Excerpts came through WebFetch, not raw statute text."
+    ]
+  },
+  "rules": [
+    {
+      "section": "CPLR 306(a)",
+      "rule": "Proof of service must state papers served, person served, date, time and place",
+      "days": null,
+      "url": "https://www.nysenate.gov/legislation/laws/CVP/306",
+      "status": "read"
+    },
+    {
+      "section": "CPLR 306-b",
+      "rule": "Service within 120 days after commencement; court may extend on good cause or in the interest of justice",
+      "days": 120,
+      "url": "https://www.nysenate.gov/legislation/laws/CVP/306-B",
+      "status": "read"
+    },
+    {
+      "section": "CPLR 308(5)",
+      "rule": "Court-directed service when 308(1), (2) and (4) are impracticable",
+      "days": null,
+      "url": "https://www.nysenate.gov/legislation/laws/CVP/308",
+      "status": "read"
+    },
+    {
+      "section": "CPLR 308(2)",
+      "rule": "Contrast: deliver-and-mail service is complete ten days after proof is filed",
+      "days": 10,
+      "url": "https://www.nysenate.gov/legislation/laws/CVP/308",
+      "status": "read"
+    },
+    {
+      "section": "CPLR 320(a)",
+      "rule": "Appearance within 20 days of service, or 30 days after service is complete when served under 308(2)-(5) and other listed provisions",
+      "days": 30,
+      "url": "https://www.nysenate.gov/legislation/laws/CVP/320",
+      "status": "read"
+    },
+    {
+      "section": "CPLR 3215(f)",
+      "rule": "Default application must include proof of service of summons and complaint, and proof of facts, default and amount due by affidavit",
+      "days": null,
+      "url": "https://www.nysenate.gov/legislation/laws/CVP/3215",
+      "status": "read"
+    },
+    {
+      "section": "CPLR 3215(c)",
+      "rule": "If plaintiff does not seek default judgment within one year after the default, the court dismisses the complaint as abandoned (unless sufficient cause shown)",
+      "days": 365,
+      "url": "https://www.nysenate.gov/legislation/laws/CVP/3215",
+      "status": "read"
+    }
+  ],
+  "snapshot": {
+    "status": "anchored",
+    "activityRootHash": "0x4a985a35b1c75ec10aa6ec5aae0217b9ecce863d8af8edc9a2b2325e27689404",
+    "txHash": "0xb110395b1d8eeec8b254e6c201c06952a9ed2624df397256417fe6ee8362763e",
+    "block": 14,
+    "at": "2026-11-25T07:11:25.000Z",
+    "timeTravel": true,
+    "explorerUrl": null,
+    "leaves": [
+      "0x8708cb2fed6d50fde9ff459e63d4318055341fbfe5d25c54b56e65cbee89db2d",
+      "0x49f40d697adb8e36cba2e712483ac6758a91785bc1243327446bc21f1fb323b0",
+      "0xd33e617fd50175bb85bd203f2b5d708500efc9d3039281541e4ead567886d425",
+      "0x5d89785056320ff8e1067331eefff5ed8387149a024eaaa9f039c19f086e27ea",
+      "0x521f1ce6b9cf9bb2a300ccf0ca6fc6f495974eda0d7ee798fe0c324eae6e334c",
+      "0xa189a2535003c615d7cb72b03b44021c60ec6bea239e140219cb277bfe4c6db3"
+    ],
+    "note": "Local anvil clock advanced 31 days (evm_increaseTime) so the response deadline passes; demo only."
+  },
+  "activity": {
+    "fetchedAt": "2026-10-25T06:57:39.078Z",
+    "wallets": [
+      {
+        "label": "Wallet 1 (defendant)",
+        "role": "defendant",
+        "chain": "ethereum",
+        "address": "0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d",
+        "firstTx": "2024-02-14T15:53:47.000000Z",
+        "lastTx": "2026-10-02T20:45:11.000000Z",
+        "monthly": {
+          "2024-02": 2,
+          "2024-03": 70,
+          "2024-04": 36,
+          "2024-09": 1,
+          "2024-11": 2,
+          "2025-01": 2,
+          "2025-07": 2,
+          "2025-08": 1,
+          "2026-02": 1,
+          "2026-03": 1,
+          "2026-05": 2,
+          "2026-10": 3
+        },
+        "balance": "219,840.28 USDC, 0.0185 ETH",
+        "source": "complaint-2025.pdf p.1",
+        "sourceUrl": "https://eth.blockscout.com/api/v2/addresses/0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d",
+        "status": "ok",
+        "note": "older items not fetched; months after 2024-03 are complete, 2024-03 and earlier may be undercounted"
+      },
+      {
+        "label": "Transition Wallet A",
+        "role": "related",
+        "chain": "ethereum",
+        "address": "0x6298BfEd428B843d326dDAE1A406441CDB40db80",
+        "firstTx": "2024-05-19T18:24:35.000000Z",
+        "lastTx": "2026-03-30T00:41:11.000000Z",
+        "monthly": {
+          "2024-05": 128,
+          "2026-03": 1
+        },
+        "balance": "0 USDC, 0.0000 ETH",
+        "source": "complaint-2025.pdf p.13 ¶42",
+        "sourceUrl": "https://eth.blockscout.com/api/v2/addresses/0x6298BfEd428B843d326dDAE1A406441CDB40db80",
+        "status": "ok",
+        "note": "older items not fetched; months after 2024-05 are complete, 2024-05 and earlier may be undercounted"
+      },
+      {
+        "label": "Transition Wallet B",
+        "role": "related",
+        "chain": "ethereum",
+        "address": "0x7a448169e9d5DB6405087dAB9dfF774Db6589b05",
+        "firstTx": "2024-03-29T15:39:35.000000Z",
+        "lastTx": "2026-03-29T22:54:11.000000Z",
+        "monthly": {
+          "2024-03": 62,
+          "2024-04": 78,
+          "2026-03": 1
+        },
+        "balance": "0.0000 ETH",
+        "source": "complaint-2025.pdf p.13 ¶42",
+        "sourceUrl": "https://eth.blockscout.com/api/v2/addresses/0x7a448169e9d5DB6405087dAB9dfF774Db6589b05",
+        "status": "ok",
+        "note": "older items not fetched; months after 2024-03 are complete, 2024-03 and earlier may be undercounted"
+      },
+      {
+        "label": "wallet 0x409 (USDC outflow)",
+        "role": "related",
+        "chain": "ethereum",
+        "address": "0x409C4A8eC8eEBf4132E33122164D57C5B7039E59",
+        "firstTx": "2024-04-01T15:07:47.000000Z",
+        "lastTx": "2025-09-28T09:32:23.000000Z",
+        "monthly": {
+          "2024-04": 11,
+          "2025-09": 1
+        },
+        "balance": "0.0000 ETH",
+        "source": "complaint-2025.pdf p.14 ¶44",
+        "sourceUrl": "https://eth.blockscout.com/api/v2/addresses/0x409C4A8eC8eEBf4132E33122164D57C5B7039E59",
+        "status": "ok",
+        "note": null
+      },
+      {
+        "label": "Wallet 2 (defendant)",
+        "role": "defendant",
+        "chain": "tron",
+        "address": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+        "firstTx": "2023-08-01T12:44:51.000Z",
+        "lastTx": "2026-10-16T09:12:54.000Z",
+        "monthly": {
+          "2024-01": 76,
+          "2024-02": 85,
+          "2024-03": 98,
+          "2024-04": 145,
+          "2024-05": 30,
+          "2024-06": 8,
+          "2024-07": 1,
+          "2024-08": 10,
+          "2024-09": 2,
+          "2024-10": 5,
+          "2024-11": 2,
+          "2024-12": 3,
+          "2025-01": 10,
+          "2025-02": 2,
+          "2025-04": 5,
+          "2025-06": 1,
+          "2025-07": 2,
+          "2025-10": 2,
+          "2026-01": 8,
+          "2026-04": 3,
+          "2026-06": 2,
+          "2026-07": 1,
+          "2026-10": 13
+        },
+        "balance": "862,347.43 USDT, 9.31 TRX",
+        "source": "complaint-2025.pdf p.1",
+        "sourceUrl": "https://api.trongrid.io/v1/accounts/TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+        "status": "ok",
+        "note": "older items not fetched; months after 2023-09 are complete, 2023-09 and earlier may be undercounted"
+      },
+      {
+        "label": "Wallet 3 (defendant)",
+        "role": "defendant",
+        "chain": "tron",
+        "address": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "firstTx": "2023-05-27T10:15:06.000Z",
+        "lastTx": "2026-10-07T20:01:51.000Z",
+        "monthly": {
+          "2024-01": 62,
+          "2024-02": 22,
+          "2024-03": 24,
+          "2024-04": 57,
+          "2024-05": 5,
+          "2024-08": 5,
+          "2024-09": 1,
+          "2024-12": 1,
+          "2025-01": 5,
+          "2025-02": 6,
+          "2025-05": 1,
+          "2025-07": 1,
+          "2026-03": 4,
+          "2026-04": 11,
+          "2026-05": 3,
+          "2026-06": 2,
+          "2026-07": 1,
+          "2026-08": 1,
+          "2026-10": 9
+        },
+        "balance": "1,097,320.19 USDT, 820.73 TRX",
+        "source": "complaint-2025.pdf p.1",
+        "sourceUrl": "https://api.trongrid.io/v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "status": "ok",
+        "note": "older items not fetched; months after 2023-09 are complete, 2023-09 and earlier may be undercounted"
+      }
+    ],
+    "merkle": "sha256 leaves of canonical wallet rows, pairwise sha256, odd node duplicated"
+  },
+  "existingService": [
+    {
+      "source": "imported",
+      "phase": "june-2025-order",
+      "chain": "ethereum",
+      "recipient": "0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d",
+      "recipientLabel": "real Wallet 1 (read-only)",
+      "txHash": "0xc1663d2f20123334529ae08babaf9c64b08b5c003e07f2437891a4f90b15aba2",
+      "block": 23034673,
+      "timestamp": "2025-07-30T21:39:11.000000Z",
+      "tokenId": "0",
+      "contract": "0xbD0ac870f8427cdB45b4A6F1F0CaFF462fe3ab13",
+      "name": "Service of NY OAG Summons and Complaint No 700647-2025",
+      "explorerUrl": "https://etherscan.io/tx/0xc1663d2f20123334529ae08babaf9c64b08b5c003e07f2437891a4f90b15aba2",
+      "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records.",
+      "readOnly": true
+    },
+    {
+      "source": "imported",
+      "phase": "june-2025-order",
+      "chain": "tron",
+      "recipient": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+      "recipientLabel": "real Wallet 2 (read-only)",
+      "txHash": "fc60e664cacf5d6e621426b1a4432b50b9a55a655db0877620f386836c93ef8c",
+      "block": null,
+      "timestamp": "2025-07-30T17:46:48.000Z",
+      "tokenId": "1",
+      "contract": "TWfk4YA4DejRtvCXFZ31fA7oEBSRKCuoKr",
+      "name": "Service of NY OAG Summons and Complaint No 700647-2025 (name truncated on-chain)",
+      "explorerUrl": "https://tronscan.org/#/transaction/fc60e664cacf5d6e621426b1a4432b50b9a55a655db0877620f386836c93ef8c",
+      "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records.",
+      "readOnly": true
+    },
+    {
+      "source": "imported",
+      "phase": "june-2025-order",
+      "chain": "tron",
+      "recipient": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+      "recipientLabel": "real Wallet 2 (read-only)",
+      "txHash": "54d889e3eae9ca97e35e73ad35e8e3eafeaf50db996f5db60853b5e1f65b7492",
+      "block": null,
+      "timestamp": "2025-07-30T16:43:12.000Z",
+      "tokenId": "1",
+      "contract": "TBbKsMwBafDHCFvH5L3tVQ58TbWRSeb3JN",
+      "name": "Service of NY OAG Summons and Complaint No 700647-2025 (name truncated on-chain)",
+      "explorerUrl": "https://tronscan.org/#/transaction/54d889e3eae9ca97e35e73ad35e8e3eafeaf50db996f5db60853b5e1f65b7492",
+      "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records.",
+      "readOnly": true
+    },
+    {
+      "source": "imported",
+      "phase": "june-2025-order",
+      "chain": "tron",
+      "recipient": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+      "recipientLabel": "real Wallet 3 (read-only)",
+      "txHash": "65fd0328eb59da32ca1fc4fa0303fe7c15725945aaea3e5039afdc8ba2a97ce5",
+      "block": null,
+      "timestamp": "2025-07-30T17:27:27.000Z",
+      "tokenId": "1",
+      "contract": "TLZbs3gxMdyJys3Cd55nGFiXH5HbjR3BQ6",
+      "name": "Service of NY OAG Summons and Complaint No 700647-2025 (name truncated on-chain)",
+      "explorerUrl": "https://tronscan.org/#/transaction/65fd0328eb59da32ca1fc4fa0303fe7c15725945aaea3e5039afdc8ba2a97ce5",
+      "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records.",
+      "readOnly": true
+    },
+    {
+      "source": "imported",
+      "phase": "pre-order-osc",
+      "chain": "ethereum",
+      "recipient": "0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d",
+      "recipientLabel": "real Wallet 1 (read-only)",
+      "txHash": "0xc3b61bd37696c38c24b64e9ac05df16f20e71e649173f5edd304162959928d0e",
+      "block": 21674908,
+      "timestamp": "2025-01-21T19:19:35.000000Z",
+      "tokenId": "45941267142316491420780756377080437389336336339189278277342547391922395152392",
+      "contract": "0xc9154424b823b10579895ccbe442d41b9abd96ed",
+      "name": "https://ag.ny.gov/IPBsummons",
+      "explorerUrl": "https://etherscan.io/tx/0xc3b61bd37696c38c24b64e9ac05df16f20e71e649173f5edd304162959928d0e",
+      "note": "Delivered 2025-01-21/22 under the January 10, 2025 order to show cause (motion papers), before the June 2025 order. Cited in the Sang affirmation (pp.70-72); not performance of the June order.",
+      "readOnly": true
+    },
+    {
+      "source": "imported",
+      "phase": "pre-order-osc",
+      "chain": "tron",
+      "recipient": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+      "recipientLabel": "real Wallet 2 (read-only)",
+      "txHash": "782febfc3134e9b1f602dcb0522d0454e41ebae350e7cd330837ccc54bed95c5",
+      "block": null,
+      "timestamp": "2025-01-22T21:52:06.000Z",
+      "tokenId": "1",
+      "contract": "TTaW2mBYS4PrtR5KAJPuVJnqraUiyaVat3",
+      "name": "NOTICE OF A LAWSUIT",
+      "explorerUrl": "https://tronscan.org/#/transaction/782febfc3134e9b1f602dcb0522d0454e41ebae350e7cd330837ccc54bed95c5",
+      "note": "Delivered 2025-01-21/22 under the January 10, 2025 order to show cause (motion papers), before the June 2025 order. Cited in the Sang affirmation (pp.70-72); not performance of the June order.",
+      "readOnly": true
+    },
+    {
+      "source": "imported",
+      "phase": "pre-order-osc",
+      "chain": "tron",
+      "recipient": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+      "recipientLabel": "real Wallet 2 (read-only)",
+      "txHash": "bfbacea582b76fb95eaa3f4fac32ccfb832a5703a1f7ea9a08593808ae1c6df4",
+      "block": null,
+      "timestamp": "2025-01-21T22:34:12.000Z",
+      "tokenId": "1",
+      "contract": "TLJa2LhmGUqrB2KjpxNRHPPTxgrPTz7mGf",
+      "name": "https_ag_ny_gov_IPBsummons",
+      "explorerUrl": "https://tronscan.org/#/transaction/bfbacea582b76fb95eaa3f4fac32ccfb832a5703a1f7ea9a08593808ae1c6df4",
+      "note": "Delivered 2025-01-21/22 under the January 10, 2025 order to show cause (motion papers), before the June 2025 order. Cited in the Sang affirmation (pp.70-72); not performance of the June order.",
+      "readOnly": true
+    },
+    {
+      "source": "imported",
+      "phase": "pre-order-osc",
+      "chain": "tron",
+      "recipient": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+      "recipientLabel": "real Wallet 3 (read-only)",
+      "txHash": "70c0c9dc940cc8b8bafd1c96e1364179e4ef9b98d5c8fba0a8b96fa9dc3d225b",
+      "block": null,
+      "timestamp": "2025-01-22T21:55:57.000Z",
+      "tokenId": "2",
+      "contract": "TTaW2mBYS4PrtR5KAJPuVJnqraUiyaVat3",
+      "name": "NOTICE OF A LAWSUIT",
+      "explorerUrl": "https://tronscan.org/#/transaction/70c0c9dc940cc8b8bafd1c96e1364179e4ef9b98d5c8fba0a8b96fa9dc3d225b",
+      "note": "Delivered 2025-01-21/22 under the January 10, 2025 order to show cause (motion papers), before the June 2025 order. Cited in the Sang affirmation (pp.70-72); not performance of the June order.",
+      "readOnly": true
+    },
+    {
+      "source": "imported",
+      "phase": "pre-order-osc",
+      "chain": "tron",
+      "recipient": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+      "recipientLabel": "real Wallet 3 (read-only)",
+      "txHash": "6361f4f44b95b0cfd165801d0d1a515d3a154584d9b5e0f86d4dc9a429823907",
+      "block": null,
+      "timestamp": "2025-01-21T22:35:33.000Z",
+      "tokenId": "2",
+      "contract": "TLJa2LhmGUqrB2KjpxNRHPPTxgrPTz7mGf",
+      "name": "https_ag_ny_gov_IPBsummons",
+      "explorerUrl": "https://tronscan.org/#/transaction/6361f4f44b95b0cfd165801d0d1a515d3a154584d9b5e0f86d4dc9a429823907",
+      "note": "Delivered 2025-01-21/22 under the January 10, 2025 order to show cause (motion papers), before the June 2025 order. Cited in the Sang affirmation (pp.70-72); not performance of the June order.",
+      "readOnly": true
+    }
+  ],
+  "exhibit": {
+    "sha256": "0xd91edf56fce69580dc0a51753b028034f1deb97694cf34fb3ef5c4c6cfe5e4a0",
+    "registrySlot": 5,
+    "txHash": "0x77ee6d4647a129777075f58ab39225aa7eea70eda6b39cdc80491e77822b812a",
+    "block": 15,
+    "at": "2026-11-25T07:11:30.000Z",
+    "explorerUrl": null,
+    "pdf": "exhibit.pdf",
+    "html": "exhibit.html",
+    "note": "Only the PDF bytes are anchored; exhibit.html is the print source."
+  },
+  "disclaimer": "Replay of a public court record for demonstration. Nothing was sent to the real defendant wallets; they are read only. Proof-of-service material, not legal advice and not a legal determination.",
+  "generatedAt": "2026-10-25T07:11:34.355Z"
+}

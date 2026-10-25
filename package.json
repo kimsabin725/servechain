@@ -1,0 +1,18 @@
+{
+  "name": "servechain",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "build:contracts": "forge build",
+    "demo:local": "node scripts/demo.mjs --network local",
+    "demo:sepolia": "node scripts/demo.mjs --network sepolia",
+    "verify": "node scripts/verify.mjs",
+    "test": "node --test \"test/*.test.mjs\"",
+    "deployments:fix": "node scripts/fix-deployment-block.mjs"
+  },
+  "dependencies": {
+    "viem": "^2.57.11"
+  }
+}

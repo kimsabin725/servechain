@@ -1,0 +1,61 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [6 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Length 1923 >>
+stream
+q 0.85 g BT /F2 44 Tf 0.7071 0.7071 -0.7071 0.7071 110 220 Tm (SAMPLE \227 not a real court filing) Tj ET Q
+BT /F2 9 Tf 50 810 Td (SAMPLE \227 not a real court filing) Tj ET
+BT /F2 15 Tf 50 770 Td (Affidavit of service \(synthetic sample\)) Tj ET
+BT /F1 10 Tf 50 742 Td (Supreme Court of the State of New York, Queens County, IAS Part 24 - Index No. 700647/2025) Tj ET
+BT /F1 10 Tf 50 728 Td () Tj ET
+BT /F1 10 Tf 50 714 Td (This is a synthetic affidavit produced by a software demonstration. Nobody swore to it and it) Tj ET
+BT /F1 10 Tf 50 700 Td (was not filed.) Tj ET
+BT /F1 10 Tf 50 686 Td (Declared filing time \(entered by the filer, not proven by the chain\): 2026-10-25T07:14:24.000Z) Tj ET
+BT /F1 10 Tf 50 672 Td (Network: Sepolia. Recipients are stand-in wallets, not the defendants' wallets.) Tj ET
+BT /F1 10 Tf 50 658 Td (SHA-256 of the served document bundle:) Tj ET
+BT /F1 10 Tf 50 644 Td (0x79f11484b2835efcb1a3c41db93bb7c09f99518679ef3a65cfbb1238a42dcb17) Tj ET
+BT /F1 10 Tf 50 630 Td () Tj ET
+BT /F1 10 Tf 50 616 Td (Service notices minted:) Tj ET
+BT /F1 10 Tf 50 602 Td (stand-in for Wallet 1: 0xF2242E1b009aC14146c7B55a2c862260586954D7 - token 1 - tx) Tj ET
+BT /F1 10 Tf 50 588 Td (0x42c1a87d1967d0caaca50056e0c2b585be19e58d357ad8dffc328803a567815f \(block 11989313,) Tj ET
+BT /F1 10 Tf 50 574 Td (2026-10-25T07:13:00.000Z\)) Tj ET
+BT /F1 10 Tf 50 560 Td (stand-in for Wallet 2: 0x6f780fF31AdCcA350c2416BC655b132c36F3DE78 - token 2 - tx) Tj ET
+BT /F1 10 Tf 50 546 Td (0x2a52cc4cfbcc63b6d7d74546f47f965b805480dc8de6634606563c6e7a9f1cdb \(block 11989314,) Tj ET
+BT /F1 10 Tf 50 532 Td (2026-10-25T07:13:12.000Z\)) Tj ET
+BT /F1 10 Tf 50 518 Td (stand-in for Wallet 3: 0x3C2cce530EAB754974D036B3688648E7bD09356A - token 3 - tx) Tj ET
+BT /F1 10 Tf 50 504 Td (0x0cdc644458b1f6e9dcbd7b64e62e4e4dfb26b3d9863b1cc395150833eb9389a5 \(block 11989316,) Tj ET
+BT /F1 10 Tf 50 490 Td (2026-10-25T07:13:36.000Z\)) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 5 0 R >>
+endobj
+7 0 obj
+<< /Title (ServeChain sample affidavit) /Producer (servechain) >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000212 00000 n 
+0000000314 00000 n 
+0000002289 00000 n 
+0000002425 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R /Info 7 0 R >>
+startxref
+2506
+%%EOF
