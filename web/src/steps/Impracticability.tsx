@@ -22,6 +22,7 @@ function monthRange(a: string, b: string): string[] {
 
 const chainName = (c: string) => (c === 'ethereum' ? 'Ethereum' : c === 'tron' ? 'TRON' : c);
 const walletName = (w: Wallet) => w.label.replace(/\s*\(defendant\)/i, '');
+const sentText = (w: Wallet) => (w.lastOutgoing ? `${w.lastOutgoing.type}${w.lastOutgoing.result === 'success' ? '' : `, ${w.lastOutgoing.result}`}` : '');
 
 // Monthly bar chart; arrow keys move between months when the chart has focus.
 function Bars({ w, months, full }: { w: Wallet; months: string[]; full: string | null }) {
@@ -82,7 +83,7 @@ export default function Impracticability({ l }: { l: Loaded }) {
   const partial = def.map((w) => ({ w, f: completeFrom(w, c) })).filter(({ f }) => f && f > months[0]);
   return (
     <div>
-      <StepHead n={1} title="Impracticability packet" lead={<>Service by NFT was allowed because ordinary service was <Term k="impracticability">impracticable</Term> and the wallets were still in use. Both facts, in one place.</>} />
+      <StepHead n={1} title="Impracticability packet" lead={<>The court found ordinary service <Term k="impracticability">impracticable</Term> and NFT service reasonably calculated to give notice, relying in part on the wallets still being in use. Both facts, in one place.</>} />
       <Card title="Defendant wallets, read-only" aside={<Badge>Fetched {fmtDate(c.activity.fetchedAt, true)}</Badge>}>
         <div className="wallets">
           {def.map((w) => (
@@ -92,26 +93,29 @@ export default function Impracticability({ l }: { l: Loaded }) {
                 <Badge>{chainName(w.chain)}</Badge>
               </header>
               <p className="wallet-bal">{w.balance ?? '—'}</p>
-              <p className="small muted wallet-last">Last activity {fmtDate(w.lastTx)}</p>
+              {w.balanceNote && <p className="small muted">Same as the April 2024 freeze figures in the complaint.</p>}
+              <p className="small muted wallet-last">Last activity {fmtDate(w.lastTx)} (incl. incoming transfers sent by others)</p>
+              {w.lastOutgoing && <p className="small muted wallet-last">Last tx sent by the wallet {fmtDate(w.lastOutgoing.time)}: {sentText(w)}</p>}
               <Bars w={w} months={months} full={completeFrom(w, c)} />
             </article>
           ))}
         </div>
         <p className="band-key">
+          <span>Bars: transactions per month, incl. incoming transfers</span>
           <span><i className="key-band" aria-hidden /> Apr–Dec 2024: period the decision cites (p. 5)</span>
           {partial.length > 0 && <span title={c.activity.completeFromNote}><i className="key-partial" aria-hidden /> partial: older history not fully fetched ({partial.map(({ w, f }) => `${walletName(w)} before ${f}`).join('; ')})</span>}
         </p>
         <p className="contact-line">
-          <strong>Contact attempts</strong> (decision p. 4): {n.phones} calls/texts, {n.emails} emails, {n.delivered} delivered. No verifiable mailing address.
+          <strong>Contact attempts</strong> (decision p. 4): {n.phones} phone numbers called and texted ({n.replied} replied), {n.emails} emails; only {n.delivered} email was delivered, and none gave a mailing address.
         </p>
         <details className="related">
           <summary>Addresses, sources and related wallets</summary>
           <p className="muted small">Live chain data fetched at the time shown, not values as of the case. Addresses are quoted from the public complaint (p. 1). Nothing is ever sent to these wallets.</p>
           <div className="table-scroll">
             <table className="dense">
-              <thead><tr><th>Wallet</th><th>Address</th><th>Last activity</th><th>Balance at fetch</th><th>Source</th></tr></thead>
+              <thead><tr><th>Wallet</th><th>Address</th><th>Last activity (incl. incoming)</th><th>Last tx sent by the wallet</th><th>Balance at fetch</th><th>Source</th></tr></thead>
               <tbody>{[...def, ...rel].map((w) => (
-                <tr key={w.address}><td>{walletName(w)}</td><td><code title={w.address}>{short(w.address, 6)}</code></td><td>{fmtDate(w.lastTx)}</td><td>{w.balance ?? '—'}</td><td className="small">{w.source}</td></tr>
+                <tr key={w.address}><td>{walletName(w)}</td><td><code title={w.address}>{short(w.address, 6)}</code></td><td>{fmtDate(w.lastTx)}</td><td>{w.lastOutgoing ? `${fmtDate(w.lastOutgoing.time)}, ${sentText(w)}` : '—'}</td><td>{w.balance ?? '—'}{w.balanceNote && <div className="small muted">{w.balanceNote}</div>}</td><td className="small">{w.source}</td></tr>
               ))}</tbody>
             </table>
           </div>

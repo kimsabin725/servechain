@@ -14,7 +14,7 @@ export const WHY_CHAIN_LINE =
   'Why blockchain: the defendant exists only as a wallet, so service happens on-chain; anchoring the compliance record on-chain is extra, so the filer cannot quietly rewrite it.';
 
 export const DEADLINE_ESTIMATE =
-  'Estimate. Counting rules (GCL §20, §25-a weekends/holidays) not applied — counsel must confirm the last day.';
+  'Estimate. Calendar days from the New York filing date; GCL §20 and §25-a (weekends/holidays) not read or applied — counsel must confirm the last day.';
 
 export const DEADLINE_VALIDITY = 'Meaningful only if service was valid under the order.';
 
@@ -28,7 +28,7 @@ export const DECISION_URL =
   'https://ag.ny.gov/sites/default/files/court-filings/people-v-digital-wallet-0xd7648fffa48e06b0107435a966f3f1e9dbe10b7d-decision-and-pleadings-2025.pdf';
 
 export const METHOD_QUOTE =
-  'ORDERED, that plaintiff shall serve the summons, complaint, order to show cause, attorney affirmation and memorandum of law in support thereof and all documents submitted contemporaneously therewith, together with a copy of this Decision and Order with Notice of Entry upon defendants, within 120 days of the date of entry, by airdropping NFTs hyperlinked to a website containing copies of said pleadings to digital wallet addresses …';
+  'ORDERED, that plaintiff shall serve the summons, complaint, order to show cause, attorney affirmation and memorandum of law in support thereof, and all documents submitted contemporaneously therewith, together with a copy of this Decision and Order with Notice of Entry, upon defendants, within 120 days of the date of entry, by airdropping NFTs hyperlinked to a website containing copies of said pleadings to digital wallet addresses …';
 
 export const COMPLETE_QUOTE =
   'ORDERED, that plaintiff shall file an affidavit of service in accordance with CPLR 306 (a) and service shall be deemed complete upon such filing.';
@@ -40,7 +40,7 @@ export const IMPRACT_QUOTES = [
 ];
 
 export const ACTIVITY_QUOTE =
-  'Plaintiff has demonstrated through its investigation, that defendants continue to regularly use these Wallets, as recently as April 2024 through December 2024.';
+  'Plaintiff has demonstrated, through its investigation, that defendants continue to regularly use these Wallets, as recently as April 2024 through December 2024.';
 
 export const RULES = [
   {

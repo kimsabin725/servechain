@@ -3,13 +3,14 @@ import os from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fixPdfFile } from './pdfmeta.mjs';
+import { CHAIN_NOTE, GATE_NOTE, responseDeadlineDate } from './deadline.mjs';
 
 export const SUMMARY_TITLE = 'Compliance summary (attachment for counsel)';
 export const EXHIBIT_HEADER =
   'Compliance summary (attachment for counsel), for counsel preparing an affidavit of service or a default motion. Not a court-filed exhibit. For counsel\'s review. Does not determine compliance. Not legal advice.';
 export const STATUS_LABEL = { fulfilled: 'Evidence linked (not a compliance determination)', missing: 'No evidence linked' };
 export const DEADLINE_ESTIMATE =
-  'Estimate. Counting rules (GCL §20, §25-a weekends/holidays) not applied — counsel must confirm the last day.';
+  'Estimate. Calendar days from the New York filing date; GCL §20 and §25-a (weekends/holidays) not read or applied — counsel must confirm the last day.';
 export const DEADLINE_VALIDITY = 'Meaningful only if service was valid under the order.';
 export const REPLAY_NOTE = {
   0: 'replay: measured against the replay deadline, not the original order deadline',
@@ -116,7 +117,7 @@ export function renderExhibitHtml(c) {
   const snap = c.snapshot;
   const snapLine = snap.txHash
     ? `Anchored root <span class="mono">${esc(short(snap.activityRootHash))}</span> in tx ${link(snap.explorerUrl, short(snap.txHash))} at ${esc(snap.at)}${snap.timeTravel ? ' <b>(local chain clock advanced 31 days with evm_increaseTime; demo only)</b>' : ''}.`
-    : `Shown via local replay; pending on ${esc(c.chain.name)} until ${esc(nyDate(d.responseDeadline))} (New York date) — the registry rejects a snapshot before the response deadline. Computed root (not yet anchored): <span class="mono">${esc(short(snap.activityRootHash))}</span>. ${esc(snap.note || '')}`;
+    : `Shown via local replay; on ${esc(c.chain.name)} the registry's snapshot gate opens at filedAt + 720 h (${esc(String(d.responseDeadline).slice(0, 16).replace('T', ' '))} UTC). ${esc(GATE_NOTE)} Computed root (not yet anchored): <span class="mono">${esc(short(snap.activityRootHash))}</span>. ${esc(snap.note || '')}`;
   const after = monthRange('2025-06', (c.activity.fetchedAt || '2026-10').slice(0, 7));
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${esc(SUMMARY_TITLE)} — ${esc(c.court.index)}</title>
 <style>
@@ -159,7 +160,7 @@ ${existRows ? `<table class="small"><caption>Context only, not evidence: NFTs se
 <tr><td>Service deadline (original case)</td><td>${esc(nyDate(d.originalServiceDeadline))}</td><td>entry 2025-06-11 + 120 days (CPLR 306-b extension in the order)</td></tr>
 <tr><td>Service deadline (this replay, on-chain)</td><td>${esc(nyDate(d.serviceDeadline))}</td><td>case opened + 120 days; the registry requires a future deadline</td></tr>
 <tr><td>Declared affidavit filing date</td><td>${esc(nyDate(c.affidavit.declaredFiledAt))}</td><td>entered by the filer; the chain cannot prove the court filing date</td></tr>
-<tr><td>Response deadline (estimate)</td><td><b>${esc(nyDate(d.responseDeadline))}</b> (New York date)</td><td>${esc(d.rule)} — declared filing date + 30 days (status: ${esc(d.status)}). ${esc(DEADLINE_ESTIMATE)} ${esc(DEADLINE_VALIDITY)}</td></tr>
+<tr><td>Response deadline (estimate)</td><td><b>${esc(d.responseDeadlineNY || responseDeadlineDate(c.affidavit.declaredFiledAt))}</b> (New York date, through the end of that day)</td><td>${esc(d.rule)} / CPLR 3012(c) — declared filing date + 30 calendar days (status: ${esc(d.status)}). On-chain timestamp (filedAt + 720 h): ${esc(d.responseDeadline)}. ${esc(CHAIN_NOTE)} ${esc(DEADLINE_ESTIMATE)} ${esc(DEADLINE_VALIDITY)}</td></tr>
 <tr><td>Caveat</td><td colspan="2" class="missing">${esc(d.caveat)}</td></tr>
 <tr><td>Activity snapshot</td><td colspan="2">${snapLine}</td></tr></table>
 ${activityTable(c.activity.wallets, after, `Context only, not evidence of notice. Wallet transactions per month after the original order (Jun 2025 – fetch date), including incoming airdrops. Activity does not show that anyone saw the notice.`)}

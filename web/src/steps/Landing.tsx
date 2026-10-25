@@ -9,8 +9,8 @@ const FLOW: [string, ReactNode][] = [
   ['Impracticability packet', <>Real defendant wallet activity, read-only, plus the contact attempts the court relied on.</>],
   ['Order conditions', <>Each condition of the order, quoted with its page, drafted in advance from the order text and confirmed by the author.</>],
   ['Serve', <>Hash the papers, mint <Term k="soulbound" /> notices to testnet <Term k="stand-in wallet">stand-in wallets</Term>, link every transaction to a condition.</>],
-  ['Deadline', <>Declared affidavit filing date + 30 days under <Term k="CPLR" /> 320(a), with sources and caveats.</>],
-  ['Summary & verify', <>A <Term k="compliance summary">compliance summary (attachment for counsel)</Term> PDF anyone can check against the chain in the browser, no server.</>],
+  ['Deadline', <>Declared affidavit filing date + 30 calendar days under <Term k="CPLR" /> 320(a) / 3012(c), as a New York date with sources and caveats.</>],
+  ['Summary & verify', <>A <Term k="compliance summary">compliance summary (attachment for counsel)</Term> PDF you can check against the chain in the browser. No server of ours is needed to read the chain; the browser check trusts the case file served with this page, and the CLI can pin the issuer.</>],
 ];
 
 // Builds an explorer address link for a deployed contract.
@@ -44,7 +44,7 @@ export default function Landing({ l, go, verifyNow }: { l: Loaded; go: (n: numbe
           <dt>Case registry</dt><dd>{addrLink(l, c.chain.registry)} <span className="muted small">{c.chain.name}</span></dd>
           <dt>Notice NFT</dt><dd>{addrLink(l, c.chain.notice721)} <span className="muted small">{c.chain.name}, soulbound</span></dd>
           <dt>Source code</dt><dd><a href={REPO_URL} target="_blank" rel="noreferrer noopener">github.com/kimsabin725/servechain ↗</a></dd>
-          <dt>Demo video</dt><dd><a href="https://youtu.be/58pzpLuhmQc" target="_blank" rel="noreferrer noopener">3-minute walkthrough on YouTube ↗</a></dd>
+          <dt>Demo video</dt><dd><a href="https://youtu.be/58pzpLuhmQc" target="_blank" rel="noreferrer noopener">Walkthrough (under 3 minutes) on YouTube ↗</a></dd>
         </dl>
         <p className="small muted">This page is static. It reads the contracts above through a public RPC, with a bundled event log as fallback. Your browser never signs or sends a transaction.</p>
         <div className="row">
@@ -63,7 +63,7 @@ export default function Landing({ l, go, verifyNow }: { l: Loaded; go: (n: numbe
       <div className="grid-2">
         <div>
           <h3 className="small-head">Where courts have ordered it</h3>
-          <p className="small muted">Trial-court orders on unopposed motions, not appellate rulings.</p>
+          <p className="small muted">Trial-level orders, not appellate rulings (this 2025 order was unopposed).</p>
           <ul className="plain-list">
             {prior.map((p) => <li key={p.text}>{p.url ? <a href={p.url} target="_blank" rel="noreferrer noopener">{p.text}</a> : p.text}{p.method && <> <Badge>{p.method}</Badge></>}</li>)}
           </ul>
@@ -71,8 +71,8 @@ export default function Landing({ l, go, verifyNow }: { l: Loaded; go: (n: numbe
           {self && <p className="small muted">This replay: <em>{self.text}</em>, the order quoted above.</p>}
         </div>
         <div>
-          <h3 className="small-head">What stays manual</h3>
-          <p className="muted">Tracking each condition of the order, showing which ones are still open, computing the response deadline, and packaging proof that the other side can check independently.</p>
+          <h3 className="small-head">What was manual in this case</h3>
+          <p className="muted">In the case replayed here, delivery was shown with saved explorer and NFT-platform pages. Nothing tied each record to a condition of the order, showed which conditions were still open, computed the response deadline, or packaged the proof so the other side could check it against the chain.</p>
         </div>
       </div>
       <ol className="flow">

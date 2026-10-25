@@ -1,5 +1,6 @@
 import { EXHIBIT_SLOT, iso } from './casedata.mjs';
-import { DEADLINE_ESTIMATE, DEADLINE_VALIDITY, REPLAY_NOTE, STATUS_LABEL, nyDate } from './exhibit.mjs';
+import { DEADLINE_ESTIMATE, DEADLINE_VALIDITY, REPLAY_NOTE, STATUS_LABEL } from './exhibit.mjs';
+import { CALENDAR_RULE, CHAIN_LABEL, CHAIN_NOTE, GATE_NOTE, responseDeadlineDate } from './deadline.mjs';
 
 const LABELS = {
   0: 'All notices minted before the service deadline',
@@ -81,7 +82,7 @@ export function buildCase(ctx, events) {
         status: 'pending', activityRootHash: ctx.activity.root, txHash: null, at: null, timeTravel: false, pendingUntil: responseDeadline,
         leaves: ctx.activity.leaves,
         note:
-          'Sepolia time cannot be advanced. The registry rejects a declaredFiledAt earlier than case opening (FiledAtBeforeOpen) and any snapshot before the response deadline (ResponsePeriodOpen), so this step is pending on-chain. The snapshot step is shown from the local anvil replay.',
+          `Sepolia time cannot be advanced. The registry rejects a declaredFiledAt earlier than case opening (FiledAtBeforeOpen) and any snapshot until filedAt + 720 h has passed (ResponsePeriodOpen), so this step is pending on-chain. ${GATE_NOTE} The snapshot step is shown from the local anvil replay.`,
         localReplay: local?.txHash
           ? { case: '../case-local/case.json', txHash: local.txHash, at: local.at, activityRootHash: local.activityRootHash, timeTravel: true }
           : null,
@@ -144,7 +145,10 @@ export function buildCase(ctx, events) {
       serviceDeadline: replayServiceDeadline,
       serviceDeadlineNote: 'Replay deadline = case opening + 120 days, because the registry only accepts a future deadline. The original case deadline was entry 2025-06-11 + 120 days.',
       responseDeadline,
-      responseDeadlineNY: nyDate(responseDeadline),
+      responseDeadlineLabel: CHAIN_LABEL,
+      responseDeadlineNY: responseDeadlineDate(completed ? Number(completed.args.filedAt) : ctx.declaredFiledAt),
+      responseDeadlineNYRule: `${CALENDAR_RULE}; the last day runs to the end of that New York day`,
+      responseDeadlineNote: CHAIN_NOTE,
       estimateNote: DEADLINE_ESTIMATE,
       validityNote: DEADLINE_VALIDITY,
       rule: 'CPLR 320(a)',

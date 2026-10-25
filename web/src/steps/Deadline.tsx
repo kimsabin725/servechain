@@ -1,6 +1,6 @@
 import type { Loaded } from '../data';
 import type { Rule } from '../types';
-import { addDays, daysBetween, fmtDate, nyDate, txLink } from '../data';
+import { CHAIN_PERIOD_HOURS, GATE_NOTE, deadlineView, fmtDate, nyDate, txLink } from '../data';
 import { COMPLETE_QUOTE, DEADLINE_ESTIMATE, DEADLINE_VALIDITY, RULES } from '../legal';
 import { plain, ruleStatus } from '../content';
 import { Badge, Card, Hash, Quote, Replay, Status, StepHead, Term, TxRef } from '../ui';
@@ -9,8 +9,8 @@ export default function Deadline({ l }: { l: Loaded }) {
   const c = l.data;
   const filed = c.affidavit.declaredFiledAt;
   const due = c.deadlines.responseDeadline;
-  const expected = addDays(filed, 30);
-  const consistent = Math.abs(daysBetween(expected, due)) === 0;
+  const dv = deadlineView(filed, due);
+  const consistent = new Date(due).getTime() - new Date(filed).getTime() === CHAIN_PERIOD_HOURS * 3_600_000;
   const aff = c.conditions.find((k) => k.kind === 'affidavit');
   const st = ruleStatus(c.deadlines.status);
   const statusRead = st.ok;
@@ -34,15 +34,18 @@ export default function Deadline({ l }: { l: Loaded }) {
         </Card>
         <Card title="Response deadline (estimate)" aside={<Badge tone={statusRead ? 'ok' : 'warn'}>{st.text}</Badge>}>
           <div className="calc">
-            <span>{nyDate(filed)}</span><span className="op">+ 30 days =</span><span className="calc-out">{nyDate(due)}</span>
+            <span>{nyDate(filed)}</span><span className="op">+ 30 calendar days =</span><span className="calc-out">{dv.calendar}</span>
           </div>
-          <p className="small muted">New York dates (America/New_York). Time of day is hidden.</p>
+          <p className="small">New York dates (America/New_York). The last day runs to the end of {dv.calendar} in New York.</p>
           <p className="caveat">{DEADLINE_ESTIMATE}</p>
           <p className="caveat">{DEADLINE_VALIDITY}</p>
-          <p className="small">{consistent ? 'Matches the deadline recorded by the registry.' : <span className="text-bad">Registry deadline differs from filing date + 30 days ({fmtDate(expected)}). Check the data.</span>}</p>
-          <p className="small muted">The response deadline is computed on-chain as filing date + 30 days; the filing date itself is declared by the filer.</p>
+          <dl className="kv wide small">
+            <dt>On-chain timestamp (filedAt + 720 h)</dt><dd><code>{fmtDate(due, true)}</code> (New York date {dv.chainNY}{dv.differs ? ', one day off the calendar date' : ''})</dd>
+          </dl>
+          <p className="small muted">{dv.chainNote}</p>
+          <p className="small">{consistent ? 'The registry value equals the declared filing time + 720 h.' : <span className="text-bad">The registry value is not the declared filing time + 720 h. Check the data.</span>}</p>
           <p className="small muted">Rule: <Term k="CPLR">{c.deadlines.rule}</Term>{rules.some((r) => r.section === 'CPLR 3012(c)') && c.deadlines.rule !== 'CPLR 3012(c)' ? '; answer: CPLR 3012(c)' : ''}{statusRead ? ' (statute excerpt checked)' : ' (source: summary, lawyer review required)'}</p>
-          <details className="small muted"><summary>Raw on-chain value</summary><code>{due}</code> ({fmtDate(due, true)})</details>
+          <details className="small muted"><summary>Raw on-chain value</summary><code>{due}</code></details>
           {c.deadlines.openPoints && c.deadlines.openPoints.length > 0 && (
             <ul className="small muted open-points">{c.deadlines.openPoints.map((o) => <li key={o}>{plain(o)}</li>)}</ul>
           )}
@@ -83,7 +86,7 @@ function Snapshot({ l }: { l: Loaded }) {
   return (
     <Card title="Post-deadline activity snapshot" aside={<>{pending && <Badge tone="warn">pending on {c.chain.name}</Badge>} {local && <Badge tone="warn">local time-travel demo</Badge>}</>}>
       {pending && (
-        <p className="caveat">Shown via local replay. Pending on {c.chain.name} until {nyDate(s.pendingUntil ?? c.deadlines.responseDeadline)} (New York date). The registry refuses a snapshot before the response deadline, and testnet time cannot be advanced.</p>
+        <p className="caveat">Shown via local replay. On {c.chain.name} the registry's snapshot gate opens at filedAt + 720 h ({fmtDate(s.pendingUntil ?? c.deadlines.responseDeadline, true)}), and testnet time cannot be advanced. {GATE_NOTE}</p>
       )}
       <dl className="kv wide">
         <dt>Activity root</dt><dd><Hash value={shown.activityRootHash} /></dd>

@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-10-25",
+  "note": "Last transaction sent (signed) by each defendant wallet, and how the balance compares with the April 2024 freeze figures in the complaint (p.14). Later entries in the activity table that are not listed here are incoming transfers sent by others, often unsolicited (airdropped NFTs, dust).",
+  "wallets": {
+    "0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d": {
+      "lastOutgoing": { "time": "2025-01-01T05:55:47Z", "type": "approve (USDT contract)", "txHash": "0xe792f75158a921f3644840a16ea5793cd124070e0a77ed64a6e3b2dac2936480", "result": "success" },
+      "source": "Blockscout address transactions (38, complete list, newest sent by the wallet) in eth-0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d.json; every later entry is an incoming token transfer",
+      "balanceNote": "219,840.28 USDC, the same as the 219,840 USDC the complaint reports frozen as of April 5, 2024"
+    },
+    "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8": {
+      "lastOutgoing": { "time": "2026-10-16T09:11:39Z", "type": "USDT transfer call", "txHash": "1c8f1d2921c215eaf84c7a64ec50f24517d4d77a57d8afe8536ab65f27de5773", "result": "reverted" },
+      "source": "TronGrid /v1/accounts/TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8/transactions?only_from=true, queried 2026-10-25; earlier sent txs include account permission updates on 2026-01-12 and 2026-01-19 (success) and reverted USDT transfer calls in 2025",
+      "balanceNote": "862,347.43 USDT, the same as the approximately 862,347 USDT the complaint reports frozen as of April 26, 2024"
+    },
+    "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu": {
+      "lastOutgoing": { "time": "2026-05-03T13:00:48Z", "type": "TRX transfer (20 TRX)", "txHash": "a98341ac7b5f582b35bb28609c90cc971b7c2cf7f2a1392a6fab057af6d94569", "result": "success" },
+      "source": "TronGrid /v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu/transactions?only_from=true, queried 2026-10-25; a USDT transfer call on 2026-04-18 reverted",
+      "balanceNote": "1,097,320.19 USDT, the same as the approximately 1,097,320 the complaint reports frozen as of April 26, 2024"
+    }
+  }
+}

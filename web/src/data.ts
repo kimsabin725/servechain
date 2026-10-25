@@ -1,4 +1,5 @@
 import type { CaseFile, ChainEvent } from './types';
+export { deadlineView, CHAIN_PERIOD_HOURS, GATE_NOTE } from '../../scripts/lib/deadline.mjs';
 
 const BASE = import.meta.env.BASE_URL;
 export const asset = (p: string) => `${BASE}${p}`;

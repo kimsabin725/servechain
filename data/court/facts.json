@@ -33,27 +33,29 @@
       "decisionAndPleadings": {
         "file": "data/court/decision-and-pleadings-2025.pdf",
         "url": "https://ag.ny.gov/sites/default/files/court-filings/people-v-digital-wallet-0xd7648fffa48e06b0107435a966f3f1e9dbe10b7d-decision-and-pleadings-2025.pdf",
-        "pages": 169
+        "pages": 169,
+        "sha256": "0xc75a4443ca79356650c69eb345c6962cbce2055517026697beefaa7169db393b"
       },
       "complaint": {
         "file": "data/court/complaint-2025.pdf",
         "url": "https://ag.ny.gov/sites/default/files/court-filings/people-v-digital-wallet-0xd7648fffa48e06b0107435a966f3f1e9dbe10b7d-complaint-2025.pdf",
-        "pages": 50
+        "pages": 50,
+        "sha256": "0x0de3b6c3e1b099be7a10bc2aa657e9f28fd25c4d4f4d0a03612b6b05b1913b30"
       }
     },
-    "textLayerNote": "decision pages 1-8 are scanned; pdftotext returns an OCR layer with character errors. Quotes marked ocr-normalized were corrected only for obvious OCR character errors; check the page image before quoting in a filing. Complaint, notice of entry and Sang affirmation have clean text layers."
+    "textLayerNote": "decision pages 1-8 are scanned; pdftotext returns an OCR layer with character errors. Quotes marked ocr-normalized were corrected only for obvious OCR character errors; check the page image before quoting in a filing. Complaint, notice of entry and the intern affirmation have clean text layers."
   },
   "L2_orderConditions": [
     {
       "doc": "data/court/decision-and-pleadings-2025.pdf",
       "pdfPage": 6,
-      "quote": "ORDERED that the time for service of the summons and complaint upon defendants pursuant to CPLR 306-b shall be extended for 120 days from the date of entry",
+      "quote": "ORDERED, that the time for service of the summons and complaint upon defendants pursuant to CPLR 306-b shall be extended for 120 days from the date of entry",
       "textLayer": "ocr-normalized"
     },
     {
       "doc": "data/court/decision-and-pleadings-2025.pdf",
       "pdfPage": 6,
-      "quote": "ORDERED, that plaintiff shall serve the summons, complaint, order to show cause, attorney affirmation and memorandum of law in support thereof and all documents submitted contemporaneously therewith, together with a copy of this Decision and Order with Notice of Entry upon defendants, within 120 days of the date of entry, by airdropping NFTs hyperlinked to a website containing copies of said pleadings to digital wallet addresses 0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d (Wallet 1) TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8 (Wallet 2), and TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu (Wallet 3)",
+      "quote": "ORDERED, that plaintiff shall serve the summons, complaint, order to show cause, attorney affirmation and memorandum of law in support thereof, and all documents submitted contemporaneously therewith, together with a copy of this Decision and Order with Notice of Entry, upon defendants, within 120 days of the date of entry, by airdropping NFTs hyperlinked to a website containing copies of said pleadings to digital wallet addresses 0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d (Wallet 1) TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8 (Wallet 2), and TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu (Wallet 3)",
       "textLayer": "ocr-normalized"
     },
     {
@@ -90,13 +92,13 @@
     {
       "doc": "data/court/decision-and-pleadings-2025.pdf",
       "pdfPage": 2,
-      "quote": "As of April 26, 2024, plaintiff secured freezes on these Wallets preventing defendants from accessing approximately $2,179,507.00 worth of cryptocurrency.",
+      "quote": "As of April 26, 2024, plaintiff secured freezes on these Wallets, preventing defendants from accessing approximately $2,179,507.00 worth of cryptocurrency.",
       "textLayer": "ocr-normalized"
     },
     {
       "doc": "data/court/decision-and-pleadings-2025.pdf",
       "pdfPage": 5,
-      "quote": "Plaintiff has demonstrated through its investigation, that defendants continue to regularly use these Wallets, as recently as April 2024 through December 2024. Since the accounts contain approximately $2,179,507.00 in frozen USDC and USDT stablecoins, plaintiff has demonstrated that defendants are likely to return to the accounts where they would find the NFTs.",
+      "quote": "Plaintiff has demonstrated, through its investigation, that defendants continue to regularly use these Wallets, as recently as April 2024 through December 2024. Since the accounts contain approximately $2,179,507.00 in frozen USDC and USDT stablecoins, plaintiff has demonstrated that defendants are likely to return to the accounts where they would find the NFTs.",
       "textLayer": "ocr-normalized"
     },
     {
@@ -117,7 +119,7 @@
     }
   ],
   "L4_methodOfService": {
-    "important": "The January 21-22, 2025 airdrops described in the decision (p.5) and the Sang affirmation were made under the January 10, 2025 order to show cause (service of the motion papers by January 24, 2025), before the June 2025 order. They are evidence supporting the motion, not performance of the June order. Service under the June order is not described in these PDFs; on-chain NFTs titled 'Service of NY OAG Summons and Complaint No 700647-2025' were received on 2025-07-30 (see data/activity/service-txs.json, laterDeliveries).",
+    "important": "The January 21-22, 2025 airdrops described in the decision (p.5) and the intern affirmation were made under the January 10, 2025 order to show cause (service of the motion papers by January 24, 2025), before the June 2025 order. They are evidence supporting the motion, not performance of the June order. Service under the June order is not described in these PDFs; on-chain NFTs titled 'Service of NY OAG Summons and Complaint No 700647-2025' were received on 2025-07-30 (see data/activity/service-txs.json, laterDeliveries).",
     "quotes": [
       {
         "doc": "data/court/decision-and-pleadings-2025.pdf",
@@ -130,13 +132,13 @@
         "doc": "data/court/decision-and-pleadings-2025.pdf",
         "pdfPage": 70,
         "quote": "On January 21, 2025, I created a smart contract to mint an ERC-721 Non-Fungible Token (\"NFT\") using an NFT platform. The same day, I transferred the NFT using the Ethereum blockchain to wallet address 0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d",
-        "note": "Sang affirmation ¶2 (NYSCEF 12, dated 2025-02-12); footnote markers removed"
+        "note": "intern affirmation ¶2 (NYSCEF 12, dated 2025-02-12); footnote markers removed"
       },
       {
         "doc": "data/court/decision-and-pleadings-2025.pdf",
         "pdfPage": 70,
         "quote": "https://etherscan.io/nft/0xc9154424b823b10579895ccbe442d41b9abd96ed/45941267142316491420780756377080437389336336339189278277342547391922395152392",
-        "note": "Sang aff. ¶3; URL wraps across two lines in the PDF. Exhibit 2 (p.78) shows it is one of Rarible's shared ERC-721 tokens"
+        "note": "intern aff. ¶3; URL wraps across two lines in the PDF. Exhibit 2 (p.78) shows it is a token of an NFT platform's shared ERC-721 contract"
       },
       {
         "doc": "data/court/decision-and-pleadings-2025.pdf",
@@ -152,20 +154,20 @@
         "doc": "data/court/decision-and-pleadings-2025.pdf",
         "pdfPage": 72,
         "quote": "(ii) https://tronscan.io/#/transaction/bfbacea582b76fb95eaa3f4fac32ccfb832a5703a1f7ea9a08593808ae1c6df4 ... (iv) https://tronscan.io/#/transaction/6361f4f44b95b0cfd165801d0d1a515d3a154584d9b5e0f86d4dc9a429823907",
-        "note": "Sang aff. ¶6, Jan 21 TRON txs; Jan 22 txs 782febfc...95c5 and 70c0c9dc...225b in ¶7"
+        "note": "intern aff. ¶6, Jan 21 TRON txs; Jan 22 txs 782febfc...95c5 and 70c0c9dc...225b in ¶7"
       },
       {
         "doc": "data/court/decision-and-pleadings-2025.pdf",
         "pdfPage": 69,
-        "quote": "I am a second-year law student attending Fordham University School of Law and have been serving as an intern and Law Student Assistant to the Office of the New York State Attorney General",
-        "note": "the decision (p.4) says Sang 'is employed by plaintiff'; the affirmation itself says intern / Law Student Assistant"
+        "quote": "I am a second-year law student attending [law school omitted] and have been serving as an intern and Law Student Assistant to the Office of the New York State Attorney General",
+        "note": "school name omitted here. The decision (p.4) says the affiant 'is employed by plaintiff'; the affirmation itself says intern / Law Student Assistant"
       },
       {
         "doc": "data/court/decision-and-pleadings-2025.pdf",
         "pdfPage": 5,
-        "quote": "Sang provides verification through blockchain explorers Etherscan and Tronscan.io, as well as the APENFT NFT platform demonstrating the existence and delivery of all NFTs to the respective Wallet addresses on said dates.",
+        "quote": "[The affiant] provides verification through blockchain explorers Etherscan and Tronscan.io, as well as the APENFT platform, demonstrating the existence and delivery of all NFTs to the respective Wallet addresses on said dates.",
         "textLayer": "ocr-normalized",
-        "note": "comma checked against the page image"
+        "note": "commas checked against the page image; affiant name replaced"
       }
     ]
   },
@@ -253,7 +255,7 @@
   "specDiffs": [
     "L1: order signed 2025-06-09, entered 2025-06-11 (NYSCEF 21); notice of entry filed 2025-06-20.",
     "L4: the Jan 21-22, 2025 NFTs served the January 10 order to show cause (motion papers), not the June order. The decision recites them as support for the motion.",
-    "L4/first sentence: the developer was a law student intern (Law Student Assistant) per his own affirmation; the Ethereum NFT was minted through Rarible's shared contract 0xc915...96ed, not a hand-written contract. TRON NFTs used separate contracts (TLJa2..., TTaW2...).",
+    "L4/first sentence: the developer was a law student intern (Law Student Assistant) per his own affirmation; the affirmation says he \"created a smart contract\" on an NFT platform (p.70); Exhibit 2 (p.78) shows the token belongs to an NFT platform's shared ERC-721 contract 0xc915...96ed. TRON NFTs used separate contracts (TLJa2..., TTaW2...).",
     "L5: the three ETH wallets are 'Transition Wallet A/B' and 'wallet 0x409' in the complaint, not 'intermediary wallets'.",
     "L3: consistent with the decision (14 numbers on Dec 6 and 9-11, 2024; 4 emails, 1 delivered; activity April-December 2024; $2,179,507 = 219,840 + 862,347 + 1,097,320)."
   ]

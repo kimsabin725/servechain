@@ -22,15 +22,15 @@ Before recording: open the order PDF (ag.ny.gov link from Step 0) at page 6 in a
 
 > Some courts have ordered service by NFT. Proving you complied with the order is still manual. ServeChain does both. It mints the notice with a hash of the papers locked inside, then links each transaction to a condition. Before step four, four conditions have evidence linked. The affidavit has none yet.
 
-(52 words, about 21 s)
+(51 words, about 20 s)
 
 ### Scene 3 (0:46 to 1:06) Result
 
 [Screen: back to Step 0, click "Verify now": the page jumps to "5 Summary & verify" and shows MATCH. Click "Try a tampered copy": MISMATCH.]
 
-> The result is one compliance summary, an attachment for counsel preparing an affidavit of service or a default motion. Its hash is on Sepolia. Anyone can check it from a browser. The published file matches. Change one byte, and it fails. No server of ours is involved.
+> The result is one compliance summary, an attachment for counsel. Its hash is on Sepolia. Anyone with the file can check it from a browser. The published file matches. Change one byte, and it fails. No server of ours is needed to read the chain.
 
-(47 words, about 19 s)
+(45 words, about 18 s)
 
 ---
 
@@ -40,15 +40,15 @@ Before recording: open the order PDF (ag.ny.gov link from Step 0) at page 6 in a
 
 [Screen: click "1 Impracticability". Point at the three wallet cards, then the shaded April to December 2024 band, then "Contact attempts".]
 
-> Step one is why NFT service was needed. These are the three real defendant wallets, read only, with transactions as recent as this month. The shaded band is the period the court relied on. Next to it are the contact attempts from the decision: fourteen phone numbers, four emails, no usable address.
+> Step one is the impracticability showing: the three real defendant wallets, read only. Balances still match the 2024 freeze; recent entries include transfers from others. The shaded band is the period the court relied on. Next to it, the contact attempts: fourteen phone numbers and four emails; one email was delivered, none gave a mailing address.
 
-(52 words, about 21 s)
+(56 words, about 22 s)
 
 ### Scene 5 (1:28 to 1:43) Conditions
 
 [Screen: click "2 Conditions". Scroll slowly through the five condition cards with their quotes and page numbers.]
 
-> Step two turns the order into a checklist. Each item keeps the exact words and the page. The checklist's hash is written on-chain when the case is opened, so it cannot be edited later.
+> Step two turns the order into a checklist. Each item keeps the exact words and the page. The checklist's hash is written on-chain when the case is opened, so any later edit is detectable.
 
 (34 words, about 14 s)
 
@@ -56,17 +56,17 @@ Before recording: open the order PDF (ag.ny.gov link from Step 0) at page 6 in a
 
 [Screen: click "3 Serve". Point at the TRON note at the top, show "1 · Service bundle" hash, then "2 · Notices minted" table, then click one TX link to open Sepolia Etherscan. Come back and point at the "replay" badges, then the "Context only" card.]
 
-> Step three serves. The papers are hashed, and one non-transferable notice goes to each wallet. The order names two TRON wallets, and this tool writes only to EVM chains, so these are Sepolia stand-ins. Nothing is ever sent to the real wallets. NFTs already seen on those wallets are shown as context only, not evidence.
+> Step three serves. The papers are hashed, and one non-transferable notice goes to each Sepolia stand-in wallet: the order names two TRON wallets, and this tool writes only to EVM chains. Nothing is ever sent to the real wallets. NFTs already seen there are context only, not evidence.
 
-(55 words, about 22 s)
+(48 words, about 19 s)
 
 ### Scene 7 (2:07 to 2:29) Deadline
 
-[Screen: click "4 Deadline". Point at "Declared by filer", then "2026-11-24" (New York date), then the yellow notes.]
+[Screen: click "4 Deadline". Point at "Declared by filer", then "2026-11-24" (New York calendar date), the on-chain timestamp line, then the yellow notes.]
 
-> Step four starts the clock. The order says service is complete when the affidavit is filed. The filer declares that time. Once every service condition has evidence, the contract adds thirty days under CPLR 320(a). The date is an estimate: counting rules are not applied, and it only matters if service was valid.
+> Step four starts the clock. Service is complete when the affidavit is filed, and the filer declares that time. Filing can be recorded only once every service condition has evidence; the contract then adds thirty days under CPLR 320(a) and 3012(c). The date is an estimate, and it only matters if service was valid.
 
-(52 words, about 21 s)
+(54 words, about 22 s)
 
 ---
 
@@ -76,9 +76,9 @@ Before recording: open the order PDF (ag.ny.gov link from Step 0) at page 6 in a
 
 [Screen: deck slide 5 "Why blockchain", or the README section.]
 
-> Why a blockchain? First, the defendant only exists on-chain, so service has to happen there. Second, anchoring the record is extra: the filer cannot quietly change it, and the other side can check without trusting us.
+> Why a blockchain? First, the defendant only exists on-chain, so service has to happen there. Second, anchoring the record is extra: the filer cannot quietly change it, and the other side can check it against the chain.
 
-(36 words, about 14 s)
+(37 words, about 15 s)
 
 ### Scene 9 (2:45 to 3:00) Limits and close
 
@@ -90,10 +90,10 @@ Before recording: open the order PDF (ag.ny.gov link from Step 0) at page 6 in a
 
 ---
 
-Total spoken: 424 words, about 2:50 at 150 wpm. The remaining time covers clicks and page loads; scene start times above include those pauses.
+Total spoken: 421 words, about 2:48 at 150 wpm. The remaining time covers clicks and page loads; scene start times above include those pauses.
 
 ## Recording notes
 
 - Say "testnet stand-ins" on screen 6 every take. It is the one sentence a reviewer must not miss.
 - Step 5 should read "Live (2 RPCs agree)". If the live RPCs are slow, the verifier falls back to the bundled events file and shows "MATCH (offline)". That is still a valid take; do not cut it. The result also shows that the case id is derived from the handler address and the case reference.
-- Do not show the Sepolia snapshot as done. Say it is shown via local replay; on Sepolia it is pending until 2026-11-24.
+- Do not show the Sepolia snapshot as done. Say it is shown via local replay; on Sepolia it is pending until the snapshot gate opens at 2026-11-24 08:46 UTC.

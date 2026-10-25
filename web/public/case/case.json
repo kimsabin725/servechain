@@ -430,7 +430,10 @@
     "serviceDeadline": "2027-02-22T08:44:36.000Z",
     "serviceDeadlineNote": "Replay deadline = case opening + 120 days, because the registry only accepts a future deadline. The original case deadline was entry 2025-06-11 + 120 days.",
     "responseDeadline": "2026-11-24T08:46:36.000Z",
+    "responseDeadlineLabel": "on-chain timestamp (filedAt + 720 h)",
     "responseDeadlineNY": "2026-11-24",
+    "responseDeadlineNYRule": "New York date of the declared filing + 30 calendar days; the last day runs to the end of that New York day",
+    "responseDeadlineNote": "The on-chain value is filedAt + 720 hours. Across a daylight-saving change it can fall on a different New York date than the calendar deadline, by one day.",
     "estimateNote": "Estimate. Counting rules (GCL §20, §25-a weekends/holidays) not applied — counsel must confirm the last day.",
     "validityNote": "Meaningful only if service was valid under the order.",
     "rule": "CPLR 320(a)",
@@ -575,11 +578,11 @@
       "citation": "LCX AG v 1.274M U.S. Dollar Coin, 2022 NY Slip Op 32834[U]",
       "court": "Sup Ct, NY County",
       "year": 2022,
-      "point": "Service on anonymous defendants by a token airdrop (not an NFT) linking to a website with the papers. A trial-court order (as cited; the decision itself was not read).",
+      "point": "Service on anonymous defendants by an airdropped token linking to a website with the papers. The 2025 decision (p.4) describes a token airdrop; the OAG memorandum in the same filing (p.64) describes it as service by NFT. A trial-court order (as cited; the decision itself was not read).",
       "source": "decision-and-pleadings-2025.pdf p.4 (L1 decision)",
       "status": "as-cited",
-      "note": "Citation form as printed on p.4 of the L1 decision. The OAG memorandum cites the same matter as LCX AG v. John Doe Nos. 1-25, No. 154644/2022.",
-      "method": "token airdrop"
+      "note": "Citation form as printed on p.4 of the L1 decision. The OAG memorandum (p.64 of the same PDF) cites the same matter as LCX AG v. John Doe Nos. 1-25, No. 154644/2022, \"finding alternative service by NFT to be effective service\". The two descriptions conflict (token airdrop vs NFT); the LCX decision itself was not read to resolve it.",
+      "method": "token airdrop (memo: NFT)"
     },
     {
       "id": "meghji-2024",
@@ -597,7 +600,7 @@
       "citation": "People v Unknown Parties in Ownership and/or Control of Digital Wallet Addresses, Sup Ct, Queens County, Index No. 700647/2025, reported as 2025 NY Slip Op 25143 (official text not retrieved)",
       "court": "Sup Ct, Queens County",
       "year": 2025,
-      "point": "Service by airdropping NFTs hyperlinked to a website with the papers to three wallet addresses (CPLR 308(5)); service complete on filing of the affidavit. A trial-court order on an unopposed motion.",
+      "point": "Service by airdropping NFTs hyperlinked to a website with the papers to three wallet addresses (CPLR 308(5)); service complete on filing of the affidavit. A trial-court order; this order was on an unopposed motion.",
       "source": "https://ag.ny.gov/sites/default/files/court-filings/people-v-digital-wallet-0xd7648fffa48e06b0107435a966f3f1e9dbe10b7d-decision-and-pleadings-2025.pdf pp.1, 6, 9",
       "status": "read",
       "note": "Signed 2025-06-09, entered 2025-06-11 (NYSCEF 21). A web search lists it as 2025 NY Slip Op 25143 (one search summary also gave 87 Misc 3d 950). The official text was not retrieved: on 2026-10-25 nycourts.gov returned 403, law.justia.com returned 403, Casetext returned 410, CourtListener search returned no results and Google Scholar returned a captcha. The order itself was read from the ag.ny.gov PDF.",
@@ -788,7 +791,7 @@
       "0x521f1ce6b9cf9bb2a300ccf0ca6fc6f495974eda0d7ee798fe0c324eae6e334c",
       "0xa189a2535003c615d7cb72b03b44021c60ec6bea239e140219cb277bfe4c6db3"
     ],
-    "note": "Sepolia time cannot be advanced. The registry rejects a declaredFiledAt earlier than case opening (FiledAtBeforeOpen) and any snapshot before the response deadline (ResponsePeriodOpen), so this step is pending on-chain. The snapshot step is shown from the local anvil replay.",
+    "note": "Sepolia time cannot be advanced. The registry rejects a declaredFiledAt earlier than case opening (FiledAtBeforeOpen) and any snapshot until filedAt + 720 h has passed (ResponsePeriodOpen), so this step is pending on-chain. The registry allows the activity snapshot once block time passes filedAt + 720 h, which is earlier than the end of the last calendar day. Counsel should treat the end of that New York day as the deadline. The snapshot step is shown from the local anvil replay.",
     "localReplay": {
       "case": "../case-local/case.json",
       "txHash": "0xb53d28ec375564ce11537e846e30032c86cbf43c6e2daa3246388f2442a8b8d4",
@@ -826,7 +829,14 @@
         "sourceUrl": "https://eth.blockscout.com/api/v2/addresses/0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d",
         "status": "ok",
         "completeFrom": "2024-04",
-        "note": "older items not fetched; months after 2024-03 are complete, 2024-03 and earlier may be undercounted"
+        "note": "older items not fetched; months after 2024-03 are complete, 2024-03 and earlier may be undercounted",
+        "lastOutgoing": {
+          "time": "2025-01-01T05:55:47Z",
+          "type": "approve (USDT contract)",
+          "txHash": "0xe792f75158a921f3644840a16ea5793cd124070e0a77ed64a6e3b2dac2936480",
+          "result": "success"
+        },
+        "balanceNote": "219,840.28 USDC, the same as the 219,840 USDC the complaint reports frozen as of April 5, 2024"
       },
       {
         "label": "Transition Wallet A",
@@ -844,7 +854,9 @@
         "sourceUrl": "https://eth.blockscout.com/api/v2/addresses/0x6298BfEd428B843d326dDAE1A406441CDB40db80",
         "status": "ok",
         "completeFrom": "2024-06",
-        "note": "older items not fetched; months after 2024-05 are complete, 2024-05 and earlier may be undercounted"
+        "note": "older items not fetched; months after 2024-05 are complete, 2024-05 and earlier may be undercounted",
+        "lastOutgoing": null,
+        "balanceNote": null
       },
       {
         "label": "Transition Wallet B",
@@ -863,7 +875,9 @@
         "sourceUrl": "https://eth.blockscout.com/api/v2/addresses/0x7a448169e9d5DB6405087dAB9dfF774Db6589b05",
         "status": "ok",
         "completeFrom": "2024-04",
-        "note": "older items not fetched; months after 2024-03 are complete, 2024-03 and earlier may be undercounted"
+        "note": "older items not fetched; months after 2024-03 are complete, 2024-03 and earlier may be undercounted",
+        "lastOutgoing": null,
+        "balanceNote": null
       },
       {
         "label": "wallet 0x409 (USDC outflow)",
@@ -881,7 +895,9 @@
         "sourceUrl": "https://eth.blockscout.com/api/v2/addresses/0x409C4A8eC8eEBf4132E33122164D57C5B7039E59",
         "status": "ok",
         "completeFrom": "2024-04",
-        "note": null
+        "note": null,
+        "lastOutgoing": null,
+        "balanceNote": null
       },
       {
         "label": "Wallet 2 (defendant)",
@@ -920,7 +936,14 @@
         "sourceUrl": "https://api.trongrid.io/v1/accounts/TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
         "status": "ok",
         "completeFrom": "2023-10",
-        "note": "older items not fetched; months after 2023-09 are complete, 2023-09 and earlier may be undercounted"
+        "note": "older items not fetched; months after 2023-09 are complete, 2023-09 and earlier may be undercounted",
+        "lastOutgoing": {
+          "time": "2026-10-16T09:11:39Z",
+          "type": "USDT transfer call",
+          "txHash": "1c8f1d2921c215eaf84c7a64ec50f24517d4d77a57d8afe8536ab65f27de5773",
+          "result": "reverted"
+        },
+        "balanceNote": "862,347.43 USDT, the same as the approximately 862,347 USDT the complaint reports frozen as of April 26, 2024"
       },
       {
         "label": "Wallet 3 (defendant)",
@@ -955,7 +978,14 @@
         "sourceUrl": "https://api.trongrid.io/v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
         "status": "ok",
         "completeFrom": "2023-10",
-        "note": "older items not fetched; months after 2023-09 are complete, 2023-09 and earlier may be undercounted"
+        "note": "older items not fetched; months after 2023-09 are complete, 2023-09 and earlier may be undercounted",
+        "lastOutgoing": {
+          "time": "2026-05-03T13:00:48Z",
+          "type": "TRX transfer (20 TRX)",
+          "txHash": "a98341ac7b5f582b35bb28609c90cc971b7c2cf7f2a1392a6fab057af6d94569",
+          "result": "success"
+        },
+        "balanceNote": "1,097,320.19 USDT, the same as the approximately 1,097,320 the complaint reports frozen as of April 26, 2024"
       }
     ],
     "completeFromNote": "Per wallet, monthly counts from completeFrom onward are complete; earlier months may be undercounted because older items were not fetched.",
@@ -1040,7 +1070,7 @@
       "contract": "0xc9154424b823b10579895ccbe442d41b9abd96ed",
       "name": "https://ag.ny.gov/IPBsummons",
       "explorerUrl": "https://etherscan.io/tx/0xc3b61bd37696c38c24b64e9ac05df16f20e71e649173f5edd304162959928d0e",
-      "note": "Delivered 2025-01-21/22 under the January 10, 2025 order to show cause (motion papers), before the June 2025 order. Cited in the Sang affirmation (pp.70-72); not performance of the June order.",
+      "note": "Delivered 2025-01-21/22 under the January 10, 2025 order to show cause (motion papers), before the June 2025 order. Cited in the intern affirmation (pp.70-72); not performance of the June order.",
       "readOnly": true
     },
     {
@@ -1056,7 +1086,7 @@
       "contract": "TTaW2mBYS4PrtR5KAJPuVJnqraUiyaVat3",
       "name": "NOTICE OF A LAWSUIT",
       "explorerUrl": "https://tronscan.org/#/transaction/782febfc3134e9b1f602dcb0522d0454e41ebae350e7cd330837ccc54bed95c5",
-      "note": "Delivered 2025-01-21/22 under the January 10, 2025 order to show cause (motion papers), before the June 2025 order. Cited in the Sang affirmation (pp.70-72); not performance of the June order.",
+      "note": "Delivered 2025-01-21/22 under the January 10, 2025 order to show cause (motion papers), before the June 2025 order. Cited in the intern affirmation (pp.70-72); not performance of the June order.",
       "readOnly": true
     },
     {
@@ -1072,7 +1102,7 @@
       "contract": "TLJa2LhmGUqrB2KjpxNRHPPTxgrPTz7mGf",
       "name": "https_ag_ny_gov_IPBsummons",
       "explorerUrl": "https://tronscan.org/#/transaction/bfbacea582b76fb95eaa3f4fac32ccfb832a5703a1f7ea9a08593808ae1c6df4",
-      "note": "Delivered 2025-01-21/22 under the January 10, 2025 order to show cause (motion papers), before the June 2025 order. Cited in the Sang affirmation (pp.70-72); not performance of the June order.",
+      "note": "Delivered 2025-01-21/22 under the January 10, 2025 order to show cause (motion papers), before the June 2025 order. Cited in the intern affirmation (pp.70-72); not performance of the June order.",
       "readOnly": true
     },
     {
@@ -1088,7 +1118,7 @@
       "contract": "TTaW2mBYS4PrtR5KAJPuVJnqraUiyaVat3",
       "name": "NOTICE OF A LAWSUIT",
       "explorerUrl": "https://tronscan.org/#/transaction/70c0c9dc940cc8b8bafd1c96e1364179e4ef9b98d5c8fba0a8b96fa9dc3d225b",
-      "note": "Delivered 2025-01-21/22 under the January 10, 2025 order to show cause (motion papers), before the June 2025 order. Cited in the Sang affirmation (pp.70-72); not performance of the June order.",
+      "note": "Delivered 2025-01-21/22 under the January 10, 2025 order to show cause (motion papers), before the June 2025 order. Cited in the intern affirmation (pp.70-72); not performance of the June order.",
       "readOnly": true
     },
     {
@@ -1104,7 +1134,7 @@
       "contract": "TLJa2LhmGUqrB2KjpxNRHPPTxgrPTz7mGf",
       "name": "https_ag_ny_gov_IPBsummons",
       "explorerUrl": "https://tronscan.org/#/transaction/6361f4f44b95b0cfd165801d0d1a515d3a154584d9b5e0f86d4dc9a429823907",
-      "note": "Delivered 2025-01-21/22 under the January 10, 2025 order to show cause (motion papers), before the June 2025 order. Cited in the Sang affirmation (pp.70-72); not performance of the June order.",
+      "note": "Delivered 2025-01-21/22 under the January 10, 2025 order to show cause (motion papers), before the June 2025 order. Cited in the intern affirmation (pp.70-72); not performance of the June order.",
       "readOnly": true
     }
   ],

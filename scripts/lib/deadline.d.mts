@@ -1,0 +1,20 @@
+export declare const RESPONSE_DAYS: number;
+export declare const CHAIN_PERIOD_HOURS: number;
+export declare const CALENDAR_RULE: string;
+export declare const CHAIN_LABEL: string;
+export declare const CHAIN_NOTE: string;
+export declare const GATE_NOTE: string;
+type Time = string | number | bigint | Date | null | undefined;
+export declare function nyCalendarDate(t: Time): string | null;
+export declare function addCalendarDays(ymd: string, days: number): string;
+export declare function responseDeadlineDate(filedAt: Time, days?: number): string | null;
+export declare function chainDeadline(filedAt: Time): string | null;
+export declare function deadlineView(filedAt: Time, onChain?: Time): {
+  calendar: string | null;
+  chain: string | null;
+  chainNY: string | null;
+  differs: boolean;
+  rule: string;
+  chainLabel: string;
+  chainNote: string;
+};

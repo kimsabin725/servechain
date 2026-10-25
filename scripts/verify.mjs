@@ -5,6 +5,7 @@ import { createPublicClient, http, keccak256, encodeAbiParameters, parseAbiItem 
 import { foundry, sepolia } from 'viem/chains';
 import { ROOT, artifact, collectEvents, readEnv } from './lib/chain.mjs';
 import { sha256File, merkleRoot, hashJson } from './lib/hash.mjs';
+import { deadlineView, GATE_NOTE } from './lib/deadline.mjs';
 
 export const TRUSTS = 'Trusts: the contract addresses and issuer published in case.json; confirm the issuer through an independent channel';
 export const EXIT = { MATCH: 0, MISMATCH: 1, ERROR: 2, OFFLINE_MATCH: 3 };
@@ -218,38 +219,105 @@ export async function verifyExhibit({ pdfPath, casePath, offline = false, rpcUrl
     done ? `declaredFiledAt ${c.affidavit.declaredFiledAt}` : 'not recorded',
   );
   if (snap) check('activity snapshot root recomputes from leaves', eq(snap.args.activityRootHash, merkleRoot(c.snapshot.leaves)) && eq(snap.args.activityRootHash, c.snapshot.activityRootHash));
-  else check('activity snapshot pending (not anchored)', c.snapshot?.status === 'pending', `pending until ${c.snapshot?.pendingUntil}`);
+  else check('activity snapshot pending (not anchored)', c.snapshot?.status === 'pending', `snapshot gate opens ${c.snapshot?.pendingUntil} (filedAt + 720 h). ${GATE_NOTE}`);
+  const deadline = done ? deadlineView(Number(done.args.filedAt), Number(done.args.responseDeadline)) : null;
   const ok = checks.every((x) => x.ok || x.level === 'warn');
   const verdict = ok ? 'MATCH' : 'MISMATCH';
   const label = !ok ? 'MISMATCH' : loaded.offline ? 'MATCH (offline: against bundled events.json, not independent)' : `MATCH (${loaded.mode})`;
   const exitCode = !ok ? EXIT.MISMATCH : loaded.offline ? EXIT.OFFLINE_MATCH : EXIT.MATCH;
-  return { verdict, label, exitCode, offline: loaded.offline, mode: loaded.mode, rpcCount: loaded.rpcCount, pdfSha, source: loaded.source, issuer, trusts: TRUSTS, checks };
+  return { verdict, label, exitCode, deadline, offline: loaded.offline, mode: loaded.mode, rpcCount: loaded.rpcCount, pdfSha, source: loaded.source, issuer, trusts: TRUSTS, checks };
 }
 
-// Parses argv; --rpc may repeat.
+export class UsageError extends Error {}
+const VALUED = ['--case', '--rpc', '--expect-handler', '--deployments'];
+const usage = (m) => new UsageError(m);
+
+// Parses argv; accepts --flag value and --flag=value, --rpc may repeat, anything malformed throws UsageError.
 export function parseArgs(args) {
-  const valued = ['--case', '--rpc', '--expect-handler', '--deployments'];
-  const all = (n) => args.flatMap((a, i) => (a === n && args[i + 1] ? [args[i + 1]] : []));
+  const seen = {};
+  const o = { rpcUrls: [], offline: false };
+  let pdfPath = null;
+  for (let i = 0; i < args.length; i++) {
+    const a = args[i];
+    if (!a.startsWith('--')) {
+      if (a.trim() === '') throw usage('empty argument');
+      if (pdfPath) throw usage(`unexpected extra argument: ${a}`);
+      pdfPath = a;
+      continue;
+    }
+    const eqAt = a.indexOf('=');
+    const name = eqAt < 0 ? a : a.slice(0, eqAt);
+    const inline = eqAt < 0 ? undefined : a.slice(eqAt + 1);
+    if (name === '--offline') {
+      if (inline !== undefined) throw usage('--offline takes no value');
+      o.offline = true;
+      continue;
+    }
+    if (!VALUED.includes(name)) throw usage(`unknown option: ${name}`);
+    const v = inline ?? args[++i];
+    if (v === undefined || v.trim() === '' || (inline === undefined && v.startsWith('--'))) throw usage(`${name} needs a non-empty value`);
+    if (name !== '--rpc' && seen[name]) throw usage(`${name} given more than once`);
+    seen[name] = true;
+    if (name === '--rpc') {
+      if (!/^(https?|wss?):\/\/\S+$/.test(v)) throw usage(`--rpc must be an http(s) or ws(s) URL: ${v}`);
+      o.rpcUrls.push(v);
+    } else if (name === '--expect-handler') {
+      if (!/^0x[0-9a-fA-F]{40}$/.test(v)) throw usage(`--expect-handler must be a 0x-prefixed 20-byte address: ${v}`);
+      o.expectHandler = v;
+    } else if (name === '--case') o.casePath = v;
+    else o.deploymentsDir = v;
+  }
   return {
-    pdfPath: args.find((a, i) => !a.startsWith('--') && !valued.includes(args[i - 1])),
-    casePath: all('--case')[0] || path.join(ROOT, 'web', 'public', 'case', 'case.json'),
-    rpcUrls: all('--rpc'),
-    expectHandler: all('--expect-handler')[0] || null,
-    offline: args.includes('--offline'),
-    ...(all('--deployments')[0] ? { deploymentsDir: all('--deployments')[0] } : {}),
+    pdfPath,
+    casePath: o.casePath || path.join(ROOT, 'web', 'public', 'case', 'case.json'),
+    rpcUrls: o.rpcUrls,
+    expectHandler: o.expectHandler || null,
+    offline: o.offline,
+    ...(o.deploymentsDir ? { deploymentsDir: o.deploymentsDir } : {}),
   };
+}
+
+// True when the file starts with the %PDF- header.
+export function looksLikePdf(file) {
+  const fd = fs.openSync(file, 'r');
+  try {
+    const head = Buffer.alloc(5);
+    return fs.readSync(fd, head, 0, 5, 0) === 5 && head.toString('latin1') === '%PDF-';
+  } finally {
+    fs.closeSync(fd);
+  }
 }
 
 // CLI entry: exit 0 live MATCH, 3 offline MATCH, 1 MISMATCH, 2 error.
 async function cli() {
-  const o = parseArgs(process.argv.slice(2));
-  if (!o.pdfPath) {
-    console.error('usage: npm run verify -- <exhibit.pdf> [--case web/public/case/case.json] [--offline] [--rpc URL]... [--expect-handler 0xADDR] [--deployments DIR]');
+  const help = 'usage: npm run verify -- <exhibit.pdf> [--case web/public/case/case.json] [--offline] [--rpc URL]... [--expect-handler 0xADDR] [--deployments DIR]';
+  let o;
+  try {
+    o = parseArgs(process.argv.slice(2));
+  } catch (e) {
+    if (!(e instanceof UsageError)) throw e;
+    console.error(`${e.message}\n${help}`);
     process.exit(EXIT.ERROR);
   }
+  if (!o.pdfPath) {
+    console.error(help);
+    process.exit(EXIT.ERROR);
+  }
+  for (const [what, p] of [['input file', o.pdfPath], ['case file', o.casePath]]) {
+    if (!fs.existsSync(p) || !fs.statSync(p).isFile()) {
+      console.error(`${what} not found: ${p}`);
+      process.exit(EXIT.ERROR);
+    }
+  }
+  const notPdf = !looksLikePdf(o.pdfPath);
   const r = await verifyExhibit(o);
   console.log(`events: ${r.source}`);
   for (const x of r.checks) console.log(`${x.ok ? 'ok  ' : x.level === 'warn' ? 'warn' : 'FAIL'} ${x.name}${x.detail ? ` — ${x.detail}` : ''}`);
+  if (r.deadline) {
+    console.log(`response deadline (calendar estimate): ${r.deadline.calendar}, through the end of that New York day (${r.deadline.rule})`);
+    console.log(`${r.deadline.chainLabel}: ${r.deadline.chain} (New York date ${r.deadline.chainNY}${r.deadline.differs ? ', differs from the calendar date' : ''}). ${r.deadline.chainNote}`);
+  }
+  if (notPdf) console.log('hint: input is not a PDF (no %PDF- header); the compliance summary is a PDF file');
   console.log(r.trusts);
   console.log(r.label);
   process.exit(r.exitCode);

@@ -40,7 +40,7 @@ export function addressesIn(text) {
 
 let cached = null;
 
-// Builds the deny list from every address in the court record and imported service data.
+// Builds the deny list from every address in data/court/facts.json, data/conditions.json and data/activity/service-txs.json.
 export function denyList() {
   if (cached) return cached;
   const deny = new Set();

@@ -10,6 +10,7 @@ export const RPCS = [
 
 export const LOG_CHUNK = 10_000n;
 export const TRUSTS = 'Trusts: the contract addresses and issuer published in case.json; confirm the issuer through an independent channel.';
+export const BROWSER_SKIPS = 'Not checked in the browser: a deployments/<chainId>.json comparison, an issuer pinned with --expect-handler, and the activity snapshot Merkle root. The CLI (npm run verify) checks those.';
 
 const ABI = parseAbi([
   'event CaseOpened(bytes32 indexed caseId, address indexed handler, bytes32 orderHash, bytes32 conditionsHash, uint8 conditionCount, uint256 serviceMask, uint64 serviceDeadline)',
@@ -48,7 +49,7 @@ export type VerifyResult = {
 };
 
 export const KIND_TEXT: Record<Kind, string> = {
-  exhibit: 'this is the anchored exhibit',
+  exhibit: 'this is the anchored compliance summary',
   bundle: 'this is the served document bundle',
   affidavit: 'this is the declared affidavit of service',
   order: 'this is the court order PDF registered with the case',
@@ -60,7 +61,7 @@ export const KIND_TEXT: Record<Kind, string> = {
 export function describeMatch(m: Match, c: CaseFile): string {
   const slot = c.exhibit?.registrySlot ?? c.registrySlots?.find((s) => s.kind === 'exhibit-anchor')?.id;
   if (m.event === 'ConditionFulfilled') {
-    if (m.conditionId === slot) return 'Exhibit anchor recorded in the case registry';
+    if (m.conditionId === slot) return 'Compliance summary anchor recorded in the case registry';
     const k = c.conditions.find((x) => x.id === m.conditionId);
     return k ? `Evidence for condition ${k.id + 1}: ${k.title}` : 'Condition evidence recorded in the case registry';
   }
@@ -233,12 +234,19 @@ export async function assess(c: CaseFile, events: ChainEvent[], binding: Binding
     }
     check(`condition ${id + 1} evidence link`, bad.length === 0, bad.join('; '));
   }
+  check('case opened with the order hash', opened && lc(opened.args.orderHash) === lc(c.order.hash));
+  check('conditions hash', opened && lc(opened.args.conditionsHash) === lc(c.order.conditionsHash));
+  check('service notices carry the bundle hash', notices.length > 0 && notices.length === c.service.length && notices.every((e) => lc(e.args.documentsHash) === lc(c.documents.bundleHash)), `${notices.length} notices`);
+  check('notice recipients match case.json', c.service.every((s) => notices.some((e) => lc(e.args.recipient) === lc(s.recipient) && lc(e.txHash) === lc(s.txHash))));
+  check('condition statuses match the registry', c.conditions.every((k) => (k.status === 'fulfilled') === fulfilled.some((f) => Number(f.args.conditionId) === k.id)));
   const deadline = Number(opened?.args.serviceDeadline ?? 0);
   const timed = notices.filter((e) => typeof e.timestamp === 'number');
-  check('notices served on or before the service deadline', opened && timed.length === notices.length && timed.every((e) => (e.timestamp as number) <= deadline), timed.length < notices.length ? 'notice times unavailable' : '');
+  check('notices served on or before the service deadline', opened && notices.length > 0 && timed.length === notices.length && timed.every((e) => (e.timestamp as number) <= deadline), timed.length < notices.length ? 'notice times unavailable' : `${notices.length} notices`);
   if (done) {
-    const last = Math.max(0, ...fulfilled.filter((f) => svc.includes(Number(f.args.conditionId))).map((f) => Number(f.args.fulfilledAt ?? 0)));
-    check('filing not dated before the last service evidence', Number(done.args.filedAt) >= last, `filedAt ${done.args.filedAt} vs ${last}`);
+    const serviceAt = fulfilled.filter((f) => svc.includes(Number(f.args.conditionId))).map((f) => Number(f.args.fulfilledAt ?? 0));
+    const last = Math.max(0, ...serviceAt);
+    check('filing not dated before the last service evidence, all service evidence by the deadline', Number(done.args.filedAt) >= last && serviceAt.length === svc.length && serviceAt.every((t) => t <= deadline), `filedAt ${done.args.filedAt} vs ${last}`);
+    check('affidavit hash and declared filing time', lc(done.args.affidavitHash) === lc(c.affidavit.hash) && Number(done.args.filedAt) === Math.floor(new Date(c.affidavit.declaredFiledAt).getTime() / 1000));
   }
   return checks;
 }
@@ -271,7 +279,7 @@ export async function verifyFile(buf: ArrayBuffer, c: CaseFile, offline: ChainEv
       }
     }
     if (reads.length) {
-      const sig = (r: LiveRead) => JSON.stringify(r.events.map((e) => [e.txHash, e.logIndex, e.event])) + lc(r.owner);
+      const sig = (r: LiveRead) => JSON.stringify(r.events.map((e) => [e.txHash, e.logIndex, e.event, canonicalJson(e.args)])) + lc(r.owner);
       const agree = reads.length < 2 || sig(reads[0]) === sig(reads[1]);
       const liveMode = reads.length < 2 ? 'Live (1 RPC)' : agree ? 'Live (2 RPCs agree)' : 'Live (2 RPCs DISAGREE)';
       const events = reads[0].events;

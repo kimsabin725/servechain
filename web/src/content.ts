@@ -11,12 +11,12 @@ export const CONFIRMED_SENTENCE =
 export const DECISION_COUNTS = { phones: 14, replied: 2, emails: 4, delivered: 1 };
 
 const FALLBACK_PRECEDENTS: Precedent[] = [
-  { citation: 'LCX AG v 1.274M U.S. Dollar Coin, 2022 NY Slip Op 32834[U]', court: 'Sup Ct, NY County', year: 2022, method: 'token airdrop' },
+  { citation: 'LCX AG v 1.274M U.S. Dollar Coin, 2022 NY Slip Op 32834[U]', court: 'Sup Ct, NY County', year: 2022, method: 'token airdrop (memo: NFT)' },
   { citation: 'Meghji v Wallet Owner (In re Celsius Network LLC), 666 BR 28 [Bankr SD NY 2024]', court: 'Bankr. S.D.N.Y.', year: 2024, method: 'NFT' },
   { citation: 'People v Unknown Parties in Ownership and/or Control of Digital Wallet Addresses, Sup Ct, Queens County, Index No. 700647/2025, reported as 2025 NY Slip Op 25143 (official text not retrieved)', court: 'Sup Ct, Queens County', year: 2025, thisCase: true, method: 'NFT' },
 ];
 
-const KNOWN_METHOD: [RegExp, string][] = [[/LCX/, 'token airdrop'], [/Celsius|Meghji/, 'NFT'], [/700647|Unknown Parties/, 'NFT']];
+const KNOWN_METHOD: [RegExp, string][] = [[/LCX/, 'token airdrop (memo: NFT)'], [/Celsius|Meghji/, 'NFT'], [/700647|Unknown Parties/, 'NFT']];
 
 export type PrecedentRow = { text: string; url?: string; note?: string; thisCase: boolean; asCited?: boolean; method?: string };
 
@@ -66,7 +66,8 @@ export function plain(s: string): string {
     .replace(/\s*\[unverified\]/gi, ' (not verified)')
     .replace(/\bWebFetch\b/g, 'an automated web reader')
     .replace(/\bdeclaredFiledAt\b/g, 'declared filing date')
-    .replace(/\bregistry slot \d+\b/gi, 'exhibit anchor')
+    .replace(/\bregistry slot \d+\b/gi, 'summary anchor')
+    .replace(/\bSHA-256 of exhibit\.pdf\b/g, 'SHA-256 of the compliance summary (exhibit.pdf)')
     .replace(/\bconditionId\b/g, 'condition');
 }
 

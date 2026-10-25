@@ -63,6 +63,7 @@ td { padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: to
 td:first-child { font-weight: 600; white-space: nowrap; }
 .big-list li { font-size: 19px; margin-bottom: var(--li-gap, 10px); }
 .big-list h3 { font-size: 24px; margin-bottom: 14px; }
+.big-list.tight li { font-size: 16.5px; line-height: 1.35; }
 code { font-family: var(--mono); font-size: .85em; }
 </style>
 </head>
@@ -73,7 +74,7 @@ code { font-family: var(--mono); font-size: .85em; }
   <div class="kicker">ServeChain · BLI Legal Tech Hackathon 2</div>
   <h1 style="max-width: 1080px">A court let a plaintiff serve defendants it only knew as three wallet addresses. Proving it followed that order is still done by hand.</h1>
   <div style="height: 22px"></div>
-  <blockquote>“ORDERED, that plaintiff shall serve the summons, complaint, … together with a copy of this Decision and Order with Notice of Entry upon defendants, <mark>within 120 days of the date of entry</mark>, <mark>by airdropping NFTs hyperlinked to a website</mark> containing copies of said pleadings <mark>to digital wallet addresses</mark> 0xD764…0B7d (Wallet 1), TCfr…1ss8 (Wallet 2), and TDvR…Ztmu (Wallet 3)” … “plaintiff shall <mark>file an affidavit of service</mark> … and service shall be deemed complete upon such filing.”
+  <blockquote>“ORDERED, that plaintiff shall serve the summons, complaint, … together with a copy of this Decision and Order with Notice of Entry, upon defendants, <mark>within 120 days of the date of entry</mark>, <mark>by airdropping NFTs hyperlinked to a website</mark> containing copies of said pleadings <mark>to digital wallet addresses</mark> 0xD764…0B7d (Wallet 1), TCfr…1ss8 (Wallet 2), and TDvR…Ztmu (Wallet 3)” … “plaintiff shall <mark>file an affidavit of service</mark> … and service shall be deemed complete upon such filing.”
     <cite>Sup. Ct. N.Y., Queens County, Index No. 700647/2025 (Lin, J.), order signed June 9, 2025, p. 6 · public record at ag.ny.gov</cite>
   </blockquote>
   <div style="height: 22px"></div>
@@ -85,32 +86,32 @@ code { font-family: var(--mono); font-size: .85em; }
 <!-- 2 -->
 <section class="slide">
   <div class="kicker">How it is done today</div>
-  <h2 style="font-size: 33px; margin-bottom: 16px">Some courts have ordered service by NFT. The proof is saved webpages.</h2>
+  <h2 style="font-size: 33px; margin-bottom: 16px">In the case replayed here, the proof was saved webpages.</h2>
   <div class="cols">
     <div>
       <div class="card" style="margin-bottom: 18px">
         <h3>Where courts have ordered it</h3>
-        <p class="small muted" style="margin-bottom: 6px">Trial-court orders on unopposed motions, not appellate rulings.</p>
+        <p class="small muted" style="margin-bottom: 6px">Trial-level orders, not appellate rulings (this 2025 order was unopposed).</p>
         <ul>
-          <li><em>LCX AG v 1.274M U.S. Dollar Coin</em>, 2022 NY Slip Op 32834[U] (Sup Ct, NY County) <span class="pill">token airdrop</span></li>
+          <li><em>LCX AG v 1.274M U.S. Dollar Coin</em>, 2022 NY Slip Op 32834[U] (Sup Ct, NY County) <span class="pill">token airdrop</span> <span class="small muted">(the OAG memo calls it NFT)</span></li>
           <li><em>Meghji v Wallet Owner (In re Celsius Network LLC)</em>, 666 BR 28 [Bankr SD NY 2024] <span class="pill">NFT</span></li>
           <li><em>People v Unknown Parties</em>, Sup Ct, Queens County, Index No. 700647/2025, reported as 2025 NY Slip Op 25143 (official text not retrieved) <span class="pill">NFT</span></li>
         </ul>
       </div>
       <div class="card">
         <h3>What the order asks for</h3>
-        <p>Five conditions: a 120-day window, a specific document set, a specific method, three named wallets, and a filed affidavit. The response clock starts at filing. A miss on any one of them may give a defendant an argument against a default judgment.</p>
+        <p>Five conditions: a 120-day window, a specific document set, a specific method, three named wallets, and a filed affidavit. The response clock starts at filing. Counsel must show each condition was met; a gap can be raised against a default judgment.</p>
       </div>
     </div>
     <div>
       <div class="card" style="height: 100%">
         <h3>In this case, at the motion stage (January 2025)</h3>
         <ul>
-          <li>A law-student intern minted the Ethereum notice through an NFT platform's shared contract, and the TRON notices through separate contracts.</li>
+          <li>A law-student intern sent the notices. His affirmation says a smart contract was created on an NFT platform; the exhibit shows a platform's shared ERC-721 token. TRON notices used separate contracts.</li>
           <li>Delivery was shown with <strong>explorer and NFT-platform webpages</strong> (Etherscan, Tronscan) attached to an affirmation.</li>
           <li>Nothing ties each page to the order condition it relates to, flags which conditions have no evidence yet, or fixes which papers were actually served.</li>
         </ul>
-        <p class="small muted" style="margin-top: 14px">Source: decision p. 5; intern affirmation, pp. 69-72 of the public PDF.</p>
+        <p class="small muted" style="margin-top: 14px">Source: decision pp. 4-5; intern affirmation pp. 69-72 and exhibit p. 78; OAG memo p. 64 (LCX), all in the public PDF.</p>
       </div>
     </div>
   </div>
@@ -124,8 +125,8 @@ code { font-family: var(--mono); font-size: .85em; }
   <div class="flow">
     <div class="card"><div class="n">1</div><h3>Impracticability</h3><p>Real defendant wallet activity, read only, beside the contact attempts the court relied on.</p></div>
     <div class="card"><div class="n">2</div><h3>Conditions</h3><p>The order becomes a checklist with exact quotes and page numbers. Its hash is fixed on-chain.</p></div>
-    <div class="card"><div class="n">3</div><h3>Serve</h3><p>Hash the papers, mint one soulbound (non-transferable) notice per wallet with that hash in <code>tokenURI</code>, link each tx to a condition.</p></div>
-    <div class="card"><div class="n">4</div><h3>Deadline</h3><p>Declared affidavit filing + 30 days (CPLR 320(a)), derived by the contract. Shown as an estimate, New York date.</p></div>
+    <div class="card"><div class="n">3</div><h3>Serve</h3><p>Hash the papers, mint one soulbound (non-transferable) notice per wallet per condition with that hash in <code>tokenURI</code>, link each tx to a condition.</p></div>
+    <div class="card"><div class="n">4</div><h3>Deadline</h3><p>Filing is recorded once every service condition has evidence; + 30 days (CPLR 320(a) / 3012(c)). Shown as a New York calendar date, an estimate.</p></div>
     <div class="card"><div class="n">5</div><h3>Summary &amp; verify</h3><p>One compliance summary PDF (attachment for counsel), A to C. Its hash is anchored. Browser or CLI says MATCH or MISMATCH.</p></div>
   </div>
   <div class="cols-3">
@@ -170,7 +171,7 @@ code { font-family: var(--mono); font-size: .85em; }
     <div class="num">2</div>
     <div>
       <h3 style="font: 600 28px/1.2 var(--serif); margin: 0 0 8px">Anchoring the compliance record is added value, not a legal requirement.</h3>
-      <p>Saved webpages and spreadsheets can be edited later. Evidence hashes, the declared filing time and the compliance summary hash on-chain mean the filer cannot quietly change their own record, and the other side can check that without trusting us or our server.</p>
+      <p>Saved webpages and spreadsheets can be edited later. Evidence hashes, the declared filing time and the compliance summary hash on-chain mean the filer cannot quietly change their own record, and the other side can check it against the chain. No server of ours is needed to read it.</p>
     </div>
   </div>
   <p class="muted small">On-chain gives public reading, ordering and a non-transferable service NFT. It does not prove the facts behind a record, and a proof of time alone could come from an RFC 3161 timestamp. Courts still read explorers and affidavits; ServeChain organizes that proof, it does not replace it.</p>
@@ -192,13 +193,13 @@ code { font-family: var(--mono); font-size: .85em; }
         <li>To be legal advice. Lawyer review is required.</li>
       </ul>
     </div>
-    <div class="card big-list" style="--li-gap: 6px">
+    <div class="card big-list tight" style="--li-gap: 5px">
       <h3>Limitations today</h3>
       <ul>
         <li><code>declaredFiledAt</code> is entered by the filer. The chain cannot prove the court filing date.</li>
-        <li>Deadlines are estimates: GCL §20, §25-a not applied.</li>
-        <li>The registry refuses to record service as complete until every service condition has linked evidence, and refuses a filing date earlier than the last service evidence. It still cannot check that the evidence is true.</li>
-        <li>Snapshot shown via local replay; pending on Sepolia until 2026-11-24.</li>
+        <li>Deadlines are estimates (weekend and holiday rules not applied); on-chain filedAt + 720 h can be one day off the calendar date across DST.</li>
+        <li>The registry records service as complete only after every service condition has linked evidence, and not dated before the last of it. It cannot check that the evidence is true.</li>
+        <li>Snapshot shown via local replay. On Sepolia its gate opens at filedAt + 720 h (2026-11-24 08:46 UTC), before the last calendar day ends.</li>
         <li>The verifier trusts contract addresses in case.json; links are the handler's declaration.</li>
         <li>Writes are EVM only. TRON wallets are read, not served.</li>
         <li>Registry and notice contract are linked by the scripts, not on-chain.</li>
@@ -210,7 +211,7 @@ code { font-family: var(--mono); font-size: .85em; }
 
 <!-- 7 -->
 <section class="slide">
-  <div class="kicker">Who uses it</div>
+  <div class="kicker">Who it is for</div>
   <h2>People who serve wallet-only defendants.</h2>
   <div class="cols-3">
     <div class="card"><h3>Plaintiff's counsel and process servers</h3><p>Digital-asset fraud and recovery cases where the only known contact point is a wallet address.</p></div>
@@ -234,7 +235,7 @@ code { font-family: var(--mono); font-size: .85em; }
     <div class="card"><h3>Weekend and holiday rules</h3><p>Apply day-counting and roll-forward rules once read from the source, with the rule shown next to every date.</p></div>
     <div class="card"><h3>Court e-filing link</h3><p>Attach the e-filing confirmation to the affidavit record so the filing time no longer rests on the filer's word alone.</p></div>
     <div class="card"><h3>Registry reads the notices</h3><p>Link the registry to the notice contract on-chain, so service evidence no longer depends on the scripts recording each notice.</p></div>
-    <div class="card"><h3>Korea</h3><p>A proposal for wallet-only defendants, where service by publication (공시송달) is the current fallback. Rule set to be built from the Civil Procedure Act.</p></div>
+    <div class="card"><h3>Korea: research item</h3><p>How wallet-only defendants are served under the Civil Procedure Act (e.g. service by publication, Art. 194) is not yet analysed.</p></div>
   </div>
   <div style="height: 18px"></div>
   <p class="muted">Open source (MIT). Reproduce with <code>forge test</code>, <code>npm test</code>, <code>npm run demo:local</code>, <code>npm run verify</code>.</p>

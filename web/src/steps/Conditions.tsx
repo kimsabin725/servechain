@@ -40,11 +40,11 @@ export default function Conditions({ l }: { l: Loaded }) {
           {c.registryLayout && <><dt>Registry slots</dt><dd>
             <ul className="slots small">
               {c.registryLayout.slots.map((s) => (
-                <li key={s.id}><code>{s.id}</code> {s.kind === 'exhibit-anchor' ? <Badge>exhibit anchor</Badge> : <span>condition {s.ref ? Number(s.ref.replace(/\D/g, '')) : s.id + 1}</span>} <span className="muted">{plain(s.description ?? '')}</span></li>
+                <li key={s.id}><code>{s.id}</code> {s.kind === 'exhibit-anchor' ? <Badge>summary anchor</Badge> : <span>condition {s.ref ? Number(s.ref.replace(/\D/g, '')) : s.id + 1}</span>} <span className="muted">{plain(s.description ?? '')}</span></li>
               ))}
             </ul>
           </dd></>}
-          {anchor && !c.registryLayout && <><dt>Exhibit anchor</dt><dd className="small">{plain(anchor.description ?? 'One extra record entry holds the SHA-256 of the exhibit PDF (Step 5). It is not a court condition.')}</dd></>}
+          {anchor && !c.registryLayout && <><dt>Summary anchor</dt><dd className="small">{plain(anchor.description ?? 'One extra record entry holds the SHA-256 of the compliance summary PDF (Step 5). It is not a court condition.')}</dd></>}
         </dl>
       </Card>
     </div>

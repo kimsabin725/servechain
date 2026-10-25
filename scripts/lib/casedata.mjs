@@ -79,8 +79,9 @@ export function completeFrom(w) {
 }
 
 // Wallet activity rows plus the Merkle leaves and root anchored by snapshot().
-export function buildActivity(summary) {
+export function buildActivity(summary, outgoing = readData('activity/last-outgoing.json')) {
   if (!summary) return { fetchedAt: null, wallets: [], leaves: [], root: null };
+  const extra = (w) => outgoing?.wallets?.[w.address] ?? {};
   const wallets = summary.wallets.map((w) => ({
     label: w.label,
     role: /defendant/i.test(w.label) ? 'defendant' : 'related',
@@ -95,6 +96,8 @@ export function buildActivity(summary) {
     status: w.status,
     completeFrom: completeFrom(w),
     note: w.truncated ? w.monthlyNote : null,
+    lastOutgoing: extra(w).lastOutgoing ?? null,
+    balanceNote: extra(w).balanceNote ?? null,
   }));
   const leaves = wallets.map((w) =>
     hashJson({ label: w.label, chain: w.chain, address: w.address, lastTx: w.lastTx, monthly: w.monthly, balance: w.balance }),
@@ -146,7 +149,7 @@ export function buildExistingService(serviceTxs) {
     'june-2025-order':
       'Unattributed NFTs titled "Service of NY OAG Summons and Complaint…" seen on 2025-07-30 (sender not matched to court records; contract name on-chain: SoulBoundTest). Context only, not linked to any condition.',
     'pre-order-osc':
-      'Delivered 2025-01-21/22 under the January 10, 2025 order to show cause (motion papers), before the June 2025 order. Cited in the Sang affirmation (pp.70-72); not performance of the June order.',
+      'Delivered 2025-01-21/22 under the January 10, 2025 order to show cause (motion papers), before the June 2025 order. Cited in the intern affirmation (pp.70-72); not performance of the June order.',
   };
   return out.map((s) => ({ ...s, note: notes[s.phase], readOnly: true }));
 }

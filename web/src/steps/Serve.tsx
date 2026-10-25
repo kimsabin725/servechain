@@ -78,7 +78,7 @@ export default function Serve({ l }: { l: Loaded }) {
   const lastImported = underOrder.map((s) => s.timestamp).sort().pop();
   return (
     <div>
-      <StepHead n={3} title="Serve" lead={<>Hash the papers, fix that hash in each notice, mint one <Term k="soulbound" /> notice per target, and link every transaction to the condition it relates to.</>} />
+      <StepHead n={3} title="Serve" lead={<>Hash the papers, fix that hash in each notice, mint one <Term k="soulbound" /> notice per wallet per condition, and link every transaction to the condition it relates to.</>} />
       <div className="notice notice-safe">
         <strong>{TRON_NOTE}</strong> Writes go to {c.chain.chainId === 11155111 ? 'Sepolia testnet' : c.chain.name} <Term k="stand-in wallet">stand-in wallets</Term> only; the real defendant wallets are read-only in this demo.
         {l.isSample && <> <Badge tone="warn">Sample data: transaction hashes are placeholders, links disabled</Badge></>}
@@ -103,7 +103,7 @@ export default function Serve({ l }: { l: Loaded }) {
           {odl && (
             <p className="small muted">
               The replay deadline is case opening on {c.chain.name} + 120 days, because the registry only accepts a future deadline. Original order: entered {fmtDate(entered)} + 120 days = <strong>{fmtDate(odl)}</strong>.
-              {lastImported && <> Unattributed NFTs seen on the real wallets on July 30, 2025 were {daysBetween(lastImported, odl + 'T23:59:59Z')} days before that date (context only).</>}
+              {lastImported && <> Unattributed NFTs seen on the real wallets on July 30, 2025 arrived {daysBetween(lastImported, odl + 'T23:59:59Z')} days before the original service deadline ({fmtDate(odl)}); context only.</>}
             </p>
           )}
         </Card>

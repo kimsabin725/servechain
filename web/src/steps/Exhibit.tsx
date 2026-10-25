@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Loaded } from '../data';
 import { asset, short, txLink } from '../data';
-import { KIND_TEXT, TRUSTS, describeMatch, verifyFile, type Kind, type VerifyResult } from '../verify';
+import { BROWSER_SKIPS, KIND_TEXT, TRUSTS, describeMatch, verifyFile, type Kind, type VerifyResult } from '../verify';
 import { Badge, Card, Hash, StepHead, Term, TxRef } from '../ui';
 
 type Run = { name: string; busy: boolean; result?: VerifyResult; error?: string; progress?: string };
@@ -56,7 +56,7 @@ export default function Exhibit({ l, auto = false, onAuto }: { l: Loaded; auto?:
   const tone = run?.busy ? '' : run?.error || !ok ? 'result-bad' : r?.path === 'offline' ? 'result-neutral' : 'result-ok';
   return (
     <div>
-      <StepHead n={5} title="Compliance summary & verify" lead={<>One <Term k="compliance summary">compliance summary (attachment for counsel)</Term> PDF, for counsel preparing an affidavit of service or a default motion. It is not a court-filed exhibit. Anyone can check it against the chain from this page, with no server of ours involved.</>} />
+      <StepHead n={5} title="Compliance summary & verify" lead={<>One <Term k="compliance summary">compliance summary (attachment for counsel)</Term> PDF, for counsel preparing an affidavit of service or a default motion. It is not a court-filed exhibit. No server of ours is needed to read the chain; this browser check trusts the case file served with this page, and the CLI can pin the issuer.</>} />
       <div className="grid-2 top">
         <Card title="Compliance summary (attachment for counsel)" aside={l.isSample ? <Badge tone="warn">Sample placeholder</Badge> : <Badge tone="info">exhibit.pdf</Badge>}>
           <p className="small muted">A: impracticability table · B: condition-by-condition record · C: deadlines and post-service activity (context only, not evidence of notice). For counsel's review; does not determine compliance.</p>
@@ -133,6 +133,7 @@ export default function Exhibit({ l, auto = false, onAuto }: { l: Loaded; auto?:
                     <p className="small">No ServeChain record for this case matches this file.{r.path === 'offline' ? ' Checked against the bundled event log.' : ''}</p>
                   )}
                   <p className="small muted trusts">{TRUSTS}</p>
+                  <p className="small muted">{BROWSER_SKIPS}</p>
                 </>
               )}
             </div>

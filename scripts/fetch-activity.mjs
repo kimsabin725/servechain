@@ -152,8 +152,8 @@ async function fetchTron(w, urls) {
 
 const SERVICE = {
   window: ['2025-01-20T00:00:00Z', '2025-01-24T00:00:00Z'],
-  eth: { wallet: WALLETS[0].address, contract: '0xc9154424b823b10579895ccbe442d41b9abd96ed', tokenId: '45941267142316491420780756377080437389336336339189278277342547391922395152392', source: 'decision-and-pleadings-2025.pdf p.70 (Sang Aff. ¶3)' },
-  tron: { wallets: [WALLETS[4].address, WALLETS[5].address], contracts: ['TLJa2LhmGUqrB2KjpxNRHPPTxgrPTz7mGf', 'TTaW2mBYS4PrtR5KAJPuVJnqraUiyaVat3'], txids: ['bfbacea582b76fb95eaa3f4fac32ccfb832a5703a1f7ea9a08593808ae1c6df4', '6361f4f44b95b0cfd165801d0d1a515d3a154584d9b5e0f86d4dc9a429823907', '782febfc3134e9b1f602dcb0522d0454e41ebae350e7cd330837ccc54bed95c5', '70c0c9dc940cc8b8bafd1c96e1364179e4ef9b98d5c8fba0a8b96fa9dc3d225b'], source: 'decision-and-pleadings-2025.pdf p.72 (Sang Aff. ¶¶6-7)' },
+  eth: { wallet: WALLETS[0].address, contract: '0xc9154424b823b10579895ccbe442d41b9abd96ed', tokenId: '45941267142316491420780756377080437389336336339189278277342547391922395152392', source: 'decision-and-pleadings-2025.pdf p.70 (intern aff. ¶3)' },
+  tron: { wallets: [WALLETS[4].address, WALLETS[5].address], contracts: ['TLJa2LhmGUqrB2KjpxNRHPPTxgrPTz7mGf', 'TTaW2mBYS4PrtR5KAJPuVJnqraUiyaVat3'], txids: ['bfbacea582b76fb95eaa3f4fac32ccfb832a5703a1f7ea9a08593808ae1c6df4', '6361f4f44b95b0cfd165801d0d1a515d3a154584d9b5e0f86d4dc9a429823907', '782febfc3134e9b1f602dcb0522d0454e41ebae350e7cd330837ccc54bed95c5', '70c0c9dc940cc8b8bafd1c96e1364179e4ef9b98d5c8fba0a8b96fa9dc3d225b'], source: 'decision-and-pleadings-2025.pdf p.72 (intern aff. ¶¶6-7)' },
 };
 
 // POST a JSON body to TronGrid and record the URL used
@@ -173,7 +173,7 @@ function abiString(hex) {
   return Buffer.from(hex.slice(128, 128 + len * 2), 'hex').toString('utf8');
 }
 
-// Look up the service NFT deliveries cited in the Sang affirmation
+// Look up the service NFT deliveries cited in the intern affirmation
 async function fetchService() {
   const urls = [];
   const out = { fetchedAt: new Date().toISOString(), window: SERVICE.window, eth: null, tron: null, errors: [] };

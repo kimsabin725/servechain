@@ -59,6 +59,8 @@ export type Wallet = {
   monthlyNote?: string;
   note?: string | null;
   completeFrom?: string | null;
+  lastOutgoing?: { time: string; type: string; txHash: string; result: string } | null;
+  balanceNote?: string | null;
 };
 
 export type Contact = { channel: string; to: string; date?: string | null; result: string; responded?: boolean; delivered?: boolean };

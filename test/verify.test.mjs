@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { encodeAbiParameters, encodeEventTopics } from 'viem';
-import { verifyExhibit, parseArgs, EXIT, TRUSTS } from '../scripts/verify.mjs';
+import { verifyExhibit, parseArgs, EXIT, TRUSTS, UsageError } from '../scripts/verify.mjs';
 import { sha256Hex, merkleRoot, hashJson } from '../scripts/lib/hash.mjs';
 import { ROOT, collectEvents, LOG_CHUNK } from '../scripts/lib/chain.mjs';
 import { caseIdOf } from '../scripts/lib/casedata.mjs';
@@ -152,6 +152,44 @@ test('parseArgs reads repeated --rpc and --expect-handler', () => {
   assert.equal(o.expectHandler, OTHER);
   assert.equal(o.pdfPath, 'x.pdf');
   assert.equal(o.offline, true);
+});
+
+test('parseArgs accepts --flag=value and rejects missing, empty or malformed values', () => {
+  const o = parseArgs(['--case=c.json', '--rpc=http://a', 'x.pdf', `--expect-handler=${OTHER}`, '--deployments=d']);
+  assert.equal(o.casePath, 'c.json');
+  assert.deepEqual(o.rpcUrls, ['http://a']);
+  assert.equal(o.expectHandler, OTHER);
+  assert.equal(o.deploymentsDir, 'd');
+  const bad = [
+    ['x.pdf', '--case'], ['x.pdf', '--case', ''], ['x.pdf', '--case='], ['x.pdf', '--rpc', '--offline'], ['x.pdf', '--rpc=  '],
+    ['x.pdf', '--rpc', 'not-a-url'], ['x.pdf', '--expect-handler', ''], ['x.pdf', '--expect-handler=0x12'], ['x.pdf', '--offline=yes'],
+    ['x.pdf', '--cases', 'c.json'], ['x.pdf', 'y.pdf'], ['x.pdf', '--case', 'a', '--case', 'b'], [''],
+  ];
+  for (const args of bad) assert.throws(() => parseArgs(args), UsageError, JSON.stringify(args));
+});
+
+test('CLI: usage errors exit 2 with a message; a non-PDF input is MISMATCH with a hint', () => {
+  const f = fixture();
+  const cli = (...args) => spawnSync(process.execPath, [path.join(ROOT, 'scripts', 'verify.mjs'), ...args], { encoding: 'utf8' });
+  for (const args of [[f.pdf, '--case'], [f.pdf, '--expect-handler='], [f.pdf, '--rpc', ''], [f.pdf, '--case', path.join(f.dir, 'missing.json')], [path.join(f.dir, 'missing.pdf'), '--case', f.casePath]]) {
+    const r = cli(...args);
+    assert.equal(r.status, 2, JSON.stringify(args));
+    assert.ok(r.stderr.trim().length > 0);
+  }
+  const txt = path.join(f.dir, 'notes.txt');
+  fs.writeFileSync(txt, 'hello');
+  const empty = path.join(f.dir, 'empty.pdf');
+  fs.writeFileSync(empty, '');
+  for (const p of [txt, empty]) {
+    const r = cli(p, '--case', f.casePath, '--deployments', f.dir, '--offline');
+    assert.equal(r.status, 1);
+    assert.match(r.stdout, /input is not a PDF/);
+  }
+  const ok = cli(f.pdf, `--case=${f.casePath}`, `--deployments=${f.dir}`, '--offline');
+  assert.equal(ok.status, 3, ok.stderr);
+  assert.doesNotMatch(ok.stdout, /input is not a PDF/);
+  assert.match(ok.stdout, /response deadline \(calendar estimate\): \d{4}-\d{2}-\d{2}, through the end of that New York day/);
+  assert.match(ok.stdout, /on-chain timestamp \(filedAt \+ 720 h\)/);
 });
 
 test('binding: a case id not derived from the handler is MISMATCH', async () => {

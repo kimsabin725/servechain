@@ -5,7 +5,7 @@
     "2025-01-24T00:00:00Z"
   ],
   "eth": {
-    "source": "decision-and-pleadings-2025.pdf p.70 (Sang Aff. ¶3)",
+    "source": "decision-and-pleadings-2025.pdf p.70 (intern aff. ¶3)",
     "contract": "0xc9154424b823b10579895ccbe442d41b9abd96ed",
     "tokenId": "45941267142316491420780756377080437389336336339189278277342547391922395152392",
     "owner": "0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d",
@@ -49,7 +49,7 @@
     ]
   },
   "tron": {
-    "source": "decision-and-pleadings-2025.pdf p.72 (Sang Aff. ¶¶6-7)",
+    "source": "decision-and-pleadings-2025.pdf p.72 (intern aff. ¶¶6-7)",
     "affidavitTxids": [
       "bfbacea582b76fb95eaa3f4fac32ccfb832a5703a1f7ea9a08593808ae1c6df4",
       "6361f4f44b95b0cfd165801d0d1a515d3a154584d9b5e0f86d4dc9a429823907",
@@ -415,8 +415,8 @@
     "fetchedAt": "2026-10-25T07:00:32.314Z"
   },
   "findings": [
-    "ETH Jan 21, 2025: tx 0xc3b61bd37696c38c24b64e9ac05df16f20e71e649173f5edd304162959928d0e, block 21674908, 2025-01-21T19:19:35Z, from 0x6591d5F28Bea380cb1a0F889103c920A117b530f to Wallet 1, Rarible shared ERC-721 contract; minted to sender in block 21674880 (mintAndTransfer). Metadata name https://ag.ny.gov/IPBsummons; image on IPFS.",
-    "TRON: all four tx ids cited in the Sang affirmation (p.72) were found in TronGrid TRC-20/721 transfers from TNZxckCsHLWH73cA8wGBiCo4TqS49XMR7N. tokenURI metadata has an empty description; the link appears only as the token name (https_ag_ny_gov_IPBsummons) and in the image.",
+    "ETH Jan 21, 2025: tx 0xc3b61bd37696c38c24b64e9ac05df16f20e71e649173f5edd304162959928d0e, block 21674908, 2025-01-21T19:19:35Z, from 0x6591d5F28Bea380cb1a0F889103c920A117b530f to Wallet 1, an NFT platform's shared ERC-721 contract; minted to sender in block 21674880 (mintAndTransfer). Metadata name https://ag.ny.gov/IPBsummons; image on IPFS.",
+    "TRON: all four tx ids cited in the intern affirmation (p.72) were found in TronGrid TRC-20/721 transfers from TNZxckCsHLWH73cA8wGBiCo4TqS49XMR7N. tokenURI metadata has an empty description; the link appears only as the token name (https_ag_ny_gov_IPBsummons) and in the image.",
     "Post-order: on 2025-07-30, NFTs named 'Service of NY OAG Summons and Complaint No 700647-2025' reached Wallet 1 (ETH, description links https://ag.ny.gov/ipbdocket-700647-2025), Wallet 2 (two tokens) and Wallet 3 (one). This date is inside the 120-day window (due 2025-10-09). Sender identity is not verified against court records.",
     "Oct 2026: NFTs titled 'Second Motion for Alternative Service', 'Third Motion for Alternative Service', 'Motion to Seal' and Dkt700647-2025 tokens (names contain mtn_amd, mtn_def, dj_mtn) reached all three wallets on 2026-10-02/06/07, suggesting further motions (amended complaint, default judgment). Not verified against court records."
   ]
