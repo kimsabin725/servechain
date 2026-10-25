@@ -12,30 +12,31 @@ endobj
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
 endobj
 5 0 obj
-<< /Length 1923 >>
+<< /Length 2043 >>
 stream
 q 0.85 g BT /F2 44 Tf 0.7071 0.7071 -0.7071 0.7071 110 220 Tm (SAMPLE \227 not a real court filing) Tj ET Q
-BT /F2 9 Tf 50 810 Td (SAMPLE \227 not a real court filing) Tj ET
+BT /F2 9 Tf 50 810 Td (SAMPLE \227 not a real court filing. Not legal advice. Not a legal determination.) Tj ET
+BT /F2 9 Tf 50 30 Td (Not legal advice. Not a legal determination.) Tj ET
 BT /F2 15 Tf 50 770 Td (Affidavit of service \(synthetic sample\)) Tj ET
 BT /F1 10 Tf 50 742 Td (Supreme Court of the State of New York, Queens County, IAS Part 24 - Index No. 700647/2025) Tj ET
 BT /F1 10 Tf 50 728 Td () Tj ET
 BT /F1 10 Tf 50 714 Td (This is a synthetic affidavit produced by a software demonstration. Nobody swore to it and it) Tj ET
 BT /F1 10 Tf 50 700 Td (was not filed.) Tj ET
-BT /F1 10 Tf 50 686 Td (Declared filing time \(entered by the filer, not proven by the chain\): 2026-10-25T07:14:24.000Z) Tj ET
+BT /F1 10 Tf 50 686 Td (Declared filing time \(entered by the filer, not proven by the chain\): 2026-10-25T07:44:36.000Z) Tj ET
 BT /F1 10 Tf 50 672 Td (Network: Sepolia. Recipients are stand-in wallets, not the defendants' wallets.) Tj ET
 BT /F1 10 Tf 50 658 Td (SHA-256 of the served document bundle:) Tj ET
-BT /F1 10 Tf 50 644 Td (0x79f11484b2835efcb1a3c41db93bb7c09f99518679ef3a65cfbb1238a42dcb17) Tj ET
+BT /F1 10 Tf 50 644 Td (0x3a09748195c11781e90c6e18c86c34f64f673d1b965f0bccb39178dd68b9756d) Tj ET
 BT /F1 10 Tf 50 630 Td () Tj ET
 BT /F1 10 Tf 50 616 Td (Service notices minted:) Tj ET
-BT /F1 10 Tf 50 602 Td (stand-in for Wallet 1: 0xF2242E1b009aC14146c7B55a2c862260586954D7 - token 1 - tx) Tj ET
-BT /F1 10 Tf 50 588 Td (0x42c1a87d1967d0caaca50056e0c2b585be19e58d357ad8dffc328803a567815f \(block 11989313,) Tj ET
-BT /F1 10 Tf 50 574 Td (2026-10-25T07:13:00.000Z\)) Tj ET
-BT /F1 10 Tf 50 560 Td (stand-in for Wallet 2: 0x6f780fF31AdCcA350c2416BC655b132c36F3DE78 - token 2 - tx) Tj ET
-BT /F1 10 Tf 50 546 Td (0x2a52cc4cfbcc63b6d7d74546f47f965b805480dc8de6634606563c6e7a9f1cdb \(block 11989314,) Tj ET
-BT /F1 10 Tf 50 532 Td (2026-10-25T07:13:12.000Z\)) Tj ET
-BT /F1 10 Tf 50 518 Td (stand-in for Wallet 3: 0x3C2cce530EAB754974D036B3688648E7bD09356A - token 3 - tx) Tj ET
-BT /F1 10 Tf 50 504 Td (0x0cdc644458b1f6e9dcbd7b64e62e4e4dfb26b3d9863b1cc395150833eb9389a5 \(block 11989316,) Tj ET
-BT /F1 10 Tf 50 490 Td (2026-10-25T07:13:36.000Z\)) Tj ET
+BT /F1 10 Tf 50 602 Td (stand-in for Wallet 1: 0x8BcB8c8DB6F62439DecC88aaF145383e57eeE389 - token 1 - tx) Tj ET
+BT /F1 10 Tf 50 588 Td (0x966ffd7f3750b80909daf13160401cb9d24077dfdf11faea9518374b8d761fa6 \(block 11989462,) Tj ET
+BT /F1 10 Tf 50 574 Td (2026-10-25T07:43:12.000Z\)) Tj ET
+BT /F1 10 Tf 50 560 Td (stand-in for Wallet 2: 0x658020984816342E1414821e1c33Dfd6654bbaB7 - token 2 - tx) Tj ET
+BT /F1 10 Tf 50 546 Td (0x3d09096b122f8407ea25cf408674d57803350d588535cc24132e7a4b3bf80993 \(block 11989463,) Tj ET
+BT /F1 10 Tf 50 532 Td (2026-10-25T07:43:24.000Z\)) Tj ET
+BT /F1 10 Tf 50 518 Td (stand-in for Wallet 3: 0x525Ff75C9504842895aC18Dbd6383BC74e081d1c - token 3 - tx) Tj ET
+BT /F1 10 Tf 50 504 Td (0x7f19a48935c2f77b32222a5fb53e9e52cb56f0a00c0b7e9c1e24f7dafe7d04c3 \(block 11989464,) Tj ET
+BT /F1 10 Tf 50 490 Td (2026-10-25T07:43:36.000Z\)) Tj ET
 endstream
 endobj
 6 0 obj
@@ -52,10 +53,10 @@ xref
 0000000115 00000 n 
 0000000212 00000 n 
 0000000314 00000 n 
-0000002289 00000 n 
-0000002425 00000 n 
+0000002409 00000 n 
+0000002545 00000 n 
 trailer
 << /Size 8 /Root 1 0 R /Info 7 0 R >>
 startxref
-2506
+2626
 %%EOF

@@ -1,6 +1,8 @@
 {
-  "caseId": "0x20cc19c5cb265b6d546783343d18d068c81e6edd8af1a119e515d411ed59525c",
+  "caseId": "0xa1ad380631e7bea03b9a32c282e441bcfd31109f1c2c93c6f7d2402f3d39b9b7",
+  "caseRef": "0x20cc19c5cb265b6d546783343d18d068c81e6edd8af1a119e515d411ed59525c",
   "caseLabel": "NY-SUP-QUEENS-700647-2025-demo",
+  "caseIdDerivation": "caseId = keccak256(abi.encode(handler, caseRef)), caseRef = keccak256(caseLabel); see CaseFileRegistry.caseIdOf",
   "title": "People v Unknown Parties in Ownership and/or Control of Digital Wallet Addresses (demo replay)",
   "court": {
     "name": "Supreme Court of the State of New York, Queens County, IAS Part 24",
@@ -14,20 +16,20 @@
   "chain": {
     "chainId": 11155111,
     "name": "Sepolia",
-    "registry": "0x5D390d9864CCEc1533437bdf23593CFb1bd58D69",
-    "notice721": "0xD712AC5797e64B8481B630Cfdc6c3c1C0d2B208a",
-    "fromBlock": 11989309,
+    "registry": "0x787867F00a45962666b39cD3523954aE62DE2664",
+    "notice721": "0xB7a040C0D6860aABc93E20bc911270622D33De75",
+    "fromBlock": 11989459,
     "explorer": "https://sepolia.etherscan.io",
     "issuer": "0x4228b6c33cDd2f9DeE2dBB4B55BDFf02c176F580",
     "deployTxs": {
-      "ServiceNotice721": "0x93a9dc8a28a46e2baec6d726448e285ff67c41979e2fc74b1290d494fa76a448",
-      "CaseFileRegistry": "0x89593235b4d77d4a4dd9c894d7cf294034302391ebda6b15677df95ad36292f3"
+      "ServiceNotice721": "0x2a2677d76f2faeab5cc5269d58bec7311a3871e5e4e14e4bffd0804ecca45477",
+      "CaseFileRegistry": "0x18311cb0becb13cc544265b69278211e158ff9c323cda1fcd08803e76808da7c"
     }
   },
   "order": {
     "hash": "0xc75a4443ca79356650c69eb345c6962cbce2055517026697beefaa7169db393b",
     "hashAlgo": "sha256",
-    "conditionsHash": "0x3d9008cbd91fd28b214cfbdfc9c451f0e36e0ac409c50706dd99ea124ec454b7",
+    "conditionsHash": "0x37f25426d9f34a4191a20c2a973e742d40f73018db2e79136619827bc74283ed",
     "conditionsHashMethod": "sha256 of canonical JSON {conditions, slots} with sorted keys (scripts/lib/hash.mjs canonicalJson)",
     "pdf": "https://ag.ny.gov/sites/default/files/court-filings/people-v-digital-wallet-0xd7648fffa48e06b0107435a966f3f1e9dbe10b7d-decision-and-pleadings-2025.pdf",
     "page": 6,
@@ -37,9 +39,51 @@
     {
       "id": 5,
       "kind": "exhibit-anchor",
-      "title": "Exhibit material SHA-256 (record slot, not a court condition)"
+      "title": "Exhibit material SHA-256 (record slot, not a court condition)",
+      "description": "Registry slot 5 holds the SHA-256 of exhibit.pdf so the verifier can detect a changed byte. It is not an order condition."
     }
   ],
+  "registryLayout": {
+    "slotCount": 6,
+    "slots": [
+      {
+        "id": 0,
+        "kind": "court-condition",
+        "ref": "C1",
+        "description": "Court condition C1 (deadline). Evidence: notice timestamps vs the replay service deadline."
+      },
+      {
+        "id": 1,
+        "kind": "court-condition",
+        "ref": "C2",
+        "description": "Court condition C2 (documents). Evidence: SHA-256 of the served bundle, fixed in each notice."
+      },
+      {
+        "id": 2,
+        "kind": "court-condition",
+        "ref": "C3",
+        "description": "Court condition C3 (method). Evidence: notice NFTs whose tokenURI links to the posted papers."
+      },
+      {
+        "id": 3,
+        "kind": "court-condition",
+        "ref": "C4",
+        "description": "Court condition C4 (targets). Evidence: one notice per stand-in recipient."
+      },
+      {
+        "id": 4,
+        "kind": "court-condition",
+        "ref": "C5",
+        "description": "Court condition C5 (affidavit). Evidence: affidavit SHA-256 and declaredFiledAt."
+      },
+      {
+        "id": 5,
+        "kind": "exhibit-anchor",
+        "ref": null,
+        "description": "Registry slot 5 holds the SHA-256 of exhibit.pdf so the verifier can detect a changed byte. It is not an order condition."
+      }
+    ]
+  },
   "conditions": [
     {
       "id": 0,
@@ -49,29 +93,33 @@
       "quote": "ORDERED that the time for service of the summons and complaint upon defendants pursuant to CPLR 306-b shall be extended for 120 days from the date of entry",
       "page": 6,
       "draftedBy": "pre-extracted",
-      "confirmedBy": "demo reviewer",
+      "confirmedBy": "author (demo)",
       "status": "fulfilled",
       "derived": {
         "dueDate": "2025-10-09",
         "from": "2025-06-11 + 120 days"
       },
+      "deadlineBasis": "replay",
+      "replayServiceDeadline": "2027-02-22T07:42:48.000Z",
+      "originalServiceDeadline": "2025-10-09",
+      "deadlineBasisNote": "Fulfilled against the replay deadline (case opening + 120 days), not the original order deadline. The real case deadline was 2025-06-11 + 120 days.",
       "evidence": [
         {
           "type": "tx",
           "label": "All notices minted before the service deadline",
-          "txHash": "0x96a1f62370fe538f65a2419a79cc91c9b369c1ed15a818d9863950b803b7221e",
-          "block": 11989320,
-          "timestamp": "2026-10-25T07:14:24.000Z",
-          "explorerUrl": "https://sepolia.etherscan.io/tx/0x96a1f62370fe538f65a2419a79cc91c9b369c1ed15a818d9863950b803b7221e",
-          "evidenceHash": "0x9df0758d2ae5ce80b14a0155e7b26e043d169a57e89f266ae59b817eb472a09b",
-          "txRef": "0x0cdc644458b1f6e9dcbd7b64e62e4e4dfb26b3d9863b1cc395150833eb9389a5",
+          "txHash": "0x6fb1713b1ce620070fe83b81a7ff90a3367de018aaf7bfde43821f0aa071c4f0",
+          "block": 11989468,
+          "timestamp": "2026-10-25T07:44:36.000Z",
+          "explorerUrl": "https://sepolia.etherscan.io/tx/0x6fb1713b1ce620070fe83b81a7ff90a3367de018aaf7bfde43821f0aa071c4f0",
+          "evidenceHash": "0xfed01060b10aa0abe425d007271f169d87a4c71eb242a04704982d0ce92eedac",
+          "txRef": "0x7f19a48935c2f77b32222a5fb53e9e52cb56f0a00c0b7e9c1e24f7dafe7d04c3",
           "preimage": {
             "servedAt": [
-              "2026-10-25T07:13:00.000Z",
-              "2026-10-25T07:13:12.000Z",
-              "2026-10-25T07:13:36.000Z"
+              "2026-10-25T07:43:12.000Z",
+              "2026-10-25T07:43:24.000Z",
+              "2026-10-25T07:43:36.000Z"
             ],
-            "serviceDeadline": "2027-02-22T07:12:24.000Z"
+            "serviceDeadline": "2027-02-22T07:42:48.000Z"
           }
         }
       ]
@@ -84,21 +132,25 @@
       "quote": "plaintiff shall serve the summons, complaint, order to show cause, attorney affirmation and memorandum of law in support thereof and all documents submitted contemporaneously therewith, together with a copy of this Decision and Order with Notice of Entry upon defendants",
       "page": 6,
       "draftedBy": "pre-extracted",
-      "confirmedBy": "demo reviewer",
+      "confirmedBy": "author (demo)",
       "status": "fulfilled",
       "derived": null,
+      "deadlineBasis": "replay",
+      "replayServiceDeadline": "2027-02-22T07:42:48.000Z",
+      "originalServiceDeadline": "2025-10-09",
+      "deadlineBasisNote": "Evidence was recorded in this replay; dates are replay dates, not dates in the real case.",
       "evidence": [
         {
           "type": "tx",
           "label": "Document bundle SHA-256 fixed in every notice tokenURI",
-          "txHash": "0x295f5b6995b29262aa371265f153e03b1cf034734641502fb33a1017122ddee6",
-          "block": 11989317,
-          "timestamp": "2026-10-25T07:13:48.000Z",
-          "explorerUrl": "https://sepolia.etherscan.io/tx/0x295f5b6995b29262aa371265f153e03b1cf034734641502fb33a1017122ddee6",
-          "evidenceHash": "0x79f11484b2835efcb1a3c41db93bb7c09f99518679ef3a65cfbb1238a42dcb17",
-          "txRef": "0x42c1a87d1967d0caaca50056e0c2b585be19e58d357ad8dffc328803a567815f",
+          "txHash": "0x628d0608007f2c54f12836ff8d37dcefe64dac94e09f944119ac95e88bb92d4b",
+          "block": 11989465,
+          "timestamp": "2026-10-25T07:43:48.000Z",
+          "explorerUrl": "https://sepolia.etherscan.io/tx/0x628d0608007f2c54f12836ff8d37dcefe64dac94e09f944119ac95e88bb92d4b",
+          "evidenceHash": "0x3a09748195c11781e90c6e18c86c34f64f673d1b965f0bccb39178dd68b9756d",
+          "txRef": "0x966ffd7f3750b80909daf13160401cb9d24077dfdf11faea9518374b8d761fa6",
           "preimage": {
-            "bundleSha256": "0x79f11484b2835efcb1a3c41db93bb7c09f99518679ef3a65cfbb1238a42dcb17",
+            "bundleSha256": "0x3a09748195c11781e90c6e18c86c34f64f673d1b965f0bccb39178dd68b9756d",
             "documentsUrl": "https://kimsabin725.github.io/servechain/docs/service-bundle.pdf"
           }
         }
@@ -112,21 +164,25 @@
       "quote": "by airdropping NFTs hyperlinked to a website containing copies of said pleadings",
       "page": 6,
       "draftedBy": "pre-extracted",
-      "confirmedBy": "demo reviewer",
+      "confirmedBy": "author (demo)",
       "status": "fulfilled",
       "derived": null,
+      "deadlineBasis": "replay",
+      "replayServiceDeadline": "2027-02-22T07:42:48.000Z",
+      "originalServiceDeadline": "2025-10-09",
+      "deadlineBasisNote": "Evidence was recorded in this replay; dates are replay dates, not dates in the real case.",
       "evidence": [
         {
           "type": "tx",
           "label": "Hyperlinked notice NFTs (tokenURI external_url → posted papers)",
-          "txHash": "0x92e3e7c4c89a05c0858a8b71ef35c46c42d2d17522e985d90f5039d710469480",
-          "block": 11989318,
-          "timestamp": "2026-10-25T07:14:00.000Z",
-          "explorerUrl": "https://sepolia.etherscan.io/tx/0x92e3e7c4c89a05c0858a8b71ef35c46c42d2d17522e985d90f5039d710469480",
-          "evidenceHash": "0xd0ff408aff6c5c4ca64b8ae2fd0a24f502061b95d85d649e04661e10eb422ef3",
-          "txRef": "0x42c1a87d1967d0caaca50056e0c2b585be19e58d357ad8dffc328803a567815f",
+          "txHash": "0x706619b7235310e24e2b36ae1017b7a60cbcf1b9d930c1483a98a82974640762",
+          "block": 11989466,
+          "timestamp": "2026-10-25T07:44:00.000Z",
+          "explorerUrl": "https://sepolia.etherscan.io/tx/0x706619b7235310e24e2b36ae1017b7a60cbcf1b9d930c1483a98a82974640762",
+          "evidenceHash": "0xf497101fd356d59ddf10a07cfd010601f31da6ae4723c10c59b0aae98ad79381",
+          "txRef": "0x966ffd7f3750b80909daf13160401cb9d24077dfdf11faea9518374b8d761fa6",
           "preimage": {
-            "notice721": "0xD712AC5797e64B8481B630Cfdc6c3c1C0d2B208a",
+            "notice721": "0xB7a040C0D6860aABc93E20bc911270622D33De75",
             "tokenIds": [
               1,
               2,
@@ -190,29 +246,33 @@
       "quote": "to digital wallet addresses 0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d (Wallet 1) TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8 (Wallet 2), and TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu (Wallet 3)",
       "page": 6,
       "draftedBy": "pre-extracted",
-      "confirmedBy": "demo reviewer",
+      "confirmedBy": "author (demo)",
       "status": "fulfilled",
       "derived": null,
+      "deadlineBasis": "replay",
+      "replayServiceDeadline": "2027-02-22T07:42:48.000Z",
+      "originalServiceDeadline": "2025-10-09",
+      "deadlineBasisNote": "Evidence was recorded in this replay; dates are replay dates, not dates in the real case.",
       "evidence": [
         {
           "type": "tx",
           "label": "One notice per target (stand-in wallets)",
-          "txHash": "0x93bbc13c2501b51a59710618c9365bbd63b74ae8dbb263f2537436c1b57b2236",
-          "block": 11989319,
-          "timestamp": "2026-10-25T07:14:12.000Z",
-          "explorerUrl": "https://sepolia.etherscan.io/tx/0x93bbc13c2501b51a59710618c9365bbd63b74ae8dbb263f2537436c1b57b2236",
-          "evidenceHash": "0xf77bb267184796cc3ce0edb454c161273925781e646946471b1807acee3be6e1",
-          "txRef": "0x0cdc644458b1f6e9dcbd7b64e62e4e4dfb26b3d9863b1cc395150833eb9389a5",
+          "txHash": "0x97e66438d7fa18f1f15d57a2ce9bbe77a15d6e594f78d9c4c25c11d8b8849569",
+          "block": 11989467,
+          "timestamp": "2026-10-25T07:44:24.000Z",
+          "explorerUrl": "https://sepolia.etherscan.io/tx/0x97e66438d7fa18f1f15d57a2ce9bbe77a15d6e594f78d9c4c25c11d8b8849569",
+          "evidenceHash": "0xb2eb138cf36a3cba5b2c6c39727f94b7419e30d24ee6a3467d0b4b774edda093",
+          "txRef": "0x7f19a48935c2f77b32222a5fb53e9e52cb56f0a00c0b7e9c1e24f7dafe7d04c3",
           "preimage": {
             "recipients": [
-              "0xF2242E1b009aC14146c7B55a2c862260586954D7",
-              "0x6f780fF31AdCcA350c2416BC655b132c36F3DE78",
-              "0x3C2cce530EAB754974D036B3688648E7bD09356A"
+              "0x8BcB8c8DB6F62439DecC88aaF145383e57eeE389",
+              "0x658020984816342E1414821e1c33Dfd6654bbaB7",
+              "0x525Ff75C9504842895aC18Dbd6383BC74e081d1c"
             ],
             "mintTxs": [
-              "0x42c1a87d1967d0caaca50056e0c2b585be19e58d357ad8dffc328803a567815f",
-              "0x2a52cc4cfbcc63b6d7d74546f47f965b805480dc8de6634606563c6e7a9f1cdb",
-              "0x0cdc644458b1f6e9dcbd7b64e62e4e4dfb26b3d9863b1cc395150833eb9389a5"
+              "0x966ffd7f3750b80909daf13160401cb9d24077dfdf11faea9518374b8d761fa6",
+              "0x3d09096b122f8407ea25cf408674d57803350d588535cc24132e7a4b3bf80993",
+              "0x7f19a48935c2f77b32222a5fb53e9e52cb56f0a00c0b7e9c1e24f7dafe7d04c3"
             ]
           }
         },
@@ -270,36 +330,40 @@
       "quote": "ORDERED, that plaintiff shall file an affidavit of service in accordance with CPLR 306 (a) and service shall be deemed complete upon such filing.",
       "page": 6,
       "draftedBy": "pre-extracted",
-      "confirmedBy": "demo reviewer",
+      "confirmedBy": "author (demo)",
       "status": "fulfilled",
       "derived": {
         "answerDue": "affidavit filing date + 30 days (CPLR 320(a), see data/rules.json)"
       },
+      "deadlineBasis": "replay",
+      "replayServiceDeadline": "2027-02-22T07:42:48.000Z",
+      "originalServiceDeadline": "2025-10-09",
+      "deadlineBasisNote": "Evidence was recorded in this replay; dates are replay dates, not dates in the real case.",
       "evidence": [
         {
           "type": "tx",
           "label": "Affidavit hash and declaredFiledAt recorded",
-          "txHash": "0x42fa576a0083226979389b7fb69df850e9f5ebc6ba02b06719283a46055536d8",
-          "block": 11989322,
-          "timestamp": "2026-10-25T07:14:48.000Z",
-          "explorerUrl": "https://sepolia.etherscan.io/tx/0x42fa576a0083226979389b7fb69df850e9f5ebc6ba02b06719283a46055536d8",
-          "evidenceHash": "0x111c6cd78acf60d049c4b128f57fedf2a6e4896bba6216658a2f9ebb7d7ef474",
-          "txRef": "0x2e0f611abdff921ec698f0066ce53df630ad77e2ba9242f2f22a244e72ba0020",
+          "txHash": "0xfdbb9f14961ce66ffafb33d04ccc688d96cf1522b6c18e5a44af8458e47468d6",
+          "block": 11989472,
+          "timestamp": "2026-10-25T07:45:24.000Z",
+          "explorerUrl": "https://sepolia.etherscan.io/tx/0xfdbb9f14961ce66ffafb33d04ccc688d96cf1522b6c18e5a44af8458e47468d6",
+          "evidenceHash": "0xe02e0137494f682c04f9ae416030bb9609f7c6b1b0cfb9b7fce7d3f09a44683f",
+          "txRef": "0xeb8f33711c480d6c5fdaff912a031d6619824baf00f1250a86ccb5c1bbff2fcb",
           "preimage": {
-            "affidavitSha256": "0x111c6cd78acf60d049c4b128f57fedf2a6e4896bba6216658a2f9ebb7d7ef474",
-            "declaredFiledAt": "2026-10-25T07:14:24.000Z"
+            "affidavitSha256": "0xe02e0137494f682c04f9ae416030bb9609f7c6b1b0cfb9b7fce7d3f09a44683f",
+            "declaredFiledAt": "2026-10-25T07:44:36.000Z"
           }
         }
       ]
     }
   ],
   "documents": {
-    "bundleHash": "0x79f11484b2835efcb1a3c41db93bb7c09f99518679ef3a65cfbb1238a42dcb17",
+    "bundleHash": "0x3a09748195c11781e90c6e18c86c34f64f673d1b965f0bccb39178dd68b9756d",
     "url": "https://kimsabin725.github.io/servechain/docs/service-bundle.pdf",
     "files": [
       {
         "name": "service-bundle.pdf",
-        "sha256": "0x79f11484b2835efcb1a3c41db93bb7c09f99518679ef3a65cfbb1238a42dcb17",
+        "sha256": "0x3a09748195c11781e90c6e18c86c34f64f673d1b965f0bccb39178dd68b9756d",
         "path": "docs/service-bundle.pdf"
       }
     ],
@@ -309,56 +373,56 @@
     {
       "source": "servechain",
       "chain": "sepolia",
-      "recipient": "0xF2242E1b009aC14146c7B55a2c862260586954D7",
+      "recipient": "0x8BcB8c8DB6F62439DecC88aaF145383e57eeE389",
       "recipientLabel": "stand-in for Wallet 1",
-      "txHash": "0x42c1a87d1967d0caaca50056e0c2b585be19e58d357ad8dffc328803a567815f",
-      "block": 11989313,
-      "timestamp": "2026-10-25T07:13:00.000Z",
+      "txHash": "0x966ffd7f3750b80909daf13160401cb9d24077dfdf11faea9518374b8d761fa6",
+      "block": 11989462,
+      "timestamp": "2026-10-25T07:43:12.000Z",
       "tokenId": 1,
-      "tokenURI": "data:application/json;base64,eyJuYW1lIjoiTm90aWNlIG9mIExhd3N1aXQgIzEiLCJkZXNjcmlwdGlvbiI6IlNlcnZpY2UgZG9jdW1lbnRzIGFyZSBwb3N0ZWQgYXQgZXh0ZXJuYWxfdXJsLiBTSEEtMjU2IG9mIHRoZSBkb2N1bWVudCBidW5kbGU6IDB4NzlmMTE0ODRiMjgzNWVmY2IxYTNjNDFkYjkzYmI3YzA5Zjk5NTE4Njc5ZWYzYTY1Y2ZiYjEyMzhhNDJkY2IxNyIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8va2ltc2FiaW43MjUuZ2l0aHViLmlvL3NlcnZlY2hhaW4vZG9jcy9zZXJ2aWNlLWJ1bmRsZS5wZGYiLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiY2FzZUlkIiwidmFsdWUiOiIweDIwY2MxOWM1Y2IyNjViNmQ1NDY3ODMzNDNkMThkMDY4YzgxZTZlZGQ4YWYxYTExOWU1MTVkNDExZWQ1OTUyNWMifSx7InRyYWl0X3R5cGUiOiJjb25kaXRpb25JZCIsInZhbHVlIjoyfSx7InRyYWl0X3R5cGUiOiJkb2N1bWVudHNTaGEyNTYiLCJ2YWx1ZSI6IjB4NzlmMTE0ODRiMjgzNWVmY2IxYTNjNDFkYjkzYmI3YzA5Zjk5NTE4Njc5ZWYzYTY1Y2ZiYjEyMzhhNDJkY2IxNyJ9XX0=",
-      "explorerUrl": "https://sepolia.etherscan.io/tx/0x42c1a87d1967d0caaca50056e0c2b585be19e58d357ad8dffc328803a567815f"
+      "tokenURI": "data:application/json;base64,eyJuYW1lIjoiTm90aWNlIG9mIExhd3N1aXQgIzEiLCJkZXNjcmlwdGlvbiI6IlNlcnZpY2UgZG9jdW1lbnRzIGFyZSBwb3N0ZWQgYXQgZXh0ZXJuYWxfdXJsLiBTSEEtMjU2IG9mIHRoZSBkb2N1bWVudCBidW5kbGU6IDB4M2EwOTc0ODE5NWMxMTc4MWU5MGM2ZTE4Yzg2YzM0ZjY0ZjY3M2QxYjk2NWYwYmNjYjM5MTc4ZGQ2OGI5NzU2ZCIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8va2ltc2FiaW43MjUuZ2l0aHViLmlvL3NlcnZlY2hhaW4vZG9jcy9zZXJ2aWNlLWJ1bmRsZS5wZGYiLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiY2FzZUlkIiwidmFsdWUiOiIweGExYWQzODA2MzFlN2JlYTAzYjlhMzJjMjgyZTQ0MWJjZmQzMTEwOWYxYzJjOTNjNmY3ZDI0MDJmM2QzOWI5YjcifSx7InRyYWl0X3R5cGUiOiJjb25kaXRpb25JZCIsInZhbHVlIjoyfSx7InRyYWl0X3R5cGUiOiJkb2N1bWVudHNTaGEyNTYiLCJ2YWx1ZSI6IjB4M2EwOTc0ODE5NWMxMTc4MWU5MGM2ZTE4Yzg2YzM0ZjY0ZjY3M2QxYjk2NWYwYmNjYjM5MTc4ZGQ2OGI5NzU2ZCJ9XX0=",
+      "explorerUrl": "https://sepolia.etherscan.io/tx/0x966ffd7f3750b80909daf13160401cb9d24077dfdf11faea9518374b8d761fa6"
     },
     {
       "source": "servechain",
       "chain": "sepolia",
-      "recipient": "0x6f780fF31AdCcA350c2416BC655b132c36F3DE78",
+      "recipient": "0x658020984816342E1414821e1c33Dfd6654bbaB7",
       "recipientLabel": "stand-in for Wallet 2",
-      "txHash": "0x2a52cc4cfbcc63b6d7d74546f47f965b805480dc8de6634606563c6e7a9f1cdb",
-      "block": 11989314,
-      "timestamp": "2026-10-25T07:13:12.000Z",
+      "txHash": "0x3d09096b122f8407ea25cf408674d57803350d588535cc24132e7a4b3bf80993",
+      "block": 11989463,
+      "timestamp": "2026-10-25T07:43:24.000Z",
       "tokenId": 2,
-      "tokenURI": "data:application/json;base64,eyJuYW1lIjoiTm90aWNlIG9mIExhd3N1aXQgIzIiLCJkZXNjcmlwdGlvbiI6IlNlcnZpY2UgZG9jdW1lbnRzIGFyZSBwb3N0ZWQgYXQgZXh0ZXJuYWxfdXJsLiBTSEEtMjU2IG9mIHRoZSBkb2N1bWVudCBidW5kbGU6IDB4NzlmMTE0ODRiMjgzNWVmY2IxYTNjNDFkYjkzYmI3YzA5Zjk5NTE4Njc5ZWYzYTY1Y2ZiYjEyMzhhNDJkY2IxNyIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8va2ltc2FiaW43MjUuZ2l0aHViLmlvL3NlcnZlY2hhaW4vZG9jcy9zZXJ2aWNlLWJ1bmRsZS5wZGYiLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiY2FzZUlkIiwidmFsdWUiOiIweDIwY2MxOWM1Y2IyNjViNmQ1NDY3ODMzNDNkMThkMDY4YzgxZTZlZGQ4YWYxYTExOWU1MTVkNDExZWQ1OTUyNWMifSx7InRyYWl0X3R5cGUiOiJjb25kaXRpb25JZCIsInZhbHVlIjoyfSx7InRyYWl0X3R5cGUiOiJkb2N1bWVudHNTaGEyNTYiLCJ2YWx1ZSI6IjB4NzlmMTE0ODRiMjgzNWVmY2IxYTNjNDFkYjkzYmI3YzA5Zjk5NTE4Njc5ZWYzYTY1Y2ZiYjEyMzhhNDJkY2IxNyJ9XX0=",
-      "explorerUrl": "https://sepolia.etherscan.io/tx/0x2a52cc4cfbcc63b6d7d74546f47f965b805480dc8de6634606563c6e7a9f1cdb"
+      "tokenURI": "data:application/json;base64,eyJuYW1lIjoiTm90aWNlIG9mIExhd3N1aXQgIzIiLCJkZXNjcmlwdGlvbiI6IlNlcnZpY2UgZG9jdW1lbnRzIGFyZSBwb3N0ZWQgYXQgZXh0ZXJuYWxfdXJsLiBTSEEtMjU2IG9mIHRoZSBkb2N1bWVudCBidW5kbGU6IDB4M2EwOTc0ODE5NWMxMTc4MWU5MGM2ZTE4Yzg2YzM0ZjY0ZjY3M2QxYjk2NWYwYmNjYjM5MTc4ZGQ2OGI5NzU2ZCIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8va2ltc2FiaW43MjUuZ2l0aHViLmlvL3NlcnZlY2hhaW4vZG9jcy9zZXJ2aWNlLWJ1bmRsZS5wZGYiLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiY2FzZUlkIiwidmFsdWUiOiIweGExYWQzODA2MzFlN2JlYTAzYjlhMzJjMjgyZTQ0MWJjZmQzMTEwOWYxYzJjOTNjNmY3ZDI0MDJmM2QzOWI5YjcifSx7InRyYWl0X3R5cGUiOiJjb25kaXRpb25JZCIsInZhbHVlIjoyfSx7InRyYWl0X3R5cGUiOiJkb2N1bWVudHNTaGEyNTYiLCJ2YWx1ZSI6IjB4M2EwOTc0ODE5NWMxMTc4MWU5MGM2ZTE4Yzg2YzM0ZjY0ZjY3M2QxYjk2NWYwYmNjYjM5MTc4ZGQ2OGI5NzU2ZCJ9XX0=",
+      "explorerUrl": "https://sepolia.etherscan.io/tx/0x3d09096b122f8407ea25cf408674d57803350d588535cc24132e7a4b3bf80993"
     },
     {
       "source": "servechain",
       "chain": "sepolia",
-      "recipient": "0x3C2cce530EAB754974D036B3688648E7bD09356A",
+      "recipient": "0x525Ff75C9504842895aC18Dbd6383BC74e081d1c",
       "recipientLabel": "stand-in for Wallet 3",
-      "txHash": "0x0cdc644458b1f6e9dcbd7b64e62e4e4dfb26b3d9863b1cc395150833eb9389a5",
-      "block": 11989316,
-      "timestamp": "2026-10-25T07:13:36.000Z",
+      "txHash": "0x7f19a48935c2f77b32222a5fb53e9e52cb56f0a00c0b7e9c1e24f7dafe7d04c3",
+      "block": 11989464,
+      "timestamp": "2026-10-25T07:43:36.000Z",
       "tokenId": 3,
-      "tokenURI": "data:application/json;base64,eyJuYW1lIjoiTm90aWNlIG9mIExhd3N1aXQgIzMiLCJkZXNjcmlwdGlvbiI6IlNlcnZpY2UgZG9jdW1lbnRzIGFyZSBwb3N0ZWQgYXQgZXh0ZXJuYWxfdXJsLiBTSEEtMjU2IG9mIHRoZSBkb2N1bWVudCBidW5kbGU6IDB4NzlmMTE0ODRiMjgzNWVmY2IxYTNjNDFkYjkzYmI3YzA5Zjk5NTE4Njc5ZWYzYTY1Y2ZiYjEyMzhhNDJkY2IxNyIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8va2ltc2FiaW43MjUuZ2l0aHViLmlvL3NlcnZlY2hhaW4vZG9jcy9zZXJ2aWNlLWJ1bmRsZS5wZGYiLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiY2FzZUlkIiwidmFsdWUiOiIweDIwY2MxOWM1Y2IyNjViNmQ1NDY3ODMzNDNkMThkMDY4YzgxZTZlZGQ4YWYxYTExOWU1MTVkNDExZWQ1OTUyNWMifSx7InRyYWl0X3R5cGUiOiJjb25kaXRpb25JZCIsInZhbHVlIjoyfSx7InRyYWl0X3R5cGUiOiJkb2N1bWVudHNTaGEyNTYiLCJ2YWx1ZSI6IjB4NzlmMTE0ODRiMjgzNWVmY2IxYTNjNDFkYjkzYmI3YzA5Zjk5NTE4Njc5ZWYzYTY1Y2ZiYjEyMzhhNDJkY2IxNyJ9XX0=",
-      "explorerUrl": "https://sepolia.etherscan.io/tx/0x0cdc644458b1f6e9dcbd7b64e62e4e4dfb26b3d9863b1cc395150833eb9389a5"
+      "tokenURI": "data:application/json;base64,eyJuYW1lIjoiTm90aWNlIG9mIExhd3N1aXQgIzMiLCJkZXNjcmlwdGlvbiI6IlNlcnZpY2UgZG9jdW1lbnRzIGFyZSBwb3N0ZWQgYXQgZXh0ZXJuYWxfdXJsLiBTSEEtMjU2IG9mIHRoZSBkb2N1bWVudCBidW5kbGU6IDB4M2EwOTc0ODE5NWMxMTc4MWU5MGM2ZTE4Yzg2YzM0ZjY0ZjY3M2QxYjk2NWYwYmNjYjM5MTc4ZGQ2OGI5NzU2ZCIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8va2ltc2FiaW43MjUuZ2l0aHViLmlvL3NlcnZlY2hhaW4vZG9jcy9zZXJ2aWNlLWJ1bmRsZS5wZGYiLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiY2FzZUlkIiwidmFsdWUiOiIweGExYWQzODA2MzFlN2JlYTAzYjlhMzJjMjgyZTQ0MWJjZmQzMTEwOWYxYzJjOTNjNmY3ZDI0MDJmM2QzOWI5YjcifSx7InRyYWl0X3R5cGUiOiJjb25kaXRpb25JZCIsInZhbHVlIjoyfSx7InRyYWl0X3R5cGUiOiJkb2N1bWVudHNTaGEyNTYiLCJ2YWx1ZSI6IjB4M2EwOTc0ODE5NWMxMTc4MWU5MGM2ZTE4Yzg2YzM0ZjY0ZjY3M2QxYjk2NWYwYmNjYjM5MTc4ZGQ2OGI5NzU2ZCJ9XX0=",
+      "explorerUrl": "https://sepolia.etherscan.io/tx/0x7f19a48935c2f77b32222a5fb53e9e52cb56f0a00c0b7e9c1e24f7dafe7d04c3"
     }
   ],
   "affidavit": {
-    "hash": "0x111c6cd78acf60d049c4b128f57fedf2a6e4896bba6216658a2f9ebb7d7ef474",
-    "declaredFiledAt": "2026-10-25T07:14:24.000Z",
-    "txHash": "0x2e0f611abdff921ec698f0066ce53df630ad77e2ba9242f2f22a244e72ba0020",
-    "explorerUrl": "https://sepolia.etherscan.io/tx/0x2e0f611abdff921ec698f0066ce53df630ad77e2ba9242f2f22a244e72ba0020",
+    "hash": "0xe02e0137494f682c04f9ae416030bb9609f7c6b1b0cfb9b7fce7d3f09a44683f",
+    "declaredFiledAt": "2026-10-25T07:44:36.000Z",
+    "txHash": "0xeb8f33711c480d6c5fdaff912a031d6619824baf00f1250a86ccb5c1bbff2fcb",
+    "explorerUrl": "https://sepolia.etherscan.io/tx/0xeb8f33711c480d6c5fdaff912a031d6619824baf00f1250a86ccb5c1bbff2fcb",
     "file": "affidavit.pdf",
     "note": "declared by filer; chain cannot prove court filing date"
   },
   "deadlines": {
     "originalServiceDeadline": "2025-10-09",
-    "serviceDeadline": "2027-02-22T07:12:24.000Z",
+    "serviceDeadline": "2027-02-22T07:42:48.000Z",
     "serviceDeadlineNote": "Replay deadline = case opening + 120 days, because the registry only accepts a future deadline. The original case deadline was entry 2025-06-11 + 120 days.",
-    "responseDeadline": "2026-11-24T07:14:24.000Z",
+    "responseDeadline": "2026-11-24T07:44:36.000Z",
     "rule": "CPLR 320(a)",
     "formula": "answerDue = declaredFiledAt + 30 days",
-    "status": "read",
+    "status": "excerpt-verified",
     "caveat": "weekend/holiday roll-forward (GCL §25-a) not applied — lawyer review required",
     "openPoints": [
       "Day counting and weekend/holiday rollover (General Construction Law §25-a) not read [unverified].",
@@ -372,58 +436,320 @@
       "rule": "Proof of service must state papers served, person served, date, time and place",
       "days": null,
       "url": "https://www.nysenate.gov/legislation/laws/CVP/306",
-      "status": "read"
+      "status": "excerpt-verified",
+      "quote": [
+        "Proof of service shall specify the papers served, the person who was served and the date, time,"
+      ],
+      "note": "306(a) itself contains no affidavit wording; it governs the content of proof of service. The affidavit requirement comes from the order (p.6), which cites 306(a).",
+      "amendmentReviewed": null
     },
     {
       "section": "CPLR 306-b",
       "rule": "Service within 120 days after commencement; court may extend on good cause or in the interest of justice",
       "days": 120,
       "url": "https://www.nysenate.gov/legislation/laws/CVP/306-B",
-      "status": "read"
+      "status": "excerpt-verified",
+      "quote": [
+        "shall be made within one hundred twenty days after the commencement of the action or proceeding",
+        "upon good cause shown or in the interest of justice, extend the time for service"
+      ],
+      "note": "Most recent revision shown is 2026-04-24; the content of that amendment was not reviewed. The order extended time to 120 days from entry. 306-b does not define when service is complete.",
+      "amendmentReviewed": false
     },
     {
       "section": "CPLR 308(5)",
       "rule": "Court-directed service when 308(1), (2) and (4) are impracticable",
       "days": null,
       "url": "https://www.nysenate.gov/legislation/laws/CVP/308",
-      "status": "read"
+      "status": "excerpt-verified",
+      "quote": [
+        "in such manner as the court, upon motion without notice, directs,",
+        "if service is impracticable under paragraphs one, two and four of this section."
+      ],
+      "note": "Per WebFetch, paragraph 5 contains no language on when service is complete and does not mention filing proof of service; completion therefore comes from the court's order (L1: 'deemed complete upon such filing' of the affidavit).",
+      "amendmentReviewed": null
     },
     {
       "section": "CPLR 308(2)",
       "rule": "Contrast: deliver-and-mail service is complete ten days after proof is filed",
       "days": 10,
       "url": "https://www.nysenate.gov/legislation/laws/CVP/308",
-      "status": "read"
+      "status": "excerpt-verified",
+      "quote": [
+        "service shall be complete ten days after such filing"
+      ],
+      "note": "Not applicable to L1; shown to explain why completion under 308(5) depends on the order.",
+      "amendmentReviewed": null
     },
     {
       "section": "CPLR 320(a)",
       "rule": "Appearance within 20 days of service, or 30 days after service is complete when served under 308(2)-(5) and other listed provisions",
       "days": 30,
       "url": "https://www.nysenate.gov/legislation/laws/CVP/320",
-      "status": "read"
+      "status": "excerpt-verified",
+      "quote": [
+        "subdivision two, three, four or five of section 308",
+        "the appearance shall be made within thirty days after service is complete"
+      ],
+      "note": null,
+      "amendmentReviewed": null
+    },
+    {
+      "section": "CPLR 3012(c)",
+      "rule": "When summons and complaint are served together under 308(2)-(5) (and other listed provisions), the answer is due within thirty days after service is complete",
+      "days": 30,
+      "url": "https://www.nysenate.gov/legislation/laws/CVP/3012",
+      "status": "excerpt-verified",
+      "quote": [
+        "or if service of the summons and complaint is made pursuant to section 303, paragraphs two,",
+        "three, four or five of section 308, or sections 313, 314 or 315, service of an answer shall be made",
+        "within thirty days after service is complete."
+      ],
+      "note": "Retrieved 2026-10-25 via WebFetch excerpt. Parallels 320(a) for the answer when the complaint is served with the summons.",
+      "amendmentReviewed": null
     },
     {
       "section": "CPLR 3215(f)",
       "rule": "Default application must include proof of service of summons and complaint, and proof of facts, default and amount due by affidavit",
       "days": null,
       "url": "https://www.nysenate.gov/legislation/laws/CVP/3215",
-      "status": "read"
+      "status": "excerpt-verified",
+      "quote": [
+        "Proof. On any application for judgment by default, the applicant shall file proof of service of the summons",
+        "proof of the facts constituting the claim, the default and the amount due, including, if applicable,",
+        "by affidavit made by the party"
+      ],
+      "note": "Per WebFetch the phrase 'affidavit of service' does not appear in (f); it requires 'proof of service of the summons and the complaint'.",
+      "amendmentReviewed": null
     },
     {
       "section": "CPLR 3215(c)",
-      "rule": "If plaintiff does not seek default judgment within one year after the default, the court dismisses the complaint as abandoned (unless sufficient cause shown)",
+      "rule": "If plaintiff does not seek default judgment within one year after the default, the court dismisses the complaint as abandoned, unless sufficient cause is shown",
       "days": 365,
       "url": "https://www.nysenate.gov/legislation/laws/CVP/3215",
-      "status": "read"
+      "status": "excerpt-verified",
+      "quote": [
+        "Default not entered within one year. If the plaintiff fails to take proceedings for the entry of judgment",
+        "within one year after the default",
+        "the court shall not enter judgment but shall dismiss the complaint as abandoned, without costs,",
+        "unless sufficient cause is shown why"
+      ],
+      "note": "Exception excerpt retrieved 2026-10-25 via WebFetch from the same page; the words after \"why\" were not retrieved.",
+      "amendmentReviewed": null
     }
   ],
+  "ruleStatusDefinitions": {
+    "excerpt-verified": "Every string in \"quote\" was returned verbatim from the official nysenate.gov page for that section. Only the excerpt is checked, not the full section.",
+    "summary": "The \"rule\" text is a paraphrase. Any part not covered by a quote is not checked against the statute."
+  },
+  "precedents": [
+    {
+      "id": "lcx-2022",
+      "citation": "LCX AG v 1.274M U.S. Dollar Coin, 2022 NY Slip Op 32834[U]",
+      "court": "Sup Ct, NY County",
+      "year": 2022,
+      "point": "Service on anonymous defendants by an airdropped token linking to a website with the papers.",
+      "source": "decision-and-pleadings-2025.pdf p.4 (L1 decision)",
+      "status": "as-cited",
+      "note": "Citation form as printed on p.4 of the L1 decision. The OAG memorandum cites the same matter as LCX AG v. John Doe Nos. 1-25, No. 154644/2022."
+    },
+    {
+      "id": "meghji-2024",
+      "citation": "Meghji v Wallet Owner (In re Celsius Network LLC), 666 BR 28 [Bankr SD NY 2024]",
+      "court": "Bankr. S.D.N.Y.",
+      "year": 2024,
+      "point": "Service by airdropped NFT into crypto wallets of unidentifiable owners.",
+      "source": "decision-and-pleadings-2025.pdf p.4 (L1 decision)",
+      "status": "as-cited",
+      "note": null
+    },
+    {
+      "id": "ny-ag-2025",
+      "citation": "People v Unknown Parties in Ownership and/or Control of Digital Wallet Addresses, Sup Ct, Queens County, Index No. 700647/2025",
+      "court": "Sup Ct, Queens County",
+      "year": 2025,
+      "point": "Service by airdropping NFTs hyperlinked to a website with the papers to three wallet addresses (CPLR 308(5)); service complete on filing of the affidavit.",
+      "source": "https://ag.ny.gov/sites/default/files/court-filings/people-v-digital-wallet-0xd7648fffa48e06b0107435a966f3f1e9dbe10b7d-decision-and-pleadings-2025.pdf pp.1, 6, 9",
+      "status": "read",
+      "note": "Signed 2025-06-09, entered 2025-06-11 (NYSCEF 21). A Slip Op number was not confirmed (nycourts.gov reporter returned 403 on 2026-10-25), so it is cited by Index No. only."
+    }
+  ],
+  "contacts": {
+    "synthetic": true,
+    "note": "Synthetic rows that reproduce the counts stated in the decision. Numbers, addresses, the spread of calls across dates and which rows responded are invented; only the totals and the date set come from the decision.",
+    "source": {
+      "doc": "decision-and-pleadings-2025.pdf",
+      "pdfPage": 4,
+      "facts": "data/court/facts.json L3_impracticability"
+    },
+    "counts": {
+      "phoneNumbers": 14,
+      "phoneResponded": 2,
+      "phoneDates": [
+        "2024-12-06",
+        "2024-12-09",
+        "2024-12-10",
+        "2024-12-11"
+      ],
+      "emails": 4,
+      "emailDelivered": 1
+    },
+    "phone": [
+      {
+        "n": 1,
+        "channel": "phone call + text",
+        "to": "+1-555-0110",
+        "date": "2024-12-06",
+        "responded": true,
+        "result": "responded; no verifiable mailing address"
+      },
+      {
+        "n": 2,
+        "channel": "phone call + text",
+        "to": "+1-555-0111",
+        "date": "2024-12-09",
+        "responded": true,
+        "result": "responded; no verifiable mailing address"
+      },
+      {
+        "n": 3,
+        "channel": "phone call + text",
+        "to": "+1-555-0112",
+        "date": "2024-12-10",
+        "responded": false,
+        "result": "no response"
+      },
+      {
+        "n": 4,
+        "channel": "phone call + text",
+        "to": "+1-555-0113",
+        "date": "2024-12-11",
+        "responded": false,
+        "result": "no response"
+      },
+      {
+        "n": 5,
+        "channel": "phone call + text",
+        "to": "+1-555-0114",
+        "date": "2024-12-06",
+        "responded": false,
+        "result": "no response"
+      },
+      {
+        "n": 6,
+        "channel": "phone call + text",
+        "to": "+1-555-0115",
+        "date": "2024-12-09",
+        "responded": false,
+        "result": "no response"
+      },
+      {
+        "n": 7,
+        "channel": "phone call + text",
+        "to": "+1-555-0116",
+        "date": "2024-12-10",
+        "responded": false,
+        "result": "no response"
+      },
+      {
+        "n": 8,
+        "channel": "phone call + text",
+        "to": "+1-555-0117",
+        "date": "2024-12-11",
+        "responded": false,
+        "result": "no response"
+      },
+      {
+        "n": 9,
+        "channel": "phone call + text",
+        "to": "+1-555-0118",
+        "date": "2024-12-06",
+        "responded": false,
+        "result": "no response"
+      },
+      {
+        "n": 10,
+        "channel": "phone call + text",
+        "to": "+1-555-0119",
+        "date": "2024-12-09",
+        "responded": false,
+        "result": "no response"
+      },
+      {
+        "n": 11,
+        "channel": "phone call + text",
+        "to": "+1-555-0120",
+        "date": "2024-12-10",
+        "responded": false,
+        "result": "no response"
+      },
+      {
+        "n": 12,
+        "channel": "phone call + text",
+        "to": "+1-555-0121",
+        "date": "2024-12-11",
+        "responded": false,
+        "result": "no response"
+      },
+      {
+        "n": 13,
+        "channel": "phone call + text",
+        "to": "+1-555-0122",
+        "date": "2024-12-06",
+        "responded": false,
+        "result": "no response"
+      },
+      {
+        "n": 14,
+        "channel": "phone call + text",
+        "to": "+1-555-0123",
+        "date": "2024-12-09",
+        "responded": false,
+        "result": "no response"
+      }
+    ],
+    "email": [
+      {
+        "n": 15,
+        "channel": "email (read + delivery receipt requested)",
+        "to": "contact1@example.invalid",
+        "date": null,
+        "delivered": true,
+        "result": "\"delivered\" notice; no mailing address"
+      },
+      {
+        "n": 16,
+        "channel": "email (read + delivery receipt requested)",
+        "to": "contact2@example.invalid",
+        "date": null,
+        "delivered": false,
+        "result": "no receipt"
+      },
+      {
+        "n": 17,
+        "channel": "email (read + delivery receipt requested)",
+        "to": "contact3@example.invalid",
+        "date": null,
+        "delivered": false,
+        "result": "no receipt"
+      },
+      {
+        "n": 18,
+        "channel": "email (read + delivery receipt requested)",
+        "to": "contact4@example.invalid",
+        "date": null,
+        "delivered": false,
+        "result": "no receipt"
+      }
+    ]
+  },
   "snapshot": {
     "status": "pending",
     "activityRootHash": "0x4a985a35b1c75ec10aa6ec5aae0217b9ecce863d8af8edc9a2b2325e27689404",
     "txHash": null,
     "at": null,
     "timeTravel": false,
-    "pendingUntil": "2026-11-24T07:14:24.000Z",
+    "pendingUntil": "2026-11-24T07:44:36.000Z",
     "leaves": [
       "0x8708cb2fed6d50fde9ff459e63d4318055341fbfe5d25c54b56e65cbee89db2d",
       "0x49f40d697adb8e36cba2e712483ac6758a91785bc1243327446bc21f1fb323b0",
@@ -435,8 +761,8 @@
     "note": "Sepolia time cannot be advanced. The registry rejects a declaredFiledAt earlier than case opening (FiledAtBeforeOpen) and any snapshot before the response deadline (ResponsePeriodOpen), so this step is pending on-chain. The snapshot step is shown from the local anvil replay.",
     "localReplay": {
       "case": "../case-local/case.json",
-      "txHash": "0xb110395b1d8eeec8b254e6c201c06952a9ed2624df397256417fe6ee8362763e",
-      "at": "2026-11-25T07:11:25.000Z",
+      "txHash": "0xd918756c5796615eccecdd3ab5c45cb96e7c2ecfeeec8dc6f593a074b2a6865f",
+      "at": "2026-11-25T07:41:51.000Z",
       "activityRootHash": "0x4a985a35b1c75ec10aa6ec5aae0217b9ecce863d8af8edc9a2b2325e27689404",
       "timeTravel": true
     }
@@ -469,6 +795,7 @@
         "source": "complaint-2025.pdf p.1",
         "sourceUrl": "https://eth.blockscout.com/api/v2/addresses/0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d",
         "status": "ok",
+        "completeFrom": "2024-04",
         "note": "older items not fetched; months after 2024-03 are complete, 2024-03 and earlier may be undercounted"
       },
       {
@@ -486,6 +813,7 @@
         "source": "complaint-2025.pdf p.13 ¶42",
         "sourceUrl": "https://eth.blockscout.com/api/v2/addresses/0x6298BfEd428B843d326dDAE1A406441CDB40db80",
         "status": "ok",
+        "completeFrom": "2024-06",
         "note": "older items not fetched; months after 2024-05 are complete, 2024-05 and earlier may be undercounted"
       },
       {
@@ -504,6 +832,7 @@
         "source": "complaint-2025.pdf p.13 ¶42",
         "sourceUrl": "https://eth.blockscout.com/api/v2/addresses/0x7a448169e9d5DB6405087dAB9dfF774Db6589b05",
         "status": "ok",
+        "completeFrom": "2024-04",
         "note": "older items not fetched; months after 2024-03 are complete, 2024-03 and earlier may be undercounted"
       },
       {
@@ -521,6 +850,7 @@
         "source": "complaint-2025.pdf p.14 ¶44",
         "sourceUrl": "https://eth.blockscout.com/api/v2/addresses/0x409C4A8eC8eEBf4132E33122164D57C5B7039E59",
         "status": "ok",
+        "completeFrom": "2024-04",
         "note": null
       },
       {
@@ -559,6 +889,7 @@
         "source": "complaint-2025.pdf p.1",
         "sourceUrl": "https://api.trongrid.io/v1/accounts/TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
         "status": "ok",
+        "completeFrom": "2023-10",
         "note": "older items not fetched; months after 2023-09 are complete, 2023-09 and earlier may be undercounted"
       },
       {
@@ -593,9 +924,11 @@
         "source": "complaint-2025.pdf p.1",
         "sourceUrl": "https://api.trongrid.io/v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
         "status": "ok",
+        "completeFrom": "2023-10",
         "note": "older items not fetched; months after 2023-09 are complete, 2023-09 and earlier may be undercounted"
       }
     ],
+    "completeFromNote": "Per wallet, monthly counts from completeFrom onward are complete; earlier months may be undercounted because older items were not fetched.",
     "merkle": "sha256 leaves of canonical wallet rows, pairwise sha256, odd node duplicated"
   },
   "existingService": [
@@ -745,16 +1078,16 @@
     }
   ],
   "exhibit": {
-    "sha256": "0xca22eddb6a3abf6dffed42a328a10a03dcc2469f62c969439824dc8c0ed24f96",
+    "sha256": "0x3151ae313677b99152cd0ed5633672a7ae5dfcf9c89df3adde1d27d3b1121a02",
     "registrySlot": 5,
-    "txHash": "0xf6f32de8fa7dd83975a173803ad3878d6fea0ea57330207b2a857551da3f176f",
-    "block": 11989324,
-    "at": "2026-10-25T07:15:12.000Z",
-    "explorerUrl": "https://sepolia.etherscan.io/tx/0xf6f32de8fa7dd83975a173803ad3878d6fea0ea57330207b2a857551da3f176f",
+    "txHash": "0xbb030a7a67d5ad6d13e5cf3f479b4af10c64ab042922ecbf319b7cf27721cef3",
+    "block": 11989474,
+    "at": "2026-10-25T07:45:48.000Z",
+    "explorerUrl": "https://sepolia.etherscan.io/tx/0xbb030a7a67d5ad6d13e5cf3f479b4af10c64ab042922ecbf319b7cf27721cef3",
     "pdf": "exhibit.pdf",
     "html": "exhibit.html",
     "note": "Only the PDF bytes are anchored; exhibit.html is the print source."
   },
   "disclaimer": "Replay of a public court record for demonstration. Nothing was sent to the real defendant wallets; they are read only. Proof-of-service material, not legal advice and not a legal determination.",
-  "generatedAt": "2026-10-25T07:15:14.786Z"
+  "generatedAt": "2026-10-25T07:45:50.995Z"
 }
