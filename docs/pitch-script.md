@@ -6,37 +6,37 @@ Before recording: open the order PDF (ag.ny.gov link from Step 0) at page 6 in a
 
 ---
 
-## Part 1. The whole story in 60 seconds
+## Part 1. The whole story in about 60 seconds
 
-### Scene 1 (0:00 to 0:20) Problem
+### Scene 1 (0:00 to 0:25) Problem
 
 [Screen: the order PDF, page 6, zoomed on the "ORDERED" paragraphs. Highlight "airdropping NFTs", "within 120 days", "file an affidavit of service".]
 
-> This is a real court order from New York, 2025. The defendants were known only by three crypto wallet addresses, so the court ordered the plaintiff to serve them by airdropping an NFT. It comes with conditions: a deadline, a set of documents, three wallets, and a filed affidavit.
+> This is a public court order from New York, 2025, in a case brought by the Attorney General. I am not a party to it. The defendants were known only by three crypto wallet addresses, so the court ordered service by airdropping an NFT. It comes with conditions: a deadline, a set of documents, three wallets, and a filed affidavit.
 
-(49 words, about 20 s)
+(60 words, about 24 s)
 
-### Scene 2 (0:20 to 0:42) What ServeChain does
+### Scene 2 (0:25 to 0:46) What ServeChain does
 
-[Screen: live demo, Step 0 "Overview". Then click "3 Serve" in the step bar and scroll to "3 · Conditions after service".]
+[Screen: live demo, Step 0 "Overview", showing the banner "For counsel's review. Does not determine compliance. Not legal advice." Then click "3 Serve" in the step bar and scroll to "3 · Conditions after service".]
 
-> Serving by NFT is already allowed. Proving you followed the order is still saved webpages. ServeChain does both. It mints the notice with a hash of the papers locked inside, then links every transaction to the condition it satisfies. Four conditions are green. The affidavit is still red.
+> Some courts have ordered service by NFT. Proving you complied with the order is still manual. ServeChain does both. It mints the notice with a hash of the papers locked inside, then links each transaction to a condition. Before step four, four conditions have evidence linked. The affidavit has none yet.
+
+(52 words, about 21 s)
+
+### Scene 3 (0:46 to 1:06) Result
+
+[Screen: back to Step 0, click "Verify now": the page jumps to "5 Summary & verify" and shows MATCH. Click "Try a tampered copy": MISMATCH.]
+
+> The result is one compliance summary, an attachment for counsel preparing an affidavit of service or a default motion. Its hash is on Sepolia. Anyone can check it from a browser. The published file matches. Change one byte, and it fails. No server of ours is involved.
 
 (47 words, about 19 s)
-
-### Scene 3 (0:42 to 1:00) Result
-
-[Screen: click "5 Exhibit & verify". Click "Verify the published exhibit": MATCH. Click "Try a tampered copy": MISMATCH.]
-
-> The result is one exhibit for the affidavit or a default motion. Its hash is on Sepolia. Anyone can check it from a browser. The real file matches. Change one byte, and it fails. No server of ours is involved.
-
-(40 words, about 16 s)
 
 ---
 
 ## Part 2. How it works
 
-### Scene 4 (1:00 to 1:22) Impracticability
+### Scene 4 (1:06 to 1:28) Impracticability
 
 [Screen: click "1 Impracticability". Point at the three wallet cards, then the shaded April to December 2024 band, then "Contact attempts".]
 
@@ -44,7 +44,7 @@ Before recording: open the order PDF (ag.ny.gov link from Step 0) at page 6 in a
 
 (52 words, about 21 s)
 
-### Scene 5 (1:22 to 1:40) Conditions
+### Scene 5 (1:28 to 1:43) Conditions
 
 [Screen: click "2 Conditions". Scroll slowly through the five condition cards with their quotes and page numbers.]
 
@@ -52,27 +52,27 @@ Before recording: open the order PDF (ag.ny.gov link from Step 0) at page 6 in a
 
 (34 words, about 14 s)
 
-### Scene 6 (1:40 to 2:05) Serve
+### Scene 6 (1:43 to 2:07) Serve
 
-[Screen: click "3 Serve". Show "1 · Service bundle" hash, then "2 · Notices minted" table, then click one TX link to open Sepolia Etherscan. Come back and expand "Imported: NY OAG service, Jul 30 2025".]
+[Screen: click "3 Serve". Point at the TRON note at the top, show "1 · Service bundle" hash, then "2 · Notices minted" table, then click one TX link to open Sepolia Etherscan. Come back and point at the "replay" badges, then the "Context only" card.]
 
-> Step three serves. The papers are hashed, and one non-transferable notice goes to each wallet. In this demo, those are testnet stand-ins. Nothing is ever sent to the real wallets. Below, the real notices from July 2025 are imported read only, as evidence for the same conditions.
+> Step three serves. The papers are hashed, and one non-transferable notice goes to each wallet. The order names two TRON wallets, and this tool writes only to EVM chains, so these are Sepolia stand-ins. Nothing is ever sent to the real wallets. NFTs already seen on those wallets are shown as context only, not evidence.
 
-(47 words, about 19 s)
+(55 words, about 22 s)
 
-### Scene 7 (2:05 to 2:28) Deadline
+### Scene 7 (2:07 to 2:29) Deadline
 
-[Screen: click "4 Deadline". Point at "Declared by filer", then "2026-11-24", then the yellow notes.]
+[Screen: click "4 Deadline". Point at "Declared by filer", then "2026-11-24" (New York date), then the yellow notes.]
 
-> Step four starts the clock. The order says service is complete when the affidavit is filed. The filer declares that time, and the contract adds thirty days under CPLR 320(a). The chain cannot prove the filing date, and weekend rules are not applied. The screen says so.
+> Step four starts the clock. The order says service is complete when the affidavit is filed. The filer declares that time, and the contract adds thirty days under CPLR 320(a). The date is an estimate: counting rules are not applied, and it only matters if service was valid. The screen says so.
 
-(47 words, about 19 s)
+(51 words, about 20 s)
 
 ---
 
 ## Part 3. Why, limits, close
 
-### Scene 8 (2:28 to 2:46) Why blockchain
+### Scene 8 (2:29 to 2:45) Why blockchain
 
 [Screen: deck slide 5 "Why blockchain", or the README section.]
 
@@ -80,21 +80,20 @@ Before recording: open the order PDF (ag.ny.gov link from Step 0) at page 6 in a
 
 (36 words, about 14 s)
 
-### Scene 9 (2:46 to 3:00) Limits and close
+### Scene 9 (2:45 to 3:00) Limits and close
 
 [Screen: deck slide 6, then back to Step 0 of the live demo with the URL visible.]
 
-> It does not prove anyone read the papers, and it is not legal advice. It organizes the proof a lawyer already has to give. ServeChain: serve, then build the case file.
+> It does not prove anyone read the papers, it does not determine compliance, and it is not legal advice. It organizes the proof a lawyer already has to give. ServeChain: serve, then build the case file.
 
-(31 words, about 12 s)
+(36 words, about 14 s)
 
 ---
 
-Total spoken: 383 words, about 2:33 at 150 wpm. The remaining time covers clicks and page loads; scene start times above include those pauses.
+Total spoken: 423 words, about 2:49 at 150 wpm. The remaining time covers clicks and page loads; scene start times above include those pauses.
 
 ## Recording notes
 
 - Say "testnet stand-ins" on screen 6 every take. It is the one sentence a reviewer must not miss.
 - If the live RPC is slow in Step 5, the verifier falls back to the bundled events file and shows "MATCH (offline)". That is still a valid take; do not cut it. The result also shows that the case id is derived from the handler address and the case reference.
-- Do not show the Sepolia snapshot as done. It is pending until 2026-11-24; the screen shows the local replay with the clock moved forward.
-- Upload as an unlisted YouTube video and paste the link into README.md, docs/dorahacks-submission.md and the deck (slide 8). Check playback in a logged-out browser before submitting.
+- Do not show the Sepolia snapshot as done. Say it is shown via local replay; on Sepolia it is pending until 2026-11-24.
