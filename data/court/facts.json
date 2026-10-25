@@ -24,9 +24,9 @@
       {
         "doc": "data/court/decision-and-pleadings-2025.pdf",
         "pdfPage": 6,
-        "quote": "Dated: June ~ , 2025",
-        "textLayer": "ocr-normalized",
-        "note": "day illegible in the scanned signature line; the notice of entry (p.9) states June 9, 2025"
+        "quote": "Dated: June 9, 2025",
+        "textLayer": "page-image",
+        "note": "OCR layer renders the day as \"~\"; read as 9 from the page image (matches the notice of entry, p.9)"
       }
     ],
     "sources": {
@@ -163,8 +163,9 @@
       {
         "doc": "data/court/decision-and-pleadings-2025.pdf",
         "pdfPage": 5,
-        "quote": "Sang provides verification through blockchain explorers Etherscan and Tronscan.io as well as the APENFT NFT platform demonstrating the existence and delivery of all NFTs to the respective Wallet addresses on said dates.",
-        "textLayer": "ocr-normalized"
+        "quote": "Sang provides verification through blockchain explorers Etherscan and Tronscan.io, as well as the APENFT NFT platform demonstrating the existence and delivery of all NFTs to the respective Wallet addresses on said dates.",
+        "textLayer": "ocr-normalized",
+        "note": "comma checked against the page image"
       }
     ]
   },

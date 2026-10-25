@@ -1,0 +1,169 @@
+{
+  "synthetic": true,
+  "note": "Synthetic rows that reproduce the counts stated in the decision. Numbers, addresses, the spread of calls across dates and which rows responded are invented; only the totals and the date set come from the decision.",
+  "source": {
+    "doc": "decision-and-pleadings-2025.pdf",
+    "pdfPage": 4,
+    "facts": "data/court/facts.json L3_impracticability"
+  },
+  "counts": {
+    "phoneNumbers": 14,
+    "phoneResponded": 2,
+    "phoneDates": [
+      "2024-12-06",
+      "2024-12-09",
+      "2024-12-10",
+      "2024-12-11"
+    ],
+    "emails": 4,
+    "emailDelivered": 1
+  },
+  "phone": [
+    {
+      "n": 1,
+      "channel": "phone call + text",
+      "to": "+1-555-0110",
+      "date": "2024-12-06",
+      "responded": true,
+      "result": "responded; no verifiable mailing address"
+    },
+    {
+      "n": 2,
+      "channel": "phone call + text",
+      "to": "+1-555-0111",
+      "date": "2024-12-09",
+      "responded": true,
+      "result": "responded; no verifiable mailing address"
+    },
+    {
+      "n": 3,
+      "channel": "phone call + text",
+      "to": "+1-555-0112",
+      "date": "2024-12-10",
+      "responded": false,
+      "result": "no response"
+    },
+    {
+      "n": 4,
+      "channel": "phone call + text",
+      "to": "+1-555-0113",
+      "date": "2024-12-11",
+      "responded": false,
+      "result": "no response"
+    },
+    {
+      "n": 5,
+      "channel": "phone call + text",
+      "to": "+1-555-0114",
+      "date": "2024-12-06",
+      "responded": false,
+      "result": "no response"
+    },
+    {
+      "n": 6,
+      "channel": "phone call + text",
+      "to": "+1-555-0115",
+      "date": "2024-12-09",
+      "responded": false,
+      "result": "no response"
+    },
+    {
+      "n": 7,
+      "channel": "phone call + text",
+      "to": "+1-555-0116",
+      "date": "2024-12-10",
+      "responded": false,
+      "result": "no response"
+    },
+    {
+      "n": 8,
+      "channel": "phone call + text",
+      "to": "+1-555-0117",
+      "date": "2024-12-11",
+      "responded": false,
+      "result": "no response"
+    },
+    {
+      "n": 9,
+      "channel": "phone call + text",
+      "to": "+1-555-0118",
+      "date": "2024-12-06",
+      "responded": false,
+      "result": "no response"
+    },
+    {
+      "n": 10,
+      "channel": "phone call + text",
+      "to": "+1-555-0119",
+      "date": "2024-12-09",
+      "responded": false,
+      "result": "no response"
+    },
+    {
+      "n": 11,
+      "channel": "phone call + text",
+      "to": "+1-555-0120",
+      "date": "2024-12-10",
+      "responded": false,
+      "result": "no response"
+    },
+    {
+      "n": 12,
+      "channel": "phone call + text",
+      "to": "+1-555-0121",
+      "date": "2024-12-11",
+      "responded": false,
+      "result": "no response"
+    },
+    {
+      "n": 13,
+      "channel": "phone call + text",
+      "to": "+1-555-0122",
+      "date": "2024-12-06",
+      "responded": false,
+      "result": "no response"
+    },
+    {
+      "n": 14,
+      "channel": "phone call + text",
+      "to": "+1-555-0123",
+      "date": "2024-12-09",
+      "responded": false,
+      "result": "no response"
+    }
+  ],
+  "email": [
+    {
+      "n": 15,
+      "channel": "email (read + delivery receipt requested)",
+      "to": "contact1@example.invalid",
+      "date": null,
+      "delivered": true,
+      "result": "\"delivered\" notice; no mailing address"
+    },
+    {
+      "n": 16,
+      "channel": "email (read + delivery receipt requested)",
+      "to": "contact2@example.invalid",
+      "date": null,
+      "delivered": false,
+      "result": "no receipt"
+    },
+    {
+      "n": 17,
+      "channel": "email (read + delivery receipt requested)",
+      "to": "contact3@example.invalid",
+      "date": null,
+      "delivered": false,
+      "result": "no receipt"
+    },
+    {
+      "n": 18,
+      "channel": "email (read + delivery receipt requested)",
+      "to": "contact4@example.invalid",
+      "date": null,
+      "delivered": false,
+      "result": "no receipt"
+    }
+  ]
+}

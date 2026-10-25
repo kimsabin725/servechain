@@ -5,7 +5,7 @@
     "2025-01-24T00:00:00Z"
   ],
   "eth": {
-    "source": "decision-and-pleadings-2025.pdf p.70 (Sang Aff. \u00b63)",
+    "source": "decision-and-pleadings-2025.pdf p.70 (Sang Aff. ¶3)",
     "contract": "0xc9154424b823b10579895ccbe442d41b9abd96ed",
     "tokenId": "45941267142316491420780756377080437389336336339189278277342547391922395152392",
     "owner": "0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d",
@@ -49,7 +49,7 @@
     ]
   },
   "tron": {
-    "source": "decision-and-pleadings-2025.pdf p.72 (Sang Aff. \u00b6\u00b66-7)",
+    "source": "decision-and-pleadings-2025.pdf p.72 (Sang Aff. ¶¶6-7)",
     "affidavitTxids": [
       "bfbacea582b76fb95eaa3f4fac32ccfb832a5703a1f7ea9a08593808ae1c6df4",
       "6361f4f44b95b0cfd165801d0d1a515d3a154584d9b5e0f86d4dc9a429823907",
@@ -189,7 +189,9 @@
         "contract": "0xbD0ac870f8427cdB45b4A6F1F0CaFF462fe3ab13",
         "tokenId": "0",
         "name": "Service of NY OAG Summons and Complaint No 700647-2025",
-        "description": "Service of Summons and Complaint under Index 700647/2025: visit https://ag.ny.gov/ipbdocket-700647-2025"
+        "description": "Service of Summons and Complaint under Index 700647/2025: visit https://ag.ny.gov/ipbdocket-700647-2025",
+        "contractName": "SoulBoundTest",
+        "contractNameSource": "name() on Ethereum mainnet, read 2026-10-25"
       }
     ],
     "tron": [

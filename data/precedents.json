@@ -1,0 +1,39 @@
+{
+  "retrievedAt": "2026-10-25",
+  "statusDefinitions": {
+    "as-cited": "Citation copied as printed in the L1 decision; the cited decision itself was not read.",
+    "read": "The source document was opened and quoted."
+  },
+  "precedents": [
+    {
+      "id": "lcx-2022",
+      "citation": "LCX AG v 1.274M U.S. Dollar Coin, 2022 NY Slip Op 32834[U]",
+      "court": "Sup Ct, NY County",
+      "year": 2022,
+      "point": "Service on anonymous defendants by an airdropped token linking to a website with the papers.",
+      "source": "decision-and-pleadings-2025.pdf p.4 (L1 decision)",
+      "status": "as-cited",
+      "note": "Citation form as printed on p.4 of the L1 decision. The OAG memorandum cites the same matter as LCX AG v. John Doe Nos. 1-25, No. 154644/2022."
+    },
+    {
+      "id": "meghji-2024",
+      "citation": "Meghji v Wallet Owner (In re Celsius Network LLC), 666 BR 28 [Bankr SD NY 2024]",
+      "court": "Bankr. S.D.N.Y.",
+      "year": 2024,
+      "point": "Service by airdropped NFT into crypto wallets of unidentifiable owners.",
+      "source": "decision-and-pleadings-2025.pdf p.4 (L1 decision)",
+      "status": "as-cited",
+      "note": null
+    },
+    {
+      "id": "ny-ag-2025",
+      "citation": "People v Unknown Parties in Ownership and/or Control of Digital Wallet Addresses, Sup Ct, Queens County, Index No. 700647/2025",
+      "court": "Sup Ct, Queens County",
+      "year": 2025,
+      "point": "Service by airdropping NFTs hyperlinked to a website with the papers to three wallet addresses (CPLR 308(5)); service complete on filing of the affidavit.",
+      "source": "https://ag.ny.gov/sites/default/files/court-filings/people-v-digital-wallet-0xd7648fffa48e06b0107435a966f3f1e9dbe10b7d-decision-and-pleadings-2025.pdf pp.1, 6, 9",
+      "status": "read",
+      "note": "Signed 2025-06-09, entered 2025-06-11 (NYSCEF 21). A Slip Op number was not confirmed (nycourts.gov reporter returned 403 on 2026-10-25), so it is cited by Index No. only."
+    }
+  ]
+}
