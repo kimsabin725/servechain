@@ -46,11 +46,59 @@ contract ServiceNotice721Test is Test {
         bytes memory json = abi.encodePacked(
             '{"name":"Notice of Lawsuit #', vm.toString(id),
             '","description":"Service documents are posted at external_url. SHA-256 of the document bundle: ', h,
+            '","image":"', _expectedImage(id),
             '","external_url":"', URL,
             '","attributes":[{"trait_type":"caseId","value":"0x000000000000000000000000000000000000000000000000000000000000ca5e"},{"trait_type":"conditionId","value":2},{"trait_type":"documentsSha256","value":"',
             h, '"}]}'
         );
         return string.concat("data:application/json;base64,", Base64.encode(json));
+    }
+
+    function _expectedImage(uint256 id) internal pure returns (string memory) {
+        return _image("0x00000000", id);
+    }
+
+    function _image(string memory casePrefix, uint256 id) internal pure returns (string memory) {
+        bytes memory svg = abi.encodePacked(
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><rect width="400" height="400" fill="#fffefb" stroke="#1d1c1a" stroke-width="12"/>',
+            '<text x="200" y="170" font-family="serif" font-size="34" font-weight="700" text-anchor="middle" fill="#1d1c1a">SERVICE NOTICE</text>',
+            '<text x="200" y="220" font-family="monospace" font-size="20" text-anchor="middle" fill="#1d1c1a">case ', casePrefix,
+            '</text><text x="200" y="260" font-family="monospace" font-size="20" text-anchor="middle" fill="#4a4843">#',
+            vm.toString(id),
+            "</text></svg>"
+        );
+        return string.concat("data:image/svg+xml;base64,", Base64.encode(svg));
+    }
+
+    function test_ImageShowsCasePrefix() public {
+        bytes32 caseId = 0xabcdef0123456789000000000000000000000000000000000000000000000000;
+        vm.prank(issuer);
+        uint256 id = nft.mint(served, caseId, 0, URL, DOCS);
+        string memory h = "0x9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08";
+        bytes memory json = abi.encodePacked(
+            '{"name":"Notice of Lawsuit #1","description":"Service documents are posted at external_url. SHA-256 of the document bundle: ', h,
+            '","image":"', _image("0xabcdef01", 1), '","external_url":"', URL,
+            '","attributes":[{"trait_type":"caseId","value":"', vm.toString(caseId),
+            '"},{"trait_type":"conditionId","value":0},{"trait_type":"documentsSha256","value":"', h, '"}]}'
+        );
+        assertEq(nft.tokenURI(id), string.concat("data:application/json;base64,", Base64.encode(json)));
+    }
+
+    function test_OwnershipIsTwoStepAndCannotBeRenounced() public {
+        vm.prank(issuer);
+        vm.expectRevert(ServiceNotice721.RenounceDisabled.selector);
+        nft.renounceOwnership();
+        assertEq(nft.owner(), issuer);
+        vm.prank(issuer);
+        nft.transferOwnership(other);
+        assertEq(nft.owner(), issuer);
+        assertEq(nft.pendingOwner(), other);
+        vm.prank(served);
+        vm.expectRevert(abi.encodeWithSelector(Ownable.OwnableUnauthorizedAccount.selector, served));
+        nft.acceptOwnership();
+        vm.prank(other);
+        nft.acceptOwnership();
+        assertEq(nft.owner(), other);
     }
 
     function test_MintFixesUrlAndHash() public {

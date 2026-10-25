@@ -105,13 +105,24 @@ export async function createWriter({ chain, rpcUrl, account }) {
   };
 }
 
-// Fetches and decodes all events of the given contracts from a block onward.
-export async function collectEvents(pub, contracts, fromBlock) {
+export const LOG_CHUNK = 10_000;
+
+// Fetches and decodes all events of the given contracts, reading logs in windows of at most LOG_CHUNK blocks.
+export async function collectEvents(pub, contracts, fromBlock, { toBlock, chunk = LOG_CHUNK, onProgress } = {}) {
   const out = [];
   const blockTimes = new Map();
-  for (const c of contracts) {
-    const logs = await pub.getLogs({ address: c.address, fromBlock: BigInt(fromBlock), toBlock: 'latest' });
+  const byAddr = new Map(contracts.map((c) => [c.address.toLowerCase(), c]));
+  const last = BigInt(toBlock ?? (await pub.getBlockNumber()));
+  const step = BigInt(Math.min(chunk, LOG_CHUNK));
+  const total = last >= BigInt(fromBlock) ? Number((last - BigInt(fromBlock)) / step) + 1 : 0;
+  let done = 0;
+  for (let from = BigInt(fromBlock); from <= last; from += step) {
+    const to = from + step - 1n > last ? last : from + step - 1n;
+    const logs = await pub.getLogs({ address: contracts.map((c) => c.address), fromBlock: from, toBlock: to });
+    onProgress?.(++done, total);
     for (const log of logs) {
+      const c = byAddr.get(String(log.address).toLowerCase());
+      if (!c) continue;
       let decoded;
       try {
         decoded = decodeEventLog({ abi: c.abi, data: log.data, topics: log.topics });

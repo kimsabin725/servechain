@@ -91,7 +91,8 @@ async function main() {
     const serviceDeadline = now + 120 * DAY;
     const onChainId = await w.pub.readContract({ address: reg.address, abi: regAbi, functionName: 'caseIdOf', args: [account.address, CASE_REF] });
     if (onChainId !== CASE_ID) throw new Error(`caseId derivation differs: ${onChainId} != ${CASE_ID}`);
-    const opened = await w.write(reg.address, regAbi, 'openCase', [CASE_REF, oHash, conditionsHash, conditions.length + slots.length, BigInt(serviceDeadline)]);
+    const serviceMask = conditions.filter((k) => k.kind !== 'affidavit').reduce((m, k) => m | (1n << BigInt(k.id)), 0n);
+    const opened = await w.write(reg.address, regAbi, 'openCase', [CASE_REF, oHash, conditionsHash, conditions.length + slots.length, serviceMask, BigInt(serviceDeadline)]);
     log('openCase', opened.hash);
 
     const service = [];
@@ -171,6 +172,7 @@ async function main() {
 
     events = await collectEvents(w.pub, contracts, fromBlock);
     const finalCase = buildCase(ctx, events);
+    finalCase.chain.serviceMask = serviceMask.toString();
     writeJson(path.join(outDir, 'case.json'), finalCase);
     writeJson(path.join(outDir, 'events.json'), events);
     const balanceAfter = await w.pub.getBalance({ address: account.address });

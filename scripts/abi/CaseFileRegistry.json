@@ -140,6 +140,11 @@
       "internalType": "uint64"
      },
      {
+      "name": "lastServiceAt",
+      "type": "uint64",
+      "internalType": "uint64"
+     },
+     {
       "name": "orderHash",
       "type": "bytes32",
       "internalType": "bytes32"
@@ -161,6 +166,11 @@
      },
      {
       "name": "fulfilledMask",
+      "type": "uint256",
+      "internalType": "uint256"
+     },
+     {
+      "name": "serviceMask",
       "type": "uint256",
       "internalType": "uint256"
      }
@@ -257,6 +267,11 @@
     "name": "conditionCount",
     "type": "uint8",
     "internalType": "uint8"
+   },
+   {
+    "name": "serviceMask",
+    "type": "uint256",
+    "internalType": "uint256"
    },
    {
     "name": "serviceDeadline",
@@ -393,6 +408,12 @@
     "internalType": "uint8"
    },
    {
+    "name": "serviceMask",
+    "type": "uint256",
+    "indexed": false,
+    "internalType": "uint256"
+   },
+   {
     "name": "serviceDeadline",
     "type": "uint64",
     "indexed": false,
@@ -526,7 +547,17 @@
  },
  {
   "type": "error",
+  "name": "FiledAtBeforeService",
+  "inputs": []
+ },
+ {
+  "type": "error",
   "name": "FiledAtInFuture",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "InvalidServiceMask",
   "inputs": []
  },
  {
@@ -547,6 +578,16 @@
  {
   "type": "error",
   "name": "ServiceAlreadyRecorded",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "ServiceDeadlinePassed",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "ServiceIncomplete",
   "inputs": []
  },
  {

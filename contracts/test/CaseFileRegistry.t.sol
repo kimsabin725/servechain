@@ -14,12 +14,13 @@ contract CaseFileRegistryTest is Test {
     bytes32 constant CONDS = keccak256("conditions.json");
     uint64 constant T0 = 1_750_000_000;
     uint64 serviceDeadline = T0 + 120 days;
+    uint256 constant SVC = 0x0f;
 
     function setUp() public {
         vm.warp(T0);
         reg = new CaseFileRegistry();
         vm.prank(handler);
-        CASE = reg.openCase(REF, ORDER, CONDS, 5, serviceDeadline);
+        CASE = reg.openCase(REF, ORDER, CONDS, 5, SVC, serviceDeadline);
     }
 
     function _fulfillAll() internal {
@@ -30,7 +31,19 @@ contract CaseFileRegistryTest is Test {
         vm.stopPrank();
     }
 
+    function _fulfillServiceAt(uint64 at) internal {
+        uint256 back = vm.getBlockTimestamp();
+        vm.warp(at);
+        vm.startPrank(handler);
+        for (uint8 i; i < 4; ++i) {
+            if (!reg.isFulfilled(CASE, i)) reg.fulfill(CASE, i, keccak256(abi.encode("evidence", i)), bytes32(0));
+        }
+        vm.stopPrank();
+        vm.warp(back);
+    }
+
     function _serve(uint64 filedAt) internal {
+        if (!reg.isFulfilled(CASE, 0)) _fulfillServiceAt(T0);
         vm.prank(handler);
         reg.recordServiceComplete(CASE, keccak256("affidavit"), filedAt);
     }
@@ -83,6 +96,7 @@ contract CaseFileRegistryTest is Test {
 
     function testFuzz_FiledAtAcrossUint64Range(uint64 filedAt) public {
         filedAt = uint64(bound(filedAt, T0, type(uint64).max));
+        _fulfillServiceAt(T0);
         vm.warp(filedAt);
         vm.prank(handler);
         if (filedAt > type(uint64).max - 30 days) {
@@ -108,6 +122,7 @@ contract CaseFileRegistryTest is Test {
 
     function test_Attack_FiledAtOverflow() public {
         uint64 max = type(uint64).max;
+        _fulfillServiceAt(T0);
         vm.warp(uint256(max));
         vm.startPrank(handler);
         vm.expectRevert(CaseFileRegistry.DeadlineOverflow.selector);
@@ -122,10 +137,10 @@ contract CaseFileRegistryTest is Test {
         vm.prank(stranger);
         if (deadline <= T0) {
             vm.expectRevert(CaseFileRegistry.DeadlineInPast.selector);
-            reg.openCase(ref, ORDER, CONDS, 1, deadline);
+            reg.openCase(ref, ORDER, CONDS, 1, 1, deadline);
             return;
         }
-        bytes32 id = reg.openCase(ref, ORDER, CONDS, 1, deadline);
+        bytes32 id = reg.openCase(ref, ORDER, CONDS, 1, 1, deadline);
         assertEq(reg.getCase(id).serviceDeadline, deadline);
     }
 
@@ -213,7 +228,7 @@ contract CaseFileRegistryTest is Test {
     function test_Attack_HandlerCannotReopenOwnRef() public {
         vm.prank(handler);
         vm.expectRevert(CaseFileRegistry.CaseExists.selector);
-        reg.openCase(REF, keccak256("fake"), keccak256("fake"), 1, serviceDeadline);
+        reg.openCase(REF, keccak256("fake"), keccak256("fake"), 1, 1, serviceDeadline);
         assertEq(reg.getCase(CASE).orderHash, ORDER);
     }
 
@@ -221,12 +236,12 @@ contract CaseFileRegistryTest is Test {
         CaseFileRegistry fresh = new CaseFileRegistry();
         bytes32 victimId = fresh.caseIdOf(handler, REF);
         vm.prank(stranger);
-        bytes32 squatId = fresh.openCase(REF, keccak256("fake"), keccak256("fake"), 1, serviceDeadline);
+        bytes32 squatId = fresh.openCase(REF, keccak256("fake"), keccak256("fake"), 1, 1, serviceDeadline);
         assertTrue(squatId != victimId);
         vm.expectEmit(true, true, true, true);
         emit CaseFileRegistry.CaseRefBound(victimId, handler, REF);
         vm.prank(handler);
-        bytes32 id = fresh.openCase(REF, ORDER, CONDS, 5, serviceDeadline);
+        bytes32 id = fresh.openCase(REF, ORDER, CONDS, 5, SVC, serviceDeadline);
         assertEq(id, victimId);
         assertEq(fresh.getCase(id).handler, handler);
         assertEq(fresh.getCase(id).orderHash, ORDER);
@@ -238,7 +253,7 @@ contract CaseFileRegistryTest is Test {
 
     function test_Attack_SquatterPassesVictimIdAsRef() public {
         vm.prank(stranger);
-        bytes32 other = reg.openCase(CASE, ORDER, CONDS, 5, serviceDeadline);
+        bytes32 other = reg.openCase(CASE, ORDER, CONDS, 5, SVC, serviceDeadline);
         assertTrue(other != CASE);
         assertEq(reg.getCase(CASE).handler, handler);
     }
@@ -277,13 +292,13 @@ contract CaseFileRegistryTest is Test {
     function test_Attack_OpenCaseBadInput() public {
         vm.startPrank(stranger);
         vm.expectRevert(CaseFileRegistry.DeadlineInPast.selector);
-        reg.openCase(keccak256("c2"), ORDER, CONDS, 5, T0);
+        reg.openCase(keccak256("c2"), ORDER, CONDS, 5, SVC, T0);
         vm.expectRevert(CaseFileRegistry.NoConditions.selector);
-        reg.openCase(keccak256("c2"), ORDER, CONDS, 0, serviceDeadline);
+        reg.openCase(keccak256("c2"), ORDER, CONDS, 0, SVC, serviceDeadline);
         vm.expectRevert(CaseFileRegistry.ZeroHash.selector);
-        reg.openCase(keccak256("c2"), bytes32(0), CONDS, 5, serviceDeadline);
+        reg.openCase(keccak256("c2"), bytes32(0), CONDS, 5, SVC, serviceDeadline);
         vm.expectRevert(CaseFileRegistry.ZeroHash.selector);
-        reg.openCase(bytes32(0), ORDER, CONDS, 5, serviceDeadline);
+        reg.openCase(bytes32(0), ORDER, CONDS, 5, SVC, serviceDeadline);
         vm.stopPrank();
     }
 
@@ -291,5 +306,73 @@ contract CaseFileRegistryTest is Test {
         vm.prank(handler);
         vm.expectRevert(CaseFileRegistry.ZeroHash.selector);
         reg.fulfill(CASE, 0, bytes32(0), bytes32(0));
+    }
+
+    function test_ServiceMaskStored() public {
+        CaseFileRegistry fresh = new CaseFileRegistry();
+        vm.expectEmit(true, true, false, true);
+        emit CaseFileRegistry.CaseOpened(fresh.caseIdOf(handler, REF), handler, ORDER, CONDS, 6, SVC, serviceDeadline);
+        vm.prank(handler);
+        bytes32 id = fresh.openCase(REF, ORDER, CONDS, 6, SVC, serviceDeadline);
+        assertEq(fresh.getCase(id).serviceMask, SVC);
+    }
+
+    function test_Attack_OpenCaseBadServiceMask() public {
+        vm.startPrank(stranger);
+        vm.expectRevert(CaseFileRegistry.InvalidServiceMask.selector);
+        reg.openCase(keccak256("c3"), ORDER, CONDS, 5, 0, serviceDeadline);
+        vm.expectRevert(CaseFileRegistry.InvalidServiceMask.selector);
+        reg.openCase(keccak256("c3"), ORDER, CONDS, 5, 1 << 5, serviceDeadline);
+        vm.stopPrank();
+    }
+
+    function test_Attack_RecordServiceBeforeConditionsMet() public {
+        vm.startPrank(handler);
+        for (uint8 i; i < 3; ++i) {
+            reg.fulfill(CASE, i, keccak256(abi.encode("e", i)), bytes32(0));
+        }
+        reg.fulfill(CASE, 4, keccak256("affidavit"), bytes32(0));
+        vm.warp(T0 + 1 days);
+        vm.expectRevert(CaseFileRegistry.ServiceIncomplete.selector);
+        reg.recordServiceComplete(CASE, keccak256("affidavit"), T0 + 1 days);
+        vm.stopPrank();
+    }
+
+    function test_Attack_BackdateBeforeLastServiceEvidence() public {
+        _fulfillServiceAt(T0 + 10 days);
+        vm.warp(T0 + 20 days);
+        vm.startPrank(handler);
+        vm.expectRevert(CaseFileRegistry.FiledAtBeforeService.selector);
+        reg.recordServiceComplete(CASE, keccak256("affidavit"), T0 + 5 days);
+        vm.expectRevert(CaseFileRegistry.FiledAtBeforeService.selector);
+        reg.recordServiceComplete(CASE, keccak256("affidavit"), T0 + 10 days - 1);
+        reg.recordServiceComplete(CASE, keccak256("affidavit"), T0 + 10 days);
+        vm.stopPrank();
+        assertEq(reg.getCase(CASE).lastServiceAt, T0 + 10 days);
+        assertEq(reg.getCase(CASE).responseDeadline, T0 + 40 days);
+    }
+
+    function test_AffidavitAndAnchorSlotsNotRequiredBeforeFiling() public {
+        _fulfillServiceAt(T0 + 1 days);
+        vm.warp(T0 + 2 days);
+        _serve(T0 + 2 days);
+        vm.prank(handler);
+        reg.fulfill(CASE, 4, keccak256("affidavit"), bytes32(0));
+        assertTrue(reg.allFulfilled(CASE));
+        assertEq(reg.getCase(CASE).lastServiceAt, T0 + 1 days);
+    }
+
+    function test_Attack_ServiceEvidenceAfterDeadline() public {
+        vm.warp(serviceDeadline);
+        vm.prank(handler);
+        reg.fulfill(CASE, 0, keccak256("on time"), bytes32(0));
+        vm.warp(serviceDeadline + 1);
+        vm.startPrank(handler);
+        vm.expectRevert(CaseFileRegistry.ServiceDeadlinePassed.selector);
+        reg.fulfill(CASE, 1, keccak256("late"), bytes32(0));
+        reg.fulfill(CASE, 4, keccak256("affidavit"), bytes32(0));
+        vm.stopPrank();
+        assertFalse(reg.isFulfilled(CASE, 1));
+        assertTrue(reg.isFulfilled(CASE, 4));
     }
 }

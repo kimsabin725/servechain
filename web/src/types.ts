@@ -115,4 +115,6 @@ export type ChainEvent = {
   txHash: string;
   block: number;
   logIndex: number;
+  address?: string;
+  timestamp?: number;
 };

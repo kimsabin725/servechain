@@ -3,10 +3,11 @@ pragma solidity 0.8.28;
 
 import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
 import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 
-contract ServiceNotice721 is ERC721, Ownable {
+contract ServiceNotice721 is ERC721, Ownable2Step {
     struct Notice {
         bytes32 caseId;
         uint8 conditionId;
@@ -21,6 +22,7 @@ contract ServiceNotice721 is ERC721, Ownable {
     error EmptyHash();
     error ZeroRecipient();
     error AlreadyServed();
+    error RenounceDisabled();
 
     event NoticeServed(
         uint256 indexed tokenId,
@@ -84,6 +86,8 @@ contract ServiceNotice721 is ERC721, Ownable {
             Strings.toString(tokenId),
             '","description":"Service documents are posted at external_url. SHA-256 of the document bundle: ',
             hashHex,
+            '","image":"',
+            _image(n.caseId, tokenId),
             '","external_url":"',
             n.documentsUrl,
             '","attributes":[{"trait_type":"caseId","value":"',
@@ -95,6 +99,30 @@ contract ServiceNotice721 is ERC721, Ownable {
             '"}]}'
         );
         return string.concat("data:application/json;base64,", Base64.encode(json));
+    }
+
+    // Keeps an issuer at all times, so notices can always be attributed to an owner().
+    function renounceOwnership() public pure override {
+        revert RenounceDisabled();
+    }
+
+    // Small SVG card so wallets show the notice instead of a blank token.
+    function _image(bytes32 caseId, uint256 tokenId) private pure returns (string memory) {
+        bytes memory svg = abi.encodePacked(
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><rect width="400" height="400" fill="#fffefb" stroke="#1d1c1a" stroke-width="12"/>',
+            '<text x="200" y="170" font-family="serif" font-size="34" font-weight="700" text-anchor="middle" fill="#1d1c1a">SERVICE NOTICE</text>',
+            '<text x="200" y="220" font-family="monospace" font-size="20" text-anchor="middle" fill="#1d1c1a">case ',
+            _hexPrefix(caseId),
+            '</text><text x="200" y="260" font-family="monospace" font-size="20" text-anchor="middle" fill="#4a4843">#',
+            Strings.toString(tokenId),
+            "</text></svg>"
+        );
+        return string.concat("data:image/svg+xml;base64,", Base64.encode(svg));
+    }
+
+    // First 4 bytes of the case id as 0x-prefixed hex.
+    function _hexPrefix(bytes32 caseId) private pure returns (string memory) {
+        return Strings.toHexString(uint256(caseId) >> 224, 4);
     }
 
     // ERC-165 including the ERC-5192 interface id.

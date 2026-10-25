@@ -213,6 +213,9 @@ main:focus { outline: none; }
 .verdict { font-family: var(--serif); font-size: 1.8rem; font-weight: 700; letter-spacing: 0.04em; }
 .result-ok .verdict { color: var(--ok); }
 .result-bad .verdict { color: var(--bad); }
+.result-neutral { border-color: var(--accent); background: var(--accent-soft); }
+.result-neutral .verdict, .result-neutral .verdict-kind { color: var(--accent); }
+.trusts { font-size: 0.75rem; }
 .matches { margin: 6px 0 0; padding-left: 18px; }
 
 .pager { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 24px; padding-top: 14px; border-top: 1px solid var(--rule); }

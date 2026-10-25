@@ -13,11 +13,13 @@ contract CaseFileRegistry {
         uint64 filedAt;
         uint64 responseDeadline;
         uint64 snapshotAt;
+        uint64 lastServiceAt;
         bytes32 orderHash;
         bytes32 conditionsHash;
         bytes32 affidavitHash;
         bytes32 activityRootHash;
         uint256 fulfilledMask;
+        uint256 serviceMask;
     }
 
     struct Fulfillment {
@@ -41,6 +43,10 @@ contract CaseFileRegistry {
     error ResponsePeriodOpen();
     error SnapshotExists();
     error DeadlineOverflow();
+    error InvalidServiceMask();
+    error ServiceIncomplete();
+    error FiledAtBeforeService();
+    error ServiceDeadlinePassed();
 
     event CaseOpened(
         bytes32 indexed caseId,
@@ -48,6 +54,7 @@ contract CaseFileRegistry {
         bytes32 orderHash,
         bytes32 conditionsHash,
         uint8 conditionCount,
+        uint256 serviceMask,
         uint64 serviceDeadline
     );
     event CaseRefBound(bytes32 indexed caseId, address indexed handler, bytes32 indexed caseRef);
@@ -72,31 +79,34 @@ contract CaseFileRegistry {
         return keccak256(abi.encode(handler, caseRef));
     }
 
-    // Registers a case under caseIdOf(msg.sender, caseRef); the caller becomes its only handler.
+    // Registers a case under caseIdOf(msg.sender, caseRef); serviceMask marks the conditions that must precede filing.
     function openCase(
         bytes32 caseRef,
         bytes32 orderHash,
         bytes32 conditionsHash,
         uint8 conditionCount,
+        uint256 serviceMask,
         uint64 serviceDeadline
     ) external returns (bytes32 caseId) {
         if (caseRef == bytes32(0) || orderHash == bytes32(0) || conditionsHash == bytes32(0)) revert ZeroHash();
         caseId = caseIdOf(msg.sender, caseRef);
         if (_cases[caseId].handler != address(0)) revert CaseExists();
         if (conditionCount == 0) revert NoConditions();
+        if (serviceMask == 0 || serviceMask >> conditionCount != 0) revert InvalidServiceMask();
         if (serviceDeadline <= block.timestamp) revert DeadlineInPast();
         CaseFile storage c = _cases[caseId];
         c.handler = msg.sender;
         c.conditionCount = conditionCount;
+        c.serviceMask = serviceMask;
         c.openedAt = uint64(block.timestamp);
         c.serviceDeadline = serviceDeadline;
         c.orderHash = orderHash;
         c.conditionsHash = conditionsHash;
         emit CaseRefBound(caseId, msg.sender, caseRef);
-        emit CaseOpened(caseId, msg.sender, orderHash, conditionsHash, conditionCount, serviceDeadline);
+        emit CaseOpened(caseId, msg.sender, orderHash, conditionsHash, conditionCount, serviceMask, serviceDeadline);
     }
 
-    // Records evidence for one condition (0-based id), once.
+    // Records evidence for one condition once; service conditions only up to the service deadline.
     function fulfill(bytes32 caseId, uint8 conditionId, bytes32 evidenceHash, bytes32 txRef)
         external
         onlyHandler(caseId)
@@ -106,13 +116,17 @@ contract CaseFileRegistry {
         uint256 bit = uint256(1) << conditionId;
         if (c.fulfilledMask & bit != 0) revert AlreadyFulfilled();
         if (evidenceHash == bytes32(0)) revert ZeroHash();
+        if (c.serviceMask & bit != 0) {
+            if (block.timestamp > c.serviceDeadline) revert ServiceDeadlinePassed();
+            c.lastServiceAt = uint64(block.timestamp);
+        }
         c.fulfilledMask |= bit;
         c.fulfilledCount += 1;
         _fulfillments[caseId][conditionId] = Fulfillment(evidenceHash, txRef, uint64(block.timestamp));
         emit ConditionFulfilled(caseId, conditionId, evidenceHash, txRef, uint64(block.timestamp));
     }
 
-    // Records affidavit filing and derives the response deadline as filedAt + 30 days.
+    // Records filing once every service condition is met; filedAt may not predate the last service evidence.
     function recordServiceComplete(bytes32 caseId, bytes32 affidavitHash, uint64 filedAt)
         external
         onlyHandler(caseId)
@@ -122,6 +136,8 @@ contract CaseFileRegistry {
         if (affidavitHash == bytes32(0)) revert ZeroHash();
         if (filedAt > block.timestamp) revert FiledAtInFuture();
         if (filedAt < c.openedAt) revert FiledAtBeforeOpen();
+        if (c.fulfilledMask & c.serviceMask != c.serviceMask) revert ServiceIncomplete();
+        if (filedAt < c.lastServiceAt) revert FiledAtBeforeService();
         if (filedAt > type(uint64).max - RESPONSE_PERIOD) revert DeadlineOverflow();
         uint64 deadline = filedAt + RESPONSE_PERIOD;
         c.affidavitHash = affidavitHash;

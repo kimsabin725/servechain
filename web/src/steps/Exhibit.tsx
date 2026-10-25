@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Loaded } from '../data';
 import { asset, short, txLink } from '../data';
-import { KIND_TEXT, describeMatch, verifyFile, type Kind, type VerifyResult } from '../verify';
+import { KIND_TEXT, TRUSTS, describeMatch, verifyFile, type Kind, type VerifyResult } from '../verify';
 import { Badge, Card, Hash, StepHead, Term, TxRef } from '../ui';
 
-type Run = { name: string; busy: boolean; result?: VerifyResult; error?: string };
+type Run = { name: string; busy: boolean; result?: VerifyResult; error?: string; progress?: string };
 
 // Reader-facing wording for what a matched file is.
 const kindText = (k: Kind) => (k === 'exhibit' ? 'this is the anchored compliance summary' : KIND_TEXT[k]);
@@ -18,7 +18,7 @@ export default function Exhibit({ l, auto = false, onAuto }: { l: Loaded; auto?:
   const check = useCallback(async (name: string, buf: ArrayBuffer) => {
     setRun({ name, busy: true });
     try {
-      const result = await verifyFile(buf, l.data, l.events, l.eventsSource, l.isSample);
+      const result = await verifyFile(buf, l.data, l.events, l.eventsSource, l.isSample, (progress) => setRun((p) => (p && p.busy ? { ...p, progress } : p)));
       setRun({ name, busy: false, result });
     } catch (e) {
       setRun({ name, busy: false, error: (e as Error).message });
@@ -51,7 +51,9 @@ export default function Exhibit({ l, auto = false, onAuto }: { l: Loaded; auto?:
   };
 
   const r = run?.result;
-  const ok = !!r && r.matches.length > 0;
+  const ok = r?.verdict === 'MATCH';
+  const failed = r?.checks.filter((x) => !x.ok && x.level === 'fail') ?? [];
+  const tone = run?.busy ? '' : run?.error || !ok ? 'result-bad' : r?.path === 'offline' ? 'result-neutral' : 'result-ok';
   return (
     <div>
       <StepHead n={5} title="Compliance summary & verify" lead={<>One <Term k="compliance summary">compliance summary (attachment for counsel)</Term> PDF, for counsel preparing an affidavit of service or a default motion. It is not a court-filed exhibit. Anyone can check it against the chain from this page, with no server of ours involved.</>} />
@@ -97,12 +99,13 @@ export default function Exhibit({ l, auto = false, onAuto }: { l: Loaded; auto?:
             <button type="button" onClick={verifyTampered} disabled={!l.exhibitUrl || run?.busy}>Try a tampered copy</button>
           </div>
           {run && (
-            <div className={`result ${run.busy ? '' : run.error ? 'result-bad' : ok ? 'result-ok' : 'result-bad'}`} aria-live="polite">
-              {run.busy && <p>Hashing and reading chain events…</p>}
+            <div className={`result ${tone}`} aria-live="polite">
+              {run.busy && <p>{run.progress ?? 'Hashing and reading chain events…'}</p>}
               {run.error && <p><strong>Error:</strong> {run.error}</p>}
               {r && (
                 <>
                   <p className="verdict">{ok ? (r.path === 'offline' ? 'MATCH (offline)' : 'MATCH') : 'MISMATCH'}</p>
+                  {r.liveMode && <p className="small verdict-sub">{r.liveMode}</p>}
                   {ok && r.path === 'offline' && <p className="small verdict-sub">Compared with the bundled event log, not an independent chain read.</p>}
                   {ok && r.kind && <p className="verdict-kind">{kindText(r.kind)[0].toUpperCase() + kindText(r.kind).slice(1)}.</p>}
                   <p className="small">File: {run.name}</p>
@@ -113,8 +116,14 @@ export default function Exhibit({ l, auto = false, onAuto }: { l: Loaded; auto?:
                   {r.binding.ok
                     ? <details className="small binding formula"><summary>Case id derived from handler + case reference: <span className="text-ok">✓</span></summary>keccak256({short(r.binding.handler, 4)}, {short(r.binding.caseRef, 4)}) = {short(l.data.caseId, 4)}</details>
                     : <p className="small binding">Case id derived from handler + case reference: <span className="text-bad">not confirmed</span> ({r.binding.reason})</p>}
+                  {failed.length > 0 && (
+                    <ul className="small checks-failed">
+                      {failed.map((x) => <li key={x.name}><span className="text-bad">✗</span> {x.name}{x.detail ? ` (${x.detail})` : ''}</li>)}
+                    </ul>
+                  )}
+                  {r.checks.length > 0 && failed.length === 0 && <p className="small">Issuer, notice owner and condition links: <span className="text-ok">✓</span> {r.checks.filter((x) => x.ok).length} checks recomputed</p>}
                   {r.fallbackReason && <p className="small muted">Live lookup unavailable: {r.fallbackReason}</p>}
-                  {ok ? (
+                  {r.matches.length ? (
                     <ul className="small matches">
                       {r.matches.map((m) => (
                         <li key={`${m.txHash}-${m.field}`}>{matchText(describeMatch(m, l.data))} · block {m.block} · <TxRef hash={m.txHash} href={txLink(l, m.txHash)} n={4} /></li>
@@ -123,6 +132,7 @@ export default function Exhibit({ l, auto = false, onAuto }: { l: Loaded; auto?:
                   ) : (
                     <p className="small">No ServeChain record for this case matches this file.{r.path === 'offline' ? ' Checked against the bundled event log.' : ''}</p>
                   )}
+                  <p className="small muted trusts">{TRUSTS}</p>
                 </>
               )}
             </div>
