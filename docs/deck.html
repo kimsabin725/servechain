@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ServeChain Deck</title>
+<style>
+:root {
+  --bg: #f7f5f0; --paper: #fffefb; --ink: #1d1c1a; --ink-2: #4a4843; --muted: #6b6860;
+  --rule: #dcd7cc; --accent: #1f3a5f; --accent-soft: #e5ebf3; --ok: #2f6b3a; --ok-soft: #e4efe5;
+  --bad: #9b2c2c; --bad-soft: #f6e4e2; --warn: #7a5a12; --warn-soft: #f6eedb;
+  --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@page { size: 1280px 720px; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #d9d5cc; }
+body { font: 20px/1.45 var(--sans); color: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.slide { width: 1280px; height: 720px; background: var(--bg); position: relative; overflow: hidden; padding: 56px 72px 48px; margin: 24px auto; display: flex; flex-direction: column; }
+@media print { html, body { background: var(--bg); } .slide { margin: 0; page-break-after: always; break-after: page; } }
+.kicker { font: 600 14px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+h1, h2 { font-family: var(--serif); font-weight: 600; margin: 0; line-height: 1.15; }
+h1 { font-size: 46px; }
+h2 { font-size: 38px; margin-bottom: 22px; }
+p { margin: 0 0 12px; }
+.muted { color: var(--muted); }
+.small { font-size: 15px; }
+.foot { position: absolute; left: 72px; right: 72px; bottom: 22px; display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); }
+.brand { font-family: var(--serif); font-weight: 600; color: var(--accent); }
+blockquote { margin: 0; padding: 18px 24px; background: var(--accent-soft); border-left: 5px solid var(--accent); font-family: var(--serif); font-size: 22px; line-height: 1.45; }
+blockquote cite { display: block; margin-top: 10px; font: 14px/1.4 var(--sans); color: var(--muted); font-style: normal; }
+mark { background: #f3e2a9; color: inherit; padding: 0 2px; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; flex: 1; min-height: 0; }
+.cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.card { background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; padding: 20px 22px; }
+.card h3 { font: 600 20px/1.25 var(--serif); margin: 0 0 8px; }
+.card p, .card li { font-size: 17px; }
+ul { margin: 0; padding-left: 22px; }
+li { margin-bottom: 6px; }
+.pill { display: inline-block; font-size: 13px; padding: 3px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.pill.ok { background: var(--ok-soft); color: var(--ok); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.pill.warn { background: var(--warn-soft); color: var(--warn); }
+.shot { border: 1px solid var(--rule); border-radius: 8px; display: block; width: 100%; height: auto; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+.shot.v { max-height: 222px; width: auto; max-width: 100%; }
+.flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin: 8px 0 22px; }
+.flow .card { padding: 16px; }
+.flow .n { font: 600 26px/1 var(--serif); color: var(--accent); margin-bottom: 8px; }
+.flow h3 { font-size: 18px; }
+.flow p { font-size: 14.5px; margin: 0; }
+.big { font: 600 64px/1 var(--serif); color: var(--accent); }
+.bar { display: flex; gap: 10px; align-items: center; }
+.layer { display: grid; grid-template-columns: 70px 1fr; gap: 18px; align-items: start; margin-bottom: 22px; }
+.layer .num { font: 600 54px/1 var(--serif); color: var(--accent); }
+.layer.second .num { color: var(--muted); }
+.road { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.road .card { border-top: 4px solid var(--accent); }
+table { border-collapse: collapse; width: 100%; font-size: 16px; }
+td { padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+td:first-child { font-weight: 600; white-space: nowrap; }
+.big-list li { font-size: 19px; margin-bottom: 10px; }
+.big-list h3 { font-size: 24px; margin-bottom: 14px; }
+code { font-family: var(--mono); font-size: .85em; }
+</style>
+</head>
+<body>
+
+<!-- 1 -->
+<section class="slide">
+  <div class="kicker">ServeChain · Legal Hack 2026</div>
+  <h1 style="max-width: 1080px">A court let a plaintiff serve defendants it only knew as three wallet addresses. Proving it followed that order is still done by hand.</h1>
+  <div style="height: 22px"></div>
+  <blockquote>“ORDERED, that plaintiff shall serve the summons, complaint, … together with a copy of this Decision and Order with Notice of Entry upon defendants, <mark>within 120 days of the date of entry</mark>, <mark>by airdropping NFTs hyperlinked to a website</mark> containing copies of said pleadings <mark>to digital wallet addresses</mark> 0xD764…0B7d (Wallet 1), TCfr…1ss8 (Wallet 2), and TDvR…Ztmu (Wallet 3)” … “plaintiff shall <mark>file an affidavit of service</mark> … and service shall be deemed complete upon such filing.”
+    <cite>Sup. Ct. N.Y., Queens County, Index No. 700647/2025 (Lin, J.), order signed June 9, 2025, p. 6 · public record at ag.ny.gov</cite>
+  </blockquote>
+  <div style="height: 22px"></div>
+  <p style="font-size: 24px"><span class="brand">ServeChain</span> serves the papers as a hash-locked NFT, then builds the case file that proves each condition was met, and anyone can verify it without our server.</p>
+  <div class="foot"><span>Sabin Kim</span><span>Not legal advice · replay of public court records · 1 / 8</span></div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="kicker">How it is done today</div>
+  <h2>Service by NFT is allowed. The proof is screenshots.</h2>
+  <div class="cols">
+    <div>
+      <div class="card" style="margin-bottom: 18px">
+        <h3>Courts already allow it</h3>
+        <ul>
+          <li><em>LCX AG v. John Does 1-25</em> (N.Y. County, 2022)</li>
+          <li><em>In re Celsius</em>, 666 B.R. 28 (Bankr. S.D.N.Y. 2024)</li>
+          <li><em>People v Unknown Parties</em> (Queens County, 2025)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>What the order asks for</h3>
+        <p>Five conditions: a 120-day window, a specific document set, a specific method, three named wallets, and a filed affidavit. The response clock starts at filing. A miss on any one of them gives a defendant an argument against a default judgment.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="height: 100%">
+        <h3>In this case, at the motion stage (January 2025)</h3>
+        <ul>
+          <li>A law-student intern minted the Ethereum notice through an NFT platform's shared contract, and the TRON notices through separate contracts.</li>
+          <li>Delivery was shown with <strong>Etherscan, Tronscan and NFT-platform screenshots</strong> attached to an affirmation.</li>
+          <li>Nothing ties each screenshot to the order condition it satisfies, flags what is still missing, or fixes which papers were actually served.</li>
+        </ul>
+        <p class="small muted" style="margin-top: 14px">Source: decision p. 5; intern affirmation, pp. 69-72 of the public PDF.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="brand">ServeChain</span><span>2 / 8</span></div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <div class="kicker">What ServeChain does</div>
+  <h2>Serve, then build the verifiable case file.</h2>
+  <div class="flow">
+    <div class="card"><div class="n">1</div><h3>Impracticability</h3><p>Real defendant wallet activity, read only, beside the contact attempts the court relied on.</p></div>
+    <div class="card"><div class="n">2</div><h3>Conditions</h3><p>The order becomes a checklist with exact quotes and page numbers. Its hash is fixed on-chain.</p></div>
+    <div class="card"><div class="n">3</div><h3>Serve</h3><p>Hash the papers, mint one soulbound notice per wallet with that hash in <code>tokenURI</code>, link each tx to its condition.</p></div>
+    <div class="card"><div class="n">4</div><h3>Deadline</h3><p>Declared affidavit filing + 30 days (CPLR 320(a)), derived by the contract.</p></div>
+    <div class="card"><div class="n">5</div><h3>Exhibit &amp; verify</h3><p>One PDF, A to C. Its hash is anchored. Browser or CLI says MATCH or MISMATCH.</p></div>
+  </div>
+  <div class="cols-3">
+    <div class="card"><h3>Two contracts</h3><p><code>ServiceNotice721</code>: non-transferable notice, papers hash fixed at mint.<br><code>CaseFileRegistry</code>: conditions, evidence, deadline, snapshot.</p></div>
+    <div class="card"><h3>Imports existing service</h3><p>The real July 30, 2025 notices to the three wallets attach to conditions as read-only evidence. ServeChain did not send them.</p></div>
+    <div class="card"><h3>Safe by construction</h3><p>Writes only on anvil (31337) and Sepolia (11155111), to labelled stand-in wallets. Real wallets are read only.</p></div>
+  </div>
+  <div class="foot"><span class="brand">ServeChain</span><span>3 / 8</span></div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <div class="kicker">Demo · live on Sepolia</div>
+  <h2 style="margin-bottom: 16px">Five of five conditions linked to transactions. One tampered byte is caught.</h2>
+  <div style="display: grid; grid-template-columns: 1.25fr 1fr; gap: 24px; flex: 1; min-height: 0">
+    <div style="display: flex; flex-direction: column; gap: 14px; min-height: 0">
+      <img class="shot" src="img/serve-conditions.png" alt="Serve step: conditions 1 to 4 fulfilled, condition 5 missing until the affidavit is declared">
+      <p class="small muted" style="margin: 0">Step 3 · after minting, condition 5 stays red until the affidavit is declared in Step 4.</p>
+      <p class="small muted" style="margin: 0">Step 5 (right) · the published exhibit matches the hash anchored on Sepolia; a copy with one byte flipped does not.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px; min-height: 0">
+      <img class="shot v" src="img/verify-match.png" alt="Browser verifier: MATCH against Sepolia events">
+      <img class="shot v" src="img/verify-mismatch.png" alt="Browser verifier: MISMATCH for a tampered copy">
+    </div>
+  </div>
+  <div class="foot"><span class="brand">kimsabin725.github.io/servechain</span><span>4 / 8</span></div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <div class="kicker">Why blockchain</div>
+  <h2>Two layers, and they carry different weight.</h2>
+  <div class="layer">
+    <div class="num">1</div>
+    <div>
+      <h3 style="font: 600 28px/1.2 var(--serif); margin: 0 0 8px">Service is on-chain because the defendant only exists on-chain.</h3>
+      <p>The wallet address is the only known contact point, and courts already direct service by NFT airdrop. ServeChain's notice fixes the SHA-256 of the papers inside the token, so it shows <strong>what</strong> was served, not only that a token arrived.</p>
+    </div>
+  </div>
+  <div class="layer second">
+    <div class="num">2</div>
+    <div>
+      <h3 style="font: 600 28px/1.2 var(--serif); margin: 0 0 8px">Anchoring the compliance record is added value, not a legal requirement.</h3>
+      <p>Screenshots and spreadsheets can be edited later. Evidence hashes, the declared filing time and the exhibit hash on-chain mean the filer cannot quietly change their own record, and the other side can check that without trusting us or our server.</p>
+    </div>
+  </div>
+  <p class="muted small">Courts still read explorers and affidavits. ServeChain organizes that proof; it does not replace it.</p>
+  <div class="foot"><span class="brand">ServeChain</span><span>5 / 8</span></div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <div class="kicker">Limits</div>
+  <h2>What it does not claim, and what it cannot do yet.</h2>
+  <div class="cols" style="flex:0 0 auto">
+    <div class="card big-list">
+      <h3>Does not claim</h3>
+      <ul>
+        <li>That a defendant received or read the papers.</li>
+        <li>That wallet activity shows knowledge. It is context only.</li>
+        <li>That default-judgment requirements are met.</li>
+        <li>To be legal advice. Lawyer review is required.</li>
+      </ul>
+    </div>
+    <div class="card big-list">
+      <h3>Limitations today</h3>
+      <ul>
+        <li><code>declaredFiledAt</code> is entered by the filer. The chain cannot prove the court filing date.</li>
+        <li>No weekend or holiday roll-forward on deadlines.</li>
+        <li>Sepolia snapshot is pending until 2026-11-24; the step is shown from a local replay.</li>
+        <li>Writes are EVM only. TRON wallets are read, not served.</li>
+        <li>Activity table is a one-time cached fetch; older months may be undercounted.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span class="brand">ServeChain</span><span>6 / 8</span></div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <div class="kicker">Roadmap</div>
+  <h2>From one replayed order to everyday use.</h2>
+  <div class="road">
+    <div class="card"><h3>TRON writes</h3><p>Two of the three wallets in this case are on TRON. Mint the same hash-locked notice there.</p></div>
+    <div class="card"><h3>Other jurisdictions</h3><p>Rule sets beyond New York CPLR, including federal Rule 4(f)(3) orders, kept in one rules file with sources.</p></div>
+    <div class="card"><h3>Weekend and holiday rules</h3><p>Apply day-counting and roll-forward rules once read from the source, with the rule shown next to every date.</p></div>
+    <div class="card"><h3>Court e-filing link</h3><p>Attach the e-filing confirmation to the affidavit record so the filing time no longer rests on the filer's word alone.</p></div>
+  </div>
+  <div style="height: 30px"></div>
+  <p class="muted">Open source (MIT). Reproduce with <code>forge test</code>, <code>npm test</code>, <code>npm run demo:local</code>, <code>npm run verify</code>.</p>
+  <div class="foot"><span class="brand">ServeChain</span><span>7 / 8</span></div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <div class="kicker">Who built it</div>
+  <h2>Sabin Kim</h2>
+  <div class="cols" style="align-items: start">
+    <div>
+      <p style="font-size: 24px">Solo builder. Strategic planning in financial services.</p>
+      <p>I'm going through a lawsuit myself, and the procedural side, serving papers and keeping deadlines straight, felt more fragile than it should. ServeChain started from that.</p>
+      <p>Everything here was built for this hackathon: two Solidity contracts, a scripted demo on anvil and Sepolia, an exhibit builder, and a browser and CLI verifier.</p>
+    </div>
+    <div class="card">
+      <h3>Links</h3>
+      <table>
+        <tr><td>Live demo</td><td>kimsabin725.github.io/servechain</td></tr>
+        <tr><td>Video</td><td>YOUTUBE_LINK_TBD</td></tr>
+        <tr><td>Code</td><td>GITHUB_REPO_TBD</td></tr>
+        <tr><td>Registry</td><td><code>0x5D39…8D69</code> (Sepolia)</td></tr>
+        <tr><td>Notice NFT</td><td><code>0xD712…208a</code> (Sepolia)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="foot"><span>Not legal advice · public court records used for demonstration · nothing sent to real defendant wallets</span><span>8 / 8</span></div>
+</section>
+
+</body>
+</html>
