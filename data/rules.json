@@ -8,15 +8,29 @@
   "rules": [
     {
       "section": "CPLR 306(a)",
-      "rule": "Proof of service must state papers served, person served, date, time and place",
+      "rule": "Proof of service must state the papers served, the person served, the date, time and place, and that service was made by an authorized person in an authorized manner",
       "days": null,
       "quote": [
-        "Proof of service shall specify the papers served, the person who was served and the date, time,"
+        "Proof of service shall specify the papers served, the person who was served and the date, time,",
+        "set forth facts showing that the service was made by an authorized person and in an authorized manner."
       ],
       "url": "https://www.nysenate.gov/legislation/laws/CVP/306",
       "revision": "2024-11-29",
       "status": "excerpt-verified",
       "note": "306(a) itself contains no affidavit wording; it governs the content of proof of service. The affidavit requirement comes from the order (p.6), which cites 306(a)."
+    },
+    {
+      "section": "CPLR 306(d)",
+      "rule": "Form of proof: a certificate when a sheriff or other authorized public officer serves; otherwise an affidavit of the person who made service (signed and sworn by that person)",
+      "days": null,
+      "quote": [
+        "Proof of service shall be in the form of a certificate if the service is made by a sheriff",
+        "or other authorized public officer"
+      ],
+      "url": "https://www.nysenate.gov/legislation/laws/CVP/306",
+      "revision": "2024-11-29",
+      "status": "summary",
+      "note": "Retrieved 2026-10-25 via WebFetch excerpt. The affidavit clause for any other person was paraphrased by the tool, not quoted (summary)."
     },
     {
       "section": "CPLR 306-b",
@@ -59,7 +73,7 @@
     },
     {
       "section": "CPLR 320(a)",
-      "rule": "Appearance within 20 days of service, or 30 days after service is complete when served under 308(2)-(5) and other listed provisions",
+      "rule": "Appearance within 20 days of service, or 30 days after service is complete when served under 308(2)-(5) and other listed provisions (used here because the order did not set a different period)",
       "days": 30,
       "quote": [
         "subdivision two, three, four or five of section 308",
@@ -71,7 +85,7 @@
     },
     {
       "section": "CPLR 3012(c)",
-      "rule": "When summons and complaint are served together under 308(2)-(5) (and other listed provisions), the answer is due within thirty days after service is complete",
+      "rule": "When summons and complaint are served together under 308(2)-(5) (and other listed provisions), the answer is due within thirty days after service is complete (used here because the order did not set a different period)",
       "days": 30,
       "quote": [
         "or if service of the summons and complaint is made pursuant to section 303, paragraphs two,",
@@ -85,7 +99,7 @@
     },
     {
       "section": "CPLR 3215(f)",
-      "rule": "Default application must include proof of service of summons and complaint, and proof of facts, default and amount due by affidavit",
+      "rule": "Partial list: a default application must include proof of service of the summons and complaint, and proof of the facts, the default and the amount due by affidavit. Other default requirements (e.g., an SCRA affidavit) are not covered here",
       "days": null,
       "quote": [
         "Proof. On any application for judgment by default, the applicant shall file proof of service of the summons",
@@ -99,7 +113,7 @@
     },
     {
       "section": "CPLR 3215(c)",
-      "rule": "If plaintiff does not seek default judgment within one year after the default, the court dismisses the complaint as abandoned, unless sufficient cause is shown",
+      "rule": "If the plaintiff does not take proceedings for a default judgment within one year after the default, the court dismisses the complaint as abandoned, unless sufficient cause is shown",
       "days": 365,
       "quote": [
         "Default not entered within one year. If the plaintiff fails to take proceedings for the entry of judgment",
@@ -123,7 +137,7 @@
       "L1 order p.6 [read, OCR]: 'service shall be deemed complete upon such filing' of the affidavit of service."
     ],
     "openPoints": [
-      "Day counting and weekend/holiday rollover (General Construction Law §25-a) not read [unverified].",
+      "Day counting (General Construction Law §20) and weekend/holiday rollover (§25-a) not read and not applied [unverified]; counsel must confirm the last day.",
       "Whether filing means NYSCEF acceptance time or submission time is not addressed [unverified].",
       "Excerpts came through WebFetch, not raw statute text."
     ],
