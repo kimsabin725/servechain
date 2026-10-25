@@ -108,7 +108,7 @@ Requires Foundry (forge, anvil), Node.js 22+, and Chrome or Brave for PDF render
 ```sh
 forge install foundry-rs/forge-std@v1.10.0 --no-git
 forge install OpenZeppelin/openzeppelin-contracts@v5.4.0 --no-git
-npm i
+npm ci
 forge test
 npm test
 npm run demo:local
