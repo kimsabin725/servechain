@@ -1,10 +1,27 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.28;
 
-import {Test} from "forge-std/Test.sol";
+import {Test, Vm} from "forge-std/Test.sol";
 import {ServiceNotice721} from "../src/ServiceNotice721.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
+
+contract Reenterer {
+    ServiceNotice721 nft;
+    bool public called;
+
+    constructor(ServiceNotice721 n) {
+        nft = n;
+    }
+
+    function onERC721Received(address, address, uint256, bytes calldata) external returns (bytes4) {
+        called = true;
+        nft.mint(address(this), bytes32(uint256(1)), 0, "https://x.org", bytes32(uint256(1)));
+        return this.onERC721Received.selector;
+    }
+}
+
+contract NoReceiver {}
 
 contract ServiceNotice721Test is Test {
     ServiceNotice721 nft;
@@ -121,6 +138,58 @@ contract ServiceNotice721Test is Test {
         vm.expectRevert(ServiceNotice721.ZeroRecipient.selector);
         nft.mint(address(0), CASE, 2, URL, DOCS);
         vm.stopPrank();
+    }
+
+    function test_Attack_SecondNoticeSameCaseConditionRecipient() public {
+        uint256 id = _mint();
+        vm.startPrank(issuer);
+        vm.expectRevert(ServiceNotice721.AlreadyServed.selector);
+        nft.mint(served, CASE, 2, "https://example.org/other", keccak256("other"));
+        uint256 c3 = nft.mint(served, CASE, 3, URL, DOCS);
+        uint256 otherCase = nft.mint(served, bytes32(uint256(0xbeef)), 2, URL, DOCS);
+        vm.stopPrank();
+        assertEq(nft.servedToken(nft.serviceKey(CASE, 2, served)), id);
+        assertEq(nft.servedToken(nft.serviceKey(CASE, 3, served)), c3);
+        assertEq(otherCase, 3);
+        assertEq(nft.totalMinted(), 3);
+    }
+
+    function test_Attack_NonAsciiUrlRejected() public {
+        vm.startPrank(issuer);
+        vm.expectRevert(ServiceNotice721.InvalidUrlChar.selector);
+        nft.mint(served, CASE, 2, unicode"https://exämple.org/a", DOCS);
+        vm.expectRevert(ServiceNotice721.InvalidUrlChar.selector);
+        nft.mint(served, CASE, 2, string(abi.encodePacked("https://x.org/", bytes1(0x80))), DOCS);
+        vm.expectRevert(ServiceNotice721.InvalidUrlChar.selector);
+        nft.mint(served, CASE, 2, string(abi.encodePacked("https://x.org/", bytes1(0xff))), DOCS);
+        vm.expectRevert(ServiceNotice721.InvalidUrlChar.selector);
+        nft.mint(served, CASE, 2, string(abi.encodePacked("https://x.org/", bytes1(0x7f))), DOCS);
+        uint256 id = nft.mint(served, CASE, 2, "https://xn--exmple-cua.org/%C3%A4~", DOCS);
+        vm.stopPrank();
+        assertEq(nft.noticeOf(id).documentsUrl, "https://xn--exmple-cua.org/%C3%A4~");
+    }
+
+    function test_MintSkipsReceiverCallback() public {
+        Reenterer r = new Reenterer(nft);
+        NoReceiver plain = new NoReceiver();
+        vm.startPrank(issuer);
+        nft.mint(address(r), CASE, 2, URL, DOCS);
+        nft.mint(address(plain), CASE, 2, URL, DOCS);
+        vm.stopPrank();
+        assertFalse(r.called());
+        assertEq(nft.ownerOf(1), address(r));
+        assertEq(nft.ownerOf(2), address(plain));
+        assertEq(nft.totalMinted(), 2);
+    }
+
+    function test_EventOrderOnMint() public {
+        vm.recordLogs();
+        _mint();
+        Vm.Log[] memory logs = vm.getRecordedLogs();
+        assertEq(logs.length, 3);
+        assertEq(logs[0].topics[0], keccak256("Transfer(address,address,uint256)"));
+        assertEq(logs[1].topics[0], keccak256("Locked(uint256)"));
+        assertEq(logs[2].topics[0], ServiceNotice721.NoticeServed.selector);
     }
 
     function test_EachWalletGetsOwnToken() public {

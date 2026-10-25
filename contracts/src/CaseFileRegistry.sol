@@ -40,6 +40,7 @@ contract CaseFileRegistry {
     error ServiceNotRecorded();
     error ResponsePeriodOpen();
     error SnapshotExists();
+    error DeadlineOverflow();
 
     event CaseOpened(
         bytes32 indexed caseId,
@@ -49,6 +50,7 @@ contract CaseFileRegistry {
         uint8 conditionCount,
         uint64 serviceDeadline
     );
+    event CaseRefBound(bytes32 indexed caseId, address indexed handler, bytes32 indexed caseRef);
     event ConditionFulfilled(
         bytes32 indexed caseId, uint8 indexed conditionId, bytes32 evidenceHash, bytes32 txRef, uint64 fulfilledAt
     );
@@ -65,15 +67,21 @@ contract CaseFileRegistry {
         _;
     }
 
-    // Registers a case; the caller becomes its only handler.
+    // Derives the case id from the caller and its own reference, so nobody can claim another handler's id.
+    function caseIdOf(address handler, bytes32 caseRef) public pure returns (bytes32) {
+        return keccak256(abi.encode(handler, caseRef));
+    }
+
+    // Registers a case under caseIdOf(msg.sender, caseRef); the caller becomes its only handler.
     function openCase(
-        bytes32 caseId,
+        bytes32 caseRef,
         bytes32 orderHash,
         bytes32 conditionsHash,
         uint8 conditionCount,
         uint64 serviceDeadline
-    ) external {
-        if (caseId == bytes32(0) || orderHash == bytes32(0) || conditionsHash == bytes32(0)) revert ZeroHash();
+    ) external returns (bytes32 caseId) {
+        if (caseRef == bytes32(0) || orderHash == bytes32(0) || conditionsHash == bytes32(0)) revert ZeroHash();
+        caseId = caseIdOf(msg.sender, caseRef);
         if (_cases[caseId].handler != address(0)) revert CaseExists();
         if (conditionCount == 0) revert NoConditions();
         if (serviceDeadline <= block.timestamp) revert DeadlineInPast();
@@ -84,6 +92,7 @@ contract CaseFileRegistry {
         c.serviceDeadline = serviceDeadline;
         c.orderHash = orderHash;
         c.conditionsHash = conditionsHash;
+        emit CaseRefBound(caseId, msg.sender, caseRef);
         emit CaseOpened(caseId, msg.sender, orderHash, conditionsHash, conditionCount, serviceDeadline);
     }
 
@@ -113,6 +122,7 @@ contract CaseFileRegistry {
         if (affidavitHash == bytes32(0)) revert ZeroHash();
         if (filedAt > block.timestamp) revert FiledAtInFuture();
         if (filedAt < c.openedAt) revert FiledAtBeforeOpen();
+        if (filedAt > type(uint64).max - RESPONSE_PERIOD) revert DeadlineOverflow();
         uint64 deadline = filedAt + RESPONSE_PERIOD;
         c.affidavitHash = affidavitHash;
         c.filedAt = filedAt;

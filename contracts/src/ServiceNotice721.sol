@@ -20,6 +20,7 @@ contract ServiceNotice721 is ERC721, Ownable {
     error InvalidUrlChar();
     error EmptyHash();
     error ZeroRecipient();
+    error AlreadyServed();
 
     event NoticeServed(
         uint256 indexed tokenId,
@@ -33,10 +34,16 @@ contract ServiceNotice721 is ERC721, Ownable {
 
     uint256 public totalMinted;
     mapping(uint256 => Notice) private _notices;
+    mapping(bytes32 => uint256) public servedToken;
 
     constructor(address issuer) ERC721("ServeChain Service Notice", "SERVE") Ownable(issuer) {}
 
-    // Mints a non-transferable notice whose URL and documents hash are fixed forever.
+    // Key for one service of one condition of one case on one recipient.
+    function serviceKey(bytes32 caseId, uint8 conditionId, address to) public pure returns (bytes32) {
+        return keccak256(abi.encode(caseId, conditionId, to));
+    }
+
+    // Mints a non-transferable notice whose URL and documents hash are fixed forever; one per (case, condition, recipient).
     function mint(address to, bytes32 caseId, uint8 conditionId, string calldata documentsUrl, bytes32 documentsHash)
         external
         onlyOwner
@@ -45,9 +52,12 @@ contract ServiceNotice721 is ERC721, Ownable {
         if (to == address(0)) revert ZeroRecipient();
         if (documentsHash == bytes32(0)) revert EmptyHash();
         _checkUrl(bytes(documentsUrl));
+        bytes32 key = serviceKey(caseId, conditionId, to);
+        if (servedToken[key] != 0) revert AlreadyServed();
         tokenId = ++totalMinted;
+        servedToken[key] = tokenId;
         _notices[tokenId] = Notice(caseId, conditionId, documentsHash, uint64(block.timestamp), documentsUrl);
-        _safeMint(to, tokenId);
+        _mint(to, tokenId);
         emit Locked(tokenId);
         emit NoticeServed(tokenId, caseId, conditionId, to, documentsHash, documentsUrl);
     }
@@ -109,12 +119,12 @@ contract ServiceNotice721 is ERC721, Ownable {
         return super._update(to, tokenId, auth);
     }
 
-    // Rejects empty URLs and characters that would break the JSON metadata.
+    // Accepts printable ASCII only (no space, quote, backslash, DEL or bytes >= 0x80); non-ASCII must be percent-encoded.
     function _checkUrl(bytes memory u) private pure {
         if (u.length == 0) revert EmptyUrl();
         for (uint256 i; i < u.length; ++i) {
             bytes1 c = u[i];
-            if (c < 0x21 || c == 0x22 || c == 0x5c || c == 0x7f) revert InvalidUrlChar();
+            if (c < 0x21 || c > 0x7e || c == 0x22 || c == 0x5c) revert InvalidUrlChar();
         }
     }
 }

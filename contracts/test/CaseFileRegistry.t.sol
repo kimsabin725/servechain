@@ -8,7 +8,8 @@ contract CaseFileRegistryTest is Test {
     CaseFileRegistry reg;
     address handler = makeAddr("handler");
     address stranger = makeAddr("stranger");
-    bytes32 constant CASE = keccak256("NY-QUEENS-700647-2025");
+    bytes32 constant REF = keccak256("NY-QUEENS-700647-2025");
+    bytes32 CASE;
     bytes32 constant ORDER = keccak256("order.pdf");
     bytes32 constant CONDS = keccak256("conditions.json");
     uint64 constant T0 = 1_750_000_000;
@@ -18,7 +19,7 @@ contract CaseFileRegistryTest is Test {
         vm.warp(T0);
         reg = new CaseFileRegistry();
         vm.prank(handler);
-        reg.openCase(CASE, ORDER, CONDS, 5, serviceDeadline);
+        CASE = reg.openCase(REF, ORDER, CONDS, 5, serviceDeadline);
     }
 
     function _fulfillAll() internal {
@@ -78,6 +79,60 @@ contract CaseFileRegistryTest is Test {
         vm.warp(T0 + 400 days);
         _serve(T0 + offset);
         assertEq(reg.getCase(CASE).responseDeadline, T0 + offset + 30 days);
+    }
+
+    function testFuzz_FiledAtAcrossUint64Range(uint64 filedAt) public {
+        filedAt = uint64(bound(filedAt, T0, type(uint64).max));
+        vm.warp(filedAt);
+        vm.prank(handler);
+        if (filedAt > type(uint64).max - 30 days) {
+            vm.expectRevert(CaseFileRegistry.DeadlineOverflow.selector);
+            reg.recordServiceComplete(CASE, keccak256("affidavit"), filedAt);
+            return;
+        }
+        reg.recordServiceComplete(CASE, keccak256("affidavit"), filedAt);
+        assertEq(reg.getCase(CASE).responseDeadline, filedAt + 30 days);
+        assertFalse(reg.responsePeriodExpired(CASE));
+    }
+
+    function test_Uint64Boundaries() public {
+        uint64 max = type(uint64).max;
+        vm.warp(max - 30 days);
+        _serve(max - 30 days);
+        assertEq(reg.getCase(CASE).responseDeadline, max);
+        vm.warp(uint256(max));
+        vm.prank(handler);
+        vm.expectRevert(CaseFileRegistry.ResponsePeriodOpen.selector);
+        reg.snapshot(CASE, keccak256("root"));
+    }
+
+    function test_Attack_FiledAtOverflow() public {
+        uint64 max = type(uint64).max;
+        vm.warp(uint256(max));
+        vm.startPrank(handler);
+        vm.expectRevert(CaseFileRegistry.DeadlineOverflow.selector);
+        reg.recordServiceComplete(CASE, keccak256("affidavit"), max);
+        vm.expectRevert(CaseFileRegistry.DeadlineOverflow.selector);
+        reg.recordServiceComplete(CASE, keccak256("affidavit"), max - 30 days + 1);
+        vm.stopPrank();
+    }
+
+    function testFuzz_OpenCaseDeadlineUint64(uint64 deadline, bytes32 ref) public {
+        vm.assume(ref != bytes32(0) && ref != REF);
+        vm.prank(stranger);
+        if (deadline <= T0) {
+            vm.expectRevert(CaseFileRegistry.DeadlineInPast.selector);
+            reg.openCase(ref, ORDER, CONDS, 1, deadline);
+            return;
+        }
+        bytes32 id = reg.openCase(ref, ORDER, CONDS, 1, deadline);
+        assertEq(reg.getCase(id).serviceDeadline, deadline);
+    }
+
+    function testFuzz_FulfillConditionIdRange(uint8 id) public {
+        vm.prank(handler);
+        if (id >= 5) vm.expectRevert(CaseFileRegistry.UnknownCondition.selector);
+        reg.fulfill(CASE, id, keccak256("e"), bytes32(0));
     }
 
     function test_Attack_ExtendDeadlineByReRecording() public {
@@ -150,10 +205,41 @@ contract CaseFileRegistryTest is Test {
         reg.snapshot(CASE, keccak256("root"));
     }
 
-    function test_Attack_HijackCaseIdByReopening() public {
-        vm.prank(stranger);
+    function test_CaseIdIsDerivedFromHandlerAndRef() public view {
+        assertEq(CASE, keccak256(abi.encode(handler, REF)));
+        assertEq(CASE, reg.caseIdOf(handler, REF));
+    }
+
+    function test_Attack_HandlerCannotReopenOwnRef() public {
+        vm.prank(handler);
         vm.expectRevert(CaseFileRegistry.CaseExists.selector);
-        reg.openCase(CASE, keccak256("fake"), keccak256("fake"), 1, serviceDeadline);
+        reg.openCase(REF, keccak256("fake"), keccak256("fake"), 1, serviceDeadline);
+        assertEq(reg.getCase(CASE).orderHash, ORDER);
+    }
+
+    function test_Attack_FrontRunSameCaseRef() public {
+        CaseFileRegistry fresh = new CaseFileRegistry();
+        bytes32 victimId = fresh.caseIdOf(handler, REF);
+        vm.prank(stranger);
+        bytes32 squatId = fresh.openCase(REF, keccak256("fake"), keccak256("fake"), 1, serviceDeadline);
+        assertTrue(squatId != victimId);
+        vm.expectEmit(true, true, true, true);
+        emit CaseFileRegistry.CaseRefBound(victimId, handler, REF);
+        vm.prank(handler);
+        bytes32 id = fresh.openCase(REF, ORDER, CONDS, 5, serviceDeadline);
+        assertEq(id, victimId);
+        assertEq(fresh.getCase(id).handler, handler);
+        assertEq(fresh.getCase(id).orderHash, ORDER);
+        assertEq(fresh.getCase(squatId).handler, stranger);
+        vm.prank(stranger);
+        vm.expectRevert(CaseFileRegistry.NotHandler.selector);
+        fresh.fulfill(id, 0, keccak256("e"), bytes32(0));
+    }
+
+    function test_Attack_SquatterPassesVictimIdAsRef() public {
+        vm.prank(stranger);
+        bytes32 other = reg.openCase(CASE, ORDER, CONDS, 5, serviceDeadline);
+        assertTrue(other != CASE);
         assertEq(reg.getCase(CASE).handler, handler);
     }
 
@@ -196,6 +282,8 @@ contract CaseFileRegistryTest is Test {
         reg.openCase(keccak256("c2"), ORDER, CONDS, 0, serviceDeadline);
         vm.expectRevert(CaseFileRegistry.ZeroHash.selector);
         reg.openCase(keccak256("c2"), bytes32(0), CONDS, 5, serviceDeadline);
+        vm.expectRevert(CaseFileRegistry.ZeroHash.selector);
+        reg.openCase(bytes32(0), ORDER, CONDS, 5, serviceDeadline);
         vm.stopPrank();
     }
 

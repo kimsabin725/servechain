@@ -33,6 +33,30 @@
  },
  {
   "type": "function",
+  "name": "caseIdOf",
+  "inputs": [
+   {
+    "name": "handler",
+    "type": "address",
+    "internalType": "address"
+   },
+   {
+    "name": "caseRef",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   }
+  ],
+  "stateMutability": "pure"
+ },
+ {
+  "type": "function",
   "name": "fulfill",
   "inputs": [
    {
@@ -215,7 +239,7 @@
   "name": "openCase",
   "inputs": [
    {
-    "name": "caseId",
+    "name": "caseRef",
     "type": "bytes32",
     "internalType": "bytes32"
    },
@@ -240,7 +264,13 @@
     "internalType": "uint64"
    }
   ],
-  "outputs": [],
+  "outputs": [
+   {
+    "name": "caseId",
+    "type": "bytes32",
+    "internalType": "bytes32"
+   }
+  ],
   "stateMutability": "nonpayable"
  },
  {
@@ -373,6 +403,31 @@
  },
  {
   "type": "event",
+  "name": "CaseRefBound",
+  "inputs": [
+   {
+    "name": "caseId",
+    "type": "bytes32",
+    "indexed": true,
+    "internalType": "bytes32"
+   },
+   {
+    "name": "handler",
+    "type": "address",
+    "indexed": true,
+    "internalType": "address"
+   },
+   {
+    "name": "caseRef",
+    "type": "bytes32",
+    "indexed": true,
+    "internalType": "bytes32"
+   }
+  ],
+  "anonymous": false
+ },
+ {
+  "type": "event",
   "name": "ConditionFulfilled",
   "inputs": [
    {
@@ -457,6 +512,11 @@
  {
   "type": "error",
   "name": "DeadlineInPast",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "DeadlineOverflow",
   "inputs": []
  },
  {
