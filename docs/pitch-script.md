@@ -64,9 +64,9 @@ Before recording: open the order PDF (ag.ny.gov link from Step 0) at page 6 in a
 
 [Screen: click "4 Deadline". Point at "Declared by filer", then "2026-11-24" (New York date), then the yellow notes.]
 
-> Step four starts the clock. The order says service is complete when the affidavit is filed. The filer declares that time, and the contract adds thirty days under CPLR 320(a). The date is an estimate: counting rules are not applied, and it only matters if service was valid. The screen says so.
+> Step four starts the clock. The order says service is complete when the affidavit is filed. The filer declares that time. Once every service condition has evidence, the contract adds thirty days under CPLR 320(a). The date is an estimate: counting rules are not applied, and it only matters if service was valid.
 
-(51 words, about 20 s)
+(52 words, about 21 s)
 
 ---
 
@@ -90,10 +90,10 @@ Before recording: open the order PDF (ag.ny.gov link from Step 0) at page 6 in a
 
 ---
 
-Total spoken: 423 words, about 2:49 at 150 wpm. The remaining time covers clicks and page loads; scene start times above include those pauses.
+Total spoken: 424 words, about 2:50 at 150 wpm. The remaining time covers clicks and page loads; scene start times above include those pauses.
 
 ## Recording notes
 
 - Say "testnet stand-ins" on screen 6 every take. It is the one sentence a reviewer must not miss.
-- If the live RPC is slow in Step 5, the verifier falls back to the bundled events file and shows "MATCH (offline)". That is still a valid take; do not cut it. The result also shows that the case id is derived from the handler address and the case reference.
+- Step 5 should read "Live (2 RPCs agree)". If the live RPCs are slow, the verifier falls back to the bundled events file and shows "MATCH (offline)". That is still a valid take; do not cut it. The result also shows that the case id is derived from the handler address and the case reference.
 - Do not show the Sepolia snapshot as done. Say it is shown via local replay; on Sepolia it is pending until 2026-11-24.

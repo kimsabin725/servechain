@@ -42,12 +42,12 @@ async function pass(tag, viewport, scheme) {
       }
       if (await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)) errors.push(`${tag} step5: horizontal overflow`);
       blocking = true;
-      await page.route(/publicnode\.com|drpc\.org|rpc\.sepolia\.org/, (r) => r.abort());
+      await page.route(/publicnode\.com|drpc\.org|tenderly\.co|rpc\.sepolia\.org/, (r) => r.abort());
       await page.getByRole('button', { name: 'Verify the published summary' }).click();
       await page.waitForFunction(() => document.querySelector('.verdict')?.textContent?.includes('offline'), null, { timeout: 90000 });
       log.push(`${tag} rpc blocked: ${await page.locator('.result').innerText()}`);
       await page.screenshot({ path: `${out}/${tag}-step5-offline.png`, fullPage: true });
-      await page.unroute(/publicnode\.com|drpc\.org|rpc\.sepolia\.org/);
+      await page.unroute(/publicnode\.com|drpc\.org|tenderly\.co|rpc\.sepolia\.org/);
       blocking = false;
       continue;
     }

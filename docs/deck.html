@@ -61,7 +61,7 @@ li { margin-bottom: 6px; }
 table { border-collapse: collapse; width: 100%; font-size: 16px; }
 td { padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
 td:first-child { font-weight: 600; white-space: nowrap; }
-.big-list li { font-size: 19px; margin-bottom: 10px; }
+.big-list li { font-size: 19px; margin-bottom: var(--li-gap, 10px); }
 .big-list h3 { font-size: 24px; margin-bottom: 14px; }
 code { font-family: var(--mono); font-size: .85em; }
 </style>
@@ -192,16 +192,16 @@ code { font-family: var(--mono); font-size: .85em; }
         <li>To be legal advice. Lawyer review is required.</li>
       </ul>
     </div>
-    <div class="card big-list">
+    <div class="card big-list" style="--li-gap: 6px">
       <h3>Limitations today</h3>
       <ul>
         <li><code>declaredFiledAt</code> is entered by the filer. The chain cannot prove the court filing date.</li>
         <li>Deadlines are estimates: GCL §20, §25-a not applied.</li>
-        <li>The deployed registry opens the response clock even if other conditions have no evidence linked.</li>
-        <li>The snapshot step is shown via local replay; on Sepolia it is pending until 2026-11-24.</li>
+        <li>The registry refuses to record service as complete until every service condition has linked evidence, and refuses a filing date earlier than the last service evidence. It still cannot check that the evidence is true.</li>
+        <li>Snapshot shown via local replay; pending on Sepolia until 2026-11-24.</li>
         <li>The verifier trusts contract addresses in case.json; links are the handler's declaration.</li>
         <li>Writes are EVM only. TRON wallets are read, not served.</li>
-        <li>One notice per recipient; registry and notice contract are linked by the scripts, not on-chain.</li>
+        <li>Registry and notice contract are linked by the scripts, not on-chain.</li>
       </ul>
     </div>
   </div>
@@ -220,7 +220,7 @@ code { font-family: var(--mono); font-size: .85em; }
   <div style="height: 26px"></div>
   <div class="card">
     <p><strong>Hypothesis:</strong> a per-case fee for counsel, or a tool licensed to process-serving firms.</p>
-    <p style="margin: 0">No lawyer review or user interviews yet. Next step: interviews with 5 practitioners to test the workflow and the pricing.</p>
+    <p style="margin: 0">No lawyer review or user interviews yet. Next step: practitioner interviews (not yet done) to test the workflow and the pricing.</p>
   </div>
   <div class="foot"><span class="brand">ServeChain</span><span>7 / 9</span></div>
 </section>
@@ -233,7 +233,7 @@ code { font-family: var(--mono); font-size: .85em; }
     <div class="card"><h3>Other jurisdictions</h3><p>Rule sets beyond New York CPLR, such as service abroad by other means ordered by the court (FRCP 4(f)(3)), kept in one rules file with sources.</p></div>
     <div class="card"><h3>Weekend and holiday rules</h3><p>Apply day-counting and roll-forward rules once read from the source, with the rule shown next to every date.</p></div>
     <div class="card"><h3>Court e-filing link</h3><p>Attach the e-filing confirmation to the affidavit record so the filing time no longer rests on the filer's word alone.</p></div>
-    <div class="card"><h3>On-chain gate on all conditions</h3><p>The registry opens the response clock only after every condition has evidence linked.</p></div>
+    <div class="card"><h3>Registry reads the notices</h3><p>Link the registry to the notice contract on-chain, so service evidence no longer depends on the scripts recording each notice.</p></div>
     <div class="card"><h3>Korea</h3><p>A proposal for wallet-only defendants, where service by publication (공시송달) is the current fallback. Rule set to be built from the Civil Procedure Act.</p></div>
   </div>
   <div style="height: 18px"></div>
@@ -257,8 +257,8 @@ code { font-family: var(--mono); font-size: .85em; }
         <tr><td>Live demo</td><td>kimsabin725.github.io/servechain</td></tr>
         <tr><td>Video</td><td>https://youtu.be/58pzpLuhmQc</td></tr>
         <tr><td>Code</td><td>github.com/kimsabin725/servechain</td></tr>
-        <tr><td>Registry</td><td><code>0x7878…2664</code> (Sepolia)</td></tr>
-        <tr><td>Notice NFT</td><td><code>0xB7a0…De75</code> (Sepolia)</td></tr>
+        <tr><td>Registry</td><td><code>0xB2a0…1Ac2</code> (Sepolia)</td></tr>
+        <tr><td>Notice NFT</td><td><code>0xA7bA…4001</code> (Sepolia)</td></tr>
       </table>
     </div>
   </div>

@@ -258,7 +258,7 @@ contract CaseFileRegistryTest is Test {
         assertEq(reg.getCase(CASE).handler, handler);
     }
 
-    function test_Attack_FulfillMissingCase() public {
+    function test_Attack_FulfillUnknownCase() public {
         vm.prank(handler);
         vm.expectRevert(CaseFileRegistry.CaseNotFound.selector);
         reg.fulfill(keccak256("nope"), 0, keccak256("e"), bytes32(0));

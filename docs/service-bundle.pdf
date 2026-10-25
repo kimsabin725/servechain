@@ -12,7 +12,7 @@ endobj
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
 endobj
 5 0 obj
-<< /Length 1846 >>
+<< /Length 1859 >>
 stream
 q 0.85 g BT /F2 44 Tf 0.7071 0.7071 -0.7071 0.7071 110 220 Tm (SAMPLE \227 not a real court filing) Tj ET Q
 BT /F2 9 Tf 50 810 Td (SAMPLE \227 not a real court filing. Not legal advice. Not a legal determination.) Tj ET
@@ -23,8 +23,8 @@ BT /F1 10 Tf 50 728 Td (Wallet Addresses 0xD7648FffA48e06b0107435a966F3F1e9DBe10
 BT /F1 10 Tf 50 714 Td (TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8, and TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu, and Unknown Others) Tj ET
 BT /F1 10 Tf 50 700 Td (Index No. 700647/2025 - Supreme Court of the State of New York, Queens County, IAS Part 24) Tj ET
 BT /F1 10 Tf 50 686 Td () Tj ET
-BT /F1 10 Tf 50 672 Td (This bundle is a synthetic stand-in made for a software demonstration. It is not the real) Tj ET
-BT /F1 10 Tf 50 658 Td (service papers.) Tj ET
+BT /F1 10 Tf 50 672 Td (This bundle is a synthetic stand-in made for a software demonstration. It is not the actual) Tj ET
+BT /F1 10 Tf 50 658 Td (papers served in the case.) Tj ET
 BT /F1 10 Tf 50 644 Td (The real filings are public court records published at:) Tj ET
 BT /F1 10 Tf 50 630 Td (https://ag.ny.gov/sites/default/files/court-filings/people-v-digital-wallet-0xd7648fffa48e06b01) Tj ET
 BT /F1 10 Tf 50 616 Td (07435a966f3f1e9dbe10b7d-decision-and-pleadings-2025.pdf) Tj ET
@@ -155,7 +155,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 19 0 R >>
 endobj
 21 0 obj
-<< /Title (ServeChain sample service bundle) /Producer (servechain) >>
+<< /Title (ServeChain sample service bundle) /Creator (ServeChain) /Producer (ServeChain) >>
 endobj
 xref
 0 22
@@ -165,24 +165,24 @@ xref
 0000000163 00000 n 
 0000000260 00000 n 
 0000000362 00000 n 
-0000002260 00000 n 
-0000002396 00000 n 
-0000003112 00000 n 
-0000003248 00000 n 
-0000003968 00000 n 
-0000004105 00000 n 
-0000004846 00000 n 
-0000004984 00000 n 
-0000005727 00000 n 
-0000005865 00000 n 
-0000006602 00000 n 
-0000006740 00000 n 
-0000007525 00000 n 
-0000007663 00000 n 
-0000008444 00000 n 
-0000008582 00000 n 
+0000002273 00000 n 
+0000002409 00000 n 
+0000003125 00000 n 
+0000003261 00000 n 
+0000003981 00000 n 
+0000004118 00000 n 
+0000004859 00000 n 
+0000004997 00000 n 
+0000005740 00000 n 
+0000005878 00000 n 
+0000006615 00000 n 
+0000006753 00000 n 
+0000007538 00000 n 
+0000007676 00000 n 
+0000008457 00000 n 
+0000008595 00000 n 
 trailer
 << /Size 22 /Root 1 0 R /Info 21 0 R >>
 startxref
-8669
+8704
 %%EOF

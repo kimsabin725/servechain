@@ -31,16 +31,16 @@ A five-step walkthrough that replays the order on Sepolia. It is a replay of a p
 1. **Impracticability**: real defendant wallet activity (read only) beside the contact attempts the court relied on.
 2. **Conditions**: the order becomes a checklist with exact quotes and page numbers; its hash is fixed on-chain when the case is opened.
 3. **Serve**: the papers are hashed; one soulbound notice NFT per wallet is minted with that hash and the papers' URL fixed in `tokenURI`; each transaction is linked to a condition as "Evidence linked (not a compliance determination)". Unattributed NFTs already seen on the real wallets in July 2025 are shown as context only.
-4. **Deadline**: the filer declares the affidavit filing time; the registry derives the response deadline (+30 days, CPLR 320(a); CPLR 3012(c) for the answer; the order did not set a different period) on-chain. It is shown as a New York date and marked as an estimate: counting rules (GCL §20, §25-a) are not applied, and it is meaningful only if service was valid under the order.
+4. **Deadline**: the filer declares the affidavit filing time; the registry accepts it only after every service condition has linked evidence and not earlier than the last service evidence, then derives the response deadline (+30 days, CPLR 320(a); CPLR 3012(c) for the answer; the order did not set a different period) on-chain. It is shown as a New York date and marked as an estimate: counting rules (GCL §20, §25-a) are not applied, and it is meaningful only if service was valid under the order.
 5. **Compliance summary & verify**: one PDF, the compliance summary (attachment for counsel), for counsel preparing an affidavit of service or a default motion (impracticability, condition-by-condition record, deadlines and activity as context only). It is not a court-filed exhibit. Its SHA-256 is anchored on-chain and checked by a browser or CLI verifier with no server of ours involved.
 
 ### What it shows
 
-The post-deadline activity snapshot is shown via local replay (on Sepolia it is pending until the response deadline passes). On Sepolia, all five conditions of the order have on-chain evidence linked (not a compliance determination), and the published compliance summary verifies as MATCH while a copy with one byte changed returns MISMATCH. The served bundle and the affidavit also return MATCH, and with the RPC blocked the verifier returns MATCH (offline) from the bundled event log. The case id is `keccak256(abi.encode(handler, caseRef))`, and the verifier re-derives it from the `CaseRefBound` event.
+The post-deadline activity snapshot is shown via local replay (on Sepolia it is pending until the response deadline passes). On Sepolia, all five conditions of the order have on-chain evidence linked (not a compliance determination), and the published compliance summary verifies as MATCH ("Live (2 RPCs agree)") while a copy with one byte changed returns MISMATCH. The served bundle and the affidavit also return MATCH, and with the RPC blocked the verifier returns MATCH (offline) from the bundled event log. The case id is `keccak256(abi.encode(handler, caseRef))`, and the verifier re-derives it from the `CaseRefBound` event.
 
 ### Who uses it
 
-Plaintiff's counsel and process servers in digital-asset fraud and recovery cases; government enforcement offices, such as a state Attorney General's office; bankruptcy trustees pursuing transfers to unidentified wallets. Hypothesis: a per-case fee for counsel, or a tool licensed to process-serving firms. No lawyer review or user interviews yet; next step: interviews with 5 practitioners.
+Plaintiff's counsel and process servers in digital-asset fraud and recovery cases; government enforcement offices, such as a state Attorney General's office; bankruptcy trustees pursuing transfers to unidentified wallets. Hypothesis: a per-case fee for counsel, or a tool licensed to process-serving firms. No lawyer review or user interviews yet; next step: practitioner interviews (not yet done).
 
 ### Why blockchain
 
@@ -53,7 +53,7 @@ For counsel's review. It does not determine compliance. It does not prove that a
 
 ### Limitations
 
-The affidavit filing time is declared by the filer and cannot be proven by the chain. Deadlines are estimates (GCL §20, §25-a not applied). In the deployed contracts the response clock opens when the affidavit is recorded even if other conditions have no evidence linked (roadmap: an on-chain gate on all conditions). The snapshot step is shown via local replay; on Sepolia it is pending until 2026-11-24. The verifier trusts the contract addresses in case.json, condition links are the handler's declaration, and live checks rely on logs from a public RPC. Writes are EVM only; TRON wallets are read, not served. Duplicate service per recipient is rejected; registry and notice contract are linked by the scripts, not on-chain.
+The affidavit filing time is declared by the filer and cannot be proven by the chain. Deadlines are estimates (GCL §20, §25-a not applied). The registry refuses to record service as complete until every service condition has linked evidence, and refuses a filing date earlier than the last service evidence. It still cannot check that the evidence is true. The snapshot step is shown via local replay; on Sepolia it is pending until 2026-11-24. The verifier trusts the contract addresses in case.json, condition links are the handler's declaration, and live checks rely on logs from public RPCs (two must agree; the browser verifier does not compare against a deployments file). Writes are EVM only; TRON wallets are read, not served. Duplicate service per recipient is rejected; registry and notice contract are linked by the scripts, not on-chain.
 
 ### Built with
 
@@ -71,10 +71,12 @@ Case documents are public records published by the New York Attorney General; co
 | Demo video | https://youtu.be/58pzpLuhmQc |
 | GitHub repository | https://github.com/kimsabin725/servechain |
 | Pitch deck (PDF) | https://github.com/kimsabin725/servechain/blob/main/docs/deck.pdf |
-| ServiceNotice721 (Sepolia) | https://sepolia.etherscan.io/address/0xB7a040C0D6860aABc93E20bc911270622D33De75 |
-| CaseFileRegistry (Sepolia) | https://sepolia.etherscan.io/address/0x787867F00a45962666b39cD3523954aE62DE2664 |
-| Compliance summary anchor tx | https://sepolia.etherscan.io/tx/0xbb030a7a67d5ad6d13e5cf3f479b4af10c64ab042922ecbf319b7cf27721cef3 |
+| ServiceNotice721 (Sepolia) | https://sepolia.etherscan.io/address/0xA7bA126d3cE7E90155CB11b3EF20d426B8a84001 |
+| CaseFileRegistry (Sepolia) | https://sepolia.etherscan.io/address/0xB2a07aEF698cC158180635dD252E5477049C1ac2 |
+| Compliance summary anchor tx | https://sepolia.etherscan.io/tx/0xd6209e973abdfae95561e075d3c0fdeba05ad7e19abeb47d92f8d8eafaa27761 |
 | Source court order (public) | https://ag.ny.gov/sites/default/files/court-filings/people-v-digital-wallet-0xd7648fffa48e06b0107435a966f3f1e9dbe10b7d-decision-and-pleadings-2025.pdf |
+
+Earlier Sepolia deployments (0x5D39…/0xD712… and 0x7878…/0xB7a0…) are superseded.
 
 ## Team
 

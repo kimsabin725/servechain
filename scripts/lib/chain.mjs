@@ -99,7 +99,8 @@ export async function createWriter({ chain, rpcUrl, account }) {
       assertArgsSafe([address, ...args]);
       await check();
       const { request } = await pub.simulateContract({ address, abi, functionName, args, account });
-      const hash = await wallet.writeContract(request);
+      const gas = await pub.estimateContractGas({ address, abi, functionName, args, account });
+      const hash = await wallet.writeContract({ ...request, gas: (gas * 13n) / 10n + 20_000n });
       return receiptOf(hash);
     },
   };

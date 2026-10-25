@@ -78,7 +78,7 @@ export default function Serve({ l }: { l: Loaded }) {
   const lastImported = underOrder.map((s) => s.timestamp).sort().pop();
   return (
     <div>
-      <StepHead n={3} title="Serve" lead={<>Hash the papers, fix that hash in each notice, mint one <Term k="soulbound" /> notice per target, and link every transaction to the condition it satisfies.</>} />
+      <StepHead n={3} title="Serve" lead={<>Hash the papers, fix that hash in each notice, mint one <Term k="soulbound" /> notice per target, and link every transaction to the condition it relates to.</>} />
       <div className="notice notice-safe">
         <strong>{TRON_NOTE}</strong> Writes go to {c.chain.chainId === 11155111 ? 'Sepolia testnet' : c.chain.name} <Term k="stand-in wallet">stand-in wallets</Term> only; the real defendant wallets are read-only in this demo.
         {l.isSample && <> <Badge tone="warn">Sample data: transaction hashes are placeholders, links disabled</Badge></>}

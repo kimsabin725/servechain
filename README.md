@@ -22,7 +22,7 @@ I'm going through a lawsuit myself, and the parts that felt most fragile were th
 - **Government enforcement offices**, for example a state Attorney General's office bringing a case like the one replayed here.
 - **Bankruptcy trustees and estate representatives** pursuing transfers to unidentified wallets.
 
-Hypothesis: a per-case fee for counsel, or a tool licensed to process-serving firms. No lawyer review or user interviews yet; next step: interviews with 5 practitioners (plaintiff's counsel, a process-serving firm and an enforcement office) to test the workflow and the pricing.
+Hypothesis: a per-case fee for counsel, or a tool licensed to process-serving firms. No lawyer review or user interviews yet; next step: practitioner interviews (not yet done) with plaintiff's counsel, a process-serving firm and an enforcement office, to test the workflow and the pricing.
 
 ## How it works
 
@@ -70,11 +70,11 @@ Status: **excerpt verified** = every quoted string was returned verbatim from th
 
 - **`declaredFiledAt` cannot be proven by the chain.** The filer enters the affidavit filing time. The chain records the declared value and the affidavit hash, not the court's acceptance.
 - **Deadlines are estimates.** Plain day counts; counting rules (General Construction Law §20, §25-a weekends/holidays) were not read and are not applied, so counsel must confirm the last day. The response deadline is meaningful only if service was valid under the order.
-- **The clock can open before every condition has evidence.** In the deployed contracts, the registry derives the response deadline when the affidavit is recorded, whether or not the other conditions have evidence linked. Roadmap: an on-chain gate on all conditions.
+- **The registry gates the clock, not the facts.** The registry refuses to record service as complete until every service condition has linked evidence, and refuses a filing date earlier than the last service evidence. It still cannot check that the evidence is true.
 - **The snapshot step is shown via local replay.** On Sepolia the activity snapshot is pending: the registry refuses a snapshot before the response deadline (2026-11-24, New York date), and testnet time cannot be advanced, so the step is shown from a local anvil replay with the clock moved forward.
-- **The verifier trusts the addresses in case.json.** It reads events from the registry and notice contract that case.json names; the issuer and contract addresses need to be pinned through a separate channel (for example, stated in the filing).
+- **The verifier trusts the addresses in case.json.** It reads events from the registry and notice contract that case.json names; the issuer and contract addresses need to be pinned through a separate channel (for example, stated in the filing). The CLI can pin them with `--expect-handler` and compares them with `deployments/<chainId>.json`; the browser verifier does neither.
 - **Condition-to-evidence links are the handler's declaration.** The chain records what the handler linked and when; it does not prove that the underlying facts are true.
-- **Live verification relies on logs reported by a public RPC.** The offline path compares against the bundled event log instead.
+- **Live verification relies on logs reported by public RPCs.** The verifier reads two RPCs and requires them to agree; if only one answers, it says "Live (1 RPC)". The offline path compares against the bundled event log instead and is not independent.
 - **Keeping the original documents is the filer's job.** The chain stores hashes and a URL; if the URL goes down, only the hash remains.
 - **Writes are EVM only.** Notices are minted on Sepolia or a local anvil chain to stand-in wallets. TRON wallets are read, not written to. The write module refuses any chainId other than 31337 and 11155111.
 - **Activity table coverage.** Fetched once on 2026-10-25 from public explorers (Blockscout, TronGrid) and cached. Older pages were not fetched, so months before 2024-04 (Ethereum) and 2023-10 (TRON) may be undercounted (per-wallet `completeFrom` in case.json). The exchange wallet named in the complaint was not fetched.
@@ -94,10 +94,12 @@ Two layers, and they carry different weight.
 
 | Contract | Address | Deploy tx |
 |---|---|---|
-| `ServiceNotice721` (soulbound notice, hash-locked `tokenURI`) | [`0xB7a040C0D6860aABc93E20bc911270622D33De75`](https://sepolia.etherscan.io/address/0xB7a040C0D6860aABc93E20bc911270622D33De75) | [`0x2a2677d7…5477`](https://sepolia.etherscan.io/tx/0x2a2677d76f2faeab5cc5269d58bec7311a3871e5e4e14e4bffd0804ecca45477) |
-| `CaseFileRegistry` (conditions, fulfillments, deadline, snapshot) | [`0x787867F00a45962666b39cD3523954aE62DE2664`](https://sepolia.etherscan.io/address/0x787867F00a45962666b39cD3523954aE62DE2664) | [`0x18311cb0…da7c`](https://sepolia.etherscan.io/tx/0x18311cb0becb13cc544265b69278211e158ff9c323cda1fcd08803e76808da7c) |
+| `ServiceNotice721` (soulbound notice, hash-locked `tokenURI`) | [`0xA7bA126d3cE7E90155CB11b3EF20d426B8a84001`](https://sepolia.etherscan.io/address/0xA7bA126d3cE7E90155CB11b3EF20d426B8a84001) | [`0x1e3927a7…0b69`](https://sepolia.etherscan.io/tx/0x1e3927a7ba1853f2f5e61a7aee1179a649e4c2eedd6f8bc730971dbbd3790b69) |
+| `CaseFileRegistry` (conditions, fulfillments, deadline, snapshot) | [`0xB2a07aEF698cC158180635dD252E5477049C1ac2`](https://sepolia.etherscan.io/address/0xB2a07aEF698cC158180635dD252E5477049C1ac2) | [`0x6d03cfe4…78ca`](https://sepolia.etherscan.io/tx/0x6d03cfe4873926ad1bf2c0c25c9cbcfa1083ebc5d0f9d79c91fa38ec7bd278ca) |
 
-Deployment block 11989459 ([`deployments/11155111.json`](deployments/11155111.json)). Case ID `0xa1ad380631e7bea03b9a32c282e441bcfd31109f1c2c93c6f7d2402f3d39b9b7` = `keccak256(abi.encode(handler, caseRef))`, with `caseRef = keccak256("NY-SUP-QUEENS-700647-2025-demo")`; the registry derives it from the caller, so another address cannot open the same case id (the verifier re-checks this from the `CaseRefBound` event). Compliance summary anchor tx: [`0xbb030a7a…cef3`](https://sepolia.etherscan.io/tx/0xbb030a7a67d5ad6d13e5cf3f479b4af10c64ab042922ecbf319b7cf27721cef3). Full transaction list: [`web/public/case/case.json`](web/public/case/case.json). An earlier Sepolia deployment (0x5D39…, 0xD712…) is superseded.
+Deployment block 11989763 ([`deployments/11155111.json`](deployments/11155111.json)), issuer `0x4228b6c33cDd2f9DeE2dBB4B55BDFf02c176F580`. Case ID `0xa1ad380631e7bea03b9a32c282e441bcfd31109f1c2c93c6f7d2402f3d39b9b7` = `keccak256(abi.encode(handler, caseRef))`, with `caseRef = keccak256("NY-SUP-QUEENS-700647-2025-demo")`; the registry derives it from the caller, so another address cannot open the same case id (the verifier re-checks this from the `CaseRefBound` event). Service recorded complete: [`0x03b2f014…2138`](https://sepolia.etherscan.io/tx/0x03b2f014c6e7e2ca2fa8e4b259c0be9f62eff991c7fb1532fa4d3245ef8c2138). Compliance summary anchor tx: [`0xd6209e97…7761`](https://sepolia.etherscan.io/tx/0xd6209e973abdfae95561e075d3c0fdeba05ad7e19abeb47d92f8d8eafaa27761). Full transaction list: [`web/public/case/case.json`](web/public/case/case.json).
+
+Earlier Sepolia deployments (0x5D39…/0xD712… and 0x7878…/0xB7a0…) are superseded.
 
 ## Reproduce
 
@@ -113,13 +115,33 @@ npm run demo:local
 npm run verify -- web/public/case/exhibit.pdf
 ```
 
-- `forge test` runs the contract tests (42 at the time of writing). `npm test` runs the 20 script tests (chainId guard, hashing, verifier).
+- `forge test` runs the 50 contract tests. `npm test` runs the 36 script tests (chainId guard, hashing, verifier).
 - `npm run demo:local` starts anvil, deploys both contracts, serves stand-in wallets, records the affidavit, advances the local clock past the deadline, anchors the snapshot and writes `web/public/case-local/`.
-- `npm run verify -- <exhibit.pdf>` (the compliance summary file) checks the PDF hash, order hash, conditions hash, notices, condition statuses and the declared affidavit against Sepolia events (falls back to the bundled `events.json` if the RPC fails; add `--offline` to force that). Use `--case web/public/case-local/case.json` for the local run.
+- `npm run demo:sepolia` repeats the flow on Sepolia and needs `DEPLOYER_KEY` and `SEPOLIA_RPC_URL` in `.env`. Run it after `demo:local`: the Sepolia case links the local snapshot. Both runs write the same service bundle (`docs/service-bundle.pdf`, built without timestamps), so its hash is identical in both cases.
 - Web app: `cd web && npm i && npm run dev`.
-- `npm run demo:sepolia` repeats the flow on Sepolia and needs `DEPLOYER_KEY` and `SEPOLIA_RPC_URL` in `.env`.
 - `npm run deployments:fix -- <chainId>` rewrites the deployment block in `deployments/<chainId>.json` from forge broadcast receipts; only needed after deploying with `forge script contracts/script/Deploy.s.sol`.
 - `cd web && node scripts/deck-pdf.mjs` prints `docs/deck.pdf`; PDFs made by the scripts carry `ServeChain` as Creator and Producer.
+
+### Verify
+
+`npm run verify -- <exhibit.pdf>` (the compliance summary file) checks the PDF hash, issuer, case id, order and conditions hashes, notices, the service condition mask, each condition's evidence link (the `txRef` and recomputed preimage), the service deadline, the filing date against the last service evidence, and the declared affidavit against Sepolia events.
+
+| Option | Effect |
+|---|---|
+| `--case <case.json>` | Case file to check against (default `web/public/case/case.json`; use `web/public/case-local/case.json` for the local run). |
+| `--rpc <url>` | RPC to read; repeat for more. Tried before `SEPOLIA_RPC_URL` and the public defaults. |
+| `--offline` | Compare against the bundled `events.json` instead of the chain. |
+| `--expect-handler 0x…` | Issuer you confirmed through another channel; any other issuer is MISMATCH. |
+| `--deployments <dir>` | Folder with `<chainId>.json` to compare addresses and issuer (default `deployments/`). |
+
+| Exit code | Meaning |
+|---|---|
+| 0 | MATCH, read live. The label says "Live (2 RPCs agree)" or "Live (1 RPC)". |
+| 1 | MISMATCH (a changed byte, a different issuer, RPCs that disagree, or any failed check). |
+| 2 | Usage or input error. |
+| 3 | MATCH offline, against the bundled event log only, not independent. |
+
+Every run ends with the line "Trusts: the contract addresses and issuer published in case.json; confirm the issuer through an independent channel". The browser verifier also reads two RPCs and shows "Live (2 RPCs agree)", or a blue "MATCH (offline)" when no RPC answers. It does not compare against a `deployments/` file and has no `--expect-handler`, so it relies on the addresses in case.json alone.
 
 ## Data sources and ethics
 

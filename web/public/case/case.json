@@ -16,15 +16,16 @@
   "chain": {
     "chainId": 11155111,
     "name": "Sepolia",
-    "registry": "0x787867F00a45962666b39cD3523954aE62DE2664",
-    "notice721": "0xB7a040C0D6860aABc93E20bc911270622D33De75",
-    "fromBlock": 11989459,
+    "registry": "0xB2a07aEF698cC158180635dD252E5477049C1ac2",
+    "notice721": "0xA7bA126d3cE7E90155CB11b3EF20d426B8a84001",
+    "fromBlock": 11989763,
     "explorer": "https://sepolia.etherscan.io",
     "issuer": "0x4228b6c33cDd2f9DeE2dBB4B55BDFf02c176F580",
     "deployTxs": {
-      "ServiceNotice721": "0x2a2677d76f2faeab5cc5269d58bec7311a3871e5e4e14e4bffd0804ecca45477",
-      "CaseFileRegistry": "0x18311cb0becb13cc544265b69278211e158ff9c323cda1fcd08803e76808da7c"
-    }
+      "ServiceNotice721": "0x1e3927a7ba1853f2f5e61a7aee1179a649e4c2eedd6f8bc730971dbbd3790b69",
+      "CaseFileRegistry": "0x6d03cfe4873926ad1bf2c0c25c9cbcfa1083ebc5d0f9d79c91fa38ec7bd278ca"
+    },
+    "serviceMask": "15"
   },
   "order": {
     "hash": "0xc75a4443ca79356650c69eb345c6962cbce2055517026697beefaa7169db393b",
@@ -95,34 +96,37 @@
       "draftedBy": "pre-extracted",
       "confirmedBy": "author (demo)",
       "status": "fulfilled",
+      "statusLabel": "Evidence linked (not a compliance determination)",
+      "replayNote": "replay: measured against the replay deadline, not the original order deadline",
       "derived": {
         "dueDate": "2025-10-09",
         "from": "2025-06-11 + 120 days"
       },
       "deadlineBasis": "replay",
-      "replayServiceDeadline": "2027-02-22T07:42:48.000Z",
+      "replayServiceDeadline": "2027-02-22T08:44:36.000Z",
       "originalServiceDeadline": "2025-10-09",
       "deadlineBasisNote": "Fulfilled against the replay deadline (case opening + 120 days), not the original order deadline. The real case deadline was 2025-06-11 + 120 days.",
       "evidence": [
         {
           "type": "tx",
           "label": "All notices minted before the service deadline",
-          "txHash": "0x6fb1713b1ce620070fe83b81a7ff90a3367de018aaf7bfde43821f0aa071c4f0",
-          "block": 11989468,
-          "timestamp": "2026-10-25T07:44:36.000Z",
-          "explorerUrl": "https://sepolia.etherscan.io/tx/0x6fb1713b1ce620070fe83b81a7ff90a3367de018aaf7bfde43821f0aa071c4f0",
-          "evidenceHash": "0xfed01060b10aa0abe425d007271f169d87a4c71eb242a04704982d0ce92eedac",
-          "txRef": "0x7f19a48935c2f77b32222a5fb53e9e52cb56f0a00c0b7e9c1e24f7dafe7d04c3",
+          "txHash": "0x4aae20c48ad73fd2beaa8a7a02cdb6ce077ebe450faeeca3dea2068c1f7d2f90",
+          "block": 11989773,
+          "timestamp": "2026-10-25T08:46:36.000Z",
+          "explorerUrl": "https://sepolia.etherscan.io/tx/0x4aae20c48ad73fd2beaa8a7a02cdb6ce077ebe450faeeca3dea2068c1f7d2f90",
+          "evidenceHash": "0xdebee526ffc659775227677de304388fc1e2218f4abcfdb9ed7287385ebecba4",
+          "txRef": "0xb2b5650dfa2e28c0bf3d4b0b8796aee875e046c1e089a58b009a02c8fd045490",
           "preimage": {
             "servedAt": [
-              "2026-10-25T07:43:12.000Z",
-              "2026-10-25T07:43:24.000Z",
-              "2026-10-25T07:43:36.000Z"
+              "2026-10-25T08:45:00.000Z",
+              "2026-10-25T08:45:12.000Z",
+              "2026-10-25T08:45:24.000Z"
             ],
-            "serviceDeadline": "2027-02-22T07:42:48.000Z"
+            "serviceDeadline": "2027-02-22T08:44:36.000Z"
           }
         }
-      ]
+      ],
+      "context": []
     },
     {
       "id": 1,
@@ -134,27 +138,30 @@
       "draftedBy": "pre-extracted",
       "confirmedBy": "author (demo)",
       "status": "fulfilled",
+      "statusLabel": "Evidence linked (not a compliance determination)",
+      "replayNote": null,
       "derived": null,
       "deadlineBasis": "replay",
-      "replayServiceDeadline": "2027-02-22T07:42:48.000Z",
+      "replayServiceDeadline": "2027-02-22T08:44:36.000Z",
       "originalServiceDeadline": "2025-10-09",
       "deadlineBasisNote": "Evidence was recorded in this replay; dates are replay dates, not dates in the real case.",
       "evidence": [
         {
           "type": "tx",
           "label": "Document bundle SHA-256 fixed in every notice tokenURI",
-          "txHash": "0x628d0608007f2c54f12836ff8d37dcefe64dac94e09f944119ac95e88bb92d4b",
-          "block": 11989465,
-          "timestamp": "2026-10-25T07:43:48.000Z",
-          "explorerUrl": "https://sepolia.etherscan.io/tx/0x628d0608007f2c54f12836ff8d37dcefe64dac94e09f944119ac95e88bb92d4b",
-          "evidenceHash": "0x3a09748195c11781e90c6e18c86c34f64f673d1b965f0bccb39178dd68b9756d",
-          "txRef": "0x966ffd7f3750b80909daf13160401cb9d24077dfdf11faea9518374b8d761fa6",
+          "txHash": "0xd05a3200c781af733f0a319b531180140ca137f6a1381e5cb4a3da3f96974ec7",
+          "block": 11989769,
+          "timestamp": "2026-10-25T08:45:36.000Z",
+          "explorerUrl": "https://sepolia.etherscan.io/tx/0xd05a3200c781af733f0a319b531180140ca137f6a1381e5cb4a3da3f96974ec7",
+          "evidenceHash": "0x681b2a37c570550a53b19cca99ccea467520c5ec850a3223fac42165d806cd2c",
+          "txRef": "0xabaa14f11732ce55fc7f29584908ca41f37e0a76b4dc620da8dbe7450ad95b99",
           "preimage": {
-            "bundleSha256": "0x3a09748195c11781e90c6e18c86c34f64f673d1b965f0bccb39178dd68b9756d",
+            "bundleSha256": "0x681b2a37c570550a53b19cca99ccea467520c5ec850a3223fac42165d806cd2c",
             "documentsUrl": "https://kimsabin725.github.io/servechain/docs/service-bundle.pdf"
           }
         }
-      ]
+      ],
+      "context": []
     },
     {
       "id": 2,
@@ -166,23 +173,25 @@
       "draftedBy": "pre-extracted",
       "confirmedBy": "author (demo)",
       "status": "fulfilled",
+      "statusLabel": "Evidence linked (not a compliance determination)",
+      "replayNote": null,
       "derived": null,
       "deadlineBasis": "replay",
-      "replayServiceDeadline": "2027-02-22T07:42:48.000Z",
+      "replayServiceDeadline": "2027-02-22T08:44:36.000Z",
       "originalServiceDeadline": "2025-10-09",
       "deadlineBasisNote": "Evidence was recorded in this replay; dates are replay dates, not dates in the real case.",
       "evidence": [
         {
           "type": "tx",
           "label": "Hyperlinked notice NFTs (tokenURI external_url → posted papers)",
-          "txHash": "0x706619b7235310e24e2b36ae1017b7a60cbcf1b9d930c1483a98a82974640762",
-          "block": 11989466,
-          "timestamp": "2026-10-25T07:44:00.000Z",
-          "explorerUrl": "https://sepolia.etherscan.io/tx/0x706619b7235310e24e2b36ae1017b7a60cbcf1b9d930c1483a98a82974640762",
-          "evidenceHash": "0xf497101fd356d59ddf10a07cfd010601f31da6ae4723c10c59b0aae98ad79381",
-          "txRef": "0x966ffd7f3750b80909daf13160401cb9d24077dfdf11faea9518374b8d761fa6",
+          "txHash": "0xe6d1c0e9f68edf9fcb8798c7328df62d1d9cca52b8d4db0cb29a5473ecbcf3e0",
+          "block": 11989770,
+          "timestamp": "2026-10-25T08:45:48.000Z",
+          "explorerUrl": "https://sepolia.etherscan.io/tx/0xe6d1c0e9f68edf9fcb8798c7328df62d1d9cca52b8d4db0cb29a5473ecbcf3e0",
+          "evidenceHash": "0x265f9b586debfc26045e0166b86b239cda8cd372133e2214488a922a7b71a573",
+          "txRef": "0xabaa14f11732ce55fc7f29584908ca41f37e0a76b4dc620da8dbe7450ad95b99",
           "preimage": {
-            "notice721": "0xB7a040C0D6860aABc93E20bc911270622D33De75",
+            "notice721": "0xA7bA126d3cE7E90155CB11b3EF20d426B8a84001",
             "tokenIds": [
               1,
               2,
@@ -191,50 +200,48 @@
             "documentsUrl": "https://kimsabin725.github.io/servechain/docs/service-bundle.pdf",
             "conditionId": 2
           }
-        },
+        }
+      ],
+      "context": [
         {
-          "type": "imported",
-          "label": "Real case: real Wallet 1 (read-only), 2025-07-30",
+          "type": "context",
+          "label": "Context only: real Wallet 1 (read-only), 2025-07-30",
           "txHash": "0xc1663d2f20123334529ae08babaf9c64b08b5c003e07f2437891a4f90b15aba2",
           "block": 23034673,
           "timestamp": "2025-07-30T21:39:11.000000Z",
           "explorerUrl": "https://etherscan.io/tx/0xc1663d2f20123334529ae08babaf9c64b08b5c003e07f2437891a4f90b15aba2",
-          "evidenceHash": null,
           "readOnly": true,
-          "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records."
+          "note": "Unattributed NFTs titled \"Service of NY OAG Summons and Complaint…\" seen on 2025-07-30 (sender not matched to court records; contract name on-chain: SoulBoundTest). Context only, not linked to any condition."
         },
         {
-          "type": "imported",
-          "label": "Real case: real Wallet 2 (read-only), 2025-07-30",
+          "type": "context",
+          "label": "Context only: real Wallet 2 (read-only), 2025-07-30",
           "txHash": "fc60e664cacf5d6e621426b1a4432b50b9a55a655db0877620f386836c93ef8c",
           "block": null,
           "timestamp": "2025-07-30T17:46:48.000Z",
           "explorerUrl": "https://tronscan.org/#/transaction/fc60e664cacf5d6e621426b1a4432b50b9a55a655db0877620f386836c93ef8c",
-          "evidenceHash": null,
           "readOnly": true,
-          "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records."
+          "note": "Unattributed NFTs titled \"Service of NY OAG Summons and Complaint…\" seen on 2025-07-30 (sender not matched to court records; contract name on-chain: SoulBoundTest). Context only, not linked to any condition."
         },
         {
-          "type": "imported",
-          "label": "Real case: real Wallet 2 (read-only), 2025-07-30",
+          "type": "context",
+          "label": "Context only: real Wallet 2 (read-only), 2025-07-30",
           "txHash": "54d889e3eae9ca97e35e73ad35e8e3eafeaf50db996f5db60853b5e1f65b7492",
           "block": null,
           "timestamp": "2025-07-30T16:43:12.000Z",
           "explorerUrl": "https://tronscan.org/#/transaction/54d889e3eae9ca97e35e73ad35e8e3eafeaf50db996f5db60853b5e1f65b7492",
-          "evidenceHash": null,
           "readOnly": true,
-          "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records."
+          "note": "Unattributed NFTs titled \"Service of NY OAG Summons and Complaint…\" seen on 2025-07-30 (sender not matched to court records; contract name on-chain: SoulBoundTest). Context only, not linked to any condition."
         },
         {
-          "type": "imported",
-          "label": "Real case: real Wallet 3 (read-only), 2025-07-30",
+          "type": "context",
+          "label": "Context only: real Wallet 3 (read-only), 2025-07-30",
           "txHash": "65fd0328eb59da32ca1fc4fa0303fe7c15725945aaea3e5039afdc8ba2a97ce5",
           "block": null,
           "timestamp": "2025-07-30T17:27:27.000Z",
           "explorerUrl": "https://tronscan.org/#/transaction/65fd0328eb59da32ca1fc4fa0303fe7c15725945aaea3e5039afdc8ba2a97ce5",
-          "evidenceHash": null,
           "readOnly": true,
-          "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records."
+          "note": "Unattributed NFTs titled \"Service of NY OAG Summons and Complaint…\" seen on 2025-07-30 (sender not matched to court records; contract name on-chain: SoulBoundTest). Context only, not linked to any condition."
         }
       ]
     },
@@ -248,77 +255,77 @@
       "draftedBy": "pre-extracted",
       "confirmedBy": "author (demo)",
       "status": "fulfilled",
+      "statusLabel": "Evidence linked (not a compliance determination)",
+      "replayNote": "replay: served on Sepolia stand-in wallets, not the named wallets",
       "derived": null,
       "deadlineBasis": "replay",
-      "replayServiceDeadline": "2027-02-22T07:42:48.000Z",
+      "replayServiceDeadline": "2027-02-22T08:44:36.000Z",
       "originalServiceDeadline": "2025-10-09",
       "deadlineBasisNote": "Evidence was recorded in this replay; dates are replay dates, not dates in the real case.",
       "evidence": [
         {
           "type": "tx",
-          "label": "One notice per target (stand-in wallets)",
-          "txHash": "0x97e66438d7fa18f1f15d57a2ce9bbe77a15d6e594f78d9c4c25c11d8b8849569",
-          "block": 11989467,
-          "timestamp": "2026-10-25T07:44:24.000Z",
-          "explorerUrl": "https://sepolia.etherscan.io/tx/0x97e66438d7fa18f1f15d57a2ce9bbe77a15d6e594f78d9c4c25c11d8b8849569",
-          "evidenceHash": "0xb2eb138cf36a3cba5b2c6c39727f94b7419e30d24ee6a3467d0b4b774edda093",
-          "txRef": "0x7f19a48935c2f77b32222a5fb53e9e52cb56f0a00c0b7e9c1e24f7dafe7d04c3",
+          "label": "One notice per target (Sepolia stand-in wallets, not the named wallets)",
+          "txHash": "0x6826c71acfd40b9e11bffdc2333ed6c632ef0bfcd880af41b175201b590577b9",
+          "block": 11989771,
+          "timestamp": "2026-10-25T08:46:00.000Z",
+          "explorerUrl": "https://sepolia.etherscan.io/tx/0x6826c71acfd40b9e11bffdc2333ed6c632ef0bfcd880af41b175201b590577b9",
+          "evidenceHash": "0x8c665283d2d00093a3d1ac46620da60ee90f6d187f97c12cc72491e5e42be792",
+          "txRef": "0xb2b5650dfa2e28c0bf3d4b0b8796aee875e046c1e089a58b009a02c8fd045490",
           "preimage": {
             "recipients": [
-              "0x8BcB8c8DB6F62439DecC88aaF145383e57eeE389",
-              "0x658020984816342E1414821e1c33Dfd6654bbaB7",
-              "0x525Ff75C9504842895aC18Dbd6383BC74e081d1c"
+              "0x7ede6D8aE012Ddccd5243F2533399aC09D38A81e",
+              "0x673bBc0dDDb238B30f2e3B5E8A0beb94f525DDd5",
+              "0xAb5F8CDb98A846aD454c3D32b7A69e66D854Bd63"
             ],
             "mintTxs": [
-              "0x966ffd7f3750b80909daf13160401cb9d24077dfdf11faea9518374b8d761fa6",
-              "0x3d09096b122f8407ea25cf408674d57803350d588535cc24132e7a4b3bf80993",
-              "0x7f19a48935c2f77b32222a5fb53e9e52cb56f0a00c0b7e9c1e24f7dafe7d04c3"
+              "0xabaa14f11732ce55fc7f29584908ca41f37e0a76b4dc620da8dbe7450ad95b99",
+              "0xcc8b4b16542460bba81a8f31a68d456eb0bcc5bb23c88500e778d6ae3b6b1722",
+              "0xb2b5650dfa2e28c0bf3d4b0b8796aee875e046c1e089a58b009a02c8fd045490"
             ]
           }
-        },
+        }
+      ],
+      "context": [
         {
-          "type": "imported",
-          "label": "Real case: real Wallet 1 (read-only), 2025-07-30",
+          "type": "context",
+          "label": "Context only: real Wallet 1 (read-only), 2025-07-30",
           "txHash": "0xc1663d2f20123334529ae08babaf9c64b08b5c003e07f2437891a4f90b15aba2",
           "block": 23034673,
           "timestamp": "2025-07-30T21:39:11.000000Z",
           "explorerUrl": "https://etherscan.io/tx/0xc1663d2f20123334529ae08babaf9c64b08b5c003e07f2437891a4f90b15aba2",
-          "evidenceHash": null,
           "readOnly": true,
-          "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records."
+          "note": "Unattributed NFTs titled \"Service of NY OAG Summons and Complaint…\" seen on 2025-07-30 (sender not matched to court records; contract name on-chain: SoulBoundTest). Context only, not linked to any condition."
         },
         {
-          "type": "imported",
-          "label": "Real case: real Wallet 2 (read-only), 2025-07-30",
+          "type": "context",
+          "label": "Context only: real Wallet 2 (read-only), 2025-07-30",
           "txHash": "fc60e664cacf5d6e621426b1a4432b50b9a55a655db0877620f386836c93ef8c",
           "block": null,
           "timestamp": "2025-07-30T17:46:48.000Z",
           "explorerUrl": "https://tronscan.org/#/transaction/fc60e664cacf5d6e621426b1a4432b50b9a55a655db0877620f386836c93ef8c",
-          "evidenceHash": null,
           "readOnly": true,
-          "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records."
+          "note": "Unattributed NFTs titled \"Service of NY OAG Summons and Complaint…\" seen on 2025-07-30 (sender not matched to court records; contract name on-chain: SoulBoundTest). Context only, not linked to any condition."
         },
         {
-          "type": "imported",
-          "label": "Real case: real Wallet 2 (read-only), 2025-07-30",
+          "type": "context",
+          "label": "Context only: real Wallet 2 (read-only), 2025-07-30",
           "txHash": "54d889e3eae9ca97e35e73ad35e8e3eafeaf50db996f5db60853b5e1f65b7492",
           "block": null,
           "timestamp": "2025-07-30T16:43:12.000Z",
           "explorerUrl": "https://tronscan.org/#/transaction/54d889e3eae9ca97e35e73ad35e8e3eafeaf50db996f5db60853b5e1f65b7492",
-          "evidenceHash": null,
           "readOnly": true,
-          "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records."
+          "note": "Unattributed NFTs titled \"Service of NY OAG Summons and Complaint…\" seen on 2025-07-30 (sender not matched to court records; contract name on-chain: SoulBoundTest). Context only, not linked to any condition."
         },
         {
-          "type": "imported",
-          "label": "Real case: real Wallet 3 (read-only), 2025-07-30",
+          "type": "context",
+          "label": "Context only: real Wallet 3 (read-only), 2025-07-30",
           "txHash": "65fd0328eb59da32ca1fc4fa0303fe7c15725945aaea3e5039afdc8ba2a97ce5",
           "block": null,
           "timestamp": "2025-07-30T17:27:27.000Z",
           "explorerUrl": "https://tronscan.org/#/transaction/65fd0328eb59da32ca1fc4fa0303fe7c15725945aaea3e5039afdc8ba2a97ce5",
-          "evidenceHash": null,
           "readOnly": true,
-          "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records."
+          "note": "Unattributed NFTs titled \"Service of NY OAG Summons and Complaint…\" seen on 2025-07-30 (sender not matched to court records; contract name on-chain: SoulBoundTest). Context only, not linked to any condition."
         }
       ]
     },
@@ -332,38 +339,41 @@
       "draftedBy": "pre-extracted",
       "confirmedBy": "author (demo)",
       "status": "fulfilled",
+      "statusLabel": "Evidence linked (not a compliance determination)",
+      "replayNote": "replay: recorded on-chain, not filed with a court",
       "derived": {
         "answerDue": "affidavit filing date + 30 days (CPLR 320(a), see data/rules.json)"
       },
       "deadlineBasis": "replay",
-      "replayServiceDeadline": "2027-02-22T07:42:48.000Z",
+      "replayServiceDeadline": "2027-02-22T08:44:36.000Z",
       "originalServiceDeadline": "2025-10-09",
       "deadlineBasisNote": "Evidence was recorded in this replay; dates are replay dates, not dates in the real case.",
       "evidence": [
         {
           "type": "tx",
-          "label": "Affidavit hash and declaredFiledAt recorded",
-          "txHash": "0xfdbb9f14961ce66ffafb33d04ccc688d96cf1522b6c18e5a44af8458e47468d6",
-          "block": 11989472,
-          "timestamp": "2026-10-25T07:45:24.000Z",
-          "explorerUrl": "https://sepolia.etherscan.io/tx/0xfdbb9f14961ce66ffafb33d04ccc688d96cf1522b6c18e5a44af8458e47468d6",
-          "evidenceHash": "0xe02e0137494f682c04f9ae416030bb9609f7c6b1b0cfb9b7fce7d3f09a44683f",
-          "txRef": "0xeb8f33711c480d6c5fdaff912a031d6619824baf00f1250a86ccb5c1bbff2fcb",
+          "label": "Affidavit hash and declared filing time recorded on-chain (not filed with a court)",
+          "txHash": "0x5c24773131fd2923f1fab71381145f2a708c3ef56d7ba4f8ceea2b32b903d36b",
+          "block": 11989775,
+          "timestamp": "2026-10-25T08:47:24.000Z",
+          "explorerUrl": "https://sepolia.etherscan.io/tx/0x5c24773131fd2923f1fab71381145f2a708c3ef56d7ba4f8ceea2b32b903d36b",
+          "evidenceHash": "0x43da95ac0f6b48dc476c28bed56ef459c5de6384b22e8f1e406dc661ddd93acc",
+          "txRef": "0x03b2f014c6e7e2ca2fa8e4b259c0be9f62eff991c7fb1532fa4d3245ef8c2138",
           "preimage": {
-            "affidavitSha256": "0xe02e0137494f682c04f9ae416030bb9609f7c6b1b0cfb9b7fce7d3f09a44683f",
-            "declaredFiledAt": "2026-10-25T07:44:36.000Z"
+            "affidavitSha256": "0x43da95ac0f6b48dc476c28bed56ef459c5de6384b22e8f1e406dc661ddd93acc",
+            "declaredFiledAt": "2026-10-25T08:46:36.000Z"
           }
         }
-      ]
+      ],
+      "context": []
     }
   ],
   "documents": {
-    "bundleHash": "0x3a09748195c11781e90c6e18c86c34f64f673d1b965f0bccb39178dd68b9756d",
+    "bundleHash": "0x681b2a37c570550a53b19cca99ccea467520c5ec850a3223fac42165d806cd2c",
     "url": "https://kimsabin725.github.io/servechain/docs/service-bundle.pdf",
     "files": [
       {
         "name": "service-bundle.pdf",
-        "sha256": "0x3a09748195c11781e90c6e18c86c34f64f673d1b965f0bccb39178dd68b9756d",
+        "sha256": "0x681b2a37c570550a53b19cca99ccea467520c5ec850a3223fac42165d806cd2c",
         "path": "docs/service-bundle.pdf"
       }
     ],
@@ -373,59 +383,62 @@
     {
       "source": "servechain",
       "chain": "sepolia",
-      "recipient": "0x8BcB8c8DB6F62439DecC88aaF145383e57eeE389",
+      "recipient": "0x7ede6D8aE012Ddccd5243F2533399aC09D38A81e",
       "recipientLabel": "stand-in for Wallet 1",
-      "txHash": "0x966ffd7f3750b80909daf13160401cb9d24077dfdf11faea9518374b8d761fa6",
-      "block": 11989462,
-      "timestamp": "2026-10-25T07:43:12.000Z",
+      "txHash": "0xabaa14f11732ce55fc7f29584908ca41f37e0a76b4dc620da8dbe7450ad95b99",
+      "block": 11989766,
+      "timestamp": "2026-10-25T08:45:00.000Z",
       "tokenId": 1,
-      "tokenURI": "data:application/json;base64,eyJuYW1lIjoiTm90aWNlIG9mIExhd3N1aXQgIzEiLCJkZXNjcmlwdGlvbiI6IlNlcnZpY2UgZG9jdW1lbnRzIGFyZSBwb3N0ZWQgYXQgZXh0ZXJuYWxfdXJsLiBTSEEtMjU2IG9mIHRoZSBkb2N1bWVudCBidW5kbGU6IDB4M2EwOTc0ODE5NWMxMTc4MWU5MGM2ZTE4Yzg2YzM0ZjY0ZjY3M2QxYjk2NWYwYmNjYjM5MTc4ZGQ2OGI5NzU2ZCIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8va2ltc2FiaW43MjUuZ2l0aHViLmlvL3NlcnZlY2hhaW4vZG9jcy9zZXJ2aWNlLWJ1bmRsZS5wZGYiLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiY2FzZUlkIiwidmFsdWUiOiIweGExYWQzODA2MzFlN2JlYTAzYjlhMzJjMjgyZTQ0MWJjZmQzMTEwOWYxYzJjOTNjNmY3ZDI0MDJmM2QzOWI5YjcifSx7InRyYWl0X3R5cGUiOiJjb25kaXRpb25JZCIsInZhbHVlIjoyfSx7InRyYWl0X3R5cGUiOiJkb2N1bWVudHNTaGEyNTYiLCJ2YWx1ZSI6IjB4M2EwOTc0ODE5NWMxMTc4MWU5MGM2ZTE4Yzg2YzM0ZjY0ZjY3M2QxYjk2NWYwYmNjYjM5MTc4ZGQ2OGI5NzU2ZCJ9XX0=",
-      "explorerUrl": "https://sepolia.etherscan.io/tx/0x966ffd7f3750b80909daf13160401cb9d24077dfdf11faea9518374b8d761fa6"
+      "tokenURI": "data:application/json;base64,eyJuYW1lIjoiTm90aWNlIG9mIExhd3N1aXQgIzEiLCJkZXNjcmlwdGlvbiI6IlNlcnZpY2UgZG9jdW1lbnRzIGFyZSBwb3N0ZWQgYXQgZXh0ZXJuYWxfdXJsLiBTSEEtMjU2IG9mIHRoZSBkb2N1bWVudCBidW5kbGU6IDB4NjgxYjJhMzdjNTcwNTUwYTUzYjE5Y2NhOTljY2VhNDY3NTIwYzVlYzg1MGEzMjIzZmFjNDIxNjVkODA2Y2QyYyIsImltYWdlIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhacFpYZENiM2c5SWpBZ01DQTBNREFnTkRBd0lqNDhjbVZqZENCM2FXUjBhRDBpTkRBd0lpQm9aV2xuYUhROUlqUXdNQ0lnWm1sc2JEMGlJMlptWm1WbVlpSWdjM1J5YjJ0bFBTSWpNV1F4WXpGaElpQnpkSEp2YTJVdGQybGtkR2c5SWpFeUlpOCtQSFJsZUhRZ2VEMGlNakF3SWlCNVBTSXhOekFpSUdadmJuUXRabUZ0YVd4NVBTSnpaWEpwWmlJZ1ptOXVkQzF6YVhwbFBTSXpOQ0lnWm05dWRDMTNaV2xuYUhROUlqY3dNQ0lnZEdWNGRDMWhibU5vYjNJOUltMXBaR1JzWlNJZ1ptbHNiRDBpSXpGa01XTXhZU0krVTBWU1ZrbERSU0JPVDFSSlEwVThMM1JsZUhRK1BIUmxlSFFnZUQwaU1qQXdJaUI1UFNJeU1qQWlJR1p2Ym5RdFptRnRhV3g1UFNKdGIyNXZjM0JoWTJVaUlHWnZiblF0YzJsNlpUMGlNakFpSUhSbGVIUXRZVzVqYUc5eVBTSnRhV1JrYkdVaUlHWnBiR3c5SWlNeFpERmpNV0VpUG1OaGMyVWdNSGhoTVdGa016Z3dOand2ZEdWNGRENDhkR1Y0ZENCNFBTSXlNREFpSUhrOUlqSTJNQ0lnWm05dWRDMW1ZVzFwYkhrOUltMXZibTl6Y0dGalpTSWdabTl1ZEMxemFYcGxQU0l5TUNJZ2RHVjRkQzFoYm1Ob2IzSTlJbTFwWkdSc1pTSWdabWxzYkQwaUl6UmhORGcwTXlJK0l6RThMM1JsZUhRK1BDOXpkbWMrIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9raW1zYWJpbjcyNS5naXRodWIuaW8vc2VydmVjaGFpbi9kb2NzL3NlcnZpY2UtYnVuZGxlLnBkZiIsImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJjYXNlSWQiLCJ2YWx1ZSI6IjB4YTFhZDM4MDYzMWU3YmVhMDNiOWEzMmMyODJlNDQxYmNmZDMxMTA5ZjFjMmM5M2M2ZjdkMjQwMmYzZDM5YjliNyJ9LHsidHJhaXRfdHlwZSI6ImNvbmRpdGlvbklkIiwidmFsdWUiOjJ9LHsidHJhaXRfdHlwZSI6ImRvY3VtZW50c1NoYTI1NiIsInZhbHVlIjoiMHg2ODFiMmEzN2M1NzA1NTBhNTNiMTljY2E5OWNjZWE0Njc1MjBjNWVjODUwYTMyMjNmYWM0MjE2NWQ4MDZjZDJjIn1dfQ==",
+      "explorerUrl": "https://sepolia.etherscan.io/tx/0xabaa14f11732ce55fc7f29584908ca41f37e0a76b4dc620da8dbe7450ad95b99"
     },
     {
       "source": "servechain",
       "chain": "sepolia",
-      "recipient": "0x658020984816342E1414821e1c33Dfd6654bbaB7",
+      "recipient": "0x673bBc0dDDb238B30f2e3B5E8A0beb94f525DDd5",
       "recipientLabel": "stand-in for Wallet 2",
-      "txHash": "0x3d09096b122f8407ea25cf408674d57803350d588535cc24132e7a4b3bf80993",
-      "block": 11989463,
-      "timestamp": "2026-10-25T07:43:24.000Z",
+      "txHash": "0xcc8b4b16542460bba81a8f31a68d456eb0bcc5bb23c88500e778d6ae3b6b1722",
+      "block": 11989767,
+      "timestamp": "2026-10-25T08:45:12.000Z",
       "tokenId": 2,
-      "tokenURI": "data:application/json;base64,eyJuYW1lIjoiTm90aWNlIG9mIExhd3N1aXQgIzIiLCJkZXNjcmlwdGlvbiI6IlNlcnZpY2UgZG9jdW1lbnRzIGFyZSBwb3N0ZWQgYXQgZXh0ZXJuYWxfdXJsLiBTSEEtMjU2IG9mIHRoZSBkb2N1bWVudCBidW5kbGU6IDB4M2EwOTc0ODE5NWMxMTc4MWU5MGM2ZTE4Yzg2YzM0ZjY0ZjY3M2QxYjk2NWYwYmNjYjM5MTc4ZGQ2OGI5NzU2ZCIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8va2ltc2FiaW43MjUuZ2l0aHViLmlvL3NlcnZlY2hhaW4vZG9jcy9zZXJ2aWNlLWJ1bmRsZS5wZGYiLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiY2FzZUlkIiwidmFsdWUiOiIweGExYWQzODA2MzFlN2JlYTAzYjlhMzJjMjgyZTQ0MWJjZmQzMTEwOWYxYzJjOTNjNmY3ZDI0MDJmM2QzOWI5YjcifSx7InRyYWl0X3R5cGUiOiJjb25kaXRpb25JZCIsInZhbHVlIjoyfSx7InRyYWl0X3R5cGUiOiJkb2N1bWVudHNTaGEyNTYiLCJ2YWx1ZSI6IjB4M2EwOTc0ODE5NWMxMTc4MWU5MGM2ZTE4Yzg2YzM0ZjY0ZjY3M2QxYjk2NWYwYmNjYjM5MTc4ZGQ2OGI5NzU2ZCJ9XX0=",
-      "explorerUrl": "https://sepolia.etherscan.io/tx/0x3d09096b122f8407ea25cf408674d57803350d588535cc24132e7a4b3bf80993"
+      "tokenURI": "data:application/json;base64,eyJuYW1lIjoiTm90aWNlIG9mIExhd3N1aXQgIzIiLCJkZXNjcmlwdGlvbiI6IlNlcnZpY2UgZG9jdW1lbnRzIGFyZSBwb3N0ZWQgYXQgZXh0ZXJuYWxfdXJsLiBTSEEtMjU2IG9mIHRoZSBkb2N1bWVudCBidW5kbGU6IDB4NjgxYjJhMzdjNTcwNTUwYTUzYjE5Y2NhOTljY2VhNDY3NTIwYzVlYzg1MGEzMjIzZmFjNDIxNjVkODA2Y2QyYyIsImltYWdlIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhacFpYZENiM2c5SWpBZ01DQTBNREFnTkRBd0lqNDhjbVZqZENCM2FXUjBhRDBpTkRBd0lpQm9aV2xuYUhROUlqUXdNQ0lnWm1sc2JEMGlJMlptWm1WbVlpSWdjM1J5YjJ0bFBTSWpNV1F4WXpGaElpQnpkSEp2YTJVdGQybGtkR2c5SWpFeUlpOCtQSFJsZUhRZ2VEMGlNakF3SWlCNVBTSXhOekFpSUdadmJuUXRabUZ0YVd4NVBTSnpaWEpwWmlJZ1ptOXVkQzF6YVhwbFBTSXpOQ0lnWm05dWRDMTNaV2xuYUhROUlqY3dNQ0lnZEdWNGRDMWhibU5vYjNJOUltMXBaR1JzWlNJZ1ptbHNiRDBpSXpGa01XTXhZU0krVTBWU1ZrbERSU0JPVDFSSlEwVThMM1JsZUhRK1BIUmxlSFFnZUQwaU1qQXdJaUI1UFNJeU1qQWlJR1p2Ym5RdFptRnRhV3g1UFNKdGIyNXZjM0JoWTJVaUlHWnZiblF0YzJsNlpUMGlNakFpSUhSbGVIUXRZVzVqYUc5eVBTSnRhV1JrYkdVaUlHWnBiR3c5SWlNeFpERmpNV0VpUG1OaGMyVWdNSGhoTVdGa016Z3dOand2ZEdWNGRENDhkR1Y0ZENCNFBTSXlNREFpSUhrOUlqSTJNQ0lnWm05dWRDMW1ZVzFwYkhrOUltMXZibTl6Y0dGalpTSWdabTl1ZEMxemFYcGxQU0l5TUNJZ2RHVjRkQzFoYm1Ob2IzSTlJbTFwWkdSc1pTSWdabWxzYkQwaUl6UmhORGcwTXlJK0l6SThMM1JsZUhRK1BDOXpkbWMrIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9raW1zYWJpbjcyNS5naXRodWIuaW8vc2VydmVjaGFpbi9kb2NzL3NlcnZpY2UtYnVuZGxlLnBkZiIsImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJjYXNlSWQiLCJ2YWx1ZSI6IjB4YTFhZDM4MDYzMWU3YmVhMDNiOWEzMmMyODJlNDQxYmNmZDMxMTA5ZjFjMmM5M2M2ZjdkMjQwMmYzZDM5YjliNyJ9LHsidHJhaXRfdHlwZSI6ImNvbmRpdGlvbklkIiwidmFsdWUiOjJ9LHsidHJhaXRfdHlwZSI6ImRvY3VtZW50c1NoYTI1NiIsInZhbHVlIjoiMHg2ODFiMmEzN2M1NzA1NTBhNTNiMTljY2E5OWNjZWE0Njc1MjBjNWVjODUwYTMyMjNmYWM0MjE2NWQ4MDZjZDJjIn1dfQ==",
+      "explorerUrl": "https://sepolia.etherscan.io/tx/0xcc8b4b16542460bba81a8f31a68d456eb0bcc5bb23c88500e778d6ae3b6b1722"
     },
     {
       "source": "servechain",
       "chain": "sepolia",
-      "recipient": "0x525Ff75C9504842895aC18Dbd6383BC74e081d1c",
+      "recipient": "0xAb5F8CDb98A846aD454c3D32b7A69e66D854Bd63",
       "recipientLabel": "stand-in for Wallet 3",
-      "txHash": "0x7f19a48935c2f77b32222a5fb53e9e52cb56f0a00c0b7e9c1e24f7dafe7d04c3",
-      "block": 11989464,
-      "timestamp": "2026-10-25T07:43:36.000Z",
+      "txHash": "0xb2b5650dfa2e28c0bf3d4b0b8796aee875e046c1e089a58b009a02c8fd045490",
+      "block": 11989768,
+      "timestamp": "2026-10-25T08:45:24.000Z",
       "tokenId": 3,
-      "tokenURI": "data:application/json;base64,eyJuYW1lIjoiTm90aWNlIG9mIExhd3N1aXQgIzMiLCJkZXNjcmlwdGlvbiI6IlNlcnZpY2UgZG9jdW1lbnRzIGFyZSBwb3N0ZWQgYXQgZXh0ZXJuYWxfdXJsLiBTSEEtMjU2IG9mIHRoZSBkb2N1bWVudCBidW5kbGU6IDB4M2EwOTc0ODE5NWMxMTc4MWU5MGM2ZTE4Yzg2YzM0ZjY0ZjY3M2QxYjk2NWYwYmNjYjM5MTc4ZGQ2OGI5NzU2ZCIsImV4dGVybmFsX3VybCI6Imh0dHBzOi8va2ltc2FiaW43MjUuZ2l0aHViLmlvL3NlcnZlY2hhaW4vZG9jcy9zZXJ2aWNlLWJ1bmRsZS5wZGYiLCJhdHRyaWJ1dGVzIjpbeyJ0cmFpdF90eXBlIjoiY2FzZUlkIiwidmFsdWUiOiIweGExYWQzODA2MzFlN2JlYTAzYjlhMzJjMjgyZTQ0MWJjZmQzMTEwOWYxYzJjOTNjNmY3ZDI0MDJmM2QzOWI5YjcifSx7InRyYWl0X3R5cGUiOiJjb25kaXRpb25JZCIsInZhbHVlIjoyfSx7InRyYWl0X3R5cGUiOiJkb2N1bWVudHNTaGEyNTYiLCJ2YWx1ZSI6IjB4M2EwOTc0ODE5NWMxMTc4MWU5MGM2ZTE4Yzg2YzM0ZjY0ZjY3M2QxYjk2NWYwYmNjYjM5MTc4ZGQ2OGI5NzU2ZCJ9XX0=",
-      "explorerUrl": "https://sepolia.etherscan.io/tx/0x7f19a48935c2f77b32222a5fb53e9e52cb56f0a00c0b7e9c1e24f7dafe7d04c3"
+      "tokenURI": "data:application/json;base64,eyJuYW1lIjoiTm90aWNlIG9mIExhd3N1aXQgIzMiLCJkZXNjcmlwdGlvbiI6IlNlcnZpY2UgZG9jdW1lbnRzIGFyZSBwb3N0ZWQgYXQgZXh0ZXJuYWxfdXJsLiBTSEEtMjU2IG9mIHRoZSBkb2N1bWVudCBidW5kbGU6IDB4NjgxYjJhMzdjNTcwNTUwYTUzYjE5Y2NhOTljY2VhNDY3NTIwYzVlYzg1MGEzMjIzZmFjNDIxNjVkODA2Y2QyYyIsImltYWdlIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhacFpYZENiM2c5SWpBZ01DQTBNREFnTkRBd0lqNDhjbVZqZENCM2FXUjBhRDBpTkRBd0lpQm9aV2xuYUhROUlqUXdNQ0lnWm1sc2JEMGlJMlptWm1WbVlpSWdjM1J5YjJ0bFBTSWpNV1F4WXpGaElpQnpkSEp2YTJVdGQybGtkR2c5SWpFeUlpOCtQSFJsZUhRZ2VEMGlNakF3SWlCNVBTSXhOekFpSUdadmJuUXRabUZ0YVd4NVBTSnpaWEpwWmlJZ1ptOXVkQzF6YVhwbFBTSXpOQ0lnWm05dWRDMTNaV2xuYUhROUlqY3dNQ0lnZEdWNGRDMWhibU5vYjNJOUltMXBaR1JzWlNJZ1ptbHNiRDBpSXpGa01XTXhZU0krVTBWU1ZrbERSU0JPVDFSSlEwVThMM1JsZUhRK1BIUmxlSFFnZUQwaU1qQXdJaUI1UFNJeU1qQWlJR1p2Ym5RdFptRnRhV3g1UFNKdGIyNXZjM0JoWTJVaUlHWnZiblF0YzJsNlpUMGlNakFpSUhSbGVIUXRZVzVqYUc5eVBTSnRhV1JrYkdVaUlHWnBiR3c5SWlNeFpERmpNV0VpUG1OaGMyVWdNSGhoTVdGa016Z3dOand2ZEdWNGRENDhkR1Y0ZENCNFBTSXlNREFpSUhrOUlqSTJNQ0lnWm05dWRDMW1ZVzFwYkhrOUltMXZibTl6Y0dGalpTSWdabTl1ZEMxemFYcGxQU0l5TUNJZ2RHVjRkQzFoYm1Ob2IzSTlJbTFwWkdSc1pTSWdabWxzYkQwaUl6UmhORGcwTXlJK0l6TThMM1JsZUhRK1BDOXpkbWMrIiwiZXh0ZXJuYWxfdXJsIjoiaHR0cHM6Ly9raW1zYWJpbjcyNS5naXRodWIuaW8vc2VydmVjaGFpbi9kb2NzL3NlcnZpY2UtYnVuZGxlLnBkZiIsImF0dHJpYnV0ZXMiOlt7InRyYWl0X3R5cGUiOiJjYXNlSWQiLCJ2YWx1ZSI6IjB4YTFhZDM4MDYzMWU3YmVhMDNiOWEzMmMyODJlNDQxYmNmZDMxMTA5ZjFjMmM5M2M2ZjdkMjQwMmYzZDM5YjliNyJ9LHsidHJhaXRfdHlwZSI6ImNvbmRpdGlvbklkIiwidmFsdWUiOjJ9LHsidHJhaXRfdHlwZSI6ImRvY3VtZW50c1NoYTI1NiIsInZhbHVlIjoiMHg2ODFiMmEzN2M1NzA1NTBhNTNiMTljY2E5OWNjZWE0Njc1MjBjNWVjODUwYTMyMjNmYWM0MjE2NWQ4MDZjZDJjIn1dfQ==",
+      "explorerUrl": "https://sepolia.etherscan.io/tx/0xb2b5650dfa2e28c0bf3d4b0b8796aee875e046c1e089a58b009a02c8fd045490"
     }
   ],
   "affidavit": {
-    "hash": "0xe02e0137494f682c04f9ae416030bb9609f7c6b1b0cfb9b7fce7d3f09a44683f",
-    "declaredFiledAt": "2026-10-25T07:44:36.000Z",
-    "txHash": "0xeb8f33711c480d6c5fdaff912a031d6619824baf00f1250a86ccb5c1bbff2fcb",
-    "explorerUrl": "https://sepolia.etherscan.io/tx/0xeb8f33711c480d6c5fdaff912a031d6619824baf00f1250a86ccb5c1bbff2fcb",
+    "hash": "0x43da95ac0f6b48dc476c28bed56ef459c5de6384b22e8f1e406dc661ddd93acc",
+    "declaredFiledAt": "2026-10-25T08:46:36.000Z",
+    "txHash": "0x03b2f014c6e7e2ca2fa8e4b259c0be9f62eff991c7fb1532fa4d3245ef8c2138",
+    "explorerUrl": "https://sepolia.etherscan.io/tx/0x03b2f014c6e7e2ca2fa8e4b259c0be9f62eff991c7fb1532fa4d3245ef8c2138",
     "file": "affidavit.pdf",
-    "note": "declared by filer; chain cannot prove court filing date"
+    "note": "sample affidavit data (to be sworn by the person who served); filing time declared by the filer; the chain cannot prove the court filing date"
   },
   "deadlines": {
     "originalServiceDeadline": "2025-10-09",
-    "serviceDeadline": "2027-02-22T07:42:48.000Z",
+    "serviceDeadline": "2027-02-22T08:44:36.000Z",
     "serviceDeadlineNote": "Replay deadline = case opening + 120 days, because the registry only accepts a future deadline. The original case deadline was entry 2025-06-11 + 120 days.",
-    "responseDeadline": "2026-11-24T07:44:36.000Z",
+    "responseDeadline": "2026-11-24T08:46:36.000Z",
+    "responseDeadlineNY": "2026-11-24",
+    "estimateNote": "Estimate. Counting rules (GCL §20, §25-a weekends/holidays) not applied — counsel must confirm the last day.",
+    "validityNote": "Meaningful only if service was valid under the order.",
     "rule": "CPLR 320(a)",
     "formula": "answerDue = declaredFiledAt + 30 days",
     "status": "excerpt-verified",
-    "caveat": "weekend/holiday roll-forward (GCL §25-a) not applied — lawyer review required",
+    "caveat": "Estimate. Counting rules (GCL §20, §25-a weekends/holidays) not applied — counsel must confirm the last day. Meaningful only if service was valid under the order.",
     "openPoints": [
-      "Day counting and weekend/holiday rollover (General Construction Law §25-a) not read [unverified].",
+      "Day counting (General Construction Law §20) and weekend/holiday rollover (§25-a) not read and not applied [unverified]; counsel must confirm the last day.",
       "Whether filing means NYSCEF acceptance time or submission time is not addressed [unverified].",
       "Excerpts came through WebFetch, not raw statute text."
     ]
@@ -433,14 +446,28 @@
   "rules": [
     {
       "section": "CPLR 306(a)",
-      "rule": "Proof of service must state papers served, person served, date, time and place",
+      "rule": "Proof of service must state the papers served, the person served, the date, time and place, and that service was made by an authorized person in an authorized manner",
       "days": null,
       "url": "https://www.nysenate.gov/legislation/laws/CVP/306",
       "status": "excerpt-verified",
       "quote": [
-        "Proof of service shall specify the papers served, the person who was served and the date, time,"
+        "Proof of service shall specify the papers served, the person who was served and the date, time,",
+        "set forth facts showing that the service was made by an authorized person and in an authorized manner."
       ],
       "note": "306(a) itself contains no affidavit wording; it governs the content of proof of service. The affidavit requirement comes from the order (p.6), which cites 306(a).",
+      "amendmentReviewed": null
+    },
+    {
+      "section": "CPLR 306(d)",
+      "rule": "Form of proof: a certificate when a sheriff or other authorized public officer serves; otherwise an affidavit of the person who made service (signed and sworn by that person)",
+      "days": null,
+      "url": "https://www.nysenate.gov/legislation/laws/CVP/306",
+      "status": "summary",
+      "quote": [
+        "Proof of service shall be in the form of a certificate if the service is made by a sheriff",
+        "or other authorized public officer"
+      ],
+      "note": "Retrieved 2026-10-25 via WebFetch excerpt. The affidavit clause for any other person was paraphrased by the tool, not quoted (summary).",
       "amendmentReviewed": null
     },
     {
@@ -483,7 +510,7 @@
     },
     {
       "section": "CPLR 320(a)",
-      "rule": "Appearance within 20 days of service, or 30 days after service is complete when served under 308(2)-(5) and other listed provisions",
+      "rule": "Appearance within 20 days of service, or 30 days after service is complete when served under 308(2)-(5) and other listed provisions (used here because the order did not set a different period)",
       "days": 30,
       "url": "https://www.nysenate.gov/legislation/laws/CVP/320",
       "status": "excerpt-verified",
@@ -496,7 +523,7 @@
     },
     {
       "section": "CPLR 3012(c)",
-      "rule": "When summons and complaint are served together under 308(2)-(5) (and other listed provisions), the answer is due within thirty days after service is complete",
+      "rule": "When summons and complaint are served together under 308(2)-(5) (and other listed provisions), the answer is due within thirty days after service is complete (used here because the order did not set a different period)",
       "days": 30,
       "url": "https://www.nysenate.gov/legislation/laws/CVP/3012",
       "status": "excerpt-verified",
@@ -510,7 +537,7 @@
     },
     {
       "section": "CPLR 3215(f)",
-      "rule": "Default application must include proof of service of summons and complaint, and proof of facts, default and amount due by affidavit",
+      "rule": "Partial list: a default application must include proof of service of the summons and complaint, and proof of the facts, the default and the amount due by affidavit. Other default requirements (e.g., an SCRA affidavit) are not covered here",
       "days": null,
       "url": "https://www.nysenate.gov/legislation/laws/CVP/3215",
       "status": "excerpt-verified",
@@ -524,7 +551,7 @@
     },
     {
       "section": "CPLR 3215(c)",
-      "rule": "If plaintiff does not seek default judgment within one year after the default, the court dismisses the complaint as abandoned, unless sufficient cause is shown",
+      "rule": "If the plaintiff does not take proceedings for a default judgment within one year after the default, the court dismisses the complaint as abandoned, unless sufficient cause is shown",
       "days": 365,
       "url": "https://www.nysenate.gov/legislation/laws/CVP/3215",
       "status": "excerpt-verified",
@@ -548,30 +575,33 @@
       "citation": "LCX AG v 1.274M U.S. Dollar Coin, 2022 NY Slip Op 32834[U]",
       "court": "Sup Ct, NY County",
       "year": 2022,
-      "point": "Service on anonymous defendants by an airdropped token linking to a website with the papers.",
+      "point": "Service on anonymous defendants by a token airdrop (not an NFT) linking to a website with the papers. A trial-court order (as cited; the decision itself was not read).",
       "source": "decision-and-pleadings-2025.pdf p.4 (L1 decision)",
       "status": "as-cited",
-      "note": "Citation form as printed on p.4 of the L1 decision. The OAG memorandum cites the same matter as LCX AG v. John Doe Nos. 1-25, No. 154644/2022."
+      "note": "Citation form as printed on p.4 of the L1 decision. The OAG memorandum cites the same matter as LCX AG v. John Doe Nos. 1-25, No. 154644/2022.",
+      "method": "token airdrop"
     },
     {
       "id": "meghji-2024",
       "citation": "Meghji v Wallet Owner (In re Celsius Network LLC), 666 BR 28 [Bankr SD NY 2024]",
       "court": "Bankr. S.D.N.Y.",
       "year": 2024,
-      "point": "Service by airdropped NFT into crypto wallets of unidentifiable owners.",
+      "point": "Service by airdropped NFT into crypto wallets of unidentifiable owners. A bankruptcy-court order (as cited; the decision itself was not read).",
       "source": "decision-and-pleadings-2025.pdf p.4 (L1 decision)",
       "status": "as-cited",
-      "note": null
+      "note": null,
+      "method": "NFT"
     },
     {
       "id": "ny-ag-2025",
-      "citation": "People v Unknown Parties in Ownership and/or Control of Digital Wallet Addresses, Sup Ct, Queens County, Index No. 700647/2025",
+      "citation": "People v Unknown Parties in Ownership and/or Control of Digital Wallet Addresses, Sup Ct, Queens County, Index No. 700647/2025, reported as 2025 NY Slip Op 25143 (official text not retrieved)",
       "court": "Sup Ct, Queens County",
       "year": 2025,
-      "point": "Service by airdropping NFTs hyperlinked to a website with the papers to three wallet addresses (CPLR 308(5)); service complete on filing of the affidavit.",
+      "point": "Service by airdropping NFTs hyperlinked to a website with the papers to three wallet addresses (CPLR 308(5)); service complete on filing of the affidavit. A trial-court order on an unopposed motion.",
       "source": "https://ag.ny.gov/sites/default/files/court-filings/people-v-digital-wallet-0xd7648fffa48e06b0107435a966f3f1e9dbe10b7d-decision-and-pleadings-2025.pdf pp.1, 6, 9",
       "status": "read",
-      "note": "Signed 2025-06-09, entered 2025-06-11 (NYSCEF 21). A Slip Op number was not confirmed (nycourts.gov reporter returned 403 on 2026-10-25), so it is cited by Index No. only."
+      "note": "Signed 2025-06-09, entered 2025-06-11 (NYSCEF 21). A web search lists it as 2025 NY Slip Op 25143 (one search summary also gave 87 Misc 3d 950). The official text was not retrieved: on 2026-10-25 nycourts.gov returned 403, law.justia.com returned 403, Casetext returned 410, CourtListener search returned no results and Google Scholar returned a captcha. The order itself was read from the ag.ny.gov PDF.",
+      "method": "NFT"
     }
   ],
   "contacts": {
@@ -749,7 +779,7 @@
     "txHash": null,
     "at": null,
     "timeTravel": false,
-    "pendingUntil": "2026-11-24T07:44:36.000Z",
+    "pendingUntil": "2026-11-24T08:46:36.000Z",
     "leaves": [
       "0x8708cb2fed6d50fde9ff459e63d4318055341fbfe5d25c54b56e65cbee89db2d",
       "0x49f40d697adb8e36cba2e712483ac6758a91785bc1243327446bc21f1fb323b0",
@@ -761,8 +791,8 @@
     "note": "Sepolia time cannot be advanced. The registry rejects a declaredFiledAt earlier than case opening (FiledAtBeforeOpen) and any snapshot before the response deadline (ResponsePeriodOpen), so this step is pending on-chain. The snapshot step is shown from the local anvil replay.",
     "localReplay": {
       "case": "../case-local/case.json",
-      "txHash": "0xd918756c5796615eccecdd3ab5c45cb96e7c2ecfeeec8dc6f593a074b2a6865f",
-      "at": "2026-11-25T07:41:51.000Z",
+      "txHash": "0xb53d28ec375564ce11537e846e30032c86cbf43c6e2daa3246388f2442a8b8d4",
+      "at": "2026-11-25T08:41:31.000Z",
       "activityRootHash": "0x4a985a35b1c75ec10aa6ec5aae0217b9ecce863d8af8edc9a2b2325e27689404",
       "timeTravel": true
     }
@@ -942,10 +972,11 @@
       "block": 23034673,
       "timestamp": "2025-07-30T21:39:11.000000Z",
       "tokenId": "0",
+      "attribution": "unattributed",
       "contract": "0xbD0ac870f8427cdB45b4A6F1F0CaFF462fe3ab13",
       "name": "Service of NY OAG Summons and Complaint No 700647-2025",
       "explorerUrl": "https://etherscan.io/tx/0xc1663d2f20123334529ae08babaf9c64b08b5c003e07f2437891a4f90b15aba2",
-      "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records.",
+      "note": "Unattributed NFTs titled \"Service of NY OAG Summons and Complaint…\" seen on 2025-07-30 (sender not matched to court records; contract name on-chain: SoulBoundTest). Context only, not linked to any condition.",
       "readOnly": true
     },
     {
@@ -961,7 +992,7 @@
       "contract": "TWfk4YA4DejRtvCXFZ31fA7oEBSRKCuoKr",
       "name": "Service of NY OAG Summons and Complaint No 700647-2025 (name truncated on-chain)",
       "explorerUrl": "https://tronscan.org/#/transaction/fc60e664cacf5d6e621426b1a4432b50b9a55a655db0877620f386836c93ef8c",
-      "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records.",
+      "note": "Unattributed NFTs titled \"Service of NY OAG Summons and Complaint…\" seen on 2025-07-30 (sender not matched to court records; contract name on-chain: SoulBoundTest). Context only, not linked to any condition.",
       "readOnly": true
     },
     {
@@ -977,7 +1008,7 @@
       "contract": "TBbKsMwBafDHCFvH5L3tVQ58TbWRSeb3JN",
       "name": "Service of NY OAG Summons and Complaint No 700647-2025 (name truncated on-chain)",
       "explorerUrl": "https://tronscan.org/#/transaction/54d889e3eae9ca97e35e73ad35e8e3eafeaf50db996f5db60853b5e1f65b7492",
-      "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records.",
+      "note": "Unattributed NFTs titled \"Service of NY OAG Summons and Complaint…\" seen on 2025-07-30 (sender not matched to court records; contract name on-chain: SoulBoundTest). Context only, not linked to any condition.",
       "readOnly": true
     },
     {
@@ -993,7 +1024,7 @@
       "contract": "TLZbs3gxMdyJys3Cd55nGFiXH5HbjR3BQ6",
       "name": "Service of NY OAG Summons and Complaint No 700647-2025 (name truncated on-chain)",
       "explorerUrl": "https://tronscan.org/#/transaction/65fd0328eb59da32ca1fc4fa0303fe7c15725945aaea3e5039afdc8ba2a97ce5",
-      "note": "Delivered 2025-07-30, inside the 120-day window set by the June 2025 order (due 2025-10-09). On-chain name only; sender not verified against court records.",
+      "note": "Unattributed NFTs titled \"Service of NY OAG Summons and Complaint…\" seen on 2025-07-30 (sender not matched to court records; contract name on-chain: SoulBoundTest). Context only, not linked to any condition.",
       "readOnly": true
     },
     {
@@ -1078,16 +1109,16 @@
     }
   ],
   "exhibit": {
-    "sha256": "0x3151ae313677b99152cd0ed5633672a7ae5dfcf9c89df3adde1d27d3b1121a02",
+    "sha256": "0x1668271d1df8a686a276d497082458fa18bb853cf0329a3f307d1bd134e496cc",
     "registrySlot": 5,
-    "txHash": "0xbb030a7a67d5ad6d13e5cf3f479b4af10c64ab042922ecbf319b7cf27721cef3",
-    "block": 11989474,
-    "at": "2026-10-25T07:45:48.000Z",
-    "explorerUrl": "https://sepolia.etherscan.io/tx/0xbb030a7a67d5ad6d13e5cf3f479b4af10c64ab042922ecbf319b7cf27721cef3",
+    "txHash": "0xd6209e973abdfae95561e075d3c0fdeba05ad7e19abeb47d92f8d8eafaa27761",
+    "block": 11989776,
+    "at": "2026-10-25T08:47:36.000Z",
+    "explorerUrl": "https://sepolia.etherscan.io/tx/0xd6209e973abdfae95561e075d3c0fdeba05ad7e19abeb47d92f8d8eafaa27761",
     "pdf": "exhibit.pdf",
     "html": "exhibit.html",
     "note": "Only the PDF bytes are anchored; exhibit.html is the print source."
   },
-  "disclaimer": "Replay of a public court record for demonstration. Nothing was sent to the real defendant wallets; they are read only. Proof-of-service material, not legal advice and not a legal determination.",
-  "generatedAt": "2026-10-25T07:45:50.995Z"
+  "disclaimer": "Replay of a public New York Attorney General case; the author is not a party to it. Nothing was sent to the real defendant wallets; they are read only. For counsel's review. Does not determine compliance. Not legal advice.",
+  "generatedAt": "2026-10-25T08:47:39.076Z"
 }

@@ -22,21 +22,21 @@ BT /F1 10 Tf 50 742 Td (Supreme Court of the State of New York, Queens County, I
 BT /F1 10 Tf 50 728 Td () Tj ET
 BT /F1 10 Tf 50 714 Td (Sample affidavit data \(to be sworn by the person who served, CPLR 306\(d\)\). Produced by a) Tj ET
 BT /F1 10 Tf 50 700 Td (software demonstration; nobody swore to it and it was not filed.) Tj ET
-BT /F1 10 Tf 50 686 Td (Declared filing time \(entered by the filer, not proven by the chain\): 2026-10-25T08:30:31.000Z) Tj ET
+BT /F1 10 Tf 50 686 Td (Declared filing time \(entered by the filer, not proven by the chain\): 2026-10-25T08:41:19.000Z) Tj ET
 BT /F1 10 Tf 50 672 Td (Network: anvil \(local\). Recipients are stand-in wallets, not the defendants' wallets.) Tj ET
 BT /F1 10 Tf 50 658 Td (SHA-256 of the served document bundle:) Tj ET
-BT /F1 10 Tf 50 644 Td (0x905443e61d210b8d7364010d426397ef1c808dd10aefd58e6647a4d01a09f872) Tj ET
+BT /F1 10 Tf 50 644 Td (0x681b2a37c570550a53b19cca99ccea467520c5ec850a3223fac42165d806cd2c) Tj ET
 BT /F1 10 Tf 50 630 Td () Tj ET
 BT /F1 10 Tf 50 616 Td (Service notices minted:) Tj ET
 BT /F1 10 Tf 50 602 Td (stand-in for Wallet 1: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 - token 1 - tx) Tj ET
-BT /F1 10 Tf 50 588 Td (0x1831b55b455ab8774dfec3e60b1b4165031a60777631b773498fa0eb4617ad10 \(block 4,) Tj ET
-BT /F1 10 Tf 50 574 Td (2026-10-25T08:30:07.000Z\)) Tj ET
+BT /F1 10 Tf 50 588 Td (0x3bcc751efe6ebb0d7b17d95d350f303062d50f66fd50e090e3497aa53a9ab2aa \(block 4,) Tj ET
+BT /F1 10 Tf 50 574 Td (2026-10-25T08:40:55.000Z\)) Tj ET
 BT /F1 10 Tf 50 560 Td (stand-in for Wallet 2: 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC - token 2 - tx) Tj ET
-BT /F1 10 Tf 50 546 Td (0x371ebacc923670830ff81c57616a3fc52574ba48b8fef1e7306578fa6b8986aa \(block 5,) Tj ET
-BT /F1 10 Tf 50 532 Td (2026-10-25T08:30:11.000Z\)) Tj ET
+BT /F1 10 Tf 50 546 Td (0xb26e9dae8af84168db8efa149eb59d58f1d3eb76c90e414aebc708c918bea8bd \(block 5,) Tj ET
+BT /F1 10 Tf 50 532 Td (2026-10-25T08:40:59.000Z\)) Tj ET
 BT /F1 10 Tf 50 518 Td (stand-in for Wallet 3: 0x90F79bf6EB2c4f870365E785982E1f101E93b906 - token 3 - tx) Tj ET
-BT /F1 10 Tf 50 504 Td (0x39f95553df9215a99d6bed33da2edf8175cb7b906448132be09e9d42e0c5d62a \(block 6,) Tj ET
-BT /F1 10 Tf 50 490 Td (2026-10-25T08:30:15.000Z\)) Tj ET
+BT /F1 10 Tf 50 504 Td (0x227a3d61df39697da2aa49ea5eb47ce32fd1a6393b2ba2d94a681337dcf99952 \(block 6,) Tj ET
+BT /F1 10 Tf 50 490 Td (2026-10-25T08:41:03.000Z\)) Tj ET
 endstream
 endobj
 6 0 obj
