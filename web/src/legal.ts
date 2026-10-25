@@ -42,9 +42,3 @@ export const RULES = [
     status: 'read',
   },
 ];
-
-export const PRECEDENTS = [
-  'LCX AG v. John Does 1-25 (N.Y. Sup. Ct., N.Y. County, 2022)',
-  'Meghji v Wallet Owner (In re Celsius), 666 B.R. 28 (Bankr. S.D.N.Y. 2024)',
-  'People v Unknown Parties in Ownership and/or Control of Digital Wallet Addresses (N.Y. Sup. Ct., Queens County, 2025 NY Slip Op 25143)',
-];

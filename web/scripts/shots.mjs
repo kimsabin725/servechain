@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const url = process.env.URL || 'http://localhost:4173/';
-const out = path.resolve(process.env.OUT || '../private/shots');
+const out = path.resolve(process.env.OUT || '../private/shots/v2');
 fs.mkdirSync(out, { recursive: true });
 const browser = await chromium.launch();
 const errors = [];
@@ -33,11 +33,18 @@ async function pass(tag, viewport, scheme) {
         log.push(`${tag} ${name}: ${await page.locator('.result').innerText()}`);
         await page.screenshot({ path: `${out}/${tag}-step5-${name}.png`, fullPage: true });
       }
+      if (await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)) errors.push(`${tag} step5: horizontal overflow`);
       continue;
     }
     await page.screenshot({ path: `${out}/${tag}-step${s}.png`, fullPage: true });
+    log.push(`${tag} step${s} height ${await page.evaluate(() => document.documentElement.scrollHeight)}px`);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
     if (overflow) errors.push(`${tag} step${s}: horizontal overflow`);
+    for (const t of await page.locator('.term').all()) {
+      if (!(await t.isVisible())) continue;
+      await t.focus();
+      if (await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)) errors.push(`${tag} step${s}: tooltip overflow (${await t.innerText()})`);
+    }
   }
   await page.close();
 }
@@ -45,6 +52,7 @@ async function pass(tag, viewport, scheme) {
 await pass('desktop-light', { width: 1280, height: 860 }, 'light');
 await pass('desktop-dark', { width: 1280, height: 860 }, 'dark');
 await pass('mobile', { width: 390, height: 844 }, 'light');
+await pass('mobile-dark', { width: 390, height: 844 }, 'dark');
 await browser.close();
 console.log(log.join('\n---\n'));
 console.log(errors.length ? errors.join('\n') : 'no errors');

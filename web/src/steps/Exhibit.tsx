@@ -1,8 +1,8 @@
 import { useCallback, useRef, useState } from 'react';
 import type { Loaded } from '../data';
-import { asset, short, txLink } from '../data';
-import { KIND_TEXT, verifyFile, type VerifyResult } from '../verify';
-import { Badge, Card, Hash, StepHead, TxRef } from '../ui';
+import { asset, txLink } from '../data';
+import { KIND_TEXT, describeMatch, verifyFile, type VerifyResult } from '../verify';
+import { Badge, Card, Hash, StepHead, Term, TxRef } from '../ui';
 
 type Run = { name: string; busy: boolean; result?: VerifyResult; error?: string };
 
@@ -45,7 +45,7 @@ export default function Exhibit({ l }: { l: Loaded }) {
   const ok = !!r && r.matches.length > 0;
   return (
     <div>
-      <StepHead n={5} title="Exhibit & verify" lead="One PDF for the affidavit of service or a default motion. Anyone can check it against the chain from this page, with no server of ours involved." />
+      <StepHead n={5} title="Exhibit & verify" lead={<>One <Term k="exhibit" /> PDF for the affidavit of service or a default motion. Anyone can check it against the chain from this page, with no server of ours involved.</>} />
       <div className="grid-2 top">
         <Card title="Exhibit A–C" aside={l.isSample ? <Badge tone="warn">Sample placeholder</Badge> : <Badge tone="info">exhibit.pdf</Badge>}>
           <p className="small muted">A: impracticability table · B: condition-by-condition record · C: deadlines and post-service activity.</p>
@@ -61,7 +61,7 @@ export default function Exhibit({ l }: { l: Loaded }) {
             </>
           ) : <p>No exhibit published yet.</p>}
           {l.data.exhibit?.sha256 && (
-            <p className="small">Anchored SHA-256: <Hash value={l.data.exhibit.sha256} />{l.data.exhibit.txHash && <> · registry slot {l.data.exhibit.registrySlot} · <TxRef hash={l.data.exhibit.txHash} href={txLink(l, l.data.exhibit.txHash, l.data.exhibit.explorerUrl)} n={4} /></>}</p>
+            <p className="small">Anchored SHA-256: <Hash value={l.data.exhibit.sha256} />{l.data.exhibit.txHash && <> · recorded as the exhibit anchor · <TxRef hash={l.data.exhibit.txHash} href={txLink(l, l.data.exhibit.txHash, l.data.exhibit.explorerUrl)} n={4} /></>}</p>
           )}
           <p className="small muted">Other files you can drop into the verifier:{' '}
             {l.data.documents.files.filter((f) => f.path).map((f) => <a key={f.name} href={asset(f.path!)} download>{f.name}</a>)}
@@ -93,22 +93,23 @@ export default function Exhibit({ l }: { l: Loaded }) {
               {run.error && <p><strong>Error:</strong> {run.error}</p>}
               {r && (
                 <>
-                  <p className="verdict">{ok ? 'MATCH' : 'MISMATCH'}</p>
-                  {ok && r.kind && <p className="verdict-kind">MATCH — {KIND_TEXT[r.kind]}</p>}
+                  <p className="verdict">{ok ? (r.path === 'offline' ? 'MATCH (offline)' : 'MATCH') : 'MISMATCH'}</p>
+                  {ok && r.path === 'offline' && <p className="small verdict-sub">Compared with the bundled event log, not an independent chain read.</p>}
+                  {ok && r.kind && <p className="verdict-kind">{KIND_TEXT[r.kind][0].toUpperCase() + KIND_TEXT[r.kind].slice(1)}.</p>}
                   <p className="small">File: {run.name}</p>
                   <p className="small">SHA-256: <code className="break">{r.fileHash}</code></p>
                   <p className="small">
-                    Path: <Badge tone={r.path === 'live' ? 'ok' : 'neutral'}>{r.path === 'live' ? 'Live' : 'Offline'}</Badge> {r.pathDetail} · {r.eventCount} events read
+                    Path: <Badge tone={r.path === 'live' ? 'ok' : 'neutral'}>{r.path === 'live' ? 'Live' : 'Offline'}</Badge> {r.pathDetail} · {r.eventCount} ServeChain events read (case registry and notice contract)
                   </p>
                   {r.fallbackReason && <p className="small muted">Live lookup unavailable: {r.fallbackReason}</p>}
                   {ok ? (
                     <ul className="small matches">
                       {r.matches.map((m) => (
-                        <li key={`${m.txHash}-${m.field}`}>{m.event}.{m.field}{m.conditionId !== undefined ? ` (conditionId ${m.conditionId})` : ''} · block {m.block} · <TxRef hash={m.txHash} href={txLink(l, m.txHash)} n={4} /></li>
+                        <li key={`${m.txHash}-${m.field}`}>{describeMatch(m, l.data)} · block {m.block} · <TxRef hash={m.txHash} href={txLink(l, m.txHash)} n={4} /></li>
                       ))}
                     </ul>
                   ) : (
-                    <p className="small">No event for case <code>{short(l.data.caseId, 4)}</code> anchors this hash. The file differs from what was recorded.</p>
+                    <p className="small">No ServeChain record for this case matches this file.{r.path === 'offline' ? ' Checked against the bundled event log.' : ''}</p>
                   )}
                 </>
               )}

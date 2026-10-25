@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import type { Loaded } from '../data';
 import { daysBetween, fmtDate, orderDeadline, orderEntered, short, txLink } from '../data';
 import type { Service } from '../types';
-import { Badge, Card, Hash, Status, StepHead, TxRef } from '../ui';
+import type { Condition } from '../types';
+import { plain } from '../content';
+import { Badge, Card, Hash, Status, StepHead, Term, TxRef } from '../ui';
 
 function useNow(ms = 60_000) {
   const [now, setNow] = useState(Date.now());
@@ -38,6 +40,29 @@ function ImportedTable({ rows }: { rows: Service[] }) {
   );
 }
 
+// Badges that say what each piece of evidence rests on: stand-in testnet tx or imported mainnet record.
+function Basis({ k, c }: { k: Condition; c: Loaded['data'] }) {
+  const stand = k.evidence.filter((e) => e.type !== 'imported').length;
+  const imp = k.evidence.filter((e) => e.type === 'imported').length;
+  if (k.kind === 'deadline') {
+    const basis = k.deadlineBasis ?? (c.mode === 'replay' ? 'replay' : 'original order');
+    const orig = k.originalServiceDeadline ?? k.derived?.dueDate ?? orderDeadline(c);
+    return (
+      <span className="basis">
+        <Badge tone={basis === 'replay' ? 'warn' : 'info'} title="Which deadline the check mark is measured against">{basis === 'replay' ? 'replay deadline' : 'original order deadline'}</Badge>
+        {basis === 'replay' && orig && <span className="small">original order deadline <strong>{fmtDate(orig)}</strong></span>}
+      </span>
+    );
+  }
+  if (!imp) return null;
+  return (
+    <span className="basis">
+      {stand > 0 && <Badge tone="info">stand-in tx on {c.chain.name}</Badge>}
+      <Badge>imported ×{imp}, real service (read-only)</Badge>
+    </span>
+  );
+}
+
 export default function Serve({ l }: { l: Loaded }) {
   const c = l.data;
   const now = useNow();
@@ -55,9 +80,9 @@ export default function Serve({ l }: { l: Loaded }) {
   const lastImported = underOrder.map((s) => s.timestamp).sort().pop();
   return (
     <div>
-      <StepHead n={3} title="Serve" lead="Hash the papers, fix that hash in each notice, mint one soulbound notice per target, and link every transaction to the condition it satisfies." />
+      <StepHead n={3} title="Serve" lead={<>Hash the papers, fix that hash in each notice, mint one <Term k="soulbound" /> notice per target, and link every transaction to the condition it satisfies.</>} />
       <div className="notice notice-safe">
-        <strong>Writes go to {c.chain.chainId === 11155111 ? 'Sepolia testnet' : c.chain.name} stand-in wallets only.</strong> The real defendant wallets are read-only in this demo.
+        <strong>Writes go to {c.chain.chainId === 11155111 ? 'Sepolia testnet' : c.chain.name} <Term k="stand-in wallet">stand-in wallets</Term> only.</strong> The real defendant wallets are read-only in this demo.
         {l.isSample && <> <Badge tone="warn">Sample data: transaction hashes are placeholders, links disabled</Badge></>}
       </div>
       <div className="grid-2 top">
@@ -69,23 +94,23 @@ export default function Serve({ l }: { l: Loaded }) {
           <ul className="files">
             {c.documents.files.map((f) => <li key={f.name}><span>{f.name}</span> <Hash value={f.sha256} n={4} /></li>)}
           </ul>
-          <p className="small muted">The bundle hash is written into every notice's tokenURI at mint and cannot be changed afterward.</p>
+          <p className="small muted">The bundle hash is written into every notice's <Term k="tokenURI" /> at mint. The notice contract has no function to change it afterward.</p>
         </Card>
-        <Card title="Service deadline" aside={<Badge>120 days</Badge>}>
+        <Card title="Service deadline" aside={<Badge tone="warn">replay deadline · 120 days</Badge>}>
           <div className={`countdown ${leftNow < 0 ? 'countdown-bad' : ''}`}>
             <span className="countdown-n">{Math.abs(leftNow)}</span>
-            <span>{leftNow >= 0 ? 'days left' : 'days past'} on the replay clock (due {fmtDate(dl)})</span>
+            <span>{leftNow >= 0 ? 'days left' : 'days past'} as of {fmtDate(new Date(now).toISOString())} (replay deadline {fmtDate(dl)})</span>
           </div>
           {leftAtService !== null && <p className="small">At the last ServeChain mint: <strong>{leftAtService} days</strong> remaining.</p>}
           {odl && (
             <p className="small muted">
-              Original order: entered {fmtDate(entered)} + 120 days = <strong>{fmtDate(odl)}</strong>.
+              The replay deadline is case opening on {c.chain.name} + 120 days, because the registry only accepts a future deadline. Original order: entered {fmtDate(entered)} + 120 days = <strong>{fmtDate(odl)}</strong>.
               {lastImported && <> The imported July 30, 2025 service was {daysBetween(lastImported, odl + 'T23:59:59Z')} days before that date.</>}
             </p>
           )}
         </Card>
       </div>
-      <Card title="2 · Notices minted" aside={<Badge tone="info">{c.chain.name} · chainId {c.chain.chainId}</Badge>}>
+      <Card title="2 · Notices minted" aside={<Badge tone="info">{c.chain.name} testnet · chain {c.chain.chainId}</Badge>}>
         <div className="table-scroll">
           <table>
             <thead><tr><th>#</th><th>Recipient</th><th>Address</th><th>Time (UTC)</th><th>Tx</th></tr></thead>
@@ -111,8 +136,8 @@ export default function Serve({ l }: { l: Loaded }) {
             return (
               <li key={k.id} className={ok ? 'ok' : 'bad'}>
                 <Status ok={ok} badText={k.kind === 'affidavit' ? 'Missing: affidavit not yet filed' : 'Missing'} />
-                <span className="check-title">{k.id + 1}. {k.title}</span>
-                {ok && ev && <span className="check-ev small muted">{ev.label} · <TxRef hash={ev.txHash} href={txLink(l, ev.txHash, ev.explorerUrl)} n={4} />{k.evidence.length > 1 ? ` +${k.evidence.length - 1} more` : ''}</span>}
+                <span className="check-title">{k.id + 1}. {k.title} {ok && <Basis k={k} c={c} />}</span>
+                {ok && ev && <span className="check-ev small muted">{plain(ev.label)} · <TxRef hash={ev.txHash} href={txLink(l, ev.txHash, ev.explorerUrl)} n={4} />{k.evidence.length > 1 ? ` +${k.evidence.length - 1} more` : ''}</span>}
               </li>
             );
           })}

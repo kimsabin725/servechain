@@ -1,7 +1,8 @@
 import type { Loaded } from '../data';
 import { addDays, daysBetween, fmtDate, txLink } from '../data';
 import { COMPLETE_QUOTE, RULES } from '../legal';
-import { Badge, Card, Hash, Quote, Status, StepHead, TxRef } from '../ui';
+import { plain, ruleStatus } from '../content';
+import { Badge, Card, Hash, Quote, Status, StepHead, Term, TxRef } from '../ui';
 
 export default function Deadline({ l }: { l: Loaded }) {
   const c = l.data;
@@ -10,30 +11,33 @@ export default function Deadline({ l }: { l: Loaded }) {
   const expected = addDays(filed, 30);
   const consistent = Math.abs(daysBetween(expected, due)) === 0;
   const aff = c.conditions.find((k) => k.kind === 'affidavit');
-  const statusRead = c.deadlines.status === 'read';
+  const st = ruleStatus(c.deadlines.status);
+  const statusRead = st.ok;
+  const ruleSt = (sec: string, fallback: string) => ruleStatus(c.rules?.find((r) => r.section === sec)?.status ?? fallback);
   return (
     <div>
       <StepHead n={4} title="Deadline" lead="The order says service is complete when the affidavit is filed. The response clock starts there." />
       <div className="grid-2 top">
         <Card title="Affidavit of service" aside={<Badge tone="warn">Declared by filer</Badge>}>
           <dl className="kv wide">
-            <dt>declaredFiledAt</dt><dd><strong>{fmtDate(filed, true)}</strong></dd>
+            <dt>Filing date (as declared by the filer)</dt><dd><strong>{fmtDate(filed, true)}</strong></dd>
             <dt>Affidavit hash</dt><dd><Hash value={c.affidavit.hash} /></dd>
           </dl>
           <p className="caveat">The chain cannot prove the court filing date. This value is entered by the filer and only its hash and the declared time are recorded.</p>
           {aff && (
-            <p className="small"><Status ok={aff.status === 'fulfilled'} /> {aff.id + 1}. {aff.title}{aff.evidence[0] && <> · <TxRef hash={aff.evidence[0].txHash} href={txLink(l, aff.evidence[0].txHash, aff.evidence[0].explorerUrl)} n={4} /></>}</p>
+            <p className="small"><Status ok={aff.status === 'fulfilled'} /> {aff.id + 1}. {plain(aff.title)}{aff.evidence[0] && <> · <TxRef hash={aff.evidence[0].txHash} href={txLink(l, aff.evidence[0].txHash, aff.evidence[0].explorerUrl)} n={4} /></>}</p>
           )}
         </Card>
-        <Card title="Response deadline" aside={<Badge tone={statusRead ? 'ok' : 'warn'}>{statusRead ? 'Rule text read' : 'Rule from summary'}</Badge>}>
+        <Card title="Response deadline" aside={<Badge tone={statusRead ? 'ok' : 'warn'}>{st.text}</Badge>}>
           <div className="calc">
             <span>{fmtDate(filed)}</span><span className="op">+ 30 days =</span><span className="calc-out">{fmtDate(due)}</span>
           </div>
-          <p className="small">{consistent ? 'Matches the deadline the registry derived on-chain.' : <span className="text-bad">Registry deadline differs from filedAt + 30 days ({fmtDate(expected)}). Check the data.</span>}</p>
-          <p className="small muted">Rule: {c.deadlines.rule}{statusRead ? '' : ' (source: summary, lawyer review required)'}</p>
+          <p className="small">{consistent ? 'Matches the deadline recorded by the registry.' : <span className="text-bad">Registry deadline differs from filing date + 30 days ({fmtDate(expected)}). Check the data.</span>}</p>
+          <p className="small muted">The response deadline is computed on-chain as filing date + 30 days; the filing date itself is declared by the filer.</p>
+          <p className="small muted">Rule: <Term k="CPLR">{c.deadlines.rule}</Term>{statusRead ? ' (statute excerpt checked)' : ' (source: summary, lawyer review required)'}</p>
           <p className="caveat">{c.deadlines.caveat}</p>
           {c.deadlines.openPoints && c.deadlines.openPoints.length > 0 && (
-            <ul className="small muted open-points">{c.deadlines.openPoints.map((o) => <li key={o}>{o}</li>)}</ul>
+            <ul className="small muted open-points">{c.deadlines.openPoints.map((o) => <li key={o}>{plain(o)}</li>)}</ul>
           )}
         </Card>
       </div>
@@ -42,7 +46,7 @@ export default function Deadline({ l }: { l: Loaded }) {
         <ul className="rules">
           {RULES.map((r) => (
             <li key={r.section}>
-              <div><strong>{r.section}</strong> <Badge tone={r.status === 'read' ? 'ok' : 'warn'}>{r.status}</Badge> <a className="small" href={r.url} target="_blank" rel="noreferrer noopener">nysenate.gov ↗</a></div>
+              <div><strong>{r.section}</strong> {(() => { const rs = ruleSt(r.section, r.status); return <Badge tone={rs.ok ? 'ok' : 'warn'}>{rs.text}</Badge>; })()} <a className="small" href={r.url} target="_blank" rel="noreferrer noopener">nysenate.gov ↗</a></div>
               <div className="small muted">{r.quote.map((q) => `"${q}"`).join(' … ')}</div>
             </li>
           ))}

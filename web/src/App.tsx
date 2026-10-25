@@ -48,7 +48,7 @@ export default function App() {
 
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
-      if ((e.target as HTMLElement)?.closest('input, textarea')) return;
+      if ((e.target as HTMLElement)?.closest('input, textarea, [data-keys]')) return;
       if (e.key === 'ArrowRight') go(step + 1);
       if (e.key === 'ArrowLeft') go(step - 1);
     };
@@ -60,6 +60,7 @@ export default function App() {
 
   return (
     <div className="app">
+      <a className="skip" href="#main" onClick={(e) => { e.preventDefault(); document.getElementById('main')?.focus(); }}>Skip to content</a>
       <header className="topbar">
         <div className="brand">
           <span className="mark" aria-hidden>§</span>
@@ -70,7 +71,7 @@ export default function App() {
         </div>
         <div className="top-right">
           {l && <Badge tone={l.isSample ? 'warn' : 'info'} title={`Loaded ${l.caseSource}`}>{l.isSample ? 'Sample data' : l.data.chain.name}</Badge>}
-          <button type="button" className="ghost" onClick={() => setTheme(dark ? 'light' : 'dark')} aria-label="Toggle color theme">{dark ? 'Light' : 'Dark'}</button>
+          <button type="button" className="ghost nowrap" onClick={() => setTheme(dark ? 'light' : 'dark')} aria-label={dark ? 'Light theme' : 'Dark theme'}>{dark ? 'Light theme' : 'Dark theme'}</button>
         </div>
       </header>
       <nav className="stepper" aria-label="Steps">
@@ -84,7 +85,7 @@ export default function App() {
           ))}
         </ol>
       </nav>
-      <main>
+      <main id="main" tabIndex={-1}>
         {err && <p className="text-bad">Could not load case data: {err}</p>}
         {!l && !err && <p className="muted">Loading case file…</p>}
         {l && (

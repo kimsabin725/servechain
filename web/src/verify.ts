@@ -16,6 +16,8 @@ const ABI = parseAbi([
   'event NoticeServed(uint256 indexed tokenId, bytes32 indexed caseId, uint8 indexed conditionId, address recipient, bytes32 documentsHash, string documentsUrl)',
 ]);
 
+export const DECODED = new Set(['CaseOpened', 'ConditionFulfilled', 'ServiceCompleted', 'ActivitySnapshot', 'NoticeServed']);
+
 const HASH_FIELDS = ['evidenceHash', 'documentsHash', 'affidavitHash', 'activityRootHash', 'orderHash', 'conditionsHash'];
 const PLACEHOLDER = /^0x0{30}/i;
 
@@ -39,6 +41,21 @@ export const KIND_TEXT: Record<Kind, string> = {
   snapshot: 'this is the anchored wallet activity root',
   evidence: 'this file is recorded as condition evidence',
 };
+
+// Describes a matching event in plain words.
+export function describeMatch(m: Match, c: CaseFile): string {
+  const slot = c.exhibit?.registrySlot ?? c.registrySlots?.find((s) => s.kind === 'exhibit-anchor')?.id;
+  if (m.event === 'ConditionFulfilled') {
+    if (m.conditionId === slot) return 'Exhibit anchor recorded in the case registry';
+    const k = c.conditions.find((x) => x.id === m.conditionId);
+    return k ? `Evidence for condition ${k.id + 1}: ${k.title}` : 'Condition evidence recorded in the case registry';
+  }
+  if (m.event === 'NoticeServed') return 'Document hash fixed in a service notice';
+  if (m.event === 'ServiceCompleted') return 'Affidavit hash recorded at service completion';
+  if (m.event === 'CaseOpened') return m.field === 'orderHash' ? 'Order hash recorded when the case was opened' : 'Conditions hash recorded when the case was opened';
+  if (m.event === 'ActivitySnapshot') return 'Wallet activity snapshot';
+  return m.event;
+}
 
 export async function sha256Hex(buf: ArrayBuffer): Promise<string> {
   const d = new Uint8Array(await crypto.subtle.digest('SHA-256', buf));
@@ -122,5 +139,5 @@ export async function verifyFile(buf: ArrayBuffer, c: CaseFile, offline: ChainEv
     }
   }
   const matches = findMatches(fileHash, offline, c.caseId);
-  return { fileHash, path: 'offline', pathDetail: `bundled ${offlineName}`, fallbackReason: reason, eventCount: offline.length, matches, kind: classify(matches, c) };
+  return { fileHash, path: 'offline', pathDetail: `bundled ${offlineName}`, fallbackReason: reason, eventCount: offline.filter((e) => DECODED.has(e.event)).length, matches, kind: classify(matches, c) };
 }

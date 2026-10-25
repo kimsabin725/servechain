@@ -1,5 +1,6 @@
-import { useState, type ReactNode } from 'react';
+import { useId, useState, type ReactNode } from 'react';
 import { short } from './data';
+import { GLOSSARY } from './content';
 
 export function Badge({ tone = 'neutral', children, title }: { tone?: 'neutral' | 'ok' | 'bad' | 'warn' | 'info'; children: ReactNode; title?: string }) {
   return <span className={`badge badge-${tone}`} title={title}>{children}</span>;
@@ -60,4 +61,20 @@ export function StepHead({ n, title, lead }: { n: number; title: string; lead: R
 
 export function Status({ ok, okText = 'Fulfilled', badText = 'Missing' }: { ok: boolean; okText?: string; badText?: string }) {
   return <span className={`status ${ok ? 'status-ok' : 'status-bad'}`}><span aria-hidden>{ok ? '✓' : '✕'}</span> {ok ? okText : badText}</span>;
+}
+
+// Dotted-underline term whose definition opens on hover or keyboard focus.
+export function Term({ k, children }: { k: keyof typeof GLOSSARY | string; children?: ReactNode }) {
+  const id = useId();
+  const [open, setOpen] = useState(false);
+  const def = GLOSSARY[k];
+  if (!def) return <>{children ?? k}</>;
+  return (
+    <span className={`term ${open ? 'term-open' : ''}`} tabIndex={0} aria-describedby={id}
+      onFocus={() => setOpen(true)} onBlur={() => setOpen(false)} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}
+      onKeyDown={(e) => { if (e.key === 'Escape') setOpen(false); }}>
+      {children ?? k}
+      <span role="tooltip" id={id} className="term-tip">{def}</span>
+    </span>
+  );
 }

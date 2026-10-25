@@ -4,5 +4,6 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   base: process.env.BASE_PATH || './',
   plugins: [react()],
+  server: { fs: { allow: ['..'] } },
   build: { outDir: 'dist', chunkSizeWarningLimit: 900 },
 });

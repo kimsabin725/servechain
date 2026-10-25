@@ -6,6 +6,8 @@ export type Evidence = {
   timestamp?: string | null;
   explorerUrl?: string | null;
   evidenceHash?: string | null;
+  readOnly?: boolean;
+  note?: string;
 };
 
 export type Condition = {
@@ -18,6 +20,10 @@ export type Condition = {
   confirmedBy?: string;
   status: 'fulfilled' | 'missing' | string;
   evidence: Evidence[];
+  ref?: string;
+  deadlineBasis?: 'replay' | 'original order' | string;
+  originalServiceDeadline?: string;
+  derived?: { dueDate?: string; from?: string } | null;
 };
 
 export type Service = {
@@ -49,7 +55,13 @@ export type Wallet = {
   source?: string;
   fetchedAt?: string;
   monthlyNote?: string;
+  note?: string | null;
+  completeFrom?: string | null;
 };
+
+export type Contact = { channel: string; to: string; date?: string | null; result: string; responded?: boolean; delivered?: boolean };
+
+export type Precedent = string | { citation?: string; cite?: string; name?: string; title?: string; court?: string; year?: number | string; url?: string; thisCase?: boolean; self?: boolean; role?: string; status?: string; note?: string | null };
 
 export type CaseFile = {
   caseId: string;
@@ -74,10 +86,13 @@ export type CaseFile = {
     explorerUrl?: string | null;
     localReplay?: { txHash: string; at: string; activityRootHash: string; timeTravel: boolean };
   } | null;
-  activity: { fetchedAt: string; wallets: Wallet[] };
+  activity: { fetchedAt: string; wallets: Wallet[]; completeFrom?: string | Record<string, string> };
+  contacts?: Contact[] | { rows?: Contact[]; contacts?: Contact[] };
+  precedents?: Precedent[];
+  rules?: { section: string; status?: string; rule?: string; url?: string }[];
   existingService?: Service[];
   exhibit?: { sha256?: string; registrySlot?: number; txHash?: string; block?: number; explorerUrl?: string };
-  registrySlots?: { id: number; kind: string; title: string }[];
+  registrySlots?: { id: number; kind: string; title: string; description?: string; label?: string }[];
   generatedAt: string;
   sample?: boolean;
 };
