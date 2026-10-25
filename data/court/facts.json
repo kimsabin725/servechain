@@ -1,0 +1,259 @@
+{
+  "case": {
+    "caption": "People of the State of New York v. Unknown Parties in Ownership and/or Control of Digital Wallet Addresses 0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d, TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8, and TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu, and Unknown Others",
+    "court": "Supreme Court of the State of New York, Queens County, IAS Part 24",
+    "indexNo": "700647/2025",
+    "justice": "Hon. Karen Lin",
+    "motionSeq": "001",
+    "orderSigned": "2025-06-09",
+    "orderEntered": "2025-06-11",
+    "nyscefDoc": 21,
+    "noticeOfEntryFiled": "2025-06-20",
+    "dateEvidence": [
+      {
+        "doc": "data/court/decision-and-pleadings-2025.pdf",
+        "pdfPage": 9,
+        "quote": "the attached is a true and correct copy of the Order in this matter signed by the Honorable Justice Karen Lin on June 9, 2025 and duly entered in the above case with the Clerk of the Supreme Court, Queens County, and docketed on the Court's electronic filing system on June 11, 2025 as NYSCEF No. 21."
+      },
+      {
+        "doc": "data/court/decision-and-pleadings-2025.pdf",
+        "pdfPage": 1,
+        "quote": "FILED: QUEENS COUNTY CLERK 06/11/2025 09:12 AM ... NYSCEF DOC. NO. 21",
+        "textLayer": "ocr-normalized"
+      },
+      {
+        "doc": "data/court/decision-and-pleadings-2025.pdf",
+        "pdfPage": 6,
+        "quote": "Dated: June ~ , 2025",
+        "textLayer": "ocr-normalized",
+        "note": "day illegible in the scanned signature line; the notice of entry (p.9) states June 9, 2025"
+      }
+    ],
+    "sources": {
+      "decisionAndPleadings": {
+        "file": "data/court/decision-and-pleadings-2025.pdf",
+        "url": "https://ag.ny.gov/sites/default/files/court-filings/people-v-digital-wallet-0xd7648fffa48e06b0107435a966f3f1e9dbe10b7d-decision-and-pleadings-2025.pdf",
+        "pages": 169
+      },
+      "complaint": {
+        "file": "data/court/complaint-2025.pdf",
+        "url": "https://ag.ny.gov/sites/default/files/court-filings/people-v-digital-wallet-0xd7648fffa48e06b0107435a966f3f1e9dbe10b7d-complaint-2025.pdf",
+        "pages": 50
+      }
+    },
+    "textLayerNote": "decision pages 1-8 are scanned; pdftotext returns an OCR layer with character errors. Quotes marked ocr-normalized were corrected only for obvious OCR character errors; check the page image before quoting in a filing. Complaint, notice of entry and Sang affirmation have clean text layers."
+  },
+  "L2_orderConditions": [
+    {
+      "doc": "data/court/decision-and-pleadings-2025.pdf",
+      "pdfPage": 6,
+      "quote": "ORDERED that the time for service of the summons and complaint upon defendants pursuant to CPLR 306-b shall be extended for 120 days from the date of entry",
+      "textLayer": "ocr-normalized"
+    },
+    {
+      "doc": "data/court/decision-and-pleadings-2025.pdf",
+      "pdfPage": 6,
+      "quote": "ORDERED, that plaintiff shall serve the summons, complaint, order to show cause, attorney affirmation and memorandum of law in support thereof and all documents submitted contemporaneously therewith, together with a copy of this Decision and Order with Notice of Entry upon defendants, within 120 days of the date of entry, by airdropping NFTs hyperlinked to a website containing copies of said pleadings to digital wallet addresses 0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d (Wallet 1) TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8 (Wallet 2), and TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu (Wallet 3)",
+      "textLayer": "ocr-normalized"
+    },
+    {
+      "doc": "data/court/decision-and-pleadings-2025.pdf",
+      "pdfPage": 6,
+      "quote": "ORDERED, that plaintiff shall file an affidavit of service in accordance with CPLR 306 (a) and service shall be deemed complete upon such filing.",
+      "textLayer": "ocr-normalized"
+    }
+  ],
+  "L2_derived": {
+    "serviceDeadline": "2025-10-09",
+    "rule": "entry 2025-06-11 + 120 days",
+    "status": "computed; weekend/holiday rollover not applied (2025-10-09 is a Thursday)"
+  },
+  "L3_impracticability": [
+    {
+      "doc": "data/court/decision-and-pleadings-2025.pdf",
+      "pdfPage": 4,
+      "quote": "Plaintiff attests that it made phone calls and sent text messages to fourteen (14) telephone numbers associated with defendants on December 6 and 9-11, 2024, informing them of plaintiff's intent to file a lawsuit and requesting a mailing address for service.",
+      "textLayer": "ocr-normalized"
+    },
+    {
+      "doc": "data/court/decision-and-pleadings-2025.pdf",
+      "pdfPage": 4,
+      "quote": "Only two of the numbers responded to plaintiff, but did not provide a verifiable mailing address when requested.",
+      "textLayer": "ocr-normalized"
+    },
+    {
+      "doc": "data/court/decision-and-pleadings-2025.pdf",
+      "pdfPage": 4,
+      "quote": "Plaintiff also contacted four email addresses that defendants had used, with read receipt and delivery request requested, but only one returned a \"delivered\" notice, and none provided the requested mailing information for service.",
+      "textLayer": "ocr-normalized"
+    },
+    {
+      "doc": "data/court/decision-and-pleadings-2025.pdf",
+      "pdfPage": 2,
+      "quote": "As of April 26, 2024, plaintiff secured freezes on these Wallets preventing defendants from accessing approximately $2,179,507.00 worth of cryptocurrency.",
+      "textLayer": "ocr-normalized"
+    },
+    {
+      "doc": "data/court/decision-and-pleadings-2025.pdf",
+      "pdfPage": 5,
+      "quote": "Plaintiff has demonstrated through its investigation, that defendants continue to regularly use these Wallets, as recently as April 2024 through December 2024. Since the accounts contain approximately $2,179,507.00 in frozen USDC and USDT stablecoins, plaintiff has demonstrated that defendants are likely to return to the accounts where they would find the NFTs.",
+      "textLayer": "ocr-normalized"
+    },
+    {
+      "doc": "data/court/decision-and-pleadings-2025.pdf",
+      "pdfPage": 62,
+      "quote": "On April 12, 2024— one week after OAG obtained the USDC freeze— Defendants transferred other cryptocurrency out of Wallet 1 to a different wallet. Id. Wallet 1 also received airdropped NFTs between May 2, 2024 and August 30, 2024, and some cryptocurrency on September 7, 2024. Id. Defendants also transferred cryptocurrency from Wallet 2 to other wallets on April 30, 2024 and May 2, 2024 and continued to receive cryptocurrency in Wallets 2 and 3 between April 30, 2024 and December 4, 2024.",
+      "note": "OAG memorandum of law (NYSCEF 7), memo page 4"
+    },
+    {
+      "doc": "data/court/complaint-2025.pdf",
+      "pdfPage": 14,
+      "quote": "As of April 5, 2024, Wallet 1 still holds 219,840 USDC, currently frozen and valued approximately $219,840."
+    },
+    {
+      "doc": "data/court/complaint-2025.pdf",
+      "pdfPage": 14,
+      "quote": "As of April 26, 2024, approximately 862,347 USDT remains frozen in Wallet 2, and approximately 1,097,320 remains frozen in Wallet 3"
+    }
+  ],
+  "L4_methodOfService": {
+    "important": "The January 21-22, 2025 airdrops described in the decision (p.5) and the Sang affirmation were made under the January 10, 2025 order to show cause (service of the motion papers by January 24, 2025), before the June 2025 order. They are evidence supporting the motion, not performance of the June order. Service under the June order is not described in these PDFs; on-chain NFTs titled 'Service of NY OAG Summons and Complaint No 700647-2025' were received on 2025-07-30 (see data/activity/service-txs.json, laterDeliveries).",
+    "quotes": [
+      {
+        "doc": "data/court/decision-and-pleadings-2025.pdf",
+        "pdfPage": 8,
+        "quote": "ORDERED that service of a copy of this order together with the Summons and Complaint ... upon the Defendants by airdropped NFTs into each of the wallets identified in the caption, with each NFT hyperlinked to the same website ... on or before the 24 day of January 2025 is deemed good and sufficient service thereof.",
+        "textLayer": "ocr-normalized",
+        "note": "order to show cause dated January 10, 2025 (NYSCEF 11)"
+      },
+      {
+        "doc": "data/court/decision-and-pleadings-2025.pdf",
+        "pdfPage": 70,
+        "quote": "On January 21, 2025, I created a smart contract to mint an ERC-721 Non-Fungible Token (\"NFT\") using an NFT platform. The same day, I transferred the NFT using the Ethereum blockchain to wallet address 0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d",
+        "note": "Sang affirmation ¶2 (NYSCEF 12, dated 2025-02-12); footnote markers removed"
+      },
+      {
+        "doc": "data/court/decision-and-pleadings-2025.pdf",
+        "pdfPage": 70,
+        "quote": "https://etherscan.io/nft/0xc9154424b823b10579895ccbe442d41b9abd96ed/45941267142316491420780756377080437389336336339189278277342547391922395152392",
+        "note": "Sang aff. ¶3; URL wraps across two lines in the PDF. Exhibit 2 (p.78) shows it is one of Rarible's shared ERC-721 tokens"
+      },
+      {
+        "doc": "data/court/decision-and-pleadings-2025.pdf",
+        "pdfPage": 71,
+        "quote": "On January 21, 2025, I also created a smart contract to mint two TRC-721 NFTs using the Tron blockchain and separately transferred the NFTs into wallet addresses TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8 and TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu"
+      },
+      {
+        "doc": "data/court/decision-and-pleadings-2025.pdf",
+        "pdfPage": 71,
+        "quote": "on January 22, 2025, I created another smart contract to mint two additional TRC-721 NFTs using the Tron blockchain. The same day, I transferred the NFTs into Wallet 2 and Wallet 3. Both NFTs are named \"NOTICE OF A LAWSUIT\""
+      },
+      {
+        "doc": "data/court/decision-and-pleadings-2025.pdf",
+        "pdfPage": 72,
+        "quote": "(ii) https://tronscan.io/#/transaction/bfbacea582b76fb95eaa3f4fac32ccfb832a5703a1f7ea9a08593808ae1c6df4 ... (iv) https://tronscan.io/#/transaction/6361f4f44b95b0cfd165801d0d1a515d3a154584d9b5e0f86d4dc9a429823907",
+        "note": "Sang aff. ¶6, Jan 21 TRON txs; Jan 22 txs 782febfc...95c5 and 70c0c9dc...225b in ¶7"
+      },
+      {
+        "doc": "data/court/decision-and-pleadings-2025.pdf",
+        "pdfPage": 69,
+        "quote": "I am a second-year law student attending Fordham University School of Law and have been serving as an intern and Law Student Assistant to the Office of the New York State Attorney General",
+        "note": "the decision (p.4) says Sang 'is employed by plaintiff'; the affirmation itself says intern / Law Student Assistant"
+      },
+      {
+        "doc": "data/court/decision-and-pleadings-2025.pdf",
+        "pdfPage": 5,
+        "quote": "Sang provides verification through blockchain explorers Etherscan and Tronscan.io as well as the APENFT NFT platform demonstrating the existence and delivery of all NFTs to the respective Wallet addresses on said dates.",
+        "textLayer": "ocr-normalized"
+      }
+    ]
+  },
+  "L5_wallets": {
+    "defendants": [
+      {
+        "label": "Wallet 1",
+        "chain": "ethereum",
+        "address": "0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d",
+        "asset": "USDC",
+        "evidence": {
+          "doc": "data/court/complaint-2025.pdf",
+          "pdfPage": 1,
+          "quote": "0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d (hereinafter \"Wallet 1\"),"
+        }
+      },
+      {
+        "label": "Wallet 2",
+        "chain": "tron",
+        "address": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+        "asset": "USDT",
+        "evidence": {
+          "doc": "data/court/complaint-2025.pdf",
+          "pdfPage": 1,
+          "quote": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8 (hereinafter \"Wallet 2\"), and"
+        }
+      },
+      {
+        "label": "Wallet 3",
+        "chain": "tron",
+        "address": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "asset": "USDT",
+        "evidence": {
+          "doc": "data/court/complaint-2025.pdf",
+          "pdfPage": 1,
+          "quote": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu (hereinafter \"Wallet 3\") (\"Unknown Parties\"),"
+        }
+      }
+    ],
+    "related": [
+      {
+        "label": "Transition Wallet A",
+        "chain": "ethereum",
+        "address": "0x6298BfEd428B843d326dDAE1A406441CDB40db80",
+        "evidence": {
+          "doc": "data/court/complaint-2025.pdf",
+          "pdfPage": 13,
+          "quote": "(0x6298BfEd428B843d326dDAE1A406441CDB40db80 (\"Transition Wallet A\") and 0x7a448169e9d5DB6405087dAB9dfF774Db6589b05 (\"Transition Wallet B\", and collectively with Transition Wallet A, the \"Transition Wallets\"))"
+        }
+      },
+      {
+        "label": "Transition Wallet B",
+        "chain": "ethereum",
+        "address": "0x7a448169e9d5DB6405087dAB9dfF774Db6589b05",
+        "evidence": {
+          "doc": "data/court/complaint-2025.pdf",
+          "pdfPage": 13,
+          "quote": "Defendants then transferred the stablecoins that went to Transition Wallet A into Transition Wallet B, and then transferred them yet again into Defendants' Wallet 1."
+        }
+      },
+      {
+        "label": "wallet 0x409",
+        "chain": "ethereum",
+        "address": "0x409C4A8eC8eEBf4132E33122164D57C5B7039E59",
+        "evidence": {
+          "doc": "data/court/complaint-2025.pdf",
+          "pdfPage": 14,
+          "quote": "On and between April 2, 2024, and April 3, 2024, 1,999,999 USDC from Defendants' Wallet 1 was transferred to another wallet 0x409C4A8eC8eEBf4132E33122164D57C5B7039E59 (hereinafter \"wallet 0x409\")."
+        }
+      },
+      {
+        "label": "wallet TB73g (Bitunix)",
+        "chain": "tron",
+        "address": "TB73gtW1hsTxxA9XUYKLSJKTSHw6Jk53eH",
+        "evidence": {
+          "doc": "data/court/complaint-2025.pdf",
+          "pdfPage": 14,
+          "quote": "transferring all of the USDC in wallet 0x409 to Bitunix's \"mixer\" wallet TB73gtW1hsTxxA9XUYKLSJKTSHw6Jk53eH (\"wallet TB73g\")."
+        },
+        "note": "exchange-operated wallet per complaint; not fetched"
+      }
+    ],
+    "namingNote": "The complaint uses 'Intermediary Wallets' for the ~100 victim-facing deposit wallets (p.13 ¶41) and 'Transition Wallets' for 0x6298/0x7a44. 0x409 is an outflow wallet, not an intermediary."
+  },
+  "specDiffs": [
+    "L1: order signed 2025-06-09, entered 2025-06-11 (NYSCEF 21); notice of entry filed 2025-06-20.",
+    "L4: the Jan 21-22, 2025 NFTs served the January 10 order to show cause (motion papers), not the June order. The decision recites them as support for the motion.",
+    "L4/first sentence: the developer was a law student intern (Law Student Assistant) per his own affirmation; the Ethereum NFT was minted through Rarible's shared contract 0xc915...96ed, not a hand-written contract. TRON NFTs used separate contracts (TLJa2..., TTaW2...).",
+    "L5: the three ETH wallets are 'Transition Wallet A/B' and 'wallet 0x409' in the complaint, not 'intermediary wallets'.",
+    "L3: consistent with the decision (14 numbers on Dec 6 and 9-11, 2024; 4 emails, 1 delivered; activity April-December 2024; $2,179,507 = 219,840 + 862,347 + 1,097,320)."
+  ]
+}

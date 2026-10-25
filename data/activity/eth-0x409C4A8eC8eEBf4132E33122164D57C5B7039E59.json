@@ -1,0 +1,843 @@
+{
+  "chain": "eth",
+  "address": "0x409C4A8eC8eEBf4132E33122164D57C5B7039E59",
+  "label": "wallet 0x409 (USDC outflow)",
+  "source": "complaint-2025.pdf p.14 ¶44",
+  "fetchedAt": "2026-10-25T06:58:07.785Z",
+  "sourceUrls": [
+    "https://eth.blockscout.com/api/v2/addresses/0x409C4A8eC8eEBf4132E33122164D57C5B7039E59",
+    "https://eth.blockscout.com/api/v2/addresses/0x409C4A8eC8eEBf4132E33122164D57C5B7039E59/counters",
+    "https://eth.blockscout.com/api/v2/addresses/0x409C4A8eC8eEBf4132E33122164D57C5B7039E59/token-balances",
+    "https://eth.blockscout.com/api/v2/addresses/0x409C4A8eC8eEBf4132E33122164D57C5B7039E59/transactions",
+    "https://eth.blockscout.com/api/v2/addresses/0x409C4A8eC8eEBf4132E33122164D57C5B7039E59/token-transfers"
+  ],
+  "balances": {
+    "nativeEthWei": "0",
+    "usdc": null
+  },
+  "totals": {
+    "transactionsCount": "0",
+    "tokenTransfersCount": "0"
+  },
+  "transactions": {
+    "count": 5,
+    "first": "2024-04-04T03:27:11.000000Z",
+    "last": "2025-09-28T09:32:23.000000Z",
+    "monthly": {
+      "2024-01": 0,
+      "2024-02": 0,
+      "2024-03": 0,
+      "2024-04": 4,
+      "2024-05": 0,
+      "2024-06": 0,
+      "2024-07": 0,
+      "2024-08": 0,
+      "2024-09": 0,
+      "2024-10": 0,
+      "2024-11": 0,
+      "2024-12": 0,
+      "2025-01": 0,
+      "2025-02": 0,
+      "2025-03": 0,
+      "2025-04": 0,
+      "2025-05": 0,
+      "2025-06": 0,
+      "2025-07": 0,
+      "2025-08": 0,
+      "2025-09": 1,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0,
+      "2026-01": 0,
+      "2026-02": 0,
+      "2026-03": 0,
+      "2026-04": 0,
+      "2026-05": 0,
+      "2026-06": 0,
+      "2026-07": 0,
+      "2026-08": 0,
+      "2026-09": 0,
+      "2026-10": 0
+    },
+    "truncated": false
+  },
+  "tokenTransfers": {
+    "count": 9,
+    "first": "2024-04-01T15:07:47.000000Z",
+    "last": "2024-04-05T00:58:59.000000Z",
+    "monthly": {
+      "2024-01": 0,
+      "2024-02": 0,
+      "2024-03": 0,
+      "2024-04": 9,
+      "2024-05": 0,
+      "2024-06": 0,
+      "2024-07": 0,
+      "2024-08": 0,
+      "2024-09": 0,
+      "2024-10": 0,
+      "2024-11": 0,
+      "2024-12": 0,
+      "2025-01": 0,
+      "2025-02": 0,
+      "2025-03": 0,
+      "2025-04": 0,
+      "2025-05": 0,
+      "2025-06": 0,
+      "2025-07": 0,
+      "2025-08": 0,
+      "2025-09": 0,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0,
+      "2026-01": 0,
+      "2026-02": 0,
+      "2026-03": 0,
+      "2026-04": 0,
+      "2026-05": 0,
+      "2026-06": 0,
+      "2026-07": 0,
+      "2026-08": 0,
+      "2026-09": 0,
+      "2026-10": 0
+    },
+    "truncated": false,
+    "flaggedTokenCount": 0
+  },
+  "uniqueTxAll": {
+    "count": 12,
+    "first": "2024-04-01T15:07:47.000000Z",
+    "last": "2025-09-28T09:32:23.000000Z",
+    "monthly": {
+      "2024-01": 0,
+      "2024-02": 0,
+      "2024-03": 0,
+      "2024-04": 11,
+      "2024-05": 0,
+      "2024-06": 0,
+      "2024-07": 0,
+      "2024-08": 0,
+      "2024-09": 0,
+      "2024-10": 0,
+      "2024-11": 0,
+      "2024-12": 0,
+      "2025-01": 0,
+      "2025-02": 0,
+      "2025-03": 0,
+      "2025-04": 0,
+      "2025-05": 0,
+      "2025-06": 0,
+      "2025-07": 0,
+      "2025-08": 0,
+      "2025-09": 1,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0,
+      "2026-01": 0,
+      "2026-02": 0,
+      "2026-03": 0,
+      "2026-04": 0,
+      "2026-05": 0,
+      "2026-06": 0,
+      "2026-07": 0,
+      "2026-08": 0,
+      "2026-09": 0,
+      "2026-10": 0
+    },
+    "truncated": false
+  },
+  "raw": {
+    "address": {
+      "block_number_balance_updated_at": 26170409,
+      "coin_balance": "0",
+      "creation_status": null,
+      "creation_transaction_hash": null,
+      "creator_address_hash": null,
+      "ens_domain_name": null,
+      "exchange_rate": "2343.4",
+      "has_beacon_chain_withdrawals": false,
+      "has_logs": false,
+      "has_token_transfers": true,
+      "has_tokens": false,
+      "has_validated_blocks": false,
+      "hash": "0x409C4A8eC8eEBf4132E33122164D57C5B7039E59",
+      "implementations": [],
+      "is_contract": false,
+      "is_scam": false,
+      "is_verified": false,
+      "metadata": null,
+      "name": null,
+      "private_tags": [],
+      "proxy_type": null,
+      "public_tags": [],
+      "reputation": "ok",
+      "token": null,
+      "watchlist_address_id": null,
+      "watchlist_names": []
+    },
+    "counters": {
+      "transactions_count": "0",
+      "token_transfers_count": "0",
+      "gas_usage_count": "0",
+      "validations_count": "0"
+    },
+    "tokenBalances": [],
+    "transactions": [
+      {
+        "priority_fee": null,
+        "raw_input": "0x",
+        "is_pending_update": false,
+        "result": "success",
+        "hash": "0x8881d80c30279558daa8641fa19b9c61b752f96315b757bcb4575f8e860f71c9",
+        "max_fee_per_gas": null,
+        "revert_reason": null,
+        "confirmation_duration": [
+          0,
+          12000
+        ],
+        "transaction_burnt_fee": null,
+        "type": 0,
+        "token_transfers_overflow": null,
+        "confirmations": 2807423,
+        "position": 138,
+        "max_priority_fee_per_gas": null,
+        "transaction_tag": null,
+        "created_contract": null,
+        "value": "547721982835288",
+        "from": {
+          "ens_domain_name": null,
+          "hash": "0x409C4A8eC8eEBf4132E33122164D57C5B7039E59",
+          "implementations": [],
+          "is_contract": false,
+          "is_scam": false,
+          "is_verified": false,
+          "metadata": null,
+          "name": null,
+          "private_tags": [],
+          "proxy_type": null,
+          "public_tags": [],
+          "reputation": "ok",
+          "watchlist_names": []
+        },
+        "gas_used": "21000",
+        "status": "ok",
+        "to": {
+          "ens_domain_name": null,
+          "hash": "0xB8001C3eC9AA1985f6c747E25c28324E4A361ec1",
+          "implementations": [],
+          "is_contract": false,
+          "is_scam": false,
+          "is_verified": false,
+          "metadata": {
+            "tags": [
+              {
+                "meta": {
+                  "main_entity": "Cobo",
+                  "tooltipUrl": "https://www.cobo.com/"
+                },
+                "name": "Cobo: Custody 1",
+                "ordinal": 10,
+                "slug": "cobo-custody-1",
+                "tagType": "name"
+              },
+              {
+                "meta": {
+                  "main_entity": "Cobo"
+                },
+                "name": "Cobo_0xb800",
+                "ordinal": 10,
+                "slug": "cobo0xb800",
+                "tagType": "name"
+              },
+              {
+                "meta": {},
+                "name": "Exchange",
+                "ordinal": 0,
+                "slug": "exchange",
+                "tagType": "generic"
+              },
+              {
+                "meta": {
+                  "tagIcon ": "https://blockscout-icons.s3.us-east-1.amazonaws.com/OLI_tag_logo.svg",
+                  "textColor": "#C163D4",
+                  "tooltipAttribution": "https://www.openlabelsinitiative.org?utm_source=blockscout",
+                  "tooltipAttributionIcon": "https://blockscout-icons.s3.us-east-1.amazonaws.com/OLI_tag_logo.svg",
+                  "tooltipDescription": "Provided by OLI"
+                },
+                "name": "Cobo 6",
+                "ordinal": 0,
+                "slug": "cobo-6",
+                "tagType": "name"
+              },
+              {
+                "meta": {
+                  "appActionButtonText": "Cobo",
+                  "appID": "cobo"
+                },
+                "name": "Cobo",
+                "ordinal": 0,
+                "slug": "cobo",
+                "tagType": "protocol"
+              }
+            ]
+          },
+          "name": null,
+          "private_tags": [],
+          "proxy_type": null,
+          "public_tags": [],
+          "reputation": "ok",
+          "watchlist_names": []
+        },
+        "authorization_list": [],
+        "method": null,
+        "fee": {
+          "type": "actual",
+          "value": "3046796592000"
+        },
+        "gas_limit": "21000",
+        "gas_price": "145085552",
+        "decoded_input": null,
+        "fhe_operations_count": 0,
+        "token_transfers": null,
+        "base_fee_per_gas": "123366027",
+        "timestamp": "2025-09-28T09:32:23.000000Z",
+        "nonce": 2,
+        "historic_exchange_rate": "4139.675726866035",
+        "transaction_types": [
+          "coin_transfer"
+        ],
+        "exchange_rate": "2343.17",
+        "block_number": 23460621,
+        "has_error_in_internal_transactions": false
+      },
+      {
+        "priority_fee": null,
+        "raw_input": "0xa9059cbb000000000000000000000000b8001c3ec9aa1985f6c747e25c28324e4a361ec1000000000000000000000000000000000000000000000000000000e9103097c0",
+        "is_pending_update": false,
+        "result": "success",
+        "hash": "0x28525c1adcd28018f3cae7f4e1e1c9f9770c794afd9d8d4f868667d37442c84c",
+        "max_fee_per_gas": null,
+        "revert_reason": null,
+        "confirmation_duration": [
+          0,
+          12000
+        ],
+        "transaction_burnt_fee": null,
+        "type": 0,
+        "token_transfers_overflow": null,
+        "confirmations": 6681922,
+        "position": 83,
+        "max_priority_fee_per_gas": null,
+        "transaction_tag": null,
+        "created_contract": null,
+        "value": "0",
+        "from": {
+          "ens_domain_name": null,
+          "hash": "0x409C4A8eC8eEBf4132E33122164D57C5B7039E59",
+          "implementations": [],
+          "is_contract": false,
+          "is_scam": false,
+          "is_verified": false,
+          "metadata": null,
+          "name": null,
+          "private_tags": [],
+          "proxy_type": null,
+          "public_tags": [],
+          "reputation": "ok",
+          "watchlist_names": []
+        },
+        "gas_used": "41309",
+        "status": "ok",
+        "to": {
+          "ens_domain_name": null,
+          "hash": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+          "implementations": [],
+          "is_contract": true,
+          "is_scam": false,
+          "is_verified": true,
+          "metadata": {
+            "tags": [
+              {
+                "meta": {
+                  "projectName": "Tether",
+                  "tagUrl": "https://app.klerosscout.eth.limo/#/?registry=Single_Tags&itemdetails=0xca4f86e999bee421567b4e8a094a7dff96fa821e9023a63b87f12b64d2356094@0x66260c69d03837016d88c9877e61e08ef74c59f2",
+                  "tokenAttributes": "{\"logo_url\":\"https://cdn.kleros.link/ipfs/QmZF9JKGaGfT7LsARQaFdUUATDha4Ecx9PziFu2M8ifFmR/Bce2S3tXG2WL6pLnJAyHJyQ9B1MenRPiFnSVsNBgGXyWiNKTgcnTFcFjCcB9ujE5tJG7CjurLSL6XHoPQfu3Re4tqJ\",\"token_symbol\":\"USDT\",\"token_name\":\"Tether\",\"decimals\":6}",
+                  "tooltipDescription": "The contract of Tether (USDT) stablecoin.",
+                  "tooltipUrl": "https://tether.to",
+                  "verifiedDomains": [
+                    "app.mav.xyz",
+                    "www.sushi.com",
+                    "apeswap.finance",
+                    "app.firebird.finance",
+                    "app.uniswap.org",
+                    "swap.defillama.com",
+                    "swapr.eth.limo",
+                    "stackly.eth.limo",
+                    "traderjoexyz.com"
+                  ]
+                },
+                "name": "USDT Stablecoin",
+                "ordinal": 10,
+                "slug": "usdt-stablecoin-1",
+                "tagType": "name"
+              },
+              {
+                "meta": {},
+                "name": "Token Contract",
+                "ordinal": 0,
+                "slug": "token-contract",
+                "tagType": "generic"
+              },
+              {
+                "meta": {},
+                "name": "Stablecoin",
+                "ordinal": 0,
+                "slug": "stablecoin",
+                "tagType": "generic"
+              },
+              {
+                "meta": {
+                  "tooltipDescription": "Address blocked by a custodial stablecoin provider"
+                },
+                "name": "BLOCKED",
+                "ordinal": 0,
+                "slug": "blocked",
+                "tagType": "generic"
+              },
+              {
+                "meta": {
+                  "tagIcon ": "https://blockscout-icons.s3.us-east-1.amazonaws.com/OLI_tag_logo.svg",
+                  "textColor": "#C163D4",
+                  "tooltipAttribution": "https://www.openlabelsinitiative.org?utm_source=blockscout",
+                  "tooltipAttributionIcon": "https://blockscout-icons.s3.us-east-1.amazonaws.com/OLI_tag_logo.svg",
+                  "tooltipDescription": "Provided by OLI"
+                },
+                "name": "USDT",
+                "ordinal": 0,
+                "slug": "usdt",
+                "tagType": "name"
+              },
+              {
+                "meta": {},
+                "name": "Tether",
+                "ordinal": 0,
+                "slug": "tether",
+                "tagType": "protocol"
+              },
+              {
+                "meta": {
+                  "data": "ok"
+                },
+                "name": "Credible token",
+                "ordinal": 0,
+                "slug": "credible-token",
+                "tagType": "token_reputation"
+              }
+            ]
+          },
+          "name": "TetherToken",
+          "private_tags": [],
+          "proxy_type": null,
+          "public_tags": [],
+          "reputation": "ok",
+          "watchlist_names": []
+        },
+        "authorization_list": [],
+        "method": "transfer",
+        "fee": {
+          "type": "actual",
+          "value": "547835918516817"
+        },
+        "gas_limit": "76225",
+        "gas_price": "13261902213",
+        "decoded_input": {
+          "method_call": "transfer(address _to, uint256 _value)",
+          "method_id": "a9059cbb",
+          "parameters": [
+            {
+              "name": "_to",
+              "type": "address",
+              "value": "0xB8001C3eC9AA1985f6c747E25c28324E4A361ec1"
+            },
+            {
+              "name": "_value",
+              "type": "uint256",
+              "value": "1000999000000"
+            }
+          ]
+        },
+        "fhe_operations_count": 0,
+        "token_transfers": null,
+        "base_fee_per_gas": "11767205882",
+        "timestamp": "2024-04-05T00:58:59.000000Z",
+        "nonce": 1,
+        "historic_exchange_rate": "3321.48",
+        "transaction_types": [
+          "contract_call",
+          "token_transfer"
+        ],
+        "exchange_rate": "2343.17",
+        "block_number": 19586122,
+        "has_error_in_internal_transactions": false
+      },
+      {
+        "priority_fee": null,
+        "raw_input": "0x",
+        "is_pending_update": false,
+        "result": "success",
+        "hash": "0x7ead7086f79c4aa155d759bdd632486e081daf03e6c9ba7ddc09ffe1fcd86951",
+        "max_fee_per_gas": null,
+        "revert_reason": null,
+        "confirmation_duration": [
+          0,
+          12000
+        ],
+        "transaction_burnt_fee": null,
+        "type": 0,
+        "token_transfers_overflow": null,
+        "confirmations": 6682072,
+        "position": 113,
+        "max_priority_fee_per_gas": null,
+        "transaction_tag": null,
+        "created_contract": null,
+        "value": "243722171578006",
+        "from": {
+          "ens_domain_name": null,
+          "hash": "0xF1300cc9c2Cf347f7902742fEC4dF9dbA952fD7b",
+          "implementations": [],
+          "is_contract": false,
+          "is_scam": false,
+          "is_verified": false,
+          "metadata": {
+            "tags": [
+              {
+                "meta": {
+                  "tooltipUrl": "https://www.cobo.com/"
+                },
+                "name": "Cobo: Deposit Funder 2",
+                "ordinal": 10,
+                "slug": "cobo-deposit-funder-2",
+                "tagType": "name"
+              },
+              {
+                "meta": {},
+                "name": "Exchange",
+                "ordinal": 0,
+                "slug": "exchange",
+                "tagType": "generic"
+              },
+              {
+                "meta": {
+                  "tagIcon ": "https://blockscout-icons.s3.us-east-1.amazonaws.com/OLI_tag_logo.svg",
+                  "textColor": "#C163D4",
+                  "tooltipAttribution": "https://www.openlabelsinitiative.org?utm_source=blockscout",
+                  "tooltipAttributionIcon": "https://blockscout-icons.s3.us-east-1.amazonaws.com/OLI_tag_logo.svg",
+                  "tooltipDescription": "Provided by OLI"
+                },
+                "name": "Cobo Gas Supplier 2",
+                "ordinal": 0,
+                "slug": "cobo-gas-supplier-2",
+                "tagType": "name"
+              },
+              {
+                "meta": {
+                  "alertStatus": "info",
+                  "data": "This address has been tagged based on hildobby compilation."
+                },
+                "name": "note_0",
+                "ordinal": 0,
+                "slug": "note0",
+                "tagType": "note"
+              },
+              {
+                "meta": {
+                  "appActionButtonText": "Cobo",
+                  "appID": "cobo"
+                },
+                "name": "Cobo",
+                "ordinal": 0,
+                "slug": "cobo",
+                "tagType": "protocol"
+              }
+            ]
+          },
+          "name": null,
+          "private_tags": [],
+          "proxy_type": null,
+          "public_tags": [],
+          "reputation": "ok",
+          "watchlist_names": []
+        },
+        "gas_used": "21000",
+        "status": "ok",
+        "to": {
+          "ens_domain_name": null,
+          "hash": "0x409C4A8eC8eEBf4132E33122164D57C5B7039E59",
+          "implementations": [],
+          "is_contract": false,
+          "is_scam": false,
+          "is_verified": false,
+          "metadata": null,
+          "name": null,
+          "private_tags": [],
+          "proxy_type": null,
+          "public_tags": [],
+          "reputation": "ok",
+          "watchlist_names": []
+        },
+        "authorization_list": [],
+        "method": null,
+        "fee": {
+          "type": "actual",
+          "value": "277207290402000"
+        },
+        "gas_limit": "21000",
+        "gas_price": "13200347162",
+        "decoded_input": null,
+        "fhe_operations_count": 0,
+        "token_transfers": null,
+        "base_fee_per_gas": "12237338845",
+        "timestamp": "2024-04-05T00:28:47.000000Z",
+        "nonce": 199950,
+        "historic_exchange_rate": "3321.48",
+        "transaction_types": [
+          "coin_transfer"
+        ],
+        "exchange_rate": "2343.17",
+        "block_number": 19585972,
+        "has_error_in_internal_transactions": false
+      }
+    ],
+    "tokenTransfers": [
+      {
+        "block_hash": "0x11dc6a1d2eecdd278af6f7ba673ccd9066c89a3ef69c941012eefdbb4290c633",
+        "block_number": 19586122,
+        "from": {
+          "ens_domain_name": null,
+          "hash": "0x409C4A8eC8eEBf4132E33122164D57C5B7039E59",
+          "implementations": [],
+          "is_contract": false,
+          "is_scam": false,
+          "is_verified": false,
+          "metadata": null,
+          "name": null,
+          "private_tags": [],
+          "proxy_type": null,
+          "public_tags": [],
+          "reputation": "ok",
+          "watchlist_names": []
+        },
+        "log_index": 419,
+        "method": "0xa9059cbb",
+        "timestamp": "2024-04-05T00:58:59.000000Z",
+        "to": {
+          "ens_domain_name": null,
+          "hash": "0xB8001C3eC9AA1985f6c747E25c28324E4A361ec1",
+          "implementations": [],
+          "is_contract": false,
+          "is_scam": false,
+          "is_verified": false,
+          "metadata": {
+            "tags": [
+              {
+                "meta": {
+                  "main_entity": "Cobo",
+                  "tooltipUrl": "https://www.cobo.com/"
+                },
+                "name": "Cobo: Custody 1",
+                "ordinal": 10,
+                "slug": "cobo-custody-1",
+                "tagType": "name"
+              },
+              {
+                "meta": {
+                  "main_entity": "Cobo"
+                },
+                "name": "Cobo_0xb800",
+                "ordinal": 10,
+                "slug": "cobo0xb800",
+                "tagType": "name"
+              },
+              {
+                "meta": {},
+                "name": "Exchange",
+                "ordinal": 0,
+                "slug": "exchange",
+                "tagType": "generic"
+              },
+              {
+                "meta": {
+                  "tagIcon ": "https://blockscout-icons.s3.us-east-1.amazonaws.com/OLI_tag_logo.svg",
+                  "textColor": "#C163D4",
+                  "tooltipAttribution": "https://www.openlabelsinitiative.org?utm_source=blockscout",
+                  "tooltipAttributionIcon": "https://blockscout-icons.s3.us-east-1.amazonaws.com/OLI_tag_logo.svg",
+                  "tooltipDescription": "Provided by OLI"
+                },
+                "name": "Cobo 6",
+                "ordinal": 0,
+                "slug": "cobo-6",
+                "tagType": "name"
+              },
+              {
+                "meta": {
+                  "appActionButtonText": "Cobo",
+                  "appID": "cobo"
+                },
+                "name": "Cobo",
+                "ordinal": 0,
+                "slug": "cobo",
+                "tagType": "protocol"
+              }
+            ]
+          },
+          "name": null,
+          "private_tags": [],
+          "proxy_type": null,
+          "public_tags": [],
+          "reputation": "ok",
+          "watchlist_names": []
+        },
+        "token": {
+          "address_hash": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+          "circulating_market_cap": "182459317500.33157",
+          "circulating_supply": null,
+          "decimals": "6",
+          "exchange_rate": "0.999128",
+          "holders_count": "16916633",
+          "icon_url": "https://assets.coingecko.com/coins/images/325/small/Tether.png?1696501661",
+          "name": "Tether",
+          "reputation": "ok",
+          "symbol": "USDT",
+          "total_supply": "88301265725970534",
+          "type": "ERC-20",
+          "volume_24h": "35457712431.71439"
+        },
+        "token_type": "ERC-20",
+        "total": {
+          "decimals": "6",
+          "value": "1000999000000"
+        },
+        "transaction_hash": "0x28525c1adcd28018f3cae7f4e1e1c9f9770c794afd9d8d4f868667d37442c84c",
+        "type": "token_transfer"
+      },
+      {
+        "block_hash": "0x98f256728cc2bb51c1fb50d8dd4319a189e2dfdce8b7516d46f7ee7c22d35c80",
+        "block_number": 19582859,
+        "from": {
+          "ens_domain_name": null,
+          "hash": "0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d",
+          "implementations": [],
+          "is_contract": false,
+          "is_scam": false,
+          "is_verified": false,
+          "metadata": null,
+          "name": null,
+          "private_tags": [],
+          "proxy_type": null,
+          "public_tags": [],
+          "reputation": "ok",
+          "watchlist_names": []
+        },
+        "log_index": 103,
+        "method": "0xa9059cbb",
+        "timestamp": "2024-04-04T14:00:35.000000Z",
+        "to": {
+          "ens_domain_name": null,
+          "hash": "0x409C4A8eC8eEBf4132E33122164D57C5B7039E59",
+          "implementations": [],
+          "is_contract": false,
+          "is_scam": false,
+          "is_verified": false,
+          "metadata": null,
+          "name": null,
+          "private_tags": [],
+          "proxy_type": null,
+          "public_tags": [],
+          "reputation": "ok",
+          "watchlist_names": []
+        },
+        "token": {
+          "address_hash": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+          "circulating_market_cap": "182459317500.33157",
+          "circulating_supply": null,
+          "decimals": "6",
+          "exchange_rate": "0.999128",
+          "holders_count": "16916633",
+          "icon_url": "https://assets.coingecko.com/coins/images/325/small/Tether.png?1696501661",
+          "name": "Tether",
+          "reputation": "ok",
+          "symbol": "USDT",
+          "total_supply": "88301265725970534",
+          "type": "ERC-20",
+          "volume_24h": "35457712431.71439"
+        },
+        "token_type": "ERC-20",
+        "total": {
+          "decimals": "6",
+          "value": "499999000000"
+        },
+        "transaction_hash": "0xcabe96a6a92c33cdbede803ea882e2d542ebcfdc2b2f1be0f48959dd4005047d",
+        "type": "token_transfer"
+      },
+      {
+        "block_hash": "0x500f8214656c70515ad3a281a2f2627672243ed7819ef09ef0a2acd9d25cf1cb",
+        "block_number": 19582789,
+        "from": {
+          "ens_domain_name": null,
+          "hash": "0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d",
+          "implementations": [],
+          "is_contract": false,
+          "is_scam": false,
+          "is_verified": false,
+          "metadata": null,
+          "name": null,
+          "private_tags": [],
+          "proxy_type": null,
+          "public_tags": [],
+          "reputation": "ok",
+          "watchlist_names": []
+        },
+        "log_index": 147,
+        "method": "0xa9059cbb",
+        "timestamp": "2024-04-04T13:46:35.000000Z",
+        "to": {
+          "ens_domain_name": null,
+          "hash": "0x409C4A8eC8eEBf4132E33122164D57C5B7039E59",
+          "implementations": [],
+          "is_contract": false,
+          "is_scam": false,
+          "is_verified": false,
+          "metadata": null,
+          "name": null,
+          "private_tags": [],
+          "proxy_type": null,
+          "public_tags": [],
+          "reputation": "ok",
+          "watchlist_names": []
+        },
+        "token": {
+          "address_hash": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+          "circulating_market_cap": "182459317500.33157",
+          "circulating_supply": null,
+          "decimals": "6",
+          "exchange_rate": "0.999128",
+          "holders_count": "16916633",
+          "icon_url": "https://assets.coingecko.com/coins/images/325/small/Tether.png?1696501661",
+          "name": "Tether",
+          "reputation": "ok",
+          "symbol": "USDT",
+          "total_supply": "88301265725970534",
+          "type": "ERC-20",
+          "volume_24h": "35457712431.71439"
+        },
+        "token_type": "ERC-20",
+        "total": {
+          "decimals": "6",
+          "value": "500000000000"
+        },
+        "transaction_hash": "0xce4be96bd61fd7eda0cbdc3f671bb5729e82640f7e6df5c1ed90ff2d346192c2",
+        "type": "token_transfer"
+      }
+    ]
+  }
+}

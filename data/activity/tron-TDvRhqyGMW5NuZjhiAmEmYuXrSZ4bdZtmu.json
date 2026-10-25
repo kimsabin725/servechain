@@ -1,0 +1,1060 @@
+{
+  "chain": "tron",
+  "address": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+  "label": "Wallet 3 (defendant)",
+  "source": "complaint-2025.pdf p.1",
+  "fetchedAt": "2026-10-25T06:58:19.444Z",
+  "sourceUrls": [
+    "https://api.trongrid.io/v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+    "https://api.trongrid.io/v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu/transactions/trc20?limit=200",
+    "https://api.trongrid.io/v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu/transactions/trc20?limit=200&fingerprint=428Xjpfv3YgcEXxseEa2CFpRFhjTRsaHY2LrU4y8VxJGJnYHiJVxQxkKZ8PmrruaWFUKKcqNMvaVw7Nq9Gcf7J3Mx28zSJJ7o4oiGvnARXCGW32LJR4Qt4ZqNz3WfxJBoYcHZTLZvVTdWKcd94VbXxACzCoWrCS1FmTmEaobveHAzrWm4WFMdsSScDaPXV6zc53nsoYkyQ1rzpeoMUChsw2Z1RtShi8qXDt",
+    "https://api.trongrid.io/v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu/transactions?limit=200",
+    "https://api.trongrid.io/v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu/transactions?limit=200&fingerprint=9zPiuPCdWgJM4Cc5bu1xuuJkdDz3QLkq3boVkwACaaEqbSEgE9ihhrZ8nEr8LU4kdnQ3ZxLSzRoMqTNfTF2y5927YcESFfv9BXxHWHx2nHVRfot7jgTjLY8KnS3K6ETinuc878WquRkyvaaYQizo6RpGCBAofBvduzYV6gRAwRu24prZDzmLwHFgGepeS1zv9ot1dSzp6zcYrBPG367sXYUhJ9ccZvd8",
+    "https://api.trongrid.io/v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu/transactions/trc20?limit=1&order_by=block_timestamp,asc",
+    "https://api.trongrid.io/v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu/transactions?limit=1&order_by=block_timestamp,asc"
+  ],
+  "balances": {
+    "trxSun": 820731273,
+    "usdt": {
+      "raw": "1097320186067",
+      "decimals": 6,
+      "amount": 1097320.186067
+    },
+    "accountFound": true
+  },
+  "earliestActivity": "2020-09-19T12:39:33.000Z",
+  "trc20Transfers": {
+    "count": 400,
+    "first": "2023-09-15T10:10:48.000Z",
+    "last": "2026-10-07T20:01:51.000Z",
+    "monthly": {
+      "2024-01": 55,
+      "2024-02": 19,
+      "2024-03": 19,
+      "2024-04": 38,
+      "2024-05": 1,
+      "2024-06": 0,
+      "2024-07": 0,
+      "2024-08": 0,
+      "2024-09": 1,
+      "2024-10": 0,
+      "2024-11": 0,
+      "2024-12": 1,
+      "2025-01": 2,
+      "2025-02": 0,
+      "2025-03": 0,
+      "2025-04": 0,
+      "2025-05": 1,
+      "2025-06": 0,
+      "2025-07": 1,
+      "2025-08": 0,
+      "2025-09": 0,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0,
+      "2026-01": 0,
+      "2026-02": 0,
+      "2026-03": 0,
+      "2026-04": 3,
+      "2026-05": 1,
+      "2026-06": 2,
+      "2026-07": 1,
+      "2026-08": 0,
+      "2026-09": 0,
+      "2026-10": 9
+    },
+    "truncated": true
+  },
+  "nativeTransactions": {
+    "count": 400,
+    "first": "2023-05-27T10:15:06.000Z",
+    "last": "2026-08-30T21:25:03.000Z",
+    "monthly": {
+      "2024-01": 20,
+      "2024-02": 7,
+      "2024-03": 11,
+      "2024-04": 27,
+      "2024-05": 5,
+      "2024-06": 0,
+      "2024-07": 0,
+      "2024-08": 5,
+      "2024-09": 0,
+      "2024-10": 0,
+      "2024-11": 0,
+      "2024-12": 0,
+      "2025-01": 3,
+      "2025-02": 6,
+      "2025-03": 0,
+      "2025-04": 0,
+      "2025-05": 0,
+      "2025-06": 0,
+      "2025-07": 0,
+      "2025-08": 0,
+      "2025-09": 0,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0,
+      "2026-01": 0,
+      "2026-02": 0,
+      "2026-03": 4,
+      "2026-04": 8,
+      "2026-05": 2,
+      "2026-06": 0,
+      "2026-07": 0,
+      "2026-08": 1,
+      "2026-09": 0,
+      "2026-10": 0
+    },
+    "truncated": true
+  },
+  "uniqueTxAll": {
+    "count": 715,
+    "first": "2023-05-27T10:15:06.000Z",
+    "last": "2026-10-07T20:01:51.000Z",
+    "monthly": {
+      "2024-01": 62,
+      "2024-02": 22,
+      "2024-03": 24,
+      "2024-04": 57,
+      "2024-05": 5,
+      "2024-06": 0,
+      "2024-07": 0,
+      "2024-08": 5,
+      "2024-09": 1,
+      "2024-10": 0,
+      "2024-11": 0,
+      "2024-12": 1,
+      "2025-01": 5,
+      "2025-02": 6,
+      "2025-03": 0,
+      "2025-04": 0,
+      "2025-05": 1,
+      "2025-06": 0,
+      "2025-07": 1,
+      "2025-08": 0,
+      "2025-09": 0,
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0,
+      "2026-01": 0,
+      "2026-02": 0,
+      "2026-03": 4,
+      "2026-04": 11,
+      "2026-05": 3,
+      "2026-06": 2,
+      "2026-07": 1,
+      "2026-08": 1,
+      "2026-09": 0,
+      "2026-10": 9
+    },
+    "truncated": true
+  },
+  "raw": {
+    "account": {
+      "owner_permission": {
+        "keys": [
+          {
+            "address": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+            "weight": 1
+          }
+        ],
+        "threshold": 1,
+        "permission_name": "owner"
+      },
+      "account_resource": {
+        "energy_window_optimized": true,
+        "latest_consume_time_for_energy": 1776503997000,
+        "energy_window_size": 28800000
+      },
+      "active_permission": [
+        {
+          "operations": "7fff1fc0033e0300000000000000000000000000000000000000000000000000",
+          "keys": [
+            {
+              "address": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+              "weight": 1
+            }
+          ],
+          "threshold": 1,
+          "id": 2,
+          "type": "Active",
+          "permission_name": "active"
+        }
+      ],
+      "address": "412b59dbfeab6286facd865e78e4a559d87fa769af",
+      "create_time": 1600521717000,
+      "latest_opration_time": 1777813245000,
+      "free_asset_net_usageV2": [
+        {
+          "value": 0,
+          "key": "1004108"
+        },
+        {
+          "value": 0,
+          "key": "1004106"
+        },
+        {
+          "value": 0,
+          "key": "1004107"
+        },
+        {
+          "value": 0,
+          "key": "1004346"
+        },
+        {
+          "value": 0,
+          "key": "1003533"
+        },
+        {
+          "value": 0,
+          "key": "1004347"
+        },
+        {
+          "value": 0,
+          "key": "1003134"
+        },
+        {
+          "value": 0,
+          "key": "1004102"
+        },
+        {
+          "value": 0,
+          "key": "1004223"
+        },
+        {
+          "value": 0,
+          "key": "1004344"
+        },
+        {
+          "value": 0,
+          "key": "1000947"
+        },
+        {
+          "value": 0,
+          "key": "1004907"
+        },
+        {
+          "value": 0,
+          "key": "1004905"
+        },
+        {
+          "value": 0,
+          "key": "1004180"
+        },
+        {
+          "value": 0,
+          "key": "1003495"
+        },
+        {
+          "value": 0,
+          "key": "1004100"
+        },
+        {
+          "value": 0,
+          "key": "1004342"
+        },
+        {
+          "value": 0,
+          "key": "1004980"
+        },
+        {
+          "value": 0,
+          "key": "1004222"
+        },
+        {
+          "value": 0,
+          "key": "1004343"
+        },
+        {
+          "value": 0,
+          "key": "1003890"
+        },
+        {
+          "value": 0,
+          "key": "1004220"
+        },
+        {
+          "value": 0,
+          "key": "1004185"
+        },
+        {
+          "value": 0,
+          "key": "1005151"
+        },
+        {
+          "value": 0,
+          "key": "1004182"
+        },
+        {
+          "value": 0,
+          "key": "1004339"
+        },
+        {
+          "value": 0,
+          "key": "1004977"
+        },
+        {
+          "value": 0,
+          "key": "1004978"
+        },
+        {
+          "value": 0,
+          "key": "1004975"
+        },
+        {
+          "value": 0,
+          "key": "1004338"
+        },
+        {
+          "value": 0,
+          "key": "1004335"
+        },
+        {
+          "value": 0,
+          "key": "1004336"
+        },
+        {
+          "value": 0,
+          "key": "1004212"
+        },
+        {
+          "value": 0,
+          "key": "1004213"
+        },
+        {
+          "value": 0,
+          "key": "1005026"
+        },
+        {
+          "value": 0,
+          "key": "1003406"
+        },
+        {
+          "value": 0,
+          "key": "1004210"
+        },
+        {
+          "value": 0,
+          "key": "1004057"
+        },
+        {
+          "value": 0,
+          "key": "1004178"
+        },
+        {
+          "value": 0,
+          "key": "1004211"
+        },
+        {
+          "value": 0,
+          "key": "1004175"
+        },
+        {
+          "value": 0,
+          "key": "1005023"
+        },
+        {
+          "value": 0,
+          "key": "1004297"
+        },
+        {
+          "value": 0,
+          "key": "1005141"
+        },
+        {
+          "value": 0,
+          "key": "1004295"
+        },
+        {
+          "value": 0,
+          "key": "1004171"
+        },
+        {
+          "value": 0,
+          "key": "1004292"
+        },
+        {
+          "value": 0,
+          "key": "1004172"
+        },
+        {
+          "value": 0,
+          "key": "1000322"
+        },
+        {
+          "value": 0,
+          "key": "1004920"
+        },
+        {
+          "value": 0,
+          "key": "1004125"
+        },
+        {
+          "value": 0,
+          "key": "1004367"
+        },
+        {
+          "value": 0,
+          "key": "1004929"
+        },
+        {
+          "value": 0,
+          "key": "1004081"
+        },
+        {
+          "value": 0,
+          "key": "1004089"
+        },
+        {
+          "value": 0,
+          "key": "1004123"
+        },
+        {
+          "value": 0,
+          "key": "1004363"
+        },
+        {
+          "value": 0,
+          "key": "1004086"
+        },
+        {
+          "value": 0,
+          "key": "1004083"
+        },
+        {
+          "value": 0,
+          "key": "1004910"
+        },
+        {
+          "value": 0,
+          "key": "1004358"
+        },
+        {
+          "value": 0,
+          "key": "1004355"
+        },
+        {
+          "value": 0,
+          "key": "1004356"
+        },
+        {
+          "value": 0,
+          "key": "1004917"
+        },
+        {
+          "value": 0,
+          "key": "1004191"
+        },
+        {
+          "value": 0,
+          "key": "1004071"
+        },
+        {
+          "value": 0,
+          "key": "1004192"
+        },
+        {
+          "value": 0,
+          "key": "1004078"
+        },
+        {
+          "value": 0,
+          "key": "1004111"
+        },
+        {
+          "value": 0,
+          "key": "1004992"
+        },
+        {
+          "value": 0,
+          "key": "1004197"
+        },
+        {
+          "value": 0,
+          "key": "1004230"
+        },
+        {
+          "value": 0,
+          "key": "1004351"
+        },
+        {
+          "value": 0,
+          "key": "1004077"
+        },
+        {
+          "value": 0,
+          "key": "1004198"
+        },
+        {
+          "value": 0,
+          "key": "1004990"
+        },
+        {
+          "value": 0,
+          "key": "1004195"
+        },
+        {
+          "value": 0,
+          "key": "1005163"
+        },
+        {
+          "value": 0,
+          "key": "1004350"
+        },
+        {
+          "value": 0,
+          "key": "1004944"
+        },
+        {
+          "value": 0,
+          "key": "1004307"
+        },
+        {
+          "value": 0,
+          "key": "1000985"
+        },
+        {
+          "value": 0,
+          "key": "1004305"
+        },
+        {
+          "value": 0,
+          "key": "1004148"
+        },
+        {
+          "value": 0,
+          "key": "1004269"
+        },
+        {
+          "value": 0,
+          "key": "1004302"
+        },
+        {
+          "value": 0,
+          "key": "1004267"
+        },
+        {
+          "value": 0,
+          "key": "1004147"
+        },
+        {
+          "value": 0,
+          "key": "1001156"
+        },
+        {
+          "value": 0,
+          "key": "1004309"
+        },
+        {
+          "value": 0,
+          "key": "1004265"
+        },
+        {
+          "value": 0,
+          "key": "1004142"
+        },
+        {
+          "value": 0,
+          "key": "1004263"
+        },
+        {
+          "value": 0,
+          "key": "1002000"
+        },
+        {
+          "value": 0,
+          "key": "1004264"
+        },
+        {
+          "value": 0,
+          "key": "1004140"
+        },
+        {
+          "value": 0,
+          "key": "1004382"
+        },
+        {
+          "value": 0,
+          "key": "1004262"
+        },
+        {
+          "value": 0,
+          "key": "1005074"
+        },
+        {
+          "value": 0,
+          "key": "1004380"
+        },
+        {
+          "value": 0,
+          "key": "1004018"
+        },
+        {
+          "value": 0,
+          "key": "1002992"
+        },
+        {
+          "value": 0,
+          "key": "1003606"
+        },
+        {
+          "value": 0,
+          "key": "1004937"
+        },
+        {
+          "value": 0,
+          "key": "1004935"
+        },
+        {
+          "value": 0,
+          "key": "1004092"
+        },
+        {
+          "value": 0,
+          "key": "1004090"
+        },
+        {
+          "value": 0,
+          "key": "1004133"
+        },
+        {
+          "value": 0,
+          "key": "1004134"
+        },
+        {
+          "value": 0,
+          "key": "1004131"
+        },
+        {
+          "value": 0,
+          "key": "1004099"
+        },
+        {
+          "value": 0,
+          "key": "1004374"
+        },
+        {
+          "value": 0,
+          "key": "1003282"
+        },
+        {
+          "value": 0,
+          "key": "1004251"
+        },
+        {
+          "value": 0,
+          "key": "1004207"
+        },
+        {
+          "value": 0,
+          "key": "1004449"
+        },
+        {
+          "value": 0,
+          "key": "1004208"
+        },
+        {
+          "value": 0,
+          "key": "1004205"
+        },
+        {
+          "value": 0,
+          "key": "1001611"
+        },
+        {
+          "value": 0,
+          "key": "1001699"
+        },
+        {
+          "value": 0,
+          "key": "1004962"
+        },
+        {
+          "value": 0,
+          "key": "1004201"
+        },
+        {
+          "value": 0,
+          "key": "1004280"
+        },
+        {
+          "value": 0,
+          "key": "1004167"
+        },
+        {
+          "value": 0,
+          "key": "1005011"
+        },
+        {
+          "value": 0,
+          "key": "1004044"
+        },
+        {
+          "value": 0,
+          "key": "1004165"
+        },
+        {
+          "value": 0,
+          "key": "1004160"
+        },
+        {
+          "value": 0,
+          "key": "1004281"
+        },
+        {
+          "value": 0,
+          "key": "1002413"
+        },
+        {
+          "value": 0,
+          "key": "1003900"
+        },
+        {
+          "value": 0,
+          "key": "1004952"
+        },
+        {
+          "value": 0,
+          "key": "1004950"
+        },
+        {
+          "value": 0,
+          "key": "1004959"
+        },
+        {
+          "value": 0,
+          "key": "1004319"
+        },
+        {
+          "value": 0,
+          "key": "1003506"
+        },
+        {
+          "value": 0,
+          "key": "1004034"
+        },
+        {
+          "value": 0,
+          "key": "1005002"
+        },
+        {
+          "value": 0,
+          "key": "1004310"
+        },
+        {
+          "value": 0,
+          "key": "1004032"
+        },
+        {
+          "value": 0,
+          "key": "1004151"
+        },
+        {
+          "value": 0,
+          "key": "1004031"
+        },
+        {
+          "value": 0,
+          "key": "1004152"
+        },
+        {
+          "value": 0,
+          "key": "1004271"
+        }
+      ],
+      "frozenV2": [
+        {},
+        {
+          "type": "ENERGY"
+        },
+        {
+          "type": "TRON_POWER"
+        }
+      ],
+      "balance": 820731273,
+      "trc20": [
+        {
+          "TL81r5Zze7Av4DiKxCBzCbtDnUQVSQfm82": "38500000000000000000000"
+        },
+        {
+          "TEv3TNaMkw2MY2yC8536dkb292AbmiD4F2": "5000000"
+        },
+        {
+          "TRmmhEYAB2dsGcm9kcnom9UmM22AfCRQE3": "135454000000000"
+        },
+        {
+          "TTaW2mBYS4PrtR5KAJPuVJnqraUiyaVat3": "1"
+        },
+        {
+          "TXW6Q6eEgYhvVq89CMF2LPhMXwvttEFWR4": "888888880000"
+        },
+        {
+          "TRe9k2hqdHU5q4fWjnL6JyU6TNnujZBVm4": "567000000"
+        },
+        {
+          "THxYWbzAgzQgQaYi9G4mjeL1tq1hdrZe55": "138138"
+        },
+        {
+          "TLZbs3gxMdyJys3Cd55nGFiXH5HbjR3BQ6": "1"
+        },
+        {
+          "TEUfFCAKExEbs8x973ZmAqX5NpyPe7VBt7": "46344155000000"
+        },
+        {
+          "TEkxiTehnzSmSe2XqrBj4w32RUN966rdz8": "777"
+        },
+        {
+          "TDndaG9V79f3dVuVQHvGZjx3VWN9XxzGe9": "1025"
+        },
+        {
+          "TWd4rCCsm7FFQy3MrnWX6dDTnyP8SiCsTC": "1"
+        },
+        {
+          "TDEmUiWoetqL3oGXaxt7F2HqpfWKvHgH7D": "70508000000"
+        },
+        {
+          "TQTShAfjdRztg8id1mrQPaNT6ccdK1HviG": "88942258256"
+        },
+        {
+          "TJXUL2YGcoVaNpFpNrQ9FjeE5AVMMSk6UJ": "1097320186067"
+        },
+        {
+          "TYv5QVsogfASmBv2CHct3zaeanQFqh7aRL": "1"
+        },
+        {
+          "TH5eLpkQDEiz4JA6cpTChL4GVbLM33jniM": "1"
+        },
+        {
+          "TPTLzNHUFdxq7qvkr6bHHCocby7ZZAzPaQ": "1"
+        },
+        {
+          "TKVca316H4kYQnh1bFjMhdAVUUbtTausKS": "59479742317"
+        },
+        {
+          "TK2y7RAgVhh8WFqN7v4totmLM7ExKc5YtS": "3006056676280"
+        },
+        {
+          "TXL6rJbvmjD46zeN1JssfgxvSo99qC8MRT": "13409316000000000000"
+        },
+        {
+          "TGsDs5v2KosDx2fqoQmSC5zVsjrQARMc4U": "3"
+        },
+        {
+          "TT4bNuDmpbkyJvZ5VVRAyGL8CCeVyAAy9Z": "20230000000000000000000"
+        },
+        {
+          "TJ2X9enWLfQhyLUSuDTiELZ7SBAEPkZcJZ": "8888888"
+        },
+        {
+          "TQ4vqQpab9TGzZAiPnYrMGCPWx6A4wVGXZ": "1"
+        },
+        {
+          "TGRkbrRpaJypZbzFngghmTJyhPDhAeKpoZ": "1"
+        },
+        {
+          "TRNYJEKJrJhewh96gA2VcRBkhwU3X1NNvZ": "10000000000"
+        },
+        {
+          "TQ7ZTbPKgZFTh3WanAx9aZTNDee9eMDREa": "23618000000000"
+        },
+        {
+          "TNuhGXdAhjiJyya6BQ3hR9mHQPTBYHhQ1b": "500000000000000"
+        },
+        {
+          "TFefZs7uDTW2hnWAzJA3xxSVjWKJdbiG9e": "70508000000"
+        },
+        {
+          "TFc7J827FimhBLZ5VPBqxghP5DACnjesMe": "888000000000000000000"
+        },
+        {
+          "TLJa2LhmGUqrB2KjpxNRHPPTxgrPTz7mGf": "1"
+        },
+        {
+          "TJF75etQcTm742X9eo85xh5mPLw6Kvb2of": "20522000000000000000000"
+        },
+        {
+          "TD4bVgcwj3FRbmAo283HxNvqZvY7T3uD8k": "16"
+        },
+        {
+          "THSjCwmYVeK1oLR3TdnXhP7vcU9xVssR3m": "100"
+        },
+        {
+          "TBwVjuct1dTMQsYbXeEBmY5NbRQCLcsT1n": "188202300000000000000"
+        },
+        {
+          "TFfjNs4y48eJwaZAQ6sELvVZ5eGZv4LsNo": "975394745552723496"
+        },
+        {
+          "TFczxzPhnThNSqr5by8tvxsdCFRRz6cPNq": "204297039260"
+        },
+        {
+          "TWSwbLVawZoz2eBuq55W8C9D8axpU4E9as": "21311072842752"
+        },
+        {
+          "TE7VkFvqung7ipdH6np574ZB2uELk26zbs": "975394745552723496"
+        },
+        {
+          "TLAMqT2rHdVKgTKvRptfyC8jnZqUDyMNps": "100000000000000000000000"
+        },
+        {
+          "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t": "1097320186067"
+        },
+        {
+          "TTQBdfP6zNmk2n6HN5poCMVfzr7j9DSdsy": "18420094721484"
+        }
+      ],
+      "latest_consume_free_time": 1776503769000,
+      "net_window_size": 28800000,
+      "net_window_optimized": true
+    },
+    "trc20": [
+      {
+        "transaction_id": "8cace250f05a07cb9f41f09bf9615bc4953300366320a357fc63be7d259ba317",
+        "token_info": {
+          "symbol": "Dkt700647-2025",
+          "address": "TH5eLpkQDEiz4JA6cpTChL4GVbLM33jniM",
+          "decimals": 0,
+          "name": "https_ag_ny_gov_NYOAG_RWF_dj_mtn_s"
+        },
+        "block_timestamp": 1791403311000,
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "to": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "type": "Transfer",
+        "value": "2"
+      },
+      {
+        "transaction_id": "0a7767f787931018a39db3325c27417e1a3765414b66f125a65d106f5c70f057",
+        "token_info": {
+          "symbol": "Dkt700647-2025",
+          "address": "TPTLzNHUFdxq7qvkr6bHHCocby7ZZAzPaQ",
+          "decimals": 0,
+          "name": "https_ag_ny_gov_NYOAG_RWF_mtn_def_"
+        },
+        "block_timestamp": 1791402963000,
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "to": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "type": "Transfer",
+        "value": "2"
+      },
+      {
+        "transaction_id": "b786693fa58ef0f8f9d32d0e564cbdcfca4a3cc4a2aa242f4b670ddb8f23a606",
+        "token_info": {
+          "symbol": "Dkt700647-2025",
+          "address": "TGRkbrRpaJypZbzFngghmTJyhPDhAeKpoZ",
+          "decimals": 0,
+          "name": "https_ag_ny_gov_NYOAG_RWF_mtn_amd_"
+        },
+        "block_timestamp": 1791402777000,
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "to": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "type": "Transfer",
+        "value": "2"
+      }
+    ],
+    "transactions": [
+      {
+        "ret": [
+          {
+            "contractRet": "SUCCESS",
+            "fee": 0
+          }
+        ],
+        "signature": [
+          "68621fafea3e8b56e2036d467f7f457ce2ed1a122a94783a98d4df42764571a6455a7bba968d80f825469ab6d85a67d595757691b5685e591701aed2086642cc1c"
+        ],
+        "txID": "d631109913fbb44ba12059ed17d7f4ca202014d30837ad368ca58cb73e4e986c",
+        "net_usage": 282,
+        "raw_data_hex": "0a0279ec2208c7250d6b41a4961c4088adc2a485345a76080212720a32747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e736665724173736574436f6e7472616374123c0a0731303035313633121541c1bd01074bf84c844456279de6617116865c9cdc1a15412b59dbfeab6286facd865e78e4a559d87fa769af20d6bd9e0470daeebea48534",
+        "net_fee": 0,
+        "energy_usage": 0,
+        "blockNumber": 85817856,
+        "block_timestamp": 1788125103000,
+        "energy_fee": 0,
+        "energy_usage_total": 0,
+        "raw_data": {
+          "contract": [
+            {
+              "parameter": {
+                "value": {
+                  "amount": 8888022,
+                  "asset_name": "1005163",
+                  "owner_address": "41c1bd01074bf84c844456279de6617116865c9cdc",
+                  "to_address": "412b59dbfeab6286facd865e78e4a559d87fa769af"
+                },
+                "type_url": "type.googleapis.com/protocol.TransferAssetContract"
+              },
+              "type": "TransferAssetContract"
+            }
+          ],
+          "ref_block_bytes": "79ec",
+          "ref_block_hash": "c7250d6b41a4961c",
+          "expiration": 1788125157000,
+          "timestamp": 1788125099866
+        },
+        "internal_transactions": []
+      },
+      {
+        "ret": [
+          {
+            "contractRet": "SUCCESS",
+            "fee": 0
+          }
+        ],
+        "signature": [
+          "62bfdf021ec7103e99916674b71becf61ccdb36ffbaa27d8dd2f68d883fc489c4c46232f74e302d6c38d37251fe9568ec34761a342482e53eb559a1587941f0501"
+        ],
+        "txID": "db2ede90634669e31c321edbd7b9e077af0fc98474126accdb8f076fce9c564c",
+        "net_usage": 265,
+        "raw_data_hex": "0a020b7a22081111f9e8cf58f71b40b091baefde335a65080112610a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412300a15412c4276471af9932c5a0d0ed20aea3b3599d49ceb1215412b59dbfeab6286facd865e78e4a559d87fa769af180670dcc6b6efde33",
+        "net_fee": 0,
+        "energy_usage": 0,
+        "blockNumber": 82381709,
+        "block_timestamp": 1777813269000,
+        "energy_fee": 0,
+        "energy_usage_total": 0,
+        "raw_data": {
+          "contract": [
+            {
+              "parameter": {
+                "value": {
+                  "amount": 6,
+                  "owner_address": "412c4276471af9932c5a0d0ed20aea3b3599d49ceb",
+                  "to_address": "412b59dbfeab6286facd865e78e4a559d87fa769af"
+                },
+                "type_url": "type.googleapis.com/protocol.TransferContract"
+              },
+              "type": "TransferContract"
+            }
+          ],
+          "ref_block_bytes": "0b7a",
+          "ref_block_hash": "1111f9e8cf58f71b",
+          "expiration": 1777813326000,
+          "timestamp": 1777813267292
+        },
+        "internal_transactions": []
+      }
+    ],
+    "firstTrc20": [
+      {
+        "transaction_id": "b5f2d16cc23fc7bd8429079356e82d7a9173f6a31ea32c96e774eef49592b5ff",
+        "token_info": {
+          "symbol": "USDT",
+          "address": "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
+          "decimals": 6,
+          "name": "Tether USD"
+        },
+        "block_timestamp": 1600519173000,
+        "from": "TWbXbQeFUn87zVFAT8FaYAnWqZ4ybZZW6U",
+        "to": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "type": "Transfer",
+        "value": "21571000000"
+      }
+    ],
+    "firstNative": [
+      {
+        "txID": "b5f2d16cc23fc7bd8429079356e82d7a9173f6a31ea32c96e774eef49592b5ff",
+        "block_timestamp": 1600519173000
+      }
+    ]
+  }
+}

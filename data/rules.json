@@ -1,0 +1,110 @@
+{
+  "retrievedAt": "2026-10-25",
+  "quoteMethod": "WebFetch excerpt of the nysenate.gov page (tool limits verbatim quotes to ~125 characters; direct download is blocked by a bot check). Each excerpt was returned as an exact quote but not compared against raw HTML. Full section text not retrieved.",
+  "rules": [
+    {
+      "section": "CPLR 306(a)",
+      "rule": "Proof of service must state papers served, person served, date, time and place",
+      "days": null,
+      "quote": [
+        "Proof of service shall specify the papers served, the person who was served and the date, time,"
+      ],
+      "url": "https://www.nysenate.gov/legislation/laws/CVP/306",
+      "revision": "2024-11-29",
+      "status": "read"
+    },
+    {
+      "section": "CPLR 306-b",
+      "rule": "Service within 120 days after commencement; court may extend on good cause or in the interest of justice",
+      "days": 120,
+      "quote": [
+        "shall be made within one hundred twenty days after the commencement of the action or proceeding",
+        "upon good cause shown or in the interest of justice, extend the time for service"
+      ],
+      "url": "https://www.nysenate.gov/legislation/laws/CVP/306-B",
+      "revision": "2026-04-24",
+      "status": "read",
+      "note": "Revision dated 2026-04-24 is shown as most recent; content of that amendment not reviewed. The L1 order extended time to 120 days from entry. 306-b does not define when service is complete."
+    },
+    {
+      "section": "CPLR 308(5)",
+      "rule": "Court-directed service when 308(1), (2) and (4) are impracticable",
+      "days": null,
+      "quote": [
+        "in such manner as the court, upon motion without notice, directs,",
+        "if service is impracticable under paragraphs one, two and four of this section."
+      ],
+      "url": "https://www.nysenate.gov/legislation/laws/CVP/308",
+      "revision": "2014-09-22",
+      "status": "read",
+      "note": "Per WebFetch, paragraph 5 contains no language on when service is complete and does not mention filing proof of service; completion therefore comes from the court's order (L1: 'deemed complete upon such filing' of the affidavit)."
+    },
+    {
+      "section": "CPLR 308(2)",
+      "rule": "Contrast: deliver-and-mail service is complete ten days after proof is filed",
+      "days": 10,
+      "quote": [
+        "service shall be complete ten days after such filing"
+      ],
+      "url": "https://www.nysenate.gov/legislation/laws/CVP/308",
+      "revision": "2014-09-22",
+      "status": "read",
+      "note": "Not applicable to L1; shown to explain why completion under 308(5) depends on the order."
+    },
+    {
+      "section": "CPLR 320(a)",
+      "rule": "Appearance within 20 days of service, or 30 days after service is complete when served under 308(2)-(5) and other listed provisions",
+      "days": 30,
+      "quote": [
+        "subdivision two, three, four or five of section 308",
+        "the appearance shall be made within thirty days after service is complete"
+      ],
+      "url": "https://www.nysenate.gov/legislation/laws/CVP/320",
+      "revision": "2014-09-22",
+      "status": "read"
+    },
+    {
+      "section": "CPLR 3215(f)",
+      "rule": "Default application must include proof of service of summons and complaint, and proof of facts, default and amount due by affidavit",
+      "days": null,
+      "quote": [
+        "Proof. On any application for judgment by default, the applicant shall file proof of service of the summons",
+        "proof of the facts constituting the claim, the default and the amount due, including, if applicable,",
+        "by affidavit made by the party"
+      ],
+      "url": "https://www.nysenate.gov/legislation/laws/CVP/3215",
+      "revision": "2023-11-03",
+      "status": "read",
+      "note": "Per WebFetch the phrase 'affidavit of service' does not appear in (f); it requires 'proof of service of the summons and the complaint'."
+    },
+    {
+      "section": "CPLR 3215(c)",
+      "rule": "If plaintiff does not seek default judgment within one year after the default, the court dismisses the complaint as abandoned (unless sufficient cause shown)",
+      "days": 365,
+      "quote": [
+        "Default not entered within one year. If the plaintiff fails to take proceedings for the entry of judgment",
+        "within one year after the default",
+        "the court shall not enter judgment but shall dismiss the complaint as abandoned, without costs,"
+      ],
+      "url": "https://www.nysenate.gov/legislation/laws/CVP/3215",
+      "revision": "2023-11-03",
+      "status": "read",
+      "note": "'unless sufficient cause is shown' exception is [summary], not quoted."
+    }
+  ],
+  "answerDeadline": {
+    "verdict": "consistent",
+    "rule": "answerDue = affidavitOfServiceFiledAt + 30 days",
+    "reasoning": [
+      "CPLR 320(a) [read]: service under 308 subdivision five -> appearance within thirty days after service is complete.",
+      "CPLR 308(5) [read via WebFetch]: no statutory completion rule.",
+      "L1 order p.6 [read, OCR]: 'service shall be deemed complete upon such filing' of the affidavit of service."
+    ],
+    "openPoints": [
+      "Day counting and weekend/holiday rollover (General Construction Law §25-a) not read [unverified].",
+      "Whether filing means NYSCEF acceptance time or submission time is not addressed [unverified].",
+      "Excerpts came through WebFetch, not raw statute text."
+    ],
+    "label": "lawyer review required before use in a filing"
+  }
+}

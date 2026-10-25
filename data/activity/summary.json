@@ -1,0 +1,294 @@
+{
+  "fetchedAt": "2026-10-25T06:57:39.078Z",
+  "maxPagesPerList": 2,
+  "userAgent": "servechain-research",
+  "requestCount": 39,
+  "wallets": [
+    {
+      "chain": "eth",
+      "address": "0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d",
+      "label": "Wallet 1 (defendant)",
+      "source": "complaint-2025.pdf p.1",
+      "status": "ok",
+      "file": "eth-0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d.json",
+      "fetchedAt": "2026-10-25T06:57:47.088Z",
+      "sourceUrls": [
+        "https://eth.blockscout.com/api/v2/addresses/0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d",
+        "https://eth.blockscout.com/api/v2/addresses/0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d/counters",
+        "https://eth.blockscout.com/api/v2/addresses/0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d/token-balances",
+        "https://eth.blockscout.com/api/v2/addresses/0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d/transactions",
+        "https://eth.blockscout.com/api/v2/addresses/0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d/token-transfers",
+        "https://eth.blockscout.com/api/v2/addresses/0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d/token-transfers?index=158&block_number=19544340"
+      ],
+      "lastActivity": "2026-10-02T20:45:11.000000Z",
+      "firstSeenInFetched": "2024-02-14T15:53:47.000000Z",
+      "earliestActivity": null,
+      "truncated": true,
+      "monthlyPartialBefore": "2024-03-15T23:01:59.000000Z",
+      "monthlyNote": "older items not fetched; months after 2024-03 are complete, 2024-03 and earlier may be undercounted",
+      "monthlyUniqueTx": {
+        "2024-02": 2,
+        "2024-03": 70,
+        "2024-04": 36,
+        "2024-09": 1,
+        "2024-11": 2,
+        "2025-01": 2,
+        "2025-07": 2,
+        "2025-08": 1,
+        "2026-02": 1,
+        "2026-03": 1,
+        "2026-05": 2,
+        "2026-10": 3
+      },
+      "uniqueTxFetched": 123,
+      "balances": {
+        "nativeEthWei": "18512043530611430",
+        "usdc": {
+          "raw": "219840283512",
+          "decimals": 6,
+          "amount": 219840.283512
+        }
+      },
+      "totals": {
+        "transactionsCount": "38",
+        "tokenTransfersCount": "145"
+      },
+      "countersSuspect": false
+    },
+    {
+      "chain": "eth",
+      "address": "0x6298BfEd428B843d326dDAE1A406441CDB40db80",
+      "label": "Transition Wallet A",
+      "source": "complaint-2025.pdf p.13 ¶42",
+      "status": "ok",
+      "file": "eth-0x6298BfEd428B843d326dDAE1A406441CDB40db80.json",
+      "fetchedAt": "2026-10-25T06:57:54.504Z",
+      "sourceUrls": [
+        "https://eth.blockscout.com/api/v2/addresses/0x6298BfEd428B843d326dDAE1A406441CDB40db80",
+        "https://eth.blockscout.com/api/v2/addresses/0x6298BfEd428B843d326dDAE1A406441CDB40db80/counters",
+        "https://eth.blockscout.com/api/v2/addresses/0x6298BfEd428B843d326dDAE1A406441CDB40db80/token-balances",
+        "https://eth.blockscout.com/api/v2/addresses/0x6298BfEd428B843d326dDAE1A406441CDB40db80/transactions",
+        "https://eth.blockscout.com/api/v2/addresses/0x6298BfEd428B843d326dDAE1A406441CDB40db80/transactions?index=95&value=478162335227777&hash=0xb4c12f05d090a7c1156467950e9d04c08abc12836757bda33accdcfd60df394b&inserted_at=2024-05-26T02%3A42%3A52.445684Z&block_number=19951140&fee=80193191988000&items_count=50",
+        "https://eth.blockscout.com/api/v2/addresses/0x6298BfEd428B843d326dDAE1A406441CDB40db80/token-transfers",
+        "https://eth.blockscout.com/api/v2/addresses/0x6298BfEd428B843d326dDAE1A406441CDB40db80/token-transfers?index=287&block_number=19950245"
+      ],
+      "lastActivity": "2026-03-30T00:41:11.000000Z",
+      "firstSeenInFetched": "2024-05-19T18:24:35.000000Z",
+      "earliestActivity": null,
+      "truncated": true,
+      "monthlyPartialBefore": "2024-05-20T18:46:59.000000Z",
+      "monthlyNote": "older items not fetched; months after 2024-05 are complete, 2024-05 and earlier may be undercounted",
+      "monthlyUniqueTx": {
+        "2024-05": 128,
+        "2026-03": 1
+      },
+      "uniqueTxFetched": 129,
+      "balances": {
+        "nativeEthWei": "0",
+        "usdc": {
+          "raw": "16",
+          "decimals": 6,
+          "amount": 0.000016
+        }
+      },
+      "totals": {
+        "transactionsCount": "3298",
+        "tokenTransfersCount": "3164"
+      },
+      "countersSuspect": false
+    },
+    {
+      "chain": "eth",
+      "address": "0x7a448169e9d5DB6405087dAB9dfF774Db6589b05",
+      "label": "Transition Wallet B",
+      "source": "complaint-2025.pdf p.13 ¶42",
+      "status": "ok",
+      "file": "eth-0x7a448169e9d5DB6405087dAB9dfF774Db6589b05.json",
+      "fetchedAt": "2026-10-25T06:58:02.145Z",
+      "sourceUrls": [
+        "https://eth.blockscout.com/api/v2/addresses/0x7a448169e9d5DB6405087dAB9dfF774Db6589b05",
+        "https://eth.blockscout.com/api/v2/addresses/0x7a448169e9d5DB6405087dAB9dfF774Db6589b05/counters",
+        "https://eth.blockscout.com/api/v2/addresses/0x7a448169e9d5DB6405087dAB9dfF774Db6589b05/token-balances",
+        "https://eth.blockscout.com/api/v2/addresses/0x7a448169e9d5DB6405087dAB9dfF774Db6589b05/transactions",
+        "https://eth.blockscout.com/api/v2/addresses/0x7a448169e9d5DB6405087dAB9dfF774Db6589b05/transactions?index=228&value=0&hash=0xb7705269eeb02bcede85a669ec19c3e4be40cd2565a844b8b6da7b6c8d382199&inserted_at=2024-04-01T04%3A02%3A31.259400Z&block_number=19558490&fee=655658581578546&items_count=50",
+        "https://eth.blockscout.com/api/v2/addresses/0x7a448169e9d5DB6405087dAB9dfF774Db6589b05/token-transfers",
+        "https://eth.blockscout.com/api/v2/addresses/0x7a448169e9d5DB6405087dAB9dfF774Db6589b05/token-transfers?index=130&block_number=19564276"
+      ],
+      "lastActivity": "2026-03-29T22:54:11.000000Z",
+      "firstSeenInFetched": "2024-03-29T15:39:35.000000Z",
+      "earliestActivity": null,
+      "truncated": true,
+      "monthlyPartialBefore": "2024-03-30T03:23:59.000000Z",
+      "monthlyNote": "older items not fetched; months after 2024-03 are complete, 2024-03 and earlier may be undercounted",
+      "monthlyUniqueTx": {
+        "2024-03": 62,
+        "2024-04": 78,
+        "2026-03": 1
+      },
+      "uniqueTxFetched": 141,
+      "balances": {
+        "nativeEthWei": "0",
+        "usdc": null
+      },
+      "totals": {
+        "transactionsCount": "0",
+        "tokenTransfersCount": "0"
+      },
+      "countersSuspect": true
+    },
+    {
+      "chain": "eth",
+      "address": "0x409C4A8eC8eEBf4132E33122164D57C5B7039E59",
+      "label": "wallet 0x409 (USDC outflow)",
+      "source": "complaint-2025.pdf p.14 ¶44",
+      "status": "ok",
+      "file": "eth-0x409C4A8eC8eEBf4132E33122164D57C5B7039E59.json",
+      "fetchedAt": "2026-10-25T06:58:07.785Z",
+      "sourceUrls": [
+        "https://eth.blockscout.com/api/v2/addresses/0x409C4A8eC8eEBf4132E33122164D57C5B7039E59",
+        "https://eth.blockscout.com/api/v2/addresses/0x409C4A8eC8eEBf4132E33122164D57C5B7039E59/counters",
+        "https://eth.blockscout.com/api/v2/addresses/0x409C4A8eC8eEBf4132E33122164D57C5B7039E59/token-balances",
+        "https://eth.blockscout.com/api/v2/addresses/0x409C4A8eC8eEBf4132E33122164D57C5B7039E59/transactions",
+        "https://eth.blockscout.com/api/v2/addresses/0x409C4A8eC8eEBf4132E33122164D57C5B7039E59/token-transfers"
+      ],
+      "lastActivity": "2025-09-28T09:32:23.000000Z",
+      "firstSeenInFetched": "2024-04-01T15:07:47.000000Z",
+      "earliestActivity": null,
+      "truncated": false,
+      "monthlyPartialBefore": null,
+      "monthlyNote": "all items fetched",
+      "monthlyUniqueTx": {
+        "2024-04": 11,
+        "2025-09": 1
+      },
+      "uniqueTxFetched": 12,
+      "balances": {
+        "nativeEthWei": "0",
+        "usdc": null
+      },
+      "totals": {
+        "transactionsCount": "0",
+        "tokenTransfersCount": "0"
+      },
+      "countersSuspect": true
+    },
+    {
+      "chain": "tron",
+      "address": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+      "label": "Wallet 2 (defendant)",
+      "source": "complaint-2025.pdf p.1",
+      "status": "ok",
+      "file": "tron-TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8.json",
+      "fetchedAt": "2026-10-25T06:58:14.398Z",
+      "sourceUrls": [
+        "https://api.trongrid.io/v1/accounts/TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+        "https://api.trongrid.io/v1/accounts/TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8/transactions/trc20?limit=200",
+        "https://api.trongrid.io/v1/accounts/TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8/transactions/trc20?limit=200&fingerprint=428Xjpfv3YgcEXxseEa2CFpRFhjTRsaHY2LrU4y8VxJGJnYHiJTzbRTiphvs64P9PY41ixZbU8EGBkPKhLpeJXLrgpxdVg9MzFEfFM9PkAjxg2Ba8X6hipkJGZJvThefKQiuPqpMFTEfTTavMdZoCGWhZhrdxy5JxXRfQeeQPC6fK4eUGsi1uxW46pKwCUX9tPpH5TuBj4YxuhABYMud5PfZmbPWMzCeMHk",
+        "https://api.trongrid.io/v1/accounts/TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8/transactions?limit=200",
+        "https://api.trongrid.io/v1/accounts/TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8/transactions?limit=200&fingerprint=9zPiuPCdWgJM4Cc5bu1xuuJkdDz3QLkq3boVkwACaaEqbSEgE9iaytwhodN41Yt4QWo7He3cs6xoGe5E64J7SbNtzGxntbifcUEszucZWobVgriYNG3Ub8QKG3c57GEaAfWCQYhQNYVr6nW7TaHdXHrF54koTH5oZ64DY9pprusyoBgbgoH58rnf3t8B6nS188asPMiNKageKDYCGjUJtmVyFLq73TAJ",
+        "https://api.trongrid.io/v1/accounts/TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8/transactions/trc20?limit=1&order_by=block_timestamp,asc",
+        "https://api.trongrid.io/v1/accounts/TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8/transactions?limit=1&order_by=block_timestamp,asc"
+      ],
+      "lastActivity": "2026-10-16T09:12:54.000Z",
+      "firstSeenInFetched": "2023-08-01T12:44:51.000Z",
+      "earliestActivity": "2022-03-26T07:46:06.000Z",
+      "truncated": true,
+      "monthlyPartialBefore": "2023-09-11T14:49:18.000Z",
+      "monthlyNote": "older items not fetched; months after 2023-09 are complete, 2023-09 and earlier may be undercounted",
+      "monthlyUniqueTx": {
+        "2024-01": 76,
+        "2024-02": 85,
+        "2024-03": 98,
+        "2024-04": 145,
+        "2024-05": 30,
+        "2024-06": 8,
+        "2024-07": 1,
+        "2024-08": 10,
+        "2024-09": 2,
+        "2024-10": 5,
+        "2024-11": 2,
+        "2024-12": 3,
+        "2025-01": 10,
+        "2025-02": 2,
+        "2025-04": 5,
+        "2025-06": 1,
+        "2025-07": 2,
+        "2025-10": 2,
+        "2026-01": 8,
+        "2026-04": 3,
+        "2026-06": 2,
+        "2026-07": 1,
+        "2026-10": 13
+      },
+      "uniqueTxFetched": 724,
+      "balances": {
+        "trxSun": 9312490,
+        "usdt": {
+          "raw": "862347428821",
+          "decimals": 6,
+          "amount": 862347.428821
+        },
+        "accountFound": true
+      },
+      "totals": null,
+      "countersSuspect": null
+    },
+    {
+      "chain": "tron",
+      "address": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+      "label": "Wallet 3 (defendant)",
+      "source": "complaint-2025.pdf p.1",
+      "status": "ok",
+      "file": "tron-TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu.json",
+      "fetchedAt": "2026-10-25T06:58:19.444Z",
+      "sourceUrls": [
+        "https://api.trongrid.io/v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "https://api.trongrid.io/v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu/transactions/trc20?limit=200",
+        "https://api.trongrid.io/v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu/transactions/trc20?limit=200&fingerprint=428Xjpfv3YgcEXxseEa2CFpRFhjTRsaHY2LrU4y8VxJGJnYHiJVxQxkKZ8PmrruaWFUKKcqNMvaVw7Nq9Gcf7J3Mx28zSJJ7o4oiGvnARXCGW32LJR4Qt4ZqNz3WfxJBoYcHZTLZvVTdWKcd94VbXxACzCoWrCS1FmTmEaobveHAzrWm4WFMdsSScDaPXV6zc53nsoYkyQ1rzpeoMUChsw2Z1RtShi8qXDt",
+        "https://api.trongrid.io/v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu/transactions?limit=200",
+        "https://api.trongrid.io/v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu/transactions?limit=200&fingerprint=9zPiuPCdWgJM4Cc5bu1xuuJkdDz3QLkq3boVkwACaaEqbSEgE9ihhrZ8nEr8LU4kdnQ3ZxLSzRoMqTNfTF2y5927YcESFfv9BXxHWHx2nHVRfot7jgTjLY8KnS3K6ETinuc878WquRkyvaaYQizo6RpGCBAofBvduzYV6gRAwRu24prZDzmLwHFgGepeS1zv9ot1dSzp6zcYrBPG367sXYUhJ9ccZvd8",
+        "https://api.trongrid.io/v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu/transactions/trc20?limit=1&order_by=block_timestamp,asc",
+        "https://api.trongrid.io/v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu/transactions?limit=1&order_by=block_timestamp,asc"
+      ],
+      "lastActivity": "2026-10-07T20:01:51.000Z",
+      "firstSeenInFetched": "2023-05-27T10:15:06.000Z",
+      "earliestActivity": "2020-09-19T12:39:33.000Z",
+      "truncated": true,
+      "monthlyPartialBefore": "2023-09-15T10:10:48.000Z",
+      "monthlyNote": "older items not fetched; months after 2023-09 are complete, 2023-09 and earlier may be undercounted",
+      "monthlyUniqueTx": {
+        "2024-01": 62,
+        "2024-02": 22,
+        "2024-03": 24,
+        "2024-04": 57,
+        "2024-05": 5,
+        "2024-08": 5,
+        "2024-09": 1,
+        "2024-12": 1,
+        "2025-01": 5,
+        "2025-02": 6,
+        "2025-05": 1,
+        "2025-07": 1,
+        "2026-03": 4,
+        "2026-04": 11,
+        "2026-05": 3,
+        "2026-06": 2,
+        "2026-07": 1,
+        "2026-08": 1,
+        "2026-10": 9
+      },
+      "uniqueTxFetched": 715,
+      "balances": {
+        "trxSun": 820731273,
+        "usdt": {
+          "raw": "1097320186067",
+          "decimals": 6,
+          "amount": 1097320.186067
+        },
+        "accountFound": true
+      },
+      "totals": null,
+      "countersSuspect": null
+    }
+  ]
+}

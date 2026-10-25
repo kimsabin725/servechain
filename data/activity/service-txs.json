@@ -1,0 +1,421 @@
+{
+  "fetchedAt": "2026-10-25T06:59:49.957Z",
+  "window": [
+    "2025-01-20T00:00:00Z",
+    "2025-01-24T00:00:00Z"
+  ],
+  "eth": {
+    "source": "decision-and-pleadings-2025.pdf p.70 (Sang Aff. \u00b63)",
+    "contract": "0xc9154424b823b10579895ccbe442d41b9abd96ed",
+    "tokenId": "45941267142316491420780756377080437389336336339189278277342547391922395152392",
+    "owner": "0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d",
+    "tokenURI": null,
+    "metadata": {
+      "attributes": [
+        {
+          "key": "alt_text",
+          "trait_type": "alt_text",
+          "value": "YOU ARE HEREBY SUMMONED. View the official documents here at https://ag.ny.gov/IPBsummons"
+        },
+        {
+          "key": "alt_text",
+          "trait_type": "alt_text",
+          "value": "YOU ARE HEREBY SUMMONED. View the official documents here at https://ag.ny.gov/IPBsummons"
+        }
+      ],
+      "description": "YOU ARE HEREBY SUMMONED. View the official documents here at https://ag.ny.gov/IPBsummons",
+      "external_url": "https://rarible.com/token/0xc9154424b823b10579895ccbe442d41b9abd96ed:45941267142316491420780756377080437389336336339189278277342547391922395152392",
+      "image": "ipfs://ipfs/bafybeickewnh4yxprluarct2mkbuj4jhmwcmepluwwj53lh7h3ytqp54ue/image.png",
+      "name": "https://ag.ny.gov/IPBsummons"
+    },
+    "externalAppUrl": "https://rarible.com/token/0xc9154424b823b10579895ccbe442d41b9abd96ed:45941267142316491420780756377080437389336336339189278277342547391922395152392",
+    "transfers": [
+      {
+        "txHash": "0xc3b61bd37696c38c24b64e9ac05df16f20e71e649173f5edd304162959928d0e",
+        "block": 21674908,
+        "time": "2025-01-21T19:19:35.000000Z",
+        "from": "0x6591d5F28Bea380cb1a0F889103c920A117b530f",
+        "to": "0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d",
+        "method": "0x42842e0e"
+      },
+      {
+        "txHash": "0xa5c5d3047d4fe90157aab992ec36afdd60356101d6e4f6fc487f4f628ba8a73f",
+        "block": 21674880,
+        "time": "2025-01-21T19:13:59.000000Z",
+        "from": "0x0000000000000000000000000000000000000000",
+        "to": "0x6591d5F28Bea380cb1a0F889103c920A117b530f",
+        "method": "0x22a775b6"
+      }
+    ]
+  },
+  "tron": {
+    "source": "decision-and-pleadings-2025.pdf p.72 (Sang Aff. \u00b6\u00b66-7)",
+    "affidavitTxids": [
+      "bfbacea582b76fb95eaa3f4fac32ccfb832a5703a1f7ea9a08593808ae1c6df4",
+      "6361f4f44b95b0cfd165801d0d1a515d3a154584d9b5e0f86d4dc9a429823907",
+      "782febfc3134e9b1f602dcb0522d0454e41ebae350e7cd330837ccc54bed95c5",
+      "70c0c9dc940cc8b8bafd1c96e1364179e4ef9b98d5c8fba0a8b96fa9dc3d225b"
+    ],
+    "transfersInWindow": [
+      {
+        "wallet": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+        "txHash": "782febfc3134e9b1f602dcb0522d0454e41ebae350e7cd330837ccc54bed95c5",
+        "time": "2025-01-22T21:52:06.000Z",
+        "from": "TNZxckCsHLWH73cA8wGBiCo4TqS49XMR7N",
+        "to": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+        "contract": "TTaW2mBYS4PrtR5KAJPuVJnqraUiyaVat3",
+        "name": "NOTICE OF A LAWSUIT",
+        "symbol": "NOTICE_LAWSUIT",
+        "value": "1",
+        "citedInAffidavit": true
+      },
+      {
+        "wallet": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+        "txHash": "bfbacea582b76fb95eaa3f4fac32ccfb832a5703a1f7ea9a08593808ae1c6df4",
+        "time": "2025-01-21T22:34:12.000Z",
+        "from": "TNZxckCsHLWH73cA8wGBiCo4TqS49XMR7N",
+        "to": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+        "contract": "TLJa2LhmGUqrB2KjpxNRHPPTxgrPTz7mGf",
+        "name": "https_ag_ny_gov_IPBsummons",
+        "symbol": "IPBsummons",
+        "value": "1",
+        "citedInAffidavit": true
+      },
+      {
+        "wallet": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "txHash": "70c0c9dc940cc8b8bafd1c96e1364179e4ef9b98d5c8fba0a8b96fa9dc3d225b",
+        "time": "2025-01-22T21:55:57.000Z",
+        "from": "TNZxckCsHLWH73cA8wGBiCo4TqS49XMR7N",
+        "to": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "contract": "TTaW2mBYS4PrtR5KAJPuVJnqraUiyaVat3",
+        "name": "NOTICE OF A LAWSUIT",
+        "symbol": "NOTICE_LAWSUIT",
+        "value": "2",
+        "citedInAffidavit": true
+      },
+      {
+        "wallet": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "txHash": "6361f4f44b95b0cfd165801d0d1a515d3a154584d9b5e0f86d4dc9a429823907",
+        "time": "2025-01-21T22:35:33.000Z",
+        "from": "TNZxckCsHLWH73cA8wGBiCo4TqS49XMR7N",
+        "to": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "contract": "TLJa2LhmGUqrB2KjpxNRHPPTxgrPTz7mGf",
+        "name": "https_ag_ny_gov_IPBsummons",
+        "symbol": "IPBsummons",
+        "value": "2",
+        "citedInAffidavit": true
+      }
+    ],
+    "tokenURIs": {
+      "TLJa2LhmGUqrB2KjpxNRHPPTxgrPTz7mGf": {
+        "tokenId": 1,
+        "tokenURI": "data:application/json;base64,eyJuYW1lIjoiaHR0cHNfYWdfbnlfZ292X0lQQnN1bW1vbnMgIzEiLCJkZXNjcmlwdGlvbiI6IiIsInN5bWJvbCI6IklQQnN1bW1vbnMiLCJpbWFnZSI6Imh0dHBzOi8vaW1hZ2VzLmFwZW5mdC5pby9hcGVuZnQtbWFya2V0L3VzZXIvY2IwYWNmY2YtMTcxOS00YjBlLTk2MmItNmRjMDUyYWM3ZmMzLnBuZyIsImFuaW1hdGlvbl91cmwiOiIifQ==",
+        "raw": "00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000121646174613a6170706c69636174696f6e2f6a736f6e3b6261736536342c65794a755957316c496a6f696148523063484e6659576466626e6c665a32393258306c51516e4e3162573176626e4d67497a45694c434a6b5a584e6a636d6c7764476c766269493649694973496e4e3562574a7662434936496b6c51516e4e3162573176626e4d694c434a706257466e5a534936496d68306448427a4f693876615731685a32567a4c6d46775a57356d6443357062793968634756755a6e517462574679613256304c33567a5a5849765932497759574e6d593259744d5463784f533030596a426c4c546b324d6d49744e6d526a4d44557959574d335a6d4d7a4c6e42755a794973496d46756157316864476c76626c3931636d77694f69496966513d3d00000000000000000000000000000000000000000000000000000000000000",
+        "ok": true,
+        "decoded": {
+          "name": "https_ag_ny_gov_IPBsummons #1",
+          "description": "",
+          "symbol": "IPBsummons",
+          "image": "https://images.apenft.io/apenft-market/user/cb0acfcf-1719-4b0e-962b-6dc052ac7fc3.png",
+          "animation_url": ""
+        }
+      },
+      "TTaW2mBYS4PrtR5KAJPuVJnqraUiyaVat3": {
+        "tokenId": 1,
+        "tokenURI": "data:application/json;base64,eyJuYW1lIjoiTk9USUNFIE9GIEEgTEFXU1VJVCAjMSIsImRlc2NyaXB0aW9uIjoiIiwic3ltYm9sIjoiTk9USUNFX0xBV1NVSVQiLCJpbWFnZSI6Imh0dHBzOi8vaW1hZ2VzLmFwZW5mdC5pby9hcGVuZnQtbWFya2V0L3VzZXIvMzExOGUxYmMtN2UyYy00ZGY4LWJiNWItYWRiMTAzZmJkOTE0LnBuZyIsImFuaW1hdGlvbl91cmwiOiIifQ==",
+        "raw": "0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000011d646174613a6170706c69636174696f6e2f6a736f6e3b6261736536342c65794a755957316c496a6f69546b395553554e464945394749454567544546585531564a5643416a4d534973496d526c63324e796158423061573975496a6f694969776963336c74596d3973496a6f69546b395553554e465830784256314e56535651694c434a706257466e5a534936496d68306448427a4f693876615731685a32567a4c6d46775a57356d6443357062793968634756755a6e517462574679613256304c33567a5a5849764d7a45784f475578596d4d744e325579597930305a4759344c574a694e574974595752694d54417a5a6d4a6b4f5445304c6e42755a794973496d46756157316864476c76626c3931636d77694f69496966513d3d000000",
+        "ok": true,
+        "decoded": {
+          "name": "NOTICE OF A LAWSUIT #1",
+          "description": "",
+          "symbol": "NOTICE_LAWSUIT",
+          "image": "https://images.apenft.io/apenft-market/user/3118e1bc-7e2c-4df8-bb5b-adb103fbd914.png",
+          "animation_url": ""
+        }
+      }
+    },
+    "missingAffidavitTxids": [],
+    "blockNumbers": "not fetched (TronGrid trc20 endpoint omits block number)"
+  },
+  "errors": [],
+  "sourceUrls": [
+    "https://eth.blockscout.com/api/v2/tokens/0xc9154424b823b10579895ccbe442d41b9abd96ed/instances/45941267142316491420780756377080437389336336339189278277342547391922395152392",
+    "https://eth.blockscout.com/api/v2/tokens/0xc9154424b823b10579895ccbe442d41b9abd96ed/instances/45941267142316491420780756377080437389336336339189278277342547391922395152392/transfers",
+    "https://api.trongrid.io/v1/accounts/TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8/transactions/trc20?limit=200&min_timestamp=1737331200000&max_timestamp=1737676800000",
+    "https://api.trongrid.io/v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu/transactions/trc20?limit=200&min_timestamp=1737331200000&max_timestamp=1737676800000",
+    "POST https://api.trongrid.io/wallet/triggerconstantcontract {\"owner_address\":\"TLJa2LhmGUqrB2KjpxNRHPPTxgrPTz7mGf\",\"contract_address\":\"TLJa2LhmGUqrB2KjpxNRHPPTxgrPTz7mGf\",\"function_selector\":\"tokenURI(uint256)\",\"parameter\":\"0000000000000000000000000000000000000000000000000000000000000001\",\"visible\":true}",
+    "POST https://api.trongrid.io/wallet/triggerconstantcontract {\"owner_address\":\"TTaW2mBYS4PrtR5KAJPuVJnqraUiyaVat3\",\"contract_address\":\"TTaW2mBYS4PrtR5KAJPuVJnqraUiyaVat3\",\"function_selector\":\"tokenURI(uint256)\",\"parameter\":\"0000000000000000000000000000000000000000000000000000000000000001\",\"visible\":true}"
+  ],
+  "requestCount": 6,
+  "laterDeliveries": {
+    "since": "2025-06-01T00:00:00Z",
+    "note": "NFTs received after the order date; names/descriptions are on-chain text, not verified against court records",
+    "eth": [
+      {
+        "txHash": "0xd0792e283081f15c0232788727be10423a8cb57a0e91abe8f1d00592f60ab036",
+        "block": 26107110,
+        "time": "2026-10-02T20:45:11.000000Z",
+        "from": "0xda84C7833Be1c759783801F16FB6f99F1Cad4d3B",
+        "contract": "0xc9154424B823b10579895cCBE442d41b9Abd96Ed",
+        "tokenId": "98838801789285149297891984552741862213523967418879564234655109992254556602379",
+        "name": "Motion to Seal",
+        "description": "Motion to Seal. View the official documents at https://ag.ny.gov/NYOAG.RWF.dj.mtn.seal"
+      },
+      {
+        "txHash": "0xa20a8aa62abacd737193586bec277179ca64a042b5f920774e748a815c931be4",
+        "block": 26107093,
+        "time": "2026-10-02T20:41:47.000000Z",
+        "from": "0xda84C7833Be1c759783801F16FB6f99F1Cad4d3B",
+        "contract": "0xc9154424B823b10579895cCBE442d41b9Abd96Ed",
+        "tokenId": "98838801789285149297891984552741862213523967418879564234655109992254556602377",
+        "name": "Third Motion for Alternative Service",
+        "description": "Third Motion for Alternative Service. View the official documents at https://ag.ny.gov/NYOAG.RWF.mtn.def.jdgmt"
+      },
+      {
+        "txHash": "0x2ef3f289eea03c7776d8706b05cedc4f23095ff0e6c31bf4e0af65c0f1d5793d",
+        "block": 26107077,
+        "time": "2026-10-02T20:38:23.000000Z",
+        "from": "0xda84C7833Be1c759783801F16FB6f99F1Cad4d3B",
+        "contract": "0xc9154424B823b10579895cCBE442d41b9Abd96Ed",
+        "tokenId": "98838801789285149297891984552741862213523967418879564234655109992254556602381",
+        "name": "Second Motion for Alternative Service",
+        "description": "Second Motion for Alternative Service. View the official documents at https://ag.ny.gov/NYOAG.RWF.mtn.amd.compl"
+      },
+      {
+        "txHash": "0xc1663d2f20123334529ae08babaf9c64b08b5c003e07f2437891a4f90b15aba2",
+        "block": 23034673,
+        "time": "2025-07-30T21:39:11.000000Z",
+        "from": "0x0000000000000000000000000000000000000000",
+        "contract": "0xbD0ac870f8427cdB45b4A6F1F0CaFF462fe3ab13",
+        "tokenId": "0",
+        "name": "Service of NY OAG Summons and Complaint No 700647-2025",
+        "description": "Service of Summons and Complaint under Index 700647/2025: visit https://ag.ny.gov/ipbdocket-700647-2025"
+      }
+    ],
+    "tron": [
+      {
+        "wallet": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+        "txHash": "764499936dd6a91fe34d36e561f0029f4eea7dc8dc85943105939cd5309eba15",
+        "time": "2026-10-07T19:48:57.000Z",
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "contract": "TH5eLpkQDEiz4JA6cpTChL4GVbLM33jniM",
+        "name": "https_ag_ny_gov_NYOAG_RWF_dj_mtn_s",
+        "symbol": "Dkt700647-2025",
+        "value": "1"
+      },
+      {
+        "wallet": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+        "txHash": "b52e5076eae6cdc04053acf5e80ea8960430bdd0ce32dead423511a251f40799",
+        "time": "2026-10-07T19:47:27.000Z",
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "contract": "TPTLzNHUFdxq7qvkr6bHHCocby7ZZAzPaQ",
+        "name": "https_ag_ny_gov_NYOAG_RWF_mtn_def_",
+        "symbol": "Dkt700647-2025",
+        "value": "1"
+      },
+      {
+        "wallet": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+        "txHash": "ca8cf7df96dd4129b7896c1c1ef6b79a373f657e2f0acd69a416431c096cafda",
+        "time": "2026-10-07T19:46:21.000Z",
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "contract": "TGRkbrRpaJypZbzFngghmTJyhPDhAeKpoZ",
+        "name": "https_ag_ny_gov_NYOAG_RWF_mtn_amd_",
+        "symbol": "Dkt700647-2025",
+        "value": "1"
+      },
+      {
+        "wallet": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+        "txHash": "0684768f3dc4ef0ab7f662d819b7d74b207c77c770964361e086084d1608cfbc",
+        "time": "2026-10-06T19:06:12.000Z",
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "contract": "TQ4vqQpab9TGzZAiPnYrMGCPWx6A4wVGXZ",
+        "name": "Motion to Seal",
+        "symbol": "MotiontoSeal",
+        "value": "1"
+      },
+      {
+        "wallet": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+        "txHash": "86b3985d317d01cd70d040b2027cb8d702d71e0cbabd6a9f5d52edb121a7ea54",
+        "time": "2026-10-06T19:02:57.000Z",
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "contract": "TYv5QVsogfASmBv2CHct3zaeanQFqh7aRL",
+        "name": "Third Motion for Alternative Servi",
+        "symbol": "OSCAltService3",
+        "value": "2"
+      },
+      {
+        "wallet": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+        "txHash": "1ff0aaa48298b85a990d912321c9cda2ca480ea368d980d57700ccf05828156b",
+        "time": "2026-10-06T19:00:18.000Z",
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "contract": "TWd4rCCsm7FFQy3MrnWX6dDTnyP8SiCsTC",
+        "name": "Second Motion for Alternative Serv",
+        "symbol": "NOTICE",
+        "value": "2"
+      },
+      {
+        "wallet": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+        "txHash": "ac2cf844acd8777e157c3cf29bece431eb58fd8eb09acd7c2409f2aabafabcbe",
+        "time": "2026-10-02T21:29:03.000Z",
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "contract": "TGsDs5v2KosDx2fqoQmSC5zVsjrQARMc4U",
+        "name": "KRAFT NFT",
+        "symbol": "KNFT",
+        "value": "66436"
+      },
+      {
+        "wallet": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+        "txHash": "7129d9a87f98069e8dc323db34f12bb8ec42b08ff19ca11cb2ac040561659d76",
+        "time": "2026-10-02T21:19:27.000Z",
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "contract": "TGsDs5v2KosDx2fqoQmSC5zVsjrQARMc4U",
+        "name": "KRAFT NFT",
+        "symbol": "KNFT",
+        "value": "66435"
+      },
+      {
+        "wallet": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+        "txHash": "972c27bb27ca3f3f3c9c583c5d3d4e6ffb8c2ebc32ca839cb4eba76402219847",
+        "time": "2026-10-02T21:04:36.000Z",
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "contract": "TGsDs5v2KosDx2fqoQmSC5zVsjrQARMc4U",
+        "name": "KRAFT NFT",
+        "symbol": "KNFT",
+        "value": "66434"
+      },
+      {
+        "wallet": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+        "txHash": "fc60e664cacf5d6e621426b1a4432b50b9a55a655db0877620f386836c93ef8c",
+        "time": "2025-07-30T17:46:48.000Z",
+        "from": "TDvaGXvRTojfSD2dvbmcpsxHXPeqG4YE9P",
+        "contract": "TWfk4YA4DejRtvCXFZ31fA7oEBSRKCuoKr",
+        "name": "Service of NY OAG Summons and Comp",
+        "symbol": "ServiceOfSummons",
+        "value": "1"
+      },
+      {
+        "wallet": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8",
+        "txHash": "54d889e3eae9ca97e35e73ad35e8e3eafeaf50db996f5db60853b5e1f65b7492",
+        "time": "2025-07-30T16:43:12.000Z",
+        "from": "TDvaGXvRTojfSD2dvbmcpsxHXPeqG4YE9P",
+        "contract": "TBbKsMwBafDHCFvH5L3tVQ58TbWRSeb3JN",
+        "name": "Service of NY OAG Summons and Comp",
+        "symbol": "ServiceOfSummons",
+        "value": "1"
+      },
+      {
+        "wallet": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "txHash": "8cace250f05a07cb9f41f09bf9615bc4953300366320a357fc63be7d259ba317",
+        "time": "2026-10-07T20:01:51.000Z",
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "contract": "TH5eLpkQDEiz4JA6cpTChL4GVbLM33jniM",
+        "name": "https_ag_ny_gov_NYOAG_RWF_dj_mtn_s",
+        "symbol": "Dkt700647-2025",
+        "value": "2"
+      },
+      {
+        "wallet": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "txHash": "0a7767f787931018a39db3325c27417e1a3765414b66f125a65d106f5c70f057",
+        "time": "2026-10-07T19:56:03.000Z",
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "contract": "TPTLzNHUFdxq7qvkr6bHHCocby7ZZAzPaQ",
+        "name": "https_ag_ny_gov_NYOAG_RWF_mtn_def_",
+        "symbol": "Dkt700647-2025",
+        "value": "2"
+      },
+      {
+        "wallet": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "txHash": "b786693fa58ef0f8f9d32d0e564cbdcfca4a3cc4a2aa242f4b670ddb8f23a606",
+        "time": "2026-10-07T19:52:57.000Z",
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "contract": "TGRkbrRpaJypZbzFngghmTJyhPDhAeKpoZ",
+        "name": "https_ag_ny_gov_NYOAG_RWF_mtn_amd_",
+        "symbol": "Dkt700647-2025",
+        "value": "2"
+      },
+      {
+        "wallet": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "txHash": "469ba8cb27ea4ddb914a8974e3bb9229497a7eec2d9130f155f4205cffb6c861",
+        "time": "2026-10-06T19:17:00.000Z",
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "contract": "TQ4vqQpab9TGzZAiPnYrMGCPWx6A4wVGXZ",
+        "name": "Motion to Seal",
+        "symbol": "MotiontoSeal",
+        "value": "2"
+      },
+      {
+        "wallet": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "txHash": "a1fe8a5e8b6cd64f813d11dc4fc377f63bc30b2e8540503aebb87166abf78d22",
+        "time": "2026-10-06T19:15:36.000Z",
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "contract": "TYv5QVsogfASmBv2CHct3zaeanQFqh7aRL",
+        "name": "Third Motion for Alternative Servi",
+        "symbol": "OSCAltService3",
+        "value": "1"
+      },
+      {
+        "wallet": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "txHash": "f2a0aaddd8c03de840394a089510091a74b475ba03e8f1b1cd26b598354b97f9",
+        "time": "2026-10-06T19:14:42.000Z",
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "contract": "TWd4rCCsm7FFQy3MrnWX6dDTnyP8SiCsTC",
+        "name": "Second Motion for Alternative Serv",
+        "symbol": "NOTICE",
+        "value": "1"
+      },
+      {
+        "wallet": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "txHash": "647ff919c5c3b0d1b3f6d95fbee66d53f03238cfc71a748b848d2cd7c49f6ed9",
+        "time": "2026-10-02T21:50:54.000Z",
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "contract": "TGsDs5v2KosDx2fqoQmSC5zVsjrQARMc4U",
+        "name": "KRAFT NFT",
+        "symbol": "KNFT",
+        "value": "66439"
+      },
+      {
+        "wallet": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "txHash": "41905425e40d1700d530f8983050394efaef849a6b1f96031784e2e23df61889",
+        "time": "2026-10-02T21:49:36.000Z",
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "contract": "TGsDs5v2KosDx2fqoQmSC5zVsjrQARMc4U",
+        "name": "KRAFT NFT",
+        "symbol": "KNFT",
+        "value": "66438"
+      },
+      {
+        "wallet": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "txHash": "8457fdc1d3295bfbef1f811386c1910ee35a4079f266cba24aa39d7eb3144433",
+        "time": "2026-10-02T21:48:30.000Z",
+        "from": "TBCL1czGdJU92pPg9nxueWstjYg1Tzd94E",
+        "contract": "TGsDs5v2KosDx2fqoQmSC5zVsjrQARMc4U",
+        "name": "KRAFT NFT",
+        "symbol": "KNFT",
+        "value": "66437"
+      },
+      {
+        "wallet": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu",
+        "txHash": "65fd0328eb59da32ca1fc4fa0303fe7c15725945aaea3e5039afdc8ba2a97ce5",
+        "time": "2025-07-30T17:27:27.000Z",
+        "from": "TDvaGXvRTojfSD2dvbmcpsxHXPeqG4YE9P",
+        "contract": "TLZbs3gxMdyJys3Cd55nGFiXH5HbjR3BQ6",
+        "name": "Service of NY OAG Summons and Comp",
+        "symbol": "ServiceOfSummons",
+        "value": "1"
+      }
+    ],
+    "errors": [],
+    "sourceUrls": [
+      "https://eth.blockscout.com/api/v2/addresses/0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d/token-transfers?type=ERC-721",
+      "https://api.trongrid.io/v1/accounts/TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8/transactions/trc20?limit=200&min_timestamp=1748736000000",
+      "https://api.trongrid.io/v1/accounts/TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu/transactions/trc20?limit=200&min_timestamp=1748736000000"
+    ],
+    "fetchedAt": "2026-10-25T07:00:32.314Z"
+  },
+  "findings": [
+    "ETH Jan 21, 2025: tx 0xc3b61bd37696c38c24b64e9ac05df16f20e71e649173f5edd304162959928d0e, block 21674908, 2025-01-21T19:19:35Z, from 0x6591d5F28Bea380cb1a0F889103c920A117b530f to Wallet 1, Rarible shared ERC-721 contract; minted to sender in block 21674880 (mintAndTransfer). Metadata name https://ag.ny.gov/IPBsummons; image on IPFS.",
+    "TRON: all four tx ids cited in the Sang affirmation (p.72) were found in TronGrid TRC-20/721 transfers from TNZxckCsHLWH73cA8wGBiCo4TqS49XMR7N. tokenURI metadata has an empty description; the link appears only as the token name (https_ag_ny_gov_IPBsummons) and in the image.",
+    "Post-order: on 2025-07-30, NFTs named 'Service of NY OAG Summons and Complaint No 700647-2025' reached Wallet 1 (ETH, description links https://ag.ny.gov/ipbdocket-700647-2025), Wallet 2 (two tokens) and Wallet 3 (one). This date is inside the 120-day window (due 2025-10-09). Sender identity is not verified against court records.",
+    "Oct 2026: NFTs titled 'Second Motion for Alternative Service', 'Third Motion for Alternative Service', 'Motion to Seal' and Dkt700647-2025 tokens (names contain mtn_amd, mtn_def, dj_mtn) reached all three wallets on 2026-10-02/06/07, suggesting further motions (amended complaint, default judgment). Not verified against court records."
+  ]
+}

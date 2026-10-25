@@ -1,0 +1,80 @@
+{
+  "draftedBy": "pre-extracted",
+  "extractedFrom": {
+    "file": "data/court/decision-and-pleadings-2025.pdf",
+    "url": "https://ag.ny.gov/sites/default/files/court-filings/people-v-digital-wallet-0xd7648fffa48e06b0107435a966f3f1e9dbe10b7d-decision-and-pleadings-2025.pdf",
+    "pdfPage": 6,
+    "textLayer": "ocr-normalized"
+  },
+  "orderEntered": "2025-06-11",
+  "conditions": [
+    {
+      "id": "C1",
+      "title": "Serve within 120 days of entry (CPLR 306-b extension)",
+      "kind": "deadline",
+      "quote": "ORDERED that the time for service of the summons and complaint upon defendants pursuant to CPLR 306-b shall be extended for 120 days from the date of entry",
+      "page": 6,
+      "derived": {
+        "dueDate": "2025-10-09",
+        "from": "2025-06-11 + 120 days"
+      }
+    },
+    {
+      "id": "C2",
+      "title": "Serve the full document set with the decision and notice of entry",
+      "kind": "documents",
+      "quote": "plaintiff shall serve the summons, complaint, order to show cause, attorney affirmation and memorandum of law in support thereof and all documents submitted contemporaneously therewith, together with a copy of this Decision and Order with Notice of Entry upon defendants",
+      "page": 6,
+      "items": [
+        "summons",
+        "complaint",
+        "order to show cause",
+        "attorney affirmation",
+        "memorandum of law",
+        "all documents submitted contemporaneously",
+        "Decision and Order with Notice of Entry"
+      ]
+    },
+    {
+      "id": "C3",
+      "title": "Method: airdrop NFTs hyperlinked to a website with the papers",
+      "kind": "method",
+      "quote": "by airdropping NFTs hyperlinked to a website containing copies of said pleadings",
+      "page": 6
+    },
+    {
+      "id": "C4",
+      "title": "Targets: Wallet 1, Wallet 2, Wallet 3",
+      "kind": "targets",
+      "quote": "to digital wallet addresses 0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d (Wallet 1) TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8 (Wallet 2), and TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu (Wallet 3)",
+      "page": 6,
+      "targets": [
+        {
+          "label": "Wallet 1",
+          "chain": "ethereum",
+          "address": "0xD7648FffA48e06b0107435a966F3F1e9DBe10B7d"
+        },
+        {
+          "label": "Wallet 2",
+          "chain": "tron",
+          "address": "TCfr5oZp8qJJwarum6kjt4o23wTNhi1ss8"
+        },
+        {
+          "label": "Wallet 3",
+          "chain": "tron",
+          "address": "TDvRhqyGMW5NuZjhiAmEmYuXrSZ4bdZtmu"
+        }
+      ]
+    },
+    {
+      "id": "C5",
+      "title": "File affidavit of service (CPLR 306(a)); service complete on filing",
+      "kind": "affidavit",
+      "quote": "ORDERED, that plaintiff shall file an affidavit of service in accordance with CPLR 306 (a) and service shall be deemed complete upon such filing.",
+      "page": 6,
+      "derived": {
+        "answerDue": "affidavit filing date + 30 days (CPLR 320(a), see data/rules.json)"
+      }
+    }
+  ]
+}
